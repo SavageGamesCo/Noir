@@ -40,6 +40,10 @@ class ViewController: UIViewController {
     
     @IBOutlet var submitButton: UIButton!
     
+    @IBOutlet var logoBig: UIImageView!
+    
+    @IBOutlet var tagline: UILabel!
+    
     @IBAction func loginOrSignup(_ sender: Any) {
         if signUpMode {
             
@@ -180,6 +184,8 @@ class ViewController: UIViewController {
         logInModeGreeting.isHidden = false
         logInModeEmailTextField.isHidden = false
         logInModePasswordTextField.isHidden = false
+        logoBig.isHidden = false
+        tagline.isHidden = false
         
         signUpUsernameTextField.isHidden = true
         signUpModeEmailTextField.isHidden = true
@@ -197,6 +203,8 @@ class ViewController: UIViewController {
         logInModeGreeting.isHidden = true
         logInModeEmailTextField.isHidden = true
         logInModePasswordTextField.isHidden = true
+        logoBig.isHidden = true
+        tagline.isHidden = true
         
         signUpUsernameTextField.isHidden = false
         signUpModeEmailTextField.isHidden = false
