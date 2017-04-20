@@ -14,7 +14,7 @@ private let reuseIdentifier = "Cell"
 
 
 
-class UsersCollectionViewController: UICollectionViewController {
+class UsersCollectionViewController: UICollectionViewController, UIToolbarDelegate {
     
     @IBOutlet var UserTableView: UICollectionView!
     
@@ -69,6 +69,8 @@ class UsersCollectionViewController: UICollectionViewController {
                     }
                 }
             }
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+
             
             self.collectionView?.reloadData()
             
@@ -76,6 +78,19 @@ class UsersCollectionViewController: UICollectionViewController {
 
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+    }
+    
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "toUserDetails" {

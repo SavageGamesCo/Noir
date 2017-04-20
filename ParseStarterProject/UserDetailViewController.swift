@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class UserDetailViewController: UIViewController {
+class UserDetailViewController: UIViewController, UINavigationControllerDelegate {
 
     @IBOutlet var profileImage: UIImageView!
     
@@ -19,6 +19,8 @@ class UserDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         print(displayedUserID)
         
@@ -49,7 +51,15 @@ class UserDetailViewController: UIViewController {
         
 //        updateImage()
         
-       profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 ) 
+       profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+        
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
     }
 
     
