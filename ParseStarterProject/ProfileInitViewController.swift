@@ -51,7 +51,7 @@ class ProfileInitViewController: UIViewController, UINavigationControllerDelegat
             } else {
                 print("user profile updated")
                 
-                //self.performSegue(withIdentifier: "ShowUserTable", sender: self)
+                self.performSegue(withIdentifier: "toUserTable", sender: self)
             }
             
         })
@@ -131,7 +131,7 @@ class ProfileInitViewController: UIViewController, UINavigationControllerDelegat
             
             let data = try Data(contentsOf: url)
                 
-                let imageFile = PFFile(name: "photo.jpg", data: data)
+                let imageFile = PFFile(name: "photo" + counter.description + ".jpg", data: data)
                 
                 let user = PFUser()
                 
@@ -151,11 +151,11 @@ class ProfileInitViewController: UIViewController, UINavigationControllerDelegat
                 
                 user["marital"] = "Single"
                 
-//                let acl = PFACL()
-//                
-//                acl.getPublicWriteAccess = true
-//                
-//                user.acl = acl
+                let acl = PFACL()
+                
+                acl.getPublicWriteAccess = true
+                
+                user.acl = acl
                 
                 user.signUpInBackground(block: {(success, error) in
                     if success {

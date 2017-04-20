@@ -10,6 +10,8 @@
 import UIKit
 import Parse
 
+var displayedUserID = String()
+
 var currentUser = PFUser.current()!.username
 
 class ViewController: UIViewController {
@@ -143,7 +145,11 @@ class ViewController: UIViewController {
                         self.dialogueBox(title: "Log In Error", messageText: displayErrorMessage)
                     } else {
                         print("logged in")
-                        self.performSegue(withIdentifier: "updateProfile", sender: self)
+                        if PFUser.current() != nil && PFUser.current()?["mainPhoto"] != nil && PFUser.current()?["age"] != nil && PFUser.current()?["ethnicity"] != nil {
+                            self.performSegue(withIdentifier: "toUserTable", sender: self)
+                        } else {
+                            self.performSegue(withIdentifier: "updateProfile", sender: self)
+                        }
                     }
                 
                 })
@@ -167,14 +173,16 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if signUpMode {
-            SignUpMode()
-            
+        
+        if PFUser.current() != nil && PFUser.current()?["mainPhoto"] != nil && PFUser.current()?["age"] != nil && PFUser.current()?["ethnicity"] != nil {
+            performSegue(withIdentifier: "toUserTable", sender: self)
         } else {
-            LoginMode()
-        }
-        if currentUser != nil {
-            //performSegue(withIdentifier: "ShowUserTable", sender: self)
+            if signUpMode {
+                SignUpMode()
+                
+            } else {
+                LoginMode()
+            }
         }
         
         self.navigationController?.navigationBar.isHidden = true
@@ -238,4 +246,5 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+ 
 }
