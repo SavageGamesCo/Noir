@@ -24,7 +24,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         print(displayedUserID)
         
-        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 3 )
 
         // Do any additional setup after loading the view.
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.wasDragged(gestureRecognizer:)))
@@ -51,7 +51,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
 //        updateImage()
         
-       profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+       profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 3 )
         
 
     }
@@ -71,7 +71,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         let profileImg = gestureRecognizer.view!
         
-        profileImg.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.height / 4 + translation.y)
+        profileImg.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.height / 3 + translation.y)
         
         let xFromCenter = profileImg.center.x - self.view.bounds.width / 2
         
@@ -122,7 +122,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
             
             profileImg.transform = stretch
             
-            profileImg.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+            profileImg.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 3 )
         }
     }
     
