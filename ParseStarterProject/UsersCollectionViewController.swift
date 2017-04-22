@@ -34,35 +34,42 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     @IBAction func auserClicked(_ sender: Any) {
         if showUser != "AUser" {
             showUser = "AUser"
+            UserView()
+            DispatchQueue.main.async {
+                
+                self.UserTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
         
-        DispatchQueue.main.async {
-            
-            self.collectionView?.reloadData()
-            self.refreshControl.endRefreshing()
-        }
+        
     }
 
     @IBAction func lusrClicked(_ sender: Any) {
         if showUser != "LUser" {
             showUser = "LUser"
+            UserView()
+            DispatchQueue.main.async {
+                
+                self.UserTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
         
-        DispatchQueue.main.async {
-            self.collectionView?.reloadData()
-            self.refreshControl.endRefreshing()
-        }
+        
     }
     
     @IBAction func favsClicked(_ sender: Any) {
-        if showUser != "Fave"{
+        if showUser != "Fave" {
             showUser = "Fave"
+            UserView()
+            DispatchQueue.main.async {
+                
+                self.UserTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
         
-        DispatchQueue.main.async {
-            self.collectionView?.reloadData()
-            self.refreshControl.endRefreshing()
-        }
     }
     
     override func viewDidLoad() {
@@ -91,6 +98,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         // Register cell classes
         //self.collectionView!.register(UsersCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
+        UserView()
         // Do any additional setup after loading the view.
 
        self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -98,6 +106,37 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     override func viewWillAppear(_ animated: Bool) {
         
+        
+        //self.collectionView?.reloadData()
+        self.UserTableView.reloadData()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        //self.collectionView?.reloadData()
+        self.UserTableView.reloadData()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        
+    }
+    
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "toUserDetails" {
+//            let secondViewController = segue.destination as! UserDetailViewController
+//
+//        }
+//    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func UserView(){
+    
         switch showUser {
         case "AUser":
             let query = PFUser.query()
@@ -134,10 +173,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     }
                 }
                 
-                self.collectionView?.reloadData()
+                //self.collectionView?.reloadData()
                 
             })
-        break
+            break
         case "LUser":
             let query = PFUser.query()
             //Show Local Users
@@ -177,7 +216,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                             }
                         }
                         
-                        self.collectionView?.reloadData()
+                        //self.collectionView?.reloadData()
                         
                     })
                 }
@@ -223,10 +262,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     }
                 }
                 
-                self.collectionView?.reloadData()
+                //self.collectionView?.reloadData()
                 
             })
-
+            
             break
         default:
             let query = PFUser.query()
@@ -263,36 +302,11 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     }
                 }
                 
-                self.collectionView?.reloadData()
+                //self.collectionView?.reloadData()
                 
             })
         }
         
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        //self.collectionView?.reloadData()
-//        self.UserTableView.reloadData()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        
-    }
-    
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "toUserDetails" {
-//            let secondViewController = segue.destination as! UserDetailViewController
-//
-//        }
-//    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     /*

@@ -17,8 +17,8 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
     let agePickerData = ["18", "19", "20", "21","22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",]
     
     let heightPicker = UIPickerView()
-    let heightDataFeet = ["1'", "2'", "3'", "4'", "5'", "6'", "7'", "8'",]
-    let heightDataInches = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",]
+    let heightDataFeet = [ ["1'", "2'", "3'", "4'", "5'", "6'", "7'", "8'",], ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"] ]
+    let heightDataInches = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
     
     let maritalPicker = UIPickerView()
     let maritalData = ["Single", "Married", "Divorced", "Open", "Poly"]
@@ -334,7 +334,7 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
             
         } else if pickerView == heightPicker {
             
-            return heightDataFeet.count
+            return heightDataFeet[component].count
             
         } else if pickerView == ethnicityPicker {
             
@@ -361,7 +361,7 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
             
         } else if pickerView == heightPicker {
             
-            return heightDataFeet[row]
+            return heightDataFeet[component][row]
             
         } else if pickerView == ethnicityPicker {
             
@@ -388,7 +388,7 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
             
         } else if pickerView == heightPicker {
             
-            userHeightField.text = heightDataFeet[row]
+            userHeightField.text = heightDataFeet[component][row]
             
             view.endEditing(false)
         } else if pickerView == ethnicityPicker {
