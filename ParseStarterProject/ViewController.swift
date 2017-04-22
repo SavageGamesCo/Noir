@@ -107,7 +107,7 @@ class ViewController: UIViewController {
                     } else {
                         print("user signed up")
                     
-                        self.performSegue(withIdentifier: "updateProfile", sender: self)
+                        self.performSegue(withIdentifier: "toUserTable", sender: self)
                     }
                 
                 })
@@ -148,7 +148,7 @@ class ViewController: UIViewController {
                         if PFUser.current() != nil && PFUser.current()?["mainPhoto"] != nil && PFUser.current()?["age"] != nil && PFUser.current()?["ethnicity"] != nil {
                             self.performSegue(withIdentifier: "toUserTable", sender: self)
                         } else {
-                            self.performSegue(withIdentifier: "updateProfile", sender: self)
+                            self.performSegue(withIdentifier: "toUserTable", sender: self)
                         }
                     }
                 

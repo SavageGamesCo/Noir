@@ -17,6 +17,7 @@
 		81BA81791A49E0DB00E65899 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA81781A49E0DB00E65899 /* AudioToolbox.framework */; };
 		81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */; };
 		81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */; };
+		B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71402061EAA8030008E6CFB /* ProfileViewController.swift */; };
 		B78947591EA97B36006AD734 /* 1492748277_button-cross_sticker.png in Resources */ = {isa = PBXBuildFile; fileRef = B78946F41EA97B36006AD734 /* 1492748277_button-cross_sticker.png */; };
 		B789475A1EA97B36006AD734 /* 1492748317_toggle-collapse-alt_sticker.png in Resources */ = {isa = PBXBuildFile; fileRef = B78946F51EA97B36006AD734 /* 1492748317_toggle-collapse-alt_sticker.png */; };
 		B789475B1EA97B36006AD734 /* 1492748321_toggle-expand-alt_sticker.png in Resources */ = {isa = PBXBuildFile; fileRef = B78946F61EA97B36006AD734 /* 1492748321_toggle-expand-alt_sticker.png */; };
@@ -143,6 +144,7 @@
 		81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81BA81801A49E10C00E65899 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		B71402061EAA8030008E6CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B78946F41EA97B36006AD734 /* 1492748277_button-cross_sticker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1492748277_button-cross_sticker.png"; sourceTree = "<group>"; };
 		B78946F51EA97B36006AD734 /* 1492748317_toggle-collapse-alt_sticker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1492748317_toggle-collapse-alt_sticker.png"; sourceTree = "<group>"; };
 		B78946F61EA97B36006AD734 /* 1492748321_toggle-expand-alt_sticker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1492748321_toggle-expand-alt_sticker.png"; sourceTree = "<group>"; };
@@ -302,13 +304,14 @@
 			isa = PBXGroup;
 			children = (
 				B7FAF5541EA707650044B07B /* noirImages */,
-				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				B78946F31EA97B36006AD734 /* icons */,
+				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
 				B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */,
 				B7FAF55D1EA7CF010044B07B /* UsersCollectionViewController.swift */,
 				B7FAF5521EA6DF8E0044B07B /* ProfileInitViewController.swift */,
+				B71402061EAA8030008E6CFB /* ProfileViewController.swift */,
 				B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */,
 			);
 			path = ParseStarterProject;
@@ -637,6 +640,7 @@
 				B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				B7FAF5531EA6DF8E0044B07B /* ProfileInitViewController.swift in Sources */,
+				B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */,
 				B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */,
 				B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */,
 			);
@@ -750,6 +754,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.parse.Noir;
 				PRODUCT_NAME = "ParseStarterProject-Swift";
@@ -769,6 +774,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.parse.Noir;
 				PRODUCT_NAME = "ParseStarterProject-Swift";

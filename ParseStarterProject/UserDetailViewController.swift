@@ -13,6 +13,15 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
 
     @IBOutlet var profileImage: UIImageView!
     
+    @IBOutlet var ageTag: UILabel!
+    @IBOutlet var locationTag: UILabel!
+    @IBOutlet var maritalTag: UILabel!
+    @IBOutlet var heightTag: UILabel!
+    @IBOutlet var weightTag: UILabel!
+    @IBOutlet var bodyTag: UILabel!
+    @IBOutlet var ethnicityTag: UILabel!
+    
+    
     func menuBarButtonItemClicked() {
         performSegue(withIdentifier: "toUserList", sender: self)
     }
@@ -24,7 +33,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         print(displayedUserID)
         
-        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 3 )
+        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
 
         // Do any additional setup after loading the view.
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.wasDragged(gestureRecognizer:)))
@@ -33,17 +42,6 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         profileImage.addGestureRecognizer(gesture)
         
-//        PFGeoPoint.geoPointForCurrentLocation(inBackground: {(geopoint, error) in
-//        
-//            print(geopoint)
-//            
-//            if let geopoint = geopoint {
-//                PFUser.current()?["location"] = geopoint
-//                
-//                PFUser.current()?.saveInBackground()
-//            }
-//        })
-        
         updateImage()
     }
     
@@ -51,7 +49,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
 //        updateImage()
         
-       profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 3 )
+       profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
         
 
     }
@@ -71,7 +69,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         let profileImg = gestureRecognizer.view!
         
-        profileImg.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.height / 3 + translation.y)
+        profileImg.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.height / 4)
         
         let xFromCenter = profileImg.center.x - self.view.bounds.width / 2
         
@@ -122,7 +120,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
             
             profileImg.transform = stretch
             
-            profileImg.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 3 )
+            profileImg.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
         }
     }
     
@@ -163,6 +161,12 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                                     self.profileImage.image = UIImage(data: imageData)
                                 }
                             })
+                            self.ageTag.text = user["age"] as? String
+                            self.ethnicityTag.text = user["ethnicity"] as? String
+                            self.maritalTag.text = user["marital"] as? String
+                            self.heightTag.text = user["height"] as? String
+                            self.weightTag.text = user["weight"] as? String
+                            self.bodyTag.text = user["body"] as? String
                     }
                 }
             }

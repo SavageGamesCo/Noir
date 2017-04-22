@@ -24,62 +24,250 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var userIdent = ""
     
     var images = [UIImage]()
+    
+    var showUser = String()
+    
+    let refreshControl = UIRefreshControl()
+    
+    
 
+    @IBAction func auserClicked(_ sender: Any) {
+        if showUser != "AUser" {
+            showUser = "AUser"
+        }
+        
+        DispatchQueue.main.async {
+            
+            self.collectionView?.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+    }
 
+    @IBAction func lusrClicked(_ sender: Any) {
+        if showUser != "LUser" {
+            showUser = "LUser"
+        }
+        
+        DispatchQueue.main.async {
+            self.collectionView?.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+    @IBAction func favsClicked(_ sender: Any) {
+        if showUser != "Fave"{
+            showUser = "Fave"
+        }
+        
+        DispatchQueue.main.async {
+            self.collectionView?.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UserTableView.refreshControl = refreshControl
+        
+        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.auserClicked(_:)), for: .touchDown)
+        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.lusrClicked(_:)), for: .touchDown)
+        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.favsClicked(_:)), for: .touchDown)
+        
+                PFGeoPoint.geoPointForCurrentLocation(inBackground: {(geopoint, error) in
+        
+                    print(geopoint)
+        
+                    if let geopoint = geopoint {
+                        PFUser.current()?["location"] = geopoint
+        
+                        PFUser.current()?.saveInBackground()
+                    }
+                })
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
         //self.collectionView!.register(UsersCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-        let query = PFUser.query()
-        
-        query?.findObjectsInBackground(block: {(objects, error) in
-            
-            if error != nil {
-                print(error)
-            } else if let users = objects {
-                
-                self.usernames.removeAll()
-                self.userID.removeAll()
-                self.images.removeAll()
-                
-                for object in users {
-                    if let user = object as? PFUser {
 
-                        self.usernames.append(user.username!)
-                        self.userID.append(user.objectId!)
-                        
-                        let imageFile = user["mainPhoto"] as! PFFile
-                        
-                        imageFile.getDataInBackground(block: {(data, error) in
-                            
-                            if let imageData = data {
-                                self.images.append(UIImage(data: imageData)!)
-                                
-                                self.UserTableView.reloadData()
-                            }
-                        })
-                    
-                        
-                    }
-                }
-            }
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-
-            
-            self.collectionView?.reloadData()
-            
-        })
-
-        
+       self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        switch showUser {
+        case "AUser":
+            let query = PFUser.query()
+            //Show All Users
+            query?.findObjectsInBackground(block: {(objects, error) in
+                
+                if error != nil {
+                    print(error)
+                } else if let users = objects {
+                    
+                    self.usernames.removeAll()
+                    self.userID.removeAll()
+                    self.images.removeAll()
+                    
+                    for object in users {
+                        if let user = object as? PFUser {
+                            
+                            self.usernames.append(user.username!)
+                            self.userID.append(user.objectId!)
+                            
+                            let imageFile = user["mainPhoto"] as! PFFile
+                            
+                            imageFile.getDataInBackground(block: {(data, error) in
+                                
+                                if let imageData = data {
+                                    self.images.append(UIImage(data: imageData)!)
+                                    
+                                    self.UserTableView.reloadData()
+                                }
+                            })
+                            
+                            
+                        }
+                    }
+                }
+                
+                self.collectionView?.reloadData()
+                
+            })
+        break
+        case "LUser":
+            let query = PFUser.query()
+            //Show Local Users
+            if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
+                if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
+                    query?.whereKey("location", withinGeoBoxFromSouthwest: PFGeoPoint(latitude: latitude - 1, longitude: longitude - 1), toNortheast: PFGeoPoint(latitude: latitude + 1, longitude: longitude + 1))
+                    
+                    query?.findObjectsInBackground(block: {(objects, error) in
+                        
+                        if error != nil {
+                            print(error)
+                        } else if let users = objects {
+                            
+                            self.usernames.removeAll()
+                            self.userID.removeAll()
+                            self.images.removeAll()
+                            
+                            for object in users {
+                                if let user = object as? PFUser {
+                                    
+                                    self.usernames.append(user.username!)
+                                    self.userID.append(user.objectId!)
+                                    
+                                    let imageFile = user["mainPhoto"] as! PFFile
+                                    
+                                    imageFile.getDataInBackground(block: {(data, error) in
+                                        
+                                        if let imageData = data {
+                                            self.images.append(UIImage(data: imageData)!)
+                                            
+                                            self.UserTableView.reloadData()
+                                        }
+                                    })
+                                    
+                                    
+                                }
+                            }
+                        }
+                        
+                        self.collectionView?.reloadData()
+                        
+                    })
+                }
+            }
+            break
+        case "Fave":
+            let query = PFUser.query()
+            //Show Favorites
+            query?.findObjectsInBackground(block: {(objects, error) in
+                
+                if error != nil {
+                    print(error)
+                } else if let users = objects {
+                    
+                    self.usernames.removeAll()
+                    self.userID.removeAll()
+                    self.images.removeAll()
+                    
+                    for object in users {
+                        if let user = object as? PFUser {
+                            
+                            self.usernames.append(user.username!)
+                            self.userID.append(user.objectId!)
+                            
+                            if let favoriteUsers = PFUser.current()?["favorites"] {
+                                if (favoriteUsers as AnyObject).contains(user.objectId!){
+                                    
+                                    let imageFile = user["mainPhoto"] as! PFFile
+                                    
+                                    imageFile.getDataInBackground(block: {(data, error) in
+                                        
+                                        if let imageData = data {
+                                            self.images.append(UIImage(data: imageData)!)
+                                            
+                                            self.UserTableView.reloadData()
+                                        }
+                                    })
+                                    
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+                
+                self.collectionView?.reloadData()
+                
+            })
+
+            break
+        default:
+            let query = PFUser.query()
+            //Show All Users
+            query?.findObjectsInBackground(block: {(objects, error) in
+                
+                if error != nil {
+                    print(error)
+                } else if let users = objects {
+                    
+                    self.usernames.removeAll()
+                    self.userID.removeAll()
+                    self.images.removeAll()
+                    
+                    for object in users {
+                        if let user = object as? PFUser {
+                            
+                            self.usernames.append(user.username!)
+                            self.userID.append(user.objectId!)
+                            
+                            let imageFile = user["mainPhoto"] as! PFFile
+                            
+                            imageFile.getDataInBackground(block: {(data, error) in
+                                
+                                if let imageData = data {
+                                    self.images.append(UIImage(data: imageData)!)
+                                    
+                                    self.UserTableView.reloadData()
+                                }
+                            })
+                            
+                            
+                        }
+                    }
+                }
+                
+                self.collectionView?.reloadData()
+                
+            })
+        }
+        
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -87,7 +275,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     override func viewDidAppear(_ animated: Bool) {
         
+        //self.collectionView?.reloadData()
+//        self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
         
     }
     
@@ -95,7 +286,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "toUserDetails" {
 //            let secondViewController = segue.destination as! UserDetailViewController
-//            
+//
 //        }
 //    }
 
