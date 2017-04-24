@@ -11,6 +11,11 @@ import UIKit
 
 import Parse
 
+import Firebase
+
+import GoogleMobileAds
+
+
 // If you want to use any of the UI components, uncomment this line
 // import ParseUI
 
@@ -98,7 +103,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //            let types: UIRemoteNotificationType = [.Alert, .Badge, .Sound]
         //            application.registerForRemoteNotificationTypes(types)
         //        }
-
+        
+        FIRApp.configure()
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3940256099942544~1458002511")
         return true
     }
 

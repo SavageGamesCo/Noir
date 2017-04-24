@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>811212543808-jclc7e11uhucjunv6ebete5r8io967t0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.811212543808-jclc7e11uhucjunv6ebete5r8io967t0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyApoIOh92yCDOKEMF-4UHpsLSyjAppm7lU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>811212543808</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.savage-code.Noir</string>
+	<key>PROJECT_ID</key>
+	<string>noir-analytics</string>
+	<key>STORAGE_BUCKET</key>
+	<string>noir-analytics.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:811212543808:ios:d1f248b900579a36</string>
+	<key>DATABASE_URL</key>
+	<string>https://noir-analytics.firebaseio.com</string>
+</dict>
+</plist>
