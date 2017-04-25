@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        }
         
         FIRApp.configure()
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-3940256099942544~1458002511")
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-9770059916027069~1452473359")
         return true
     }
 

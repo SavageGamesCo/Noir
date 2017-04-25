@@ -8,5 +8,6 @@ target 'ParseStarterProject-Swift' do
   # Pods for ParseStarterProject-Swift
     pod 'Firebase/Core'
     pod 'Firebase/AdMob'
+    pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
 
 end

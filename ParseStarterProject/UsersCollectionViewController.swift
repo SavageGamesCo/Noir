@@ -9,6 +9,8 @@
 
 import UIKit
 import Parse
+import Firebase
+import GoogleMobileAds
 
 private let reuseIdentifier = "Cell"
 
@@ -26,6 +28,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var images = [UIImage]()
     
     var showUser = String()
+    
+    var interstitial: GADInterstitial!
     
     let refreshControl = UIRefreshControl()
     
@@ -68,7 +72,16 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 self.UserTableView.reloadData()
                 self.refreshControl.endRefreshing()
             }
+            
         }
+        
+    }
+    
+    @IBAction func messagesClicked(_ sender: Any) {
+        
+        self.showAd()
+        
+        performSegue(withIdentifier: "toMsgList", sender: self)
         
     }
     
@@ -102,6 +115,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         // Do any additional setup after loading the view.
 
        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        self.createAndLoadInterstitial()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,7 +130,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        self.interstitialDidDismissScreen(createAndLoadInterstitial())
         //self.collectionView?.reloadData()
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -133,6 +149,25 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func showAd() {
+        if interstitial.isReady {
+            interstitial.present(fromRootViewController: self)
+        } else {
+            print("Ad wasn't ready")
+        }
+    }
+    
+    func createAndLoadInterstitial() -> GADInterstitial {
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial.delegate = self as? GADInterstitialDelegate
+        interstitial.load(GADRequest())
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
     }
     
     func UserView(){

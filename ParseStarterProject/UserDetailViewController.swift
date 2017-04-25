@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import Firebase
+import GoogleMobileAds
 
 class UserDetailViewController: UIViewController, UINavigationControllerDelegate {
 
@@ -21,11 +23,17 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet var bodyTag: UILabel!
     @IBOutlet var ethnicityTag: UILabel!
     
+    var interstitial: GADInterstitial!
+    
     
     func menuBarButtonItemClicked() {
         performSegue(withIdentifier: "toUserList", sender: self)
     }
     
+    @IBAction func messageClicked(_ sender: Any) {
+        
+        showAd()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +67,24 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
     }
+    
+    func showAd() {
+        if interstitial.isReady {
+            interstitial.present(fromRootViewController: self)
+        } else {
+            print("Ad wasn't ready")
+        }
+    }
+    
+    fileprivate func createAndLoadInterstitial() {
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-9770059916027069/7359406151")
+        let request = GADRequest()
+        // Request test ads on devices you specify. Your test device ID is printed to the console when
+        // an ad request is made.
+        request.testDevices = [ kGADSimulatorID, "2077ef9a63d2b398840261c8221a0c9b" ]
+        interstitial.load(request)
+    }
+
 
     
     func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
