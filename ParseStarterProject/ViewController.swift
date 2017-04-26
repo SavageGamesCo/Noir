@@ -109,7 +109,7 @@ class ViewController: UIViewController {
         registerForKeyboardNotifications()
         
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProfileInitViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         //tap.cancelsTouchesInView = false
@@ -228,7 +228,7 @@ class ViewController: UIViewController {
                     } else {
 //                        print("user signed up")
                         
-                        var defImage = UIImageView()
+                        let defImage = UIImageView()
                         
                         defImage.image = UIImage(named: "default_user_image.png")
                         
@@ -413,6 +413,12 @@ class ViewController: UIViewController {
     
     func textFieldDidEndEditing(_ textField: UITextField){
         activeField = nil
+    }
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     func dialogueBox(title:String, messageText:String ){

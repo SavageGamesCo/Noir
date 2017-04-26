@@ -189,15 +189,15 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     for object in users {
                         if let user = object as? PFUser {
                             
-                            self.usernames.append(user.username!)
-                            self.userID.append(user.objectId!)
-                            
                             let imageFile = user["mainPhoto"] as! PFFile
                             
                             imageFile.getDataInBackground(block: {(data, error) in
                                 
                                 if let imageData = data {
                                     self.images.append(UIImage(data: imageData)!)
+                                    
+                                    self.usernames.append(user.username!)
+                                    self.userID.append(user.objectId!)
                                     
                                     self.UserTableView.reloadData()
                                 }
@@ -230,15 +230,15 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                             for object in users {
                                 if let user = object as? PFUser {
                                     
-                                    self.usernames.append(user.username!)
-                                    self.userID.append(user.objectId!)
-                                    
                                     let imageFile = user["mainPhoto"] as! PFFile
                                     
                                     imageFile.getDataInBackground(block: {(data, error) in
                                         
                                         if let imageData = data {
                                             self.images.append(UIImage(data: imageData)!)
+                                            
+                                            self.usernames.append(user.username!)
+                                            self.userID.append(user.objectId!)
                                             
                                             self.UserTableView.reloadData()
                                         }
@@ -269,9 +269,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     for object in users {
                         if let user = object as? PFUser {
                             
-                            self.usernames.append(user.username!)
-                            self.userID.append(user.objectId!)
-                            
                             if let favoriteUsers = PFUser.current()?["favorites"] {
                                 if (favoriteUsers as AnyObject).contains(user.objectId!){
                                     
@@ -281,6 +278,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                         
                                         if let imageData = data {
                                             self.images.append(UIImage(data: imageData)!)
+                                            
+                                            self.usernames.append(user.username!)
+                                            self.userID.append(user.objectId!)
                                             
                                             self.UserTableView.reloadData()
                                         }
@@ -312,15 +312,15 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     for object in users {
                         if let user = object as? PFUser {
                             
-                            self.usernames.append(user.username!)
-                            self.userID.append(user.objectId!)
-                            
                             let imageFile = user["mainPhoto"] as! PFFile
                             
                             imageFile.getDataInBackground(block: {(data, error) in
                                 
                                 if let imageData = data {
                                     self.images.append(UIImage(data: imageData)!)
+                                    
+                                    self.usernames.append(user.username!)
+                                    self.userID.append(user.objectId!)
                                     
                                     self.UserTableView.reloadData()
                                 }
@@ -361,14 +361,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UsersCollectionViewCell
-    
-        // Configure the cell
         
         cell.ProfilePics.image = images[indexPath.item]
         
         cell.userID = userID[indexPath.item]
-        
-        print(cell.userID)
         
         cell.awakeFromNib()
         
@@ -378,11 +374,13 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
     // MARK: UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! UsersCollectionViewCell
         
         displayedUserID = cell.userID
-        print(cell.userID)
+        
         performSegue(withIdentifier: "toUserDetails", sender: self)
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
