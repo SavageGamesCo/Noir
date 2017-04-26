@@ -209,6 +209,21 @@ class ViewController: UIViewController {
                 user.email = signUpModeEmailTextField.text
                 user.password = signUpModePasswordTextField.text
                 
+                let defImage = UIImageView()
+                
+                defImage.image = UIImage(named: "default_user_image.png")
+                
+                let imageData = UIImageJPEGRepresentation(self.currentImageView.image!, 0.5)
+                
+                user["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: imageData!)
+                user["age"] = ""
+                user["height"] = ""
+                user["weight"] = ""
+                user["marital"] = ""
+                user["about"] = ""
+                user["ethnicity"] = ""
+                user["body"] = ""
+                
                 
                 user.signUpInBackground(block: { (success, error) in
                     
@@ -227,43 +242,6 @@ class ViewController: UIViewController {
                         self.dialogueBox(title: "Error", messageText: displayErrorMessage)
                     } else {
 //                        print("user signed up")
-                        
-                        let defImage = UIImageView()
-                        
-                        defImage.image = UIImage(named: "default_user_image.png")
-                        
-                        let imageData = UIImageJPEGRepresentation(defImage.image!, 0.5)
-                        
-                        PFUser.current()?["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: imageData!)
-                        PFUser.current()?["age"] = ""
-                        PFUser.current()?["height"] = ""
-                        PFUser.current()?["weight"] = ""
-                        PFUser.current()?["marital"] = ""
-                        PFUser.current()?["about"] = ""
-                        PFUser.current()?["ethnicity"] = ""
-                        PFUser.current()?["body"] = ""
-                        
-                        PFUser.current()?.saveInBackground(block: {(success, error) in
-                            
-                            UIApplication.shared.endIgnoringInteractionEvents()
-                            
-                            if error != nil {
-                                
-                                var displayErrorMessage = "Something went wrong while saving your profile. Please try again."
-                                
-                                if let errorMessage = error?.localizedDescription {
-                                    displayErrorMessage = errorMessage
-                                }
-                                
-                                self.dialogueBox(title: "Profile Error", messageText: displayErrorMessage)
-                            } else {
-                                //                print("user profile updated")
-                                
-                                self.performSegue(withIdentifier: "toUserTable", sender: self)
-                            }
-                            
-                        })
-
                         
                         self.performSegue(withIdentifier: "toUserTable", sender: self)
                     }
