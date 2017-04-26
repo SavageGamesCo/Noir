@@ -22,6 +22,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet var weightTag: UILabel!
     @IBOutlet var bodyTag: UILabel!
     @IBOutlet var ethnicityTag: UILabel!
+    @IBOutlet weak var about: UITextView!
     
     var interstitial: GADInterstitial!
     
@@ -154,25 +155,8 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     
         let query = PFUser.query()
         
-        //query?.whereKey("username", equalTo: "1")
-        
-//        var blockedUsers = [""]
-//        
-//        if let favoriteUsers = PFUser.current()?["favorites"] {
-//            blockedUsers += favoriteUsers as! Array
-//        }
-//        
-//        if let rejectedUsers = PFUser.current()?["blocked"] {
-//            blockedUsers += rejectedUsers as! Array
-//        }
-        
         query?.whereKey("objectId", equalTo: displayedUserID)
         
-//        if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
-//            if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
-//                query?.whereKey("location", withinGeoBoxFromSouthwest: PFGeoPoint(latitude: latitude - 1, longitude: longitude - 1), toNortheast: PFGeoPoint(latitude: latitude + 1, longitude: longitude + 1))
-//            }
-//        }
       
         query?.findObjectsInBackground(block: {(objects, error) in
             if let users = objects {
@@ -193,6 +177,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                             self.heightTag.text = user["height"] as? String
                             self.weightTag.text = user["weight"] as? String
                             self.bodyTag.text = user["body"] as? String
+                            self.about.text = user["about"] as? String
                     }
                 }
             }

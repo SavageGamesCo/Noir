@@ -122,17 +122,17 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     override func viewWillAppear(_ animated: Bool) {
         
-        
-        //self.collectionView?.reloadData()
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
-        //self.collectionView?.reloadData()
+        
         self.UserTableView.reloadData()
+        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         
@@ -208,8 +208,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     }
                 }
                 
-                //self.collectionView?.reloadData()
-                
             })
             break
         case "LUser":
@@ -250,9 +248,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                 }
                             }
                         }
-                        
-                        //self.collectionView?.reloadData()
-                        
+                      
                     })
                 }
             }
@@ -297,8 +293,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     }
                 }
                 
-                //self.collectionView?.reloadData()
-                
             })
             
             break
@@ -336,9 +330,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                         }
                     }
                 }
-                
-                //self.collectionView?.reloadData()
-                
+               
             })
         }
         

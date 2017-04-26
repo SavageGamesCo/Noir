@@ -49,6 +49,8 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBOutlet var userBodyTextField: UITextField!
     
+    var activityIndicater = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,6 +103,9 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
             userBodyTextField.text = body
         }
         
+        if let about = PFUser.current()?["about"] as? String {
+            userAboutTextField.text = about
+        }
         
         if let photo = PFUser.current()?["mainPhoto"] as? PFFile {
             
@@ -145,6 +150,16 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBAction func saveButton(_ sender: Any) {
         
+        activityIndicater = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        
+        activityIndicater.center = self.view.center
+        activityIndicater.hidesWhenStopped = true
+        activityIndicater.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        
+        view.addSubview(activityIndicater)
+        activityIndicater.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
         let imageData = UIImageJPEGRepresentation(currentImageView.image!, 0.5)
         
         PFUser.current()?["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: imageData!)
@@ -158,17 +173,19 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         PFUser.current()?.saveInBackground(block: {(success, error) in
             
+            UIApplication.shared.endIgnoringInteractionEvents()
+            
             if error != nil {
                 
-                var displayErrorMessage = "Something went wrong"
+                var displayErrorMessage = "Something went wrong while saving your profile. Please try again."
                 
                 if let errorMessage = error?.localizedDescription {
                     displayErrorMessage = errorMessage
                 }
                 
-                self.dialogueBox(title: "Error", messageText: displayErrorMessage)
+                self.dialogueBox(title: "Profile Error", messageText: displayErrorMessage)
             } else {
-                print("user profile updated")
+//                print("user profile updated")
                 
                 self.performSegue(withIdentifier: "toUserTable", sender: self)
             }
