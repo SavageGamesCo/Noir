@@ -419,11 +419,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     @IBAction func logout(_ sender: Any) {
         
-        PFUser.logOut()
-        
-        //        currentUser = PFUser.current()!.username
-        
-        performSegue(withIdentifier: "LogInScreen", sender: self)
         
     }
 

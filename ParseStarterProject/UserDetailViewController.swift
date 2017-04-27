@@ -30,6 +30,8 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     var favorite = Bool()
     
     var interstitial: GADInterstitial!
+    var green = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
+    var tan = UIColor(colorLiteralRed: 197.0, green: 157.0, blue: 108.0, alpha: 1.0)
     
     
     func menuBarButtonItemClicked() {
@@ -40,6 +42,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         showAd()
     }
+    
     
     @IBAction func favorites_clicked(_ sender: Any) {
         
@@ -62,10 +65,13 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                             if let favorites = PFUser.current()?["favorites"] {
                                 if (favorites as AnyObject).contains(displayedUserID as String!) {
                                     self.favorite = true
-                                    self.favoriteButton.title = "UnFavorite"
+//                                    self.favoriteButton.title = "UnFavorite"
+                                    self.favoriteButton.tintColor = self.green
+                                    
                                 } else {
                                     self.favorite = false
-                                    self.favoriteButton.title = "Favorite"
+//                                    self.favoriteButton.title = "Favorite"
+                                    self.favoriteButton.tintColor = self.tan
                                 }
                             }
                         }
@@ -94,10 +100,12 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                             if let favorites = PFUser.current()?["favorites"] {
                                 if (favorites as AnyObject).contains(displayedUserID as String!) {
                                     self.favorite = true
-                                    self.favoriteButton.title = "UnFavorite"
+//                                    self.favoriteButton.title = "UnFavorite"
+                                    self.favoriteButton.tintColor = self.green
                                 } else {
                                     self.favorite = false
-                                    self.favoriteButton.title = "Favorite"
+//                                    self.favoriteButton.title = "Favorite"
+                                    self.favoriteButton.tintColor = self.tan
                                 }
                             }
                         }
@@ -149,10 +157,12 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                         if let favorites = PFUser.current()?["favorites"] {
                             if (favorites as AnyObject).contains(displayedUserID as String!) {
                                 self.favorite = true
-                                self.favoriteButton.title = "UnFavorite"
+//                                self.favoriteButton.title = "UnFavorite"
+                                self.favoriteButton.tintColor = self.green
                             } else {
                                 self.favorite = false
-                                self.favoriteButton.title = "Favorite"
+//                                self.favoriteButton.title = "Favorite"
+                                self.favoriteButton.tintColor = self.tan
                             }
                         }
                     }
@@ -239,7 +249,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                 })
                     
                 
-            } else if tracking == "unfavorite" {
+            } else if tracking == "unflirt" {
                 PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "flirt")
                 
                 PFUser.current()?.saveInBackground(block: {(success, error) in
