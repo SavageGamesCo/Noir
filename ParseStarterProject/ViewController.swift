@@ -213,7 +213,7 @@ class ViewController: UIViewController {
                 
                 defImage.image = UIImage(named: "default_user_image.png")
                 
-                let imageData = UIImageJPEGRepresentation(self.currentImageView.image!, 0.5)
+                let imageData = UIImageJPEGRepresentation(defImage.image!, 0.5)
                 
                 user["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: imageData!)
                 user["age"] = ""

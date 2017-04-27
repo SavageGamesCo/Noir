@@ -23,6 +23,9 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet var bodyTag: UILabel!
     @IBOutlet var ethnicityTag: UILabel!
     @IBOutlet weak var about: UITextView!
+    @IBOutlet var favoriteButton: UIBarButtonItem!
+    
+    var favorite = Bool()
     
     var interstitial: GADInterstitial!
     
@@ -35,6 +38,78 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         showAd()
     }
+    
+    @IBAction func favorites_clicked(_ sender: Any) {
+        
+        if favorite == true {
+            
+            PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "favorites")
+            
+            PFUser.current()?.saveInBackground(block: {(success, error) in
+                
+            })
+            
+            let query = PFUser.query()
+            
+            query?.findObjectsInBackground(block: { (objects, error) in
+                if error != nil {
+                    
+                } else if let users = objects {
+                    for object in users {
+                        if let user = object as? PFUser {
+                            if let favorites = PFUser.current()?["favorites"] {
+                                if (favorites as AnyObject).contains(displayedUserID as String!) {
+                                    self.favorite = true
+                                    self.favoriteButton.title = "UnFavorite"
+                                } else {
+                                    self.favorite = false
+                                    self.favoriteButton.title = "Favorite"
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            
+            favorite = false
+        
+        } else {
+            
+            PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: "favorites")
+            
+            PFUser.current()?.saveInBackground(block: {(success, error) in
+                
+            })
+            
+            let query = PFUser.query()
+            
+            query?.findObjectsInBackground(block: { (objects, error) in
+                if error != nil {
+                    
+                } else if let users = objects {
+                    for object in users {
+                        if let user = object as? PFUser {
+                            if let favorites = PFUser.current()?["favorites"] {
+                                if (favorites as AnyObject).contains(displayedUserID as String!) {
+                                    self.favorite = true
+                                    self.favoriteButton.title = "UnFavorite"
+                                } else {
+                                    self.favorite = false
+                                    self.favoriteButton.title = "Favorite"
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            
+            favorite = true
+        
+        }
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +133,29 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
 //        updateImage()
         
+        let query = PFUser.query()
+        
+        query?.findObjectsInBackground(block: { (objects, error) in
+            if error != nil {
+            
+            } else if let users = objects {
+                for object in users {
+                    if let user = object as? PFUser {
+                        if let favorites = PFUser.current()?["favorites"] {
+                            if (favorites as AnyObject).contains(displayedUserID as String!) {
+                                self.favorite = true
+                                self.favoriteButton.title = "UnFavorite"
+                            } else {
+                                self.favorite = false
+                                self.favoriteButton.title = "Favorite"
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        
+    
        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
         
 
@@ -114,17 +212,17 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
             
             if profileImg.center.x < 100 {
                 print("not chosen")
-                tracking = "unfavorite"
+                tracking = "unflirt"
                 updateImage()
                 
             } else if profileImg.center.x > self.view.bounds.width - 100 {
                 print("chosen")
-                tracking = "favorites"
+                tracking = "flirt"
                 
                 
             }
             
-            if tracking != "" && displayedUserID != "" && tracking != "unfavorite" {
+            if tracking != "" && displayedUserID != "" && tracking != "unflirt" {
                 
                 PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: tracking)
                 
@@ -134,7 +232,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                     
                 
             } else if tracking == "unfavorite" {
-                PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "favorites")
+                PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "flirt")
                 
                 PFUser.current()?.saveInBackground(block: {(success, error) in
                     

@@ -393,6 +393,9 @@
                     <toolbarItems>
                         <barButtonItem title="Favorite" id="UC0-V1-uMf">
                             <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="favorites_clicked:" destination="Ypb-KF-sBj" id="zUy-oG-RPT"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="YNz-eI-CP7"/>
                         <barButtonItem title="Msg" id="SK0-by-KJB">
@@ -414,6 +417,7 @@
                         <outlet property="ageTag" destination="9f8-1V-f6c" id="vdv-iD-v1b"/>
                         <outlet property="bodyTag" destination="kzr-jE-97Z" id="pyM-fY-Ip3"/>
                         <outlet property="ethnicityTag" destination="keh-1s-5Fz" id="daR-JY-KfU"/>
+                        <outlet property="favoriteButton" destination="UC0-V1-uMf" id="e6d-bK-bDx"/>
                         <outlet property="heightTag" destination="hYt-rk-Swc" id="Yz2-KY-dKB"/>
                         <outlet property="locationTag" destination="geP-He-0xJ" id="wq7-Wp-6gW"/>
                         <outlet property="maritalTag" destination="5Wj-w0-fbB" id="yZf-GO-EPx"/>
@@ -1008,9 +1012,9 @@
         <image name="noir_big_logo.png" width="865" height="378"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LpR-YC-hxA"/>
-        <segue reference="gxt-Ll-4Kg"/>
+        <segue reference="nn4-G8-Q4v"/>
         <segue reference="DCv-eO-Ujz"/>
+        <segue reference="gxt-Ll-4Kg"/>
         <segue reference="91V-p6-PRr"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -270,7 +270,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                         if let user = object as? PFUser {
                             
                             if let favoriteUsers = PFUser.current()?["favorites"] {
-                                if (favoriteUsers as AnyObject).contains(user.objectId!){
+                                if (favoriteUsers as AnyObject).contains(user.objectId! as String!){
                                     
                                     let imageFile = user["mainPhoto"] as! PFFile
                                     
