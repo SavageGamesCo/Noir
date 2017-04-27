@@ -204,17 +204,17 @@ class ViewController: UIViewController {
                 UIApplication.shared.beginIgnoringInteractionEvents()
                 
                 let user = PFUser()
-                
+                //Reminder parse has it's own verification for email addresses
                 user.username = signUpUsernameTextField.text
                 user.email = signUpModeEmailTextField.text
                 user.password = signUpModePasswordTextField.text
-                
+                //Setup default image
                 let defImage = UIImageView()
                 
                 defImage.image = UIImage(named: "default_user_image.png")
                 
                 let imageData = UIImageJPEGRepresentation(defImage.image!, 0.5)
-                
+                //Setup user defaults
                 user["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: imageData!)
                 user["age"] = ""
                 user["height"] = ""
