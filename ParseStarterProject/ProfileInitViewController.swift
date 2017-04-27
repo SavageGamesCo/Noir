@@ -351,7 +351,7 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
             
         } else if pickerView == heightPicker {
             
-            return heightDataFeet[component].count
+            return heightDataFeet.count
             
         } else if pickerView == ethnicityPicker {
             
@@ -378,7 +378,7 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
             
         } else if pickerView == heightPicker {
             
-            return heightDataFeet[component][row]
+            return heightDataFeet[row]
             
         } else if pickerView == ethnicityPicker {
             
@@ -405,7 +405,7 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
             
         } else if pickerView == heightPicker {
             
-            userHeightField.text = heightDataFeet[component][row]
+            userHeightField.text = heightDataFeet[row]
             
             view.endEditing(false)
         } else if pickerView == ethnicityPicker {

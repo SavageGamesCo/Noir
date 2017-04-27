@@ -25,6 +25,8 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var about: UITextView!
     @IBOutlet var favoriteButton: UIBarButtonItem!
     
+    @IBOutlet var navBarItem: UINavigationItem!
+    
     var favorite = Bool()
     
     var interstitial: GADInterstitial!
@@ -117,7 +119,6 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         print(displayedUserID)
         
-        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
 
         // Do any additional setup after loading the view.
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.wasDragged(gestureRecognizer:)))
@@ -127,6 +128,10 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         profileImage.addGestureRecognizer(gesture)
         
         updateImage()
+        
+        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+        
+        profileImage.alpha = 1
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -157,6 +162,9 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
     
        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+        
+        profileImage.alpha = 1
+        
         
 
     }
@@ -261,6 +269,8 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                 for object in users {
                     if let user = object as? PFUser {
                         
+                            self.navBarItem.title = user.username
+                        
                             let imageFile = user["mainPhoto"] as! PFFile
                             
                             imageFile.getDataInBackground(block: {(data, error) in
@@ -276,6 +286,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                             self.weightTag.text = user["weight"] as? String
                             self.bodyTag.text = user["body"] as? String
                             self.about.text = user["about"] as? String
+                        
                     }
                 }
             }

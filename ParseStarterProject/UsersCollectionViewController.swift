@@ -366,6 +366,11 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         cell.userID = userID[indexPath.item]
         
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.shadowRadius = 1
+        cell.layer.shadowOffset = CGSize(width: 2, height: 2)
+        cell.layer.shadowColor = UIColor.black.cgColor
+        
         cell.awakeFromNib()
         
     
