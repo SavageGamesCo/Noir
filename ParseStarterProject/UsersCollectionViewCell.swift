@@ -11,6 +11,7 @@ import UIKit
 class UsersCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var ProfilePics: UIImageView!
+    @IBOutlet var userName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

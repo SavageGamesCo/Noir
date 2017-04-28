@@ -137,7 +137,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         updateImage()
         
-        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.profileImage.center.y )
         
         profileImage.alpha = 1
     }
@@ -171,7 +171,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         })
         
     
-       profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+       profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.profileImage.center.y )
         
         profileImage.alpha = 1
         
@@ -212,7 +212,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         let profileImg = gestureRecognizer.view!
         
-        profileImg.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.height / 4)
+        profileImg.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.profileImage.center.y)
         
         let xFromCenter = profileImg.center.x - self.view.bounds.width / 2
         
@@ -263,7 +263,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
             
             profileImg.transform = stretch
             
-            profileImg.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 4 )
+            profileImg.center = CGPoint(x: self.view.bounds.width / 2, y: self.profileImage.center.y )
         }
     }
     

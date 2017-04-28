@@ -22,6 +22,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     var usernames = [""]
     var userID = [""]
+    var online = [""]
     
     var userIdent = ""
     
@@ -32,6 +33,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var interstitial: GADInterstitial!
     
     let refreshControl = UIRefreshControl()
+    
+    let tan = UIColor(colorLiteralRed: 0.772, green: 0.614, blue: 0.423, alpha: 1.0)
+    let grey = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
     
     
 
@@ -185,6 +189,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     self.usernames.removeAll()
                     self.userID.removeAll()
                     self.images.removeAll()
+                    self.online.removeAll()
                     
                     for object in users {
                         if let user = object as? PFUser {
@@ -198,6 +203,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                     
                                     self.usernames.append(user.username!)
                                     self.userID.append(user.objectId!)
+                                    
+                                    if user.isAuthenticated {
+                                        self.online.append("online")
+                                    } else {
+                                        self.online.append("offline")
+                                    }
                                     
                                     self.UserTableView.reloadData()
                                 }
@@ -226,6 +237,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                             self.usernames.removeAll()
                             self.userID.removeAll()
                             self.images.removeAll()
+                            self.online.removeAll()
                             
                             for object in users {
                                 if let user = object as? PFUser {
@@ -239,6 +251,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                             
                                             self.usernames.append(user.username!)
                                             self.userID.append(user.objectId!)
+                                            
+                                            if user.isAuthenticated {
+                                                self.online.append("online")
+                                            } else {
+                                                self.online.append("offline")
+                                            }
                                             
                                             self.UserTableView.reloadData()
                                         }
@@ -265,6 +283,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     self.usernames.removeAll()
                     self.userID.removeAll()
                     self.images.removeAll()
+                    self.online.removeAll()
                     
                     for object in users {
                         if let user = object as? PFUser {
@@ -281,6 +300,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                             
                                             self.usernames.append(user.username!)
                                             self.userID.append(user.objectId!)
+                                            
+                                            if user.isAuthenticated {
+                                                self.online.append("online")
+                                            } else {
+                                                self.online.append("offline")
+                                            }
                                             
                                             self.UserTableView.reloadData()
                                         }
@@ -308,6 +333,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     self.usernames.removeAll()
                     self.userID.removeAll()
                     self.images.removeAll()
+                    self.online.removeAll()
                     
                     for object in users {
                         if let user = object as? PFUser {
@@ -321,6 +347,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                     
                                     self.usernames.append(user.username!)
                                     self.userID.append(user.objectId!)
+                                    
+                                    if user.isAuthenticated {
+                                        self.online.append("online")
+                                    } else {
+                                        self.online.append("offline")
+                                    }
                                     
                                     self.UserTableView.reloadData()
                                 }
@@ -365,6 +397,15 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         cell.ProfilePics.image = images[indexPath.item]
         
         cell.userID = userID[indexPath.item]
+        
+        cell.userName.text = usernames[indexPath.item]
+        
+        if online[indexPath.item] == "online" {
+            cell.ProfilePics.layer.borderColor = tan.cgColor
+        } else {
+            cell.ProfilePics.layer.borderColor = grey.cgColor
+            
+        }
         
         cell.layer.shadowOpacity = 0.6
         cell.layer.shadowRadius = 2
