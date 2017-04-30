@@ -138,7 +138,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ft-oy-PTv">
-                                                <rect key="frame" x="0.0" y="5" width="276" height="21"/>
+                                                <rect key="frame" x="0.0" y="4.6666666666666856" width="276" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="Ced-nx-prQ"/>
                                                 </constraints>
@@ -161,7 +161,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AW3-Nh-1r9">
-                                        <rect key="frame" x="148" y="30" width="79" height="34"/>
+                                        <rect key="frame" x="147.66666666666666" y="30" width="79" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="FOz-vB-qIV"/>
                                         </constraints>
@@ -501,7 +501,10 @@
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9H1-4c-Lw4">
                                             <rect key="frame" x="0.0" y="86" width="80" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="JHB-c8-y0u"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -514,6 +517,7 @@
                                     <constraint firstAttribute="trailing" secondItem="pI5-48-wdc" secondAttribute="trailing" id="TfA-EO-5ah"/>
                                     <constraint firstAttribute="bottom" secondItem="9H1-4c-Lw4" secondAttribute="bottom" id="UJn-27-dLr"/>
                                     <constraint firstItem="9H1-4c-Lw4" firstAttribute="top" secondItem="pI5-48-wdc" secondAttribute="bottom" constant="4" id="fQo-0w-fC6"/>
+                                    <constraint firstItem="9H1-4c-Lw4" firstAttribute="top" secondItem="pI5-48-wdc" secondAttribute="bottom" constant="4" id="pqk-Is-1Jb"/>
                                     <constraint firstItem="9H1-4c-Lw4" firstAttribute="leading" secondItem="JMb-s3-dmA" secondAttribute="leading" id="v6U-xi-rGh"/>
                                 </constraints>
                                 <size key="customSize" width="80" height="107"/>
