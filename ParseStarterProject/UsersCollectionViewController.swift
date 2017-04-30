@@ -24,6 +24,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var userID = [""]
     var online = [""]
     
+    var withinDistance = 10
+    
     var userIdent = ""
     
     var images = [UIImage]()
@@ -81,6 +83,21 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
     }
     
+    
+    @IBAction func flirtsClicked(_ sender: Any) {
+        if showUser != "Flirts" {
+            showUser = "Flirts"
+            UserView()
+            DispatchQueue.main.async {
+                
+                self.UserTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+            
+        }
+
+    }
+  
     @IBAction func messagesClicked(_ sender: Any) {
         
         self.showAd()
@@ -98,17 +115,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.lusrClicked(_:)), for: .touchDown)
         refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.favsClicked(_:)), for: .touchDown)
         
-                PFGeoPoint.geoPointForCurrentLocation(inBackground: {(geopoint, error) in
-        
-                    print(geopoint)
-        
-                    if let geopoint = geopoint {
-                        PFUser.current()?["location"] = geopoint
-        
-                        PFUser.current()?.saveInBackground()
-                    }
-                })
-
+                geoPoint()
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
 
@@ -126,12 +133,16 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     override func viewWillAppear(_ animated: Bool) {
         
+        geoPoint()
+        
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        geoPoint()
         
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
         
@@ -153,6 +164,20 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func geoPoint(){
+        
+        PFGeoPoint.geoPointForCurrentLocation(inBackground: {(geopoint, error) in
+            
+            print(geopoint)
+            if let geopoint = geopoint {
+                PFUser.current()?["location"] = geopoint
+                
+                PFUser.current()?.saveInBackground()
+            }
+        })
+
     }
     
     func showAd() {
@@ -190,6 +215,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     self.userID.removeAll()
                     self.images.removeAll()
                     self.online.removeAll()
+                    
+                    self.UserTableView.reloadData()
                     
                     for object in users {
                         if let user = object as? PFUser {
@@ -229,8 +256,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             //Show Local Users
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
-                    query?.whereKey("location", withinGeoBoxFromSouthwest: PFGeoPoint(latitude: latitude - 1, longitude: longitude - 1), toNortheast: PFGeoPoint(latitude: latitude + 1, longitude: longitude + 1))
+//                    query?.whereKey("location", withinGeoBoxFromSouthwest: PFGeoPoint(latitude: latitude - 1, longitude: longitude - 1), toNortheast: PFGeoPoint(latitude: latitude + 1, longitude: longitude + 1))
                     
+                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(self.withinDistance))
                     query?.findObjectsInBackground(block: {(objects, error) in
                         
                         if error != nil {
@@ -241,6 +269,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                             self.userID.removeAll()
                             self.images.removeAll()
                             self.online.removeAll()
+                            
+                            self.UserTableView.reloadData()
                             
                             for object in users {
                                 if let user = object as? PFUser {
@@ -287,10 +317,13 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     print(error)
                 } else if let users = objects {
                     
+                    
                     self.usernames.removeAll()
                     self.userID.removeAll()
                     self.images.removeAll()
                     self.online.removeAll()
+                    
+                    self.UserTableView.reloadData()
                     
                     for object in users {
                         if let user = object as? PFUser {
@@ -312,6 +345,59 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                                 self.online.append(user.objectId!)
                                             } else {
 //                                                self.online.append("offline")
+                                            }
+                                            
+                                            self.UserTableView.reloadData()
+                                            
+                                        }
+                                    })
+                                    
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+                
+            })
+            
+            break
+        case "Flirts":
+            let query = PFUser.query()
+            //Show Favorites
+            query?.findObjectsInBackground(block: {(objects, error) in
+                
+                if error != nil {
+                    print(error)
+                } else if let users = objects {
+                    
+                    self.usernames.removeAll()
+                    self.userID.removeAll()
+                    self.images.removeAll()
+                    self.online.removeAll()
+                    
+                    self.UserTableView.reloadData()
+                    
+                    for object in users {
+                        if let user = object as? PFUser {
+                            
+                            if let userFlirts = user["flirt"] {
+                                if (userFlirts as AnyObject).contains(PFUser.current()?.objectId! as String!){
+                                    
+                                    let imageFile = user["mainPhoto"] as! PFFile
+                                    
+                                    imageFile.getDataInBackground(block: {(data, error) in
+                                        
+                                        if let imageData = data {
+                                            self.images.append(UIImage(data: imageData)!)
+                                            
+                                            self.usernames.append(user.username!)
+                                            self.userID.append(user.objectId!)
+                                            
+                                            if user.isAuthenticated {
+                                                self.online.append(user.objectId!)
+                                            } else {
+                                                //                                                self.online.append("offline")
                                             }
                                             
                                             self.UserTableView.reloadData()

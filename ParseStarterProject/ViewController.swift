@@ -223,6 +223,13 @@ class ViewController: UIViewController {
                 user["about"] = ""
                 user["ethnicity"] = ""
                 user["body"] = ""
+                user["withinDistance"] = 10
+                user["localLimit"] = 25
+                user["globalLimit"] = 50
+                user["flirtLimit"] = 25
+                user["favoriteLimit"] = 25
+                user["membership"] = "basic"
+                user["adFree"] = false
                 
                 
                 user.signUpInBackground(block: { (success, error) in

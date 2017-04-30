@@ -29,6 +29,8 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     
     var favorite = Bool()
     
+    var username = ""
+    
     var interstitial: GADInterstitial!
     var green = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
     var tan = UIColor(colorLiteralRed: 197.0, green: 157.0, blue: 108.0, alpha: 1.0)
@@ -231,11 +233,13 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
             if profileImg.center.x < 100 {
                 print("not chosen")
                 tracking = "unflirt"
-                updateImage()
+                dialogueBox(title: "Flirt Removed!", messageText: "You have taken back your flirt with " + username)
+                
                 
             } else if profileImg.center.x > self.view.bounds.width - 100 {
                 print("chosen")
                 tracking = "flirt"
+                dialogueBox(title: "Flirt Sent!", messageText: "You have flirted with " + username)
                 
                 
             }
@@ -296,6 +300,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
                             self.weightTag.text = user["weight"] as? String
                             self.bodyTag.text = user["body"] as? String
                             self.about.text = user["about"] as? String
+                            self.username = user.username!
                         
                     }
                 }
@@ -305,6 +310,20 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         
         
+    }
+    
+    func dialogueBox(title:String, messageText:String ){
+        let dialog = UIAlertController(title: title,
+                                       message: messageText,
+                                       preferredStyle: UIAlertControllerStyle.alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        dialog.addAction(defaultAction)
+        // Present the dialog.
+        
+        self.present(dialog,
+                     animated: true,
+                     completion: nil)
     }
 
 
