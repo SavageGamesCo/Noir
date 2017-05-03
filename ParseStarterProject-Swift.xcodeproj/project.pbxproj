@@ -38,6 +38,9 @@
 		B7E5A4021EB28926007E9620 /* crown-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A4011EB28926007E9620 /* crown-7.png */; };
 		B7E5A4041EB2893E007E9620 /* circle-x-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A4031EB2893E007E9620 /* circle-x-7.png */; };
 		B7E5A4061EB28978007E9620 /* bin-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A4051EB28978007E9620 /* bin-7.png */; };
+		B7EDF1CB1EB972EE003D013B /* MessageListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EDF1CA1EB972EE003D013B /* MessageListTableViewController.swift */; };
+		B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EDF1CC1EBA0D3D003D013B /* MessagesTableViewCell.swift */; };
+		B7EDF1D31EBA1023003D013B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EDF1D21EBA1023003D013B /* ChatViewController.swift */; };
 		B7FAF5531EA6DF8E0044B07B /* ProfileInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF5521EA6DF8E0044B07B /* ProfileInitViewController.swift */; };
 		B7FAF5591EA707650044B07B /* background_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = B7FAF5551EA707650044B07B /* background_gradient.png */; };
 		B7FAF55A1EA707650044B07B /* default_user_image.png in Resources */ = {isa = PBXBuildFile; fileRef = B7FAF5561EA707650044B07B /* default_user_image.png */; };
@@ -86,6 +89,9 @@
 		B7E5A4011EB28926007E9620 /* crown-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "crown-7.png"; sourceTree = "<group>"; };
 		B7E5A4031EB2893E007E9620 /* circle-x-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-x-7.png"; sourceTree = "<group>"; };
 		B7E5A4051EB28978007E9620 /* bin-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin-7.png"; sourceTree = "<group>"; };
+		B7EDF1CA1EB972EE003D013B /* MessageListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageListTableViewController.swift; sourceTree = "<group>"; };
+		B7EDF1CC1EBA0D3D003D013B /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
+		B7EDF1D21EBA1023003D013B /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		B7FAF5521EA6DF8E0044B07B /* ProfileInitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileInitViewController.swift; sourceTree = "<group>"; };
 		B7FAF5551EA707650044B07B /* background_gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_gradient.png; sourceTree = "<group>"; };
 		B7FAF5561EA707650044B07B /* default_user_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_user_image.png; sourceTree = "<group>"; };
@@ -158,9 +164,12 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				B7EDF1CA1EB972EE003D013B /* MessageListTableViewController.swift */,
+				B7EDF1CC1EBA0D3D003D013B /* MessagesTableViewCell.swift */,
 				B70BE63C1EAE9ED600A6729F /* GADViewController.swift */,
 				B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */,
 				B7FAF55D1EA7CF010044B07B /* UsersCollectionViewController.swift */,
+				B7EDF1D21EBA1023003D013B /* ChatViewController.swift */,
 				B7FAF5521EA6DF8E0044B07B /* ProfileInitViewController.swift */,
 				B71402061EAA8030008E6CFB /* ProfileViewController.swift */,
 				B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */,
@@ -368,10 +377,13 @@
 			files = (
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */,
+				B7EDF1D31EBA1023003D013B /* ChatViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				B7FAF5531EA6DF8E0044B07B /* ProfileInitViewController.swift in Sources */,
+				B7EDF1CB1EB972EE003D013B /* MessageListTableViewController.swift in Sources */,
 				B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */,
 				B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */,
+				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,
 				B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */,
 				B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */,
 			);

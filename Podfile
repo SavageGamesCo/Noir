@@ -9,5 +9,6 @@ target 'ParseStarterProject-Swift' do
     pod 'Firebase/Core'
     pod 'Firebase/AdMob'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
+    pod 'JSQMessagesViewController'
 
 end
