@@ -208,7 +208,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             query?.findObjectsInBackground(block: {(objects, error) in
                 
                 if error != nil {
-                    print(error)
+                    print(error!)
                 } else if let users = objects {
                     
                     self.usernames.removeAll()
@@ -262,7 +262,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     query?.findObjectsInBackground(block: {(objects, error) in
                         
                         if error != nil {
-                            print(error)
+                            print(error!)
                         } else if let users = objects {
                             
                             self.usernames.removeAll()
@@ -314,7 +314,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             query?.findObjectsInBackground(block: {(objects, error) in
                 
                 if error != nil {
-                    print(error)
+                    print(error!)
                 } else if let users = objects {
                     
                     
@@ -368,7 +368,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             query?.findObjectsInBackground(block: {(objects, error) in
                 
                 if error != nil {
-                    print(error)
+                    print(error!)
                 } else if let users = objects {
                     
                     self.usernames.removeAll()
@@ -421,7 +421,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             query?.findObjectsInBackground(block: {(objects, error) in
                 
                 if error != nil {
-                    print(error)
+                    print(error!)
                 } else if let users = objects {
                     
                     self.usernames.removeAll()

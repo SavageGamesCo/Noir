@@ -1084,10 +1084,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IsW-VB-D0B"/>
-        <segue reference="6eC-IW-CjK"/>
-        <segue reference="5wl-SB-5WG"/>
+        <segue reference="gxt-Ll-4Kg"/>
         <segue reference="dbx-4a-p2Z"/>
         <segue reference="AQS-Bi-6uX"/>
+        <segue reference="5wl-SB-5WG"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

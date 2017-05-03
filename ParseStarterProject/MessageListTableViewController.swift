@@ -98,7 +98,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         msgQuery.findObjectsInBackground { (objects, error) in
             
             if error != nil {
-                print(error)
+                print(error!)
             } else {
                 //being big block
                 var messageText = "No Messages"

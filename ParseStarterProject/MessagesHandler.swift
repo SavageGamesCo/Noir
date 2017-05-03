@@ -46,7 +46,7 @@ class MessagesHandler {
         chat.saveInBackground { (success, error) in
             
             if error != nil {
-                print(error)
+                print(error!)
             } else {
                 
             }
@@ -69,7 +69,7 @@ class MessagesHandler {
             chat.saveInBackground { (success, error) in
                 
                 if error != nil {
-                    print(error)
+                    print(error!)
                 } else {
                     
                 }

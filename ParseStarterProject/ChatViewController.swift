@@ -177,7 +177,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         query.findObjectsInBackground { (objects, error) in
             
             if error != nil {
-                print(error)
+                print(error!)
             } else if let messages = objects {
                 for message in messages {
                     if message["senderID"] as? String == PFUser.current()?.objectId! {
