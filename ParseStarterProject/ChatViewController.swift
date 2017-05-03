@@ -18,6 +18,7 @@ private let reuseIdentifier = "Cell"
 class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private var messages = [JSQMessage]()
+    private var messageIDs = [String]()
     
     var avatar = UIImage()
     
@@ -133,7 +134,19 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
-        MessagesHandler.Instance.sendMessage(senderID: senderId, senderName: senderDisplayName, to: displayedUserID, text: text)
+        var toUserName = String()
+        
+        do{
+            
+        let query = try PFQuery.getUserObject(withId: displayedUserID)
+        
+        toUserName = query.username!
+            
+        } catch {
+        
+        }
+        
+        MessagesHandler.Instance.sendMessage(senderID: senderId, senderName: senderDisplayName, toUser: displayedUserID, toUserName: toUserName, text: text)
         
 //        collectionView.reloadData()
         
@@ -170,7 +183,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                     if message["senderID"] as? String == PFUser.current()?.objectId! {
                         if let senderID = message["senderID"] as? String {
                             if let text = message["text"] as? String {
-                                self.messageReceived(senderID: senderID, text: text)
+                                if let messageID = message.objectId {
+                                    self.messageReceived(senderID: senderID, text: text, messageID: messageID)
+                                }
                             }
                         }
                     }
@@ -257,13 +272,20 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     //end picker functions
     
     //del functions
-    func messageReceived(senderID: String, text: String) {
+    func messageReceived(senderID: String, text: String, messageID: String) {
         
-        messages.removeAll()
+//        messages.removeAll()
+        if messageIDs.contains(messageID){
+            collectionView.reloadData()
         
-        messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
+        } else {
+            messageIDs.append(messageID)
+            
+            messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
+            
+            collectionView.reloadData()
+        }
         
-        collectionView.reloadData()
         
     }
     

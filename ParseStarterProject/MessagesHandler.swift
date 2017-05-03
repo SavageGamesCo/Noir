@@ -11,7 +11,7 @@ import Parse
 
 protocol MessageReceivedDelegate: class {
     
-    func messageReceived(senderID: String, text: String)
+    func messageReceived(senderID: String, text: String, messageID: String)
     
     
 }
@@ -29,7 +29,7 @@ class MessagesHandler {
         return _instance
     }
     
-    func sendMessage(senderID: String, senderName: String, to: String, text: String) {
+    func sendMessage(senderID: String, senderName: String, toUser: String, toUserName: String, text: String) {
         
         let chat = PFObject(className: "Chat")
         
@@ -37,7 +37,8 @@ class MessagesHandler {
         chat["senderName"] = senderName
         chat["text"] = text
         chat["url"] = ""
-        chat["toUser"] = to
+        chat["toUser"] = toUser
+        chat["toUserName"] = toUserName
         
         
         //let chatData : Dictionary<String, Any> = ["senderId": senderID, "senderName": senderName, "text": text]
@@ -54,12 +55,29 @@ class MessagesHandler {
         
     }
     
+    func sendMedia(image: PFFile?, senderID: String, senderName: String, toUser: String, toUserName: String){
+        
+        if image != nil {
+            let chat = PFObject(className: "Chat")
+            
+            chat["media"] = image
+            chat["senderID"] = senderID
+            chat["senderName"] = senderName
+            chat["toUser"] = toUser
+            chat["toUserName"] = toUserName
+        } else {
+            print("There was an error sending the image to the database")
+        }
+    }
+    
     func observeMessages(){
         let chat = PFObject(className: "Chat")
         
         if let senderID = chat["senderID"] as? String {
             if let text = chat["text"] as? String {
-                self.delegate?.messageReceived(senderID: senderID, text: text)
+                if let messageID = chat.objectId {
+                    self.delegate?.messageReceived(senderID: senderID, text: text, messageID: messageID)
+                }
             }
         }
         
