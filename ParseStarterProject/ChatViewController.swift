@@ -229,7 +229,24 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             let img = JSQPhotoMediaItem(image: pic)
             
-            self.messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: img))
+            let imageData = UIImageJPEGRepresentation( pic, 0.5)
+            
+            let image = PFFile(name: "mainProfile.jpg", data: imageData!)
+            
+            var toUserName = String()
+            
+            do{
+                
+                let query = try PFQuery.getUserObject(withId: displayedUserID)
+                
+                toUserName = query.username!
+                
+            } catch {
+                
+            }
+            
+            MessagesHandler.Instance.sendMedia(image: image, senderID: senderId, senderName: senderDisplayName, toUser: displayedUserID, toUserName: toUserName)
+//            self.messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: img))
         
         } else if let vid = info [UIImagePickerControllerMediaURL] as? URL {
             

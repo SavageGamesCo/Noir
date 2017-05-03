@@ -65,6 +65,16 @@ class MessagesHandler {
             chat["senderName"] = senderName
             chat["toUser"] = toUser
             chat["toUserName"] = toUserName
+            
+            chat.saveInBackground { (success, error) in
+                
+                if error != nil {
+                    print(error)
+                } else {
+                    
+                }
+                
+            }
         } else {
             print("There was an error sending the image to the database")
         }
