@@ -15,16 +15,21 @@ import AVKit
 
 private let reuseIdentifier = "Cell"
 
-class ChatViewController: JSQMessagesViewController {
+class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private var messages = [JSQMessage]()
     
     var avatar = UIImage()
+    
+    let picker = UIImagePickerController()
 
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        picker.delegate = self
+        MessagesHandler.Instance.delegate = self
         
         do {
             let query = try PFQuery.getUserObject(withId: displayedUserID)
@@ -48,6 +53,8 @@ class ChatViewController: JSQMessagesViewController {
             }
         })
         
+        self.observeMessages()
+        
     }
     
     // MARK: UICollectionViewDataSource
@@ -55,6 +62,25 @@ class ChatViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         
         return messages[indexPath.item]
+        
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
+        
+        let msg = messages[indexPath.item]
+        
+        if msg.isMediaMessage {
+            if let mediaItem = msg.media as? JSQVideoMediaItem {
+                let player = AVPlayer(url: mediaItem.fileURL)
+                let playerController = AVPlayerViewController()
+                
+                playerController.player = player
+                self.present(playerController, animated: true, completion: nil)
+            } else if let mediaItem = msg.media as? JSQPhotoMediaItem {
+                
+                
+            }
+        }
         
     }
     
@@ -107,18 +133,106 @@ class ChatViewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
-        messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, text: text))
+        MessagesHandler.Instance.sendMessage(senderID: senderId, senderName: senderDisplayName, to: displayedUserID, text: text)
         
-        collectionView.reloadData()
+//        collectionView.reloadData()
         
         finishSendingMessage()
+        
+    }
+    
+    var timer: Timer = Timer()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.collectionView.collectionViewLayout.springinessEnabled = true
+        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(ChatViewController.observeMessages), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer.invalidate()
+    }
+    
+    func observeMessages(){
+        let chat = PFObject(className: "Chat")
+        
+        let query = PFQuery(className: "Chat")
+        
+        query.whereKey("toUser", equalTo: displayedUserID)
+        
+        query.findObjectsInBackground { (objects, error) in
+            
+            if error != nil {
+                print(error)
+            } else if let messages = objects {
+                for message in messages {
+                    if message["senderID"] as? String == PFUser.current()?.objectId! {
+                        if let senderID = message["senderID"] as? String {
+                            if let text = message["text"] as? String {
+                                self.messageReceived(senderID: senderID, text: text)
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+    override func didPressAccessoryButton(_ sender: UIButton!) {
+        
+        let alert = UIAlertController(title: "Send Media", message: "Please Select", preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let photos = UIAlertAction(title: "Photos", style: .default, handler: { (alert: UIAlertAction) in
+            
+            self.chooseMedia(type: kUTTypeImage)
+        
+        })
+        
+        let videos = UIAlertAction(title: "Videos", style: .default, handler: { (alert: UIAlertAction) in
+            
+            self.chooseMedia(type: kUTTypeMovie)
+            
+        })
+        
+        alert.addAction(photos)
+        alert.addAction(videos)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let pic = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            let img = JSQPhotoMediaItem(image: pic)
+            
+            self.messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: img))
+        
+        } else if let vid = info [UIImagePickerControllerMediaURL] as? URL {
+            
+            let video = JSQVideoMediaItem(fileURL: vid, isReadyToPlay: true)
+            
+            messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: video))
+        
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+        collectionView.reloadData()
         
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         
         let bubbleFactory = JSQMessagesBubbleImageFactory()
-        let message = messages[indexPath.item]
+        //let message = messages[indexPath.item]
         
         return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.blue)
         
@@ -130,6 +244,30 @@ class ChatViewController: JSQMessagesViewController {
         return JSQMessagesAvatarImageFactory.avatarImage(with: avatar, diameter: 30)
         
     }
+    
+    //picker functions
+    
+    private func chooseMedia(type: CFString){
+        picker.mediaTypes = [type as String]
+        
+        present(picker, animated: true, completion: nil)
+    }
+    
+    
+    //end picker functions
+    
+    //del functions
+    func messageReceived(senderID: String, text: String) {
+        
+        messages.removeAll()
+        
+        messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
+        
+        collectionView.reloadData()
+        
+    }
+    
+    //end del functions
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
