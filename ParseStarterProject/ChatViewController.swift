@@ -21,6 +21,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     private var messageIDs = [String]()
     
     var avatar = UIImage()
+    var senderavatar = UIImage()
     
     let picker = UIImagePickerController()
 
@@ -55,7 +56,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         })
         
         self.observeMessages()
-        
+        self.observeIncomingMessages()
+        self.observeMediaMessages()
+        self.observeIncomingMediaMessages()
     }
     
     // MARK: UICollectionViewDataSource
@@ -159,7 +162,12 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.collectionView.collectionViewLayout.springinessEnabled = true
-        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(ChatViewController.observeMessages), userInfo: nil, repeats: true)
+        DispatchQueue.main.async {
+            self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(ChatViewController.observeMessages), userInfo: nil, repeats: true)
+            self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(ChatViewController.observeIncomingMessages), userInfo: nil, repeats: true)
+            self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(ChatViewController.observeMediaMessages), userInfo: nil, repeats: true)
+            self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(ChatViewController.observeIncomingMediaMessages), userInfo: nil, repeats: true)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -168,32 +176,159 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     }
     
     func observeMessages(){
-        let chat = PFObject(className: "Chat")
-        
-        let query = PFQuery(className: "Chat")
-        
-        query.whereKey("toUser", equalTo: displayedUserID)
-        
-        query.findObjectsInBackground { (objects, error) in
+        DispatchQueue.main.async {
+            let chat = PFObject(className: "Chat")
             
-            if error != nil {
-                print(error!)
-            } else if let messages = objects {
-                for message in messages {
-                    if message["senderID"] as? String == PFUser.current()?.objectId! {
-                        if let senderID = message["senderID"] as? String {
-                            if let text = message["text"] as? String {
-                                if let messageID = message.objectId {
-                                    self.messageReceived(senderID: senderID, text: text, messageID: messageID)
+            let query = PFQuery(className: "Chat")
+            
+            query.whereKey("toUser", equalTo: displayedUserID)
+            
+            query.findObjectsInBackground { (objects, error) in
+                
+                if error != nil {
+                    print(error!)
+                } else if let messages = objects {
+                    for message in messages {
+                        if message["senderID"] as? String == PFUser.current()?.objectId! {
+                            if let senderID = message["senderID"] as? String {
+                                if let text = message["text"] as? String {
+                                    if let messageID = message.objectId {
+                                        let imageFile = PFUser.current()?["mainPhoto"] as! PFFile
+                                        
+                                        imageFile.getDataInBackground(block: {(data, error) in
+                                            
+                                            if let imageData = data {
+                                                self.avatar = (UIImage(data: imageData)!)
+                                                
+                                            } else {
+                                                self.avatar = (UIImage(named: "default_user_image.png")!)
+                                            }
+                                        })
+                                        self.messageReceived(senderID: senderID, text: text, messageID: messageID)
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                
             }
             
         }
         
+    }
+    
+    func observeIncomingMessages(){
+        DispatchQueue.main.async {
+            let chat = PFObject(className: "Chat")
+            
+            let query = PFQuery(className: "Chat")
+            
+            query.whereKey("toUser", equalTo: PFUser.current()?.objectId!)
+            
+            query.findObjectsInBackground { (objects, error) in
+                
+                if error != nil {
+                    print(error!)
+                } else if let messages = objects {
+                    for message in messages {
+                        if message["senderID"] as? String == displayedUserID {
+                            if let senderID = message["senderID"] as? String {
+                                if let text = message["text"] as? String {
+                                    if let messageID = message.objectId {
+                                        
+                                        do{
+                                            let sender = try PFQuery.getUserObject(withId: displayedUserID)
+                                            let imageFile = sender["mainPhoto"] as! PFFile
+                                            
+                                            imageFile.getDataInBackground(block: {(data, error) in
+                                                
+                                                if let imageData = data {
+                                                    self.senderavatar = (UIImage(data: imageData)!)
+                                                    
+                                                } else {
+                                                    self.senderavatar = (UIImage(named: "default_user_image.png")!)
+                                                }
+                                            })
+
+                                        }catch{
+                                            
+                                        }
+                                        
+                                        self.messageReceived(senderID: senderID, text: text, messageID: messageID)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func observeMediaMessages() {
+        DispatchQueue.main.async {
+            let chat = PFObject(className: "Chat")
+            
+            let query = PFQuery(className: "Chat")
+            
+            query.whereKey("toUser", equalTo: displayedUserID)
+            
+            query.findObjectsInBackground { (objects, error) in
+                
+                if error != nil {
+                    print(error!)
+                } else if let messages = objects {
+                    for message in messages {
+                        if message["senderID"] as? String == PFUser.current()?.objectId! {
+                            if let senderID = message["senderID"] as? String {
+                                if let media = message["media"] as? PFFile {
+                                    if let messageID = message.objectId {
+                                        self.mediaMessageReceived(senderID: senderID, media: media, messageID: messageID)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+
+        }
+    }
+
+    func observeIncomingMediaMessages() {
+        DispatchQueue.main.async {
+            let chat = PFObject(className: "Chat")
+            
+            let query = PFQuery(className: "Chat")
+            
+            query.whereKey("toUser", equalTo: PFUser.current()?.objectId!)
+            
+            query.findObjectsInBackground { (objects, error) in
+                
+                if error != nil {
+                    print(error!)
+                } else if let messages = objects {
+                    for message in messages {
+                        if message["senderID"] as? String == displayedUserID {
+                            if let senderID = message["senderID"] as? String {
+                                if let media = message["media"] as? PFFile {
+                                    if let messageID = message.objectId {
+                                        self.mediaMessageReceived(senderID: senderID, media: media, messageID: messageID)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
+        }
     }
     
     
@@ -264,16 +399,29 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         
         let bubbleFactory = JSQMessagesBubbleImageFactory()
-        //let message = messages[indexPath.item]
         
-        return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.blue)
+        let message = messages[indexPath.item]
+        
+        if message.senderId == self.senderId {
+            return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.blue)
+        } else {
+            return bubbleFactory?.incomingMessagesBubbleImage(with: UIColor.blue)
+        }
+        
+        
         
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         
+        let message = messages[indexPath.item]
         
-        return JSQMessagesAvatarImageFactory.avatarImage(with: avatar, diameter: 30)
+        if message.senderId == self.senderId {
+            return JSQMessagesAvatarImageFactory.avatarImage(with: avatar, diameter: 30)
+        } else {
+            return JSQMessagesAvatarImageFactory.avatarImage(with: senderavatar, diameter: 30)
+        }
+        
         
     }
     
@@ -299,6 +447,38 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             messageIDs.append(messageID)
             
             messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
+            
+            collectionView.reloadData()
+        }
+        
+        
+    }
+    
+    func mediaMessageReceived(senderID: String, media: PFFile, messageID: String) {
+        
+        //        messages.removeAll()
+        if messageIDs.contains(messageID){
+            collectionView.reloadData()
+            
+        } else {
+            messageIDs.append(messageID)
+            
+            var pictureMessage = UIImage()
+            
+            var imageM = JSQPhotoMediaItem()
+            
+            let imageFile = media as! PFFile
+            
+            imageFile.getDataInBackground(block: {(data, error) in
+                
+                if let imageData = data {
+                    pictureMessage = UIImage(data: imageData)!
+                    imageM.image = pictureMessage
+                }
+                
+            })
+            
+            messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, media: imageM))
             
             collectionView.reloadData()
         }
