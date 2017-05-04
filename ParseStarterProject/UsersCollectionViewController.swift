@@ -20,13 +20,13 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     @IBOutlet var UserTableView: UICollectionView!
     
-    var usernames = [""]
-    var userID = [""]
-    var online = [""]
+    var usernames = [String]()
+    var userID = [String]()
+    var online = [String]()
     
     var withinDistance = 10
     
-    var userIdent = ""
+    var userIdent = String()
     
     var images = [UIImage]()
     
@@ -204,6 +204,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         switch showUser {
         case "AUser":
             let query = PFUser.query()
+            
+            query?.whereKey("online", equalTo: true as NSNumber)
             //Show All Users
             query?.findObjectsInBackground(block: {(objects, error) in
                 
@@ -221,28 +223,22 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     for object in users {
                         if let user = object as? PFUser {
                             
-                            if user.isAuthenticated {
-                                self.online.append(user.objectId!)
-                                let imageFile = user["mainPhoto"] as! PFFile
+                            
+                            let imageFile = user["mainPhoto"] as! PFFile
+                            
+                            imageFile.getDataInBackground(block: {(data, error) in
                                 
-                                imageFile.getDataInBackground(block: {(data, error) in
+                                if let imageData = data {
+                                    self.images.append(UIImage(data: imageData)!)
                                     
-                                    if let imageData = data {
-                                        self.images.append(UIImage(data: imageData)!)
-                                        
-                                        self.usernames.append(user.username!)
-                                        self.userID.append(user.objectId!)
-                                        
-                                        
-                                        
-                                        self.UserTableView.reloadData()
-                                    }
-                                })
-                                
-                            } else {
-//                                self.online.append("offline")
-                                self.UserTableView.reloadData()
-                            }
+                                    self.usernames.append(user.username!)
+                                    self.userID.append(user.objectId!)
+                                    self.online.append(user.objectId!)
+                                    
+                                    self.UserTableView.reloadData()
+                                }
+                            })
+
                             
                             
                         }
@@ -256,9 +252,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             //Show Local Users
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
-//                    query?.whereKey("location", withinGeoBoxFromSouthwest: PFGeoPoint(latitude: latitude - 1, longitude: longitude - 1), toNortheast: PFGeoPoint(latitude: latitude + 1, longitude: longitude + 1))
                     
                     query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(self.withinDistance))
+                    query?.whereKey("online", equalTo: true as NSNumber)
+                    
                     query?.findObjectsInBackground(block: {(objects, error) in
                         
                         if error != nil {
@@ -275,30 +272,22 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                             for object in users {
                                 if let user = object as? PFUser {
                                     
-                                    if user.isAuthenticated {
-                                        self.online.append(user.objectId!)
-                                        let imageFile = user["mainPhoto"] as! PFFile
+                                    
+                                    let imageFile = user["mainPhoto"] as! PFFile
+                                    
+                                    imageFile.getDataInBackground(block: {(data, error) in
                                         
-                                        imageFile.getDataInBackground(block: {(data, error) in
+                                        if let imageData = data {
+                                            self.images.append(UIImage(data: imageData)!)
                                             
-                                            if let imageData = data {
-                                                self.images.append(UIImage(data: imageData)!)
-                                                
-                                                self.usernames.append(user.username!)
-                                                self.userID.append(user.objectId!)
-                                                
-                                                
-                                                
-                                                self.UserTableView.reloadData()
-                                            }
-                                        })
-                                    } else {
-//                                        self.online.append("offline")
-                                        self.UserTableView.reloadData()
-                                    }
-                                    
-                                    
-                                    
+                                            self.usernames.append(user.username!)
+                                            self.userID.append(user.objectId!)
+                                            self.online.append(user.objectId!)
+                                            
+                                            
+                                            self.UserTableView.reloadData()
+                                        }
+                                    })
                                     
                                 }
                             }
@@ -322,8 +311,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     self.userID.removeAll()
                     self.images.removeAll()
                     self.online.removeAll()
-                    
-                    self.UserTableView.reloadData()
+
                     
                     for object in users {
                         if let user = object as? PFUser {
@@ -341,7 +329,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                             self.usernames.append(user.username!)
                                             self.userID.append(user.objectId!)
                                             
-                                            if user.isAuthenticated {
+                                            if user["online"] as! Bool {
                                                 self.online.append(user.objectId!)
                                             } else {
 //                                                self.online.append("offline")
@@ -394,7 +382,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                                             self.usernames.append(user.username!)
                                             self.userID.append(user.objectId!)
                                             
-                                            if user.isAuthenticated {
+                                            if user["online"] as! Bool {
                                                 self.online.append(user.objectId!)
                                             } else {
                                                 //                                                self.online.append("offline")
@@ -416,52 +404,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             
             break
         default:
-            let query = PFUser.query()
-            //Show All Users
-            query?.findObjectsInBackground(block: {(objects, error) in
-                
-                if error != nil {
-                    print(error!)
-                } else if let users = objects {
-                    
-                    self.usernames.removeAll()
-                    self.userID.removeAll()
-                    self.images.removeAll()
-                    self.online.removeAll()
-                    
-                    for object in users {
-                        if let user = object as? PFUser {
-                            
-                            if user.isAuthenticated {
-                                self.online.append(user.objectId!)
-                                let imageFile = user["mainPhoto"] as! PFFile
-                                
-                                imageFile.getDataInBackground(block: {(data, error) in
-                                    
-                                    if let imageData = data {
-                                        self.images.append(UIImage(data: imageData)!)
-                                        
-                                        self.usernames.append(user.username!)
-                                        self.userID.append(user.objectId!)
-                                        
-                                        
-                                        
-                                        self.UserTableView.reloadData()
-                                    }
-                                })
-                            } else {
-//                                self.online.append("offline")
-                                self.UserTableView.reloadData()
-                            }
-                            
-                            
-                            
-                            
-                        }
-                    }
-                }
-               
-            })
+            break
         }
         
     }

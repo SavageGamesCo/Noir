@@ -250,6 +250,9 @@ class ViewController: UIViewController {
                     } else {
 //                        print("user signed up")
                         
+                        PFUser.current()?["online"] = true
+                        PFUser.current()?.saveInBackground()
+                        
                         self.performSegue(withIdentifier: "toUserTable", sender: self)
                     }
                     
@@ -300,7 +303,14 @@ class ViewController: UIViewController {
                     } else {
 //                        print("logged in")
                         if PFUser.current() != nil {
+                            
+                            PFUser.current()?["online"] = true
+                            PFUser.current()?.saveInBackground()
+                            
                             self.performSegue(withIdentifier: "toUserTable", sender: self)
+                            
+                            
+                            
                         } else {
                             self.dialogueBox(title: "User Error", messageText: "Unable to load user profile.")
                         }
