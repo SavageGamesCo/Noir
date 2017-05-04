@@ -30,7 +30,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     var images = [UIImage]()
     
-    var showUser = String()
+    var showUser = "AUser"
     
     var interstitial: GADInterstitial!
     
@@ -50,6 +50,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 self.UserTableView.reloadData()
                 self.refreshControl.endRefreshing()
             }
+        } else {
+            DispatchQueue.main.async {
+                
+                self.UserTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
         
         
@@ -59,6 +65,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         if showUser != "LUser" {
             showUser = "LUser"
             UserView()
+            DispatchQueue.main.async {
+                
+                self.UserTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        } else {
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
@@ -79,6 +91,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 self.refreshControl.endRefreshing()
             }
             
+        } else {
+            DispatchQueue.main.async {
+                
+                self.UserTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
         
     }
@@ -94,6 +112,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 self.refreshControl.endRefreshing()
             }
             
+        } else {
+            DispatchQueue.main.async {
+                
+                self.UserTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
 
     }
@@ -170,7 +194,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         PFGeoPoint.geoPointForCurrentLocation(inBackground: {(geopoint, error) in
             
-            print(geopoint)
+            print(geopoint!)
             if let geopoint = geopoint {
                 PFUser.current()?["location"] = geopoint
                 
