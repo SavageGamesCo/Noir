@@ -255,7 +255,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" alpha="0.0" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="nxH-a0-kSC" customClass="DesignableImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="64" width="414" height="287"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="287"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="414" id="NOm-AL-zyc"/>
@@ -460,7 +460,7 @@
         <scene sceneID="vfq-Ku-Ucd">
             <objects>
                 <collectionViewController title="Noir Users" modalTransitionStyle="flipHorizontal" id="ijc-SN-gV4" customClass="UsersCollectionViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -710,7 +710,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LSp-qW-b3D">
-                                <rect key="frame" x="10" y="138" width="394" height="539.33333333333337"/>
+                                <rect key="frame" x="10" y="50" width="394" height="539.33333333333337"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-13-bJU" customClass="DesignableImageView" customModule="Spring">
                                         <rect key="frame" x="62" y="0.0" width="270" height="270"/>
@@ -921,13 +921,13 @@
                                                 <rect key="frame" x="0.0" y="120" width="365" height="129.33333333333337"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Me:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPC-75-IbP">
-                                                        <rect key="frame" x="0.0" y="0.0" width="79" height="20.333333333333371"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="79" height="20.333333333333314"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.95760530229999996" green="0.87718737130000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQw-6e-Vd2" customClass="DesignableTextView" customModule="Spring">
-                                                        <rect key="frame" x="0.0" y="25.333333333333371" width="365" height="104"/>
+                                                        <rect key="frame" x="0.0" y="25.333333333333314" width="365" height="104.00000000000006"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="104" id="e1d-kN-1XL"/>

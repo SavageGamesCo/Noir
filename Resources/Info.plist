@@ -34,7 +34,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Noir requires access to your camera and photo library in order for you to upload profile photos.</string>
 	<key>UILaunchStoryboardName</key>
-	<string>Main</string>
+	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
