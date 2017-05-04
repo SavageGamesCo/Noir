@@ -24,6 +24,8 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     var senderPic = [UIImage]()
     var senderMessage = [String]()
     
+    var senders = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,7 +71,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessagesTableViewCell
         
 //        cell.SenderImage.image = self.senderPic[indexPath.row]
-        //        cell.dateLabel.text = ""
+//        cell.dateLabel.text = ""
 //        cell.senderName.text = self.senderName[indexPath.row]
 //        cell.userID = self.senderID[indexPath.row]
 //        cell.senderMessageShort.text = self.senderMessage[indexPath.row]
@@ -91,7 +93,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     func getMessages() {
         
-        let msgQuery = PFQuery(className: "Messages")
+        let msgQuery = PFQuery(className: "Chat")
         
         msgQuery.whereKey("toUser", equalTo: (PFUser.current()?.objectId!)!)
         
@@ -111,44 +113,49 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                 
                 if let objects = objects {
                     for message in objects {
-                        if let messageContent = message["sentMessage"] as? String {
-                            messageText = messageContent
+                      
+                        if self.senders.contains(message["username"] as! String) {
+                        
+                        } else {
+                        
+                            self.senders.append(message["unsername"] as! String)
                             
-                            if let sendfrom = message["fromUser"] as? String {
-                                sender = sendfrom
+                            sender = message["senderID"] as! String
+                            
+                            let userQuery = PFUser.query()
+                            
+                            userQuery?.whereKey("objectId", equalTo: sender)
+                            
+                            userQuery?.findObjectsInBackground(block: { (objects, error) in
                                 
-                                let userQuery = PFUser.query()
-                                
-                                userQuery?.whereKey("objectId", equalTo: sender)
-                                
-                                userQuery?.findObjectsInBackground(block: { (objects, error) in
-                                    
-                                    if let users = objects {
-                                        for object in users {
-                                            if let user = object as? PFUser {
-                                                let imageFile = user["mainPhoto"] as! PFFile
+                                if let users = objects {
+                                    for object in users {
+                                        if let user = object as? PFUser {
+                                            let imageFile = user["mainPhoto"] as! PFFile
+                                            
+                                            imageFile.getDataInBackground(block: { (data, error) in
                                                 
-                                                imageFile.getDataInBackground(block: { (data, error) in
+                                                if let imageData = data {
                                                     
-                                                    if let imageData = data {
-                                                        
-                                                        self.senderPic.append(UIImage(data: imageData)!)
-                                                        self.senderMessage.append(messageText)
-                                                        self.senderID.append(sender)
-                                                        self.senderName.append((user.username!))
-                                                        
-                                                        self.msgTableView.reloadData()
-                                                    }
-                                                })
-                                                
-                                            }
+                                                    self.senderPic.append(UIImage(data: imageData)!)
+                                                    self.senderMessage.append(messageText)
+                                                    self.senderID.append(sender)
+                                                    self.senderName.append((user.username!))
+                                                    
+                                                    self.msgTableView.reloadData()
+                                                }
+                                            })
+                                            
                                         }
                                     }
-                                    
-                                })
+                                }
                                 
-                            }
+                            })
+
+                            
                         }
+                        
+                        
                     }
                     
                 }
