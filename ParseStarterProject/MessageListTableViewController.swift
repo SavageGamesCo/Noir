@@ -15,7 +15,7 @@ private let reuseIdentifier = "Cell"
 private let CHAT_SEGUE = "toChat"
 
 class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
-    
+   
     
     @IBOutlet var msgTableView: UITableView!
     
@@ -70,21 +70,18 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessagesTableViewCell
         
-//        cell.SenderImage.image = self.senderPic[indexPath.row]
-//        cell.dateLabel.text = ""
-//        cell.senderName.text = self.senderName[indexPath.row]
-//        cell.userID = self.senderID[indexPath.row]
-//        cell.senderMessageShort.text = self.senderMessage[indexPath.row]
-        
+        cell.senderPic.image = self.senderPic[indexPath.row]
+        cell.senderName.text = self.senderName[indexPath.row]
+        cell.userID = self.senderID[indexPath.row]
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let cell = msgTableView.cellForRow(at: indexPath as IndexPath)
+        let cell = msgTableView.cellForRow(at: indexPath as IndexPath) as! MessagesTableViewCell
         
-        displayedUserID = self.senderID[indexPath.row]
+        displayedUserID = cell.userID
         
         performSegue(withIdentifier: CHAT_SEGUE, sender: self)
         
@@ -108,17 +105,16 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                 
                 self.senderID.removeAll()
                 self.senderPic.removeAll()
-                self.senderMessage.removeAll()
                 self.senderName.removeAll()
                 
                 if let objects = objects {
                     for message in objects {
                       
-                        if self.senders.contains(message["username"] as! String) {
+                        if self.senders.contains(message["senderName"] as! String) {
                         
                         } else {
                         
-                            self.senders.append(message["unsername"] as! String)
+                            self.senders.append(message["senderName"] as! String)
                             
                             sender = message["senderID"] as! String
                             
@@ -138,7 +134,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                                 if let imageData = data {
                                                     
                                                     self.senderPic.append(UIImage(data: imageData)!)
-                                                    self.senderMessage.append(messageText)
+
                                                     self.senderID.append(sender)
                                                     self.senderName.append((user.username!))
                                                     
