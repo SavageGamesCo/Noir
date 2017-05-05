@@ -50,21 +50,33 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet var userBodyTextField: UITextField!
     
     @IBAction func logoutClicked(_ sender: Any) {
-        PFUser.current()?["online"] = false
-        
-        PFUser.current()?.saveInBackground()
-        
-        PFUser.logOut()
+        if PFUser.current()?["online"] as! Bool == true {
+            
+            PFUser.current()?["online"] = false
+            
+            PFUser.current()?.saveInBackground(block: {(success, error) in
+                if error != nil {
+                    print(error!)
+                } else {
+                    PFUser.logOut()
+                    
+                    self.performSegue(withIdentifier: "LogInScreen", sender: self)
+                }
+            })
+        }
         
         //        currentUser = PFUser.current()!.username
-        
-        performSegue(withIdentifier: "LogInScreen", sender: self)
     }
     
     var activityIndicater = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        registerForKeyboardNotifications()
         
         agePicker.dataSource = self
         agePicker.delegate = self
@@ -134,8 +146,6 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
             })
         }
         
-        registerForKeyboardNotifications()
-        
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProfileInitViewController.dismissKeyboard))
         
@@ -184,6 +194,8 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
         PFUser.current()?["body"] = userBodyTextField.text
         
         PFUser.current()?.saveInBackground(block: {(success, error) in
+            
+            self.deregisterFromKeyboardNotifications()
             
             UIApplication.shared.endIgnoringInteractionEvents()
             
@@ -296,8 +308,8 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     func registerForKeyboardNotifications(){
         //Adding notifies on keyboard appearing
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func deregisterFromKeyboardNotifications(){
@@ -306,34 +318,20 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWasShown(notification: NSNotification){
-        //Need to calculate keyboard exact size due to Apple suggestions
-        self.ScrollView.isScrollEnabled = true
-        var info = notification.userInfo!
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
-        
-        self.ScrollView.contentInset = contentInsets
-        self.ScrollView.scrollIndicatorInsets = contentInsets
-        
-        var aRect : CGRect = self.view.frame
-        aRect.size.height -= keyboardSize!.height
-        if let activeField = self.userAboutTextField {
-            if (!aRect.contains(activeField.frame.origin)){
-                self.ScrollView.scrollRectToVisible(activeField.frame, animated: true)
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
             }
         }
     }
     
-    func keyboardWillBeHidden(notification: NSNotification){
-        //Once keyboard disappears, restore original positions
-        var info = notification.userInfo!
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
-        self.ScrollView.contentInset = contentInsets
-        self.ScrollView.scrollIndicatorInsets = contentInsets
-        self.view.endEditing(true)
-        self.ScrollView.isScrollEnabled = false
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField){

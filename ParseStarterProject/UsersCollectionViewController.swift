@@ -133,6 +133,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        commonActionSheet(title: "Safety Statement", message: "Please be careful when meeting people from the internet in real life. Practice basic safety such as meeting in public, informing someone you trust of your whereabouts. Practice safety at all times. Be sure to ask the pertinent questions before engaging in risky behavior.")
+        
         UserTableView.refreshControl = refreshControl
         
         refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.auserClicked(_:)), for: .touchDown)
@@ -508,6 +510,16 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    func commonActionSheet(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
     }
     
 

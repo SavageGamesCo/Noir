@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ParseStarterProject-Swift.xcodeproj">
+      location = "group:/Users/lynx/dev/Noir/Noir.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

@@ -24,7 +24,10 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     var senderavatar = UIImage()
     
     let picker = UIImagePickerController()
-
+    
+    let outGoingColor = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
+    let inComingColor = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
+    let bkgColor = UIColor(colorLiteralRed: 0.224, green: 0.224, blue: 0.223, alpha: 1.0)
 
     override func viewDidLoad() {
         
@@ -55,6 +58,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             }
         })
         
+        self.collectionView.backgroundView?.backgroundColor = bkgColor
+        
+        
         self.observeMessages()
         self.observeIncomingMessages()
         self.observeMediaMessages()
@@ -73,18 +79,18 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         let msg = messages[indexPath.item]
         
-        if msg.isMediaMessage {
-            if let mediaItem = msg.media as? JSQVideoMediaItem {
-                let player = AVPlayer(url: mediaItem.fileURL)
-                let playerController = AVPlayerViewController()
-                
-                playerController.player = player
-                self.present(playerController, animated: true, completion: nil)
-            } else if let mediaItem = msg.media as? JSQPhotoMediaItem {
-                
-                
-            }
-        }
+//        if msg.isMediaMessage {
+//            if let mediaItem = msg.media as? JSQVideoMediaItem {
+//                let player = AVPlayer(url: mediaItem.fileURL)
+//                let playerController = AVPlayerViewController()
+//                
+//                playerController.player = player
+//                self.present(playerController, animated: true, completion: nil)
+//            } else if (msg.media as? JSQPhotoMediaItem) != nil {
+//                
+//                
+//            }
+//        }
         
     }
     
@@ -177,7 +183,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     func observeMessages(){
         DispatchQueue.main.async {
-            let chat = PFObject(className: "Chat")
             
             let query = PFQuery(className: "Chat")
             
@@ -220,11 +225,10 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     func observeIncomingMessages(){
         DispatchQueue.main.async {
-            let chat = PFObject(className: "Chat")
             
             let query = PFQuery(className: "Chat")
             
-            query.whereKey("toUser", equalTo: PFUser.current()?.objectId!)
+            query.whereKey("toUser", equalTo: PFUser.current()?.objectId! as Any)
             
             query.findObjectsInBackground { (objects, error) in
                 
@@ -271,7 +275,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     func observeMediaMessages() {
         DispatchQueue.main.async {
-            let chat = PFObject(className: "Chat")
             
             let query = PFQuery(className: "Chat")
             
@@ -302,11 +305,10 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
 
     func observeIncomingMediaMessages() {
         DispatchQueue.main.async {
-            let chat = PFObject(className: "Chat")
             
             let query = PFQuery(className: "Chat")
             
-            query.whereKey("toUser", equalTo: PFUser.current()?.objectId!)
+            query.whereKey("toUser", equalTo: PFUser.current()?.objectId! as Any)
             
             query.findObjectsInBackground { (objects, error) in
                 
@@ -344,14 +346,14 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         })
         
-        let videos = UIAlertAction(title: "Videos", style: .default, handler: { (alert: UIAlertAction) in
+        let camera = UIAlertAction(title: "Camera", style: .default, handler: { (alert: UIAlertAction) in
             
-            self.chooseMedia(type: kUTTypeMovie)
+            self.chooseMedia(type: kUTTypeImage)
             
         })
         
         alert.addAction(photos)
-        alert.addAction(videos)
+        //alert.addAction(camera)
         alert.addAction(cancel)
         
         present(alert, animated: true, completion: nil)
@@ -362,7 +364,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         if let pic = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-            let img = JSQPhotoMediaItem(image: pic)
+//            let img = JSQPhotoMediaItem(image: pic)
             
             let imageData = UIImageJPEGRepresentation( pic, 0.5)
             
@@ -403,9 +405,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let message = messages[indexPath.item]
         
         if message.senderId == self.senderId {
-            return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.blue)
+            return bubbleFactory?.outgoingMessagesBubbleImage(with: outGoingColor)
         } else {
-            return bubbleFactory?.incomingMessagesBubbleImage(with: UIColor.blue)
+            return bubbleFactory?.incomingMessagesBubbleImage(with: inComingColor)
         }
         
         
@@ -465,9 +467,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             var pictureMessage = UIImage()
             
-            var imageM = JSQPhotoMediaItem()
+            let imageM = JSQPhotoMediaItem()
             
-            let imageFile = media as! PFFile
+            let imageFile = media 
             
             imageFile.getDataInBackground(block: {(data, error) in
                 
@@ -490,6 +492,16 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func commonActionSheet(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
     }
 
     /*

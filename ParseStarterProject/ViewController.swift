@@ -157,6 +157,8 @@ class ViewController: UIViewController {
         loginOrSignup.setTitle("Sign Up", for: [])
         
         submitButton.setTitle("Log In", for: [])
+        
+        commonActionSheet(title: "Beta: What To Test", message: "Thank you for participating in the beta. During the Beta, this screen will inform you of what needs to be tested, what issues we are already aware of and feature changes.\n\n This is the first beta test. We will be testing the login process, the all user view, local user view and the database. To participate in this test please do the following: Log In, tap the globe to view all logged in users, tap the nav pin to view users within 10 miles of you, select a user, send a flirt, click the star to favorite, click the chat bubble to chat with someone. \n\n Known Issues: Chat Message order is NOT consistent.\n\n Warning: This is a Beta test, not the full end product. This is also testing the server and database. The results will determine if we change databases. This means you MAY lose conversations on the next beta update. As the test period moves forward different features will be added and you will be asked to test. This is currently a closed beta, so there will only be about 30 users initially. So you may not have any members near you yet. Hang in there!")
     }
     
     func SignUpMode(){
@@ -176,6 +178,10 @@ class ViewController: UIViewController {
         loginOrSignup.setTitle("Log In", for: [])
         
         submitButton.setTitle("Sign Up", for: [])
+        
+        commonActionSheet(title: "Terms of Use", message: "Welcome to the Noir Closed Beta. By clicking 'OK' you are agreeing to and understand the following terms of use, valid during the course of this beta test.\n\n Noir's goal is to recreate the inclusive environment of the Black nightclubs in 1920's Harlem. The Harlem Nightclubs catered to people of color but everyone was welcome. They were one of the few places where people of color were able to enter through the front door and have services tailored specifically to them. All were welcome, but everyone knew the deal. As such, racism, racist language and blatant discrimination will not be tolerated. That said, make no mistake, this is a home for gay people of color. It is a place for us to meet each other, mingle with each other and stay in touch with each other.\n\n The following rules are in Affect:\n\n No Nudity on public images.\n No Discriminatory language such as 'No, <insert race/religion/bodytype here>'.\n No Harassament.\n Please report ANY profiles that are participating in trolling, cyber bullying, cyber stalking, or discriminatory language.\n\n Otherwise, enjoy your time here on Noir, Mobile Dating for Gay People of Color.")
+        
+        
     }
     
     func signUpUser() {
@@ -230,6 +236,7 @@ class ViewController: UIViewController {
                 user["favoriteLimit"] = 25
                 user["membership"] = "basic"
                 user["adFree"] = false
+                user["online"] = false
                 
                 
                 user.signUpInBackground(block: { (success, error) in
@@ -414,6 +421,16 @@ class ViewController: UIViewController {
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
+    }
+    
+    func commonActionSheet(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func dialogueBox(title:String, messageText:String ){

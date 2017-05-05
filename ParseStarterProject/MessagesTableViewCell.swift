@@ -10,6 +10,12 @@ import UIKit
 
 class MessagesTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var senderPic: UIImageView!
+    
+    @IBOutlet weak var senderName: UILabel!
+    
+    var userID = String()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
