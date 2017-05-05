@@ -236,6 +236,7 @@ class ViewController: UIViewController {
                 user["favoriteLimit"] = 25
                 user["membership"] = "basic"
                 user["adFree"] = false
+                user["online"] = false
                 
                 
                 user.signUpInBackground(block: { (success, error) in

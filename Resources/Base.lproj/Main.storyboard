@@ -505,7 +505,7 @@
                             </stackView>
                             <imageView autoresizesSubviews="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="nxH-a0-kSC" customClass="DesignableImageView" customModule="Spring">
                                 <rect key="frame" x="0.0" y="64" width="414" height="273"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nxH-a0-kSC" secondAttribute="height" multiplier="138:91" id="sc5-35-5Oe"/>
                                 </constraints>
@@ -563,7 +563,9 @@
                     <connections>
                         <outlet property="about" destination="T79-zs-gkX" id="iRb-g2-zXq"/>
                         <outlet property="ageTag" destination="9f8-1V-f6c" id="vdv-iD-v1b"/>
+                        <outlet property="blockButton" destination="Jki-YV-gDe" id="iaZ-4A-sxa"/>
                         <outlet property="bodyTag" destination="kzr-jE-97Z" id="pyM-fY-Ip3"/>
+                        <outlet property="chatButton" destination="SK0-by-KJB" id="T9J-sG-SX1"/>
                         <outlet property="ethnicityTag" destination="keh-1s-5Fz" id="daR-JY-KfU"/>
                         <outlet property="favoriteButton" destination="UC0-V1-uMf" id="e6d-bK-bDx"/>
                         <outlet property="heightTag" destination="hYt-rk-Swc" id="Yz2-KY-dKB"/>
@@ -604,7 +606,8 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" preservesSuperviewLayoutMargins="YES" image="default_user_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="pI5-48-wdc" customClass="DesignableImageView" customModule="Spring">
                                             <rect key="frame" x="0.0" y="0.0" width="80" height="82"/>
-                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="tintColor" red="0.98806899790000002" green="0.6853456497" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <accessibility key="accessibilityConfiguration" identifier="ProfilePic">
                                                 <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                             </accessibility>
@@ -813,7 +816,7 @@
                             <outlet property="delegate" destination="q6t-Rn-sQd" id="wUZ-Sr-FuL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Msgs" id="fRO-tI-giL"/>
+                    <navigationItem key="navigationItem" title="Conversations" id="fRO-tI-giL"/>
                     <connections>
                         <outlet property="msgTableView" destination="Rcp-Cv-RV1" id="OJj-dD-V9x"/>
                         <segue destination="Qtl-TD-lmx" kind="show" id="IsW-VB-D0B"/>
@@ -889,7 +892,7 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-13-bJU" customClass="DesignableImageView" customModule="Spring">
                                         <rect key="frame" x="62" y="0.0" width="270" height="270"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -1258,11 +1261,11 @@
         <image name="star-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="s8Z-GI-tjN"/>
-        <segue reference="91V-p6-PRr"/>
-        <segue reference="DCv-eO-Ujz"/>
-        <segue reference="nn4-G8-Q4v"/>
+        <segue reference="AaL-5j-Oxz"/>
+        <segue reference="dbx-4a-p2Z"/>
         <segue reference="gxt-Ll-4Kg"/>
+        <segue reference="AQS-Bi-6uX"/>
+        <segue reference="DCv-eO-Ujz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

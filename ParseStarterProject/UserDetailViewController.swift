@@ -24,7 +24,9 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet var ethnicityTag: UILabel!
     @IBOutlet weak var about: UITextView!
     @IBOutlet var favoriteButton: UIBarButtonItem!
+    @IBOutlet weak var chatButton: UIBarButtonItem!
     
+    @IBOutlet weak var blockButton: UIBarButtonItem!
     @IBOutlet var navBarItem: UINavigationItem!
     
     var favorite = Bool()
@@ -124,6 +126,16 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if displayedUserID == PFUser.current()?.objectId {
+            chatButton.isEnabled = false
+            blockButton.isEnabled = false
+            favoriteButton.isEnabled = false
+        } else {
+            chatButton.isEnabled = true
+            blockButton.isEnabled = true
+            favoriteButton.isEnabled = true
+        }
         
         
         
