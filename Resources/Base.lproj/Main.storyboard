@@ -14,7 +14,7 @@
         <!--Noir: Welcome Screen-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Noir: Welcome Screen" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="flipHorizontal" id="BYZ-38-t0r" customClass="ViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Noir: Welcome Screen" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="flipHorizontal" id="BYZ-38-t0r" customClass="ViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -246,40 +246,23 @@
         <!--User Detail-->
         <scene sceneID="Z2m-Za-v9H">
             <objects>
-                <viewController storyboardIdentifier="UserDetail" title="User Detail" modalTransitionStyle="flipHorizontal" id="Ypb-KF-sBj" customClass="UserDetailViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserDetail" title="User Detail" modalTransitionStyle="flipHorizontal" id="Ypb-KF-sBj" customClass="UserDetailViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MPh-jo-UnJ"/>
                         <viewControllerLayoutGuide type="bottom" id="UTr-pr-O5D"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="npx-EC-KNG" customClass="UIScrollView">
+                    <view key="view" contentMode="scaleAspectFit" id="npx-EC-KNG" customClass="UIScrollView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ucV-B6-GUC">
-                                <rect key="frame" x="0.0" y="20" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="357" width="414" height="335"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HVk-Hj-PQh">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="631"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="294"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" alpha="0.0" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="nxH-a0-kSC" customClass="DesignableImageView" customModule="Spring">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="330"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeDown"/>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                                        <real key="value" value="0.29999999999999999"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="QCm-GA-MTY">
-                                                <rect key="frame" x="8" y="340" width="398" height="125"/>
+                                                <rect key="frame" x="8" y="0.0" width="398" height="125"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7bX-bp-tHb">
                                                         <rect key="frame" x="0.0" y="0.0" width="364" height="21"/>
@@ -462,19 +445,19 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HM0-R7-LTg">
-                                                <rect key="frame" x="8" y="475" width="398" height="156"/>
+                                                <rect key="frame" x="8" y="135" width="398" height="159"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Me:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njH-wa-Eyf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="75.666666666666671" height="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="21"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="W9Y-Ab-OBr"/>
+                                                            <constraint firstAttribute="height" constant="21" id="W9Y-Ab-OBr"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <color key="textColor" red="0.95760530229999996" green="0.87718737130000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T79-zs-gkX" customClass="DesignableTextView" customModule="Spring">
-                                                        <rect key="frame" x="0.0" y="28" width="398" height="128"/>
+                                                        <rect key="frame" x="0.0" y="31" width="398" height="128"/>
                                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="tintColor" red="0.98806899790000002" green="0.6853456497" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -493,22 +476,20 @@
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="T79-zs-gkX" secondAttribute="trailing" id="5jF-O3-8Tm"/>
                                                     <constraint firstItem="T79-zs-gkX" firstAttribute="leading" secondItem="HM0-R7-LTg" secondAttribute="leading" id="jGW-ub-otd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="njH-wa-Eyf" secondAttribute="trailing" id="jse-Yq-GPB"/>
                                                     <constraint firstItem="njH-wa-Eyf" firstAttribute="leading" secondItem="HM0-R7-LTg" secondAttribute="leading" id="rfC-ea-mcP"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="QCm-GA-MTY" firstAttribute="top" secondItem="nxH-a0-kSC" secondAttribute="bottom" constant="10" id="E7M-38-djP"/>
                                             <constraint firstItem="QCm-GA-MTY" firstAttribute="leading" secondItem="HVk-Hj-PQh" secondAttribute="leading" constant="8" id="Zay-Ss-gY5"/>
-                                            <constraint firstItem="nxH-a0-kSC" firstAttribute="top" secondItem="HVk-Hj-PQh" secondAttribute="top" id="bMv-sy-CsZ"/>
                                             <constraint firstAttribute="trailing" secondItem="QCm-GA-MTY" secondAttribute="trailing" constant="8" id="kkc-DE-4L3"/>
-                                            <constraint firstAttribute="trailing" secondItem="nxH-a0-kSC" secondAttribute="trailing" id="qwt-mX-Jyi"/>
-                                            <constraint firstItem="nxH-a0-kSC" firstAttribute="leading" secondItem="HVk-Hj-PQh" secondAttribute="leading" id="ra7-71-lUD"/>
+                                            <constraint firstAttribute="trailing" secondItem="HM0-R7-LTg" secondAttribute="trailing" constant="8" id="vqf-Xx-huU"/>
                                             <constraint firstItem="HM0-R7-LTg" firstAttribute="leading" secondItem="HVk-Hj-PQh" secondAttribute="leading" constant="8" id="xfg-wc-xoX"/>
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYq-po-Cgt">
-                                        <rect key="frame" x="0.0" y="651" width="414" height="21"/>
+                                        <rect key="frame" x="0.0" y="314" width="414" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="9mw-2w-CRD"/>
                                         </constraints>
@@ -522,17 +503,39 @@
                                     <constraint firstAttribute="trailing" secondItem="uYq-po-Cgt" secondAttribute="trailing" id="giu-42-LCX"/>
                                 </constraints>
                             </stackView>
+                            <imageView autoresizesSubviews="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="nxH-a0-kSC" customClass="DesignableImageView" customModule="Spring">
+                                <rect key="frame" x="0.0" y="64" width="414" height="273"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="nxH-a0-kSC" secondAttribute="height" multiplier="138:91" id="sc5-35-5Oe"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeDown"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <accessibility key="accessibilityConfiguration">
                             <accessibilityTraits key="traits" adjustable="YES"/>
                         </accessibility>
                         <constraints>
-                            <constraint firstItem="ucV-B6-GUC" firstAttribute="top" secondItem="MPh-jo-UnJ" secondAttribute="bottom" id="OiU-n6-uPm"/>
+                            <constraint firstItem="UTr-pr-O5D" firstAttribute="top" secondItem="nxH-a0-kSC" secondAttribute="bottom" constant="355" id="6Ih-3q-ZKY"/>
+                            <constraint firstAttribute="trailing" secondItem="nxH-a0-kSC" secondAttribute="trailing" id="9FM-7l-9Xl"/>
+                            <constraint firstItem="nxH-a0-kSC" firstAttribute="leading" secondItem="npx-EC-KNG" secondAttribute="leading" id="BVe-0F-id2"/>
                             <constraint firstItem="ucV-B6-GUC" firstAttribute="leading" secondItem="npx-EC-KNG" secondAttribute="leading" id="bDj-Ey-Hy5"/>
                             <constraint firstItem="UTr-pr-O5D" firstAttribute="top" secondItem="ucV-B6-GUC" secondAttribute="bottom" id="fYN-Lo-oI9"/>
-                            <constraint firstItem="UTr-pr-O5D" firstAttribute="top" secondItem="ucV-B6-GUC" secondAttribute="bottom" id="fmr-Hh-Qyp"/>
                             <constraint firstAttribute="trailing" secondItem="ucV-B6-GUC" secondAttribute="trailing" id="vXN-Cp-c4V"/>
+                            <constraint firstItem="nxH-a0-kSC" firstAttribute="top" secondItem="MPh-jo-UnJ" secondAttribute="bottom" id="wbg-dp-Y7k"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -579,8 +582,8 @@
         <!--Noir Users-->
         <scene sceneID="vfq-Ku-Ucd">
             <objects>
-                <collectionViewController title="Noir Users" modalTransitionStyle="flipHorizontal" id="ijc-SN-gV4" customClass="UsersCollectionViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
+                <collectionViewController title="Noir Users" modalTransitionStyle="flipHorizontal" id="ijc-SN-gV4" customClass="UsersCollectionViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -592,7 +595,7 @@
                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" reuseIdentifier="Cell" id="JMb-s3-dmA" customClass="UsersCollectionViewCell" customModule="ParseStarterProject_Swift" customModuleProvider="target">
+                            <collectionViewCell autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" reuseIdentifier="Cell" id="JMb-s3-dmA" customClass="UsersCollectionViewCell" customModule="Noir" customModuleProvider="target">
                                 <rect key="frame" x="10" y="10" width="80" height="107"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -713,7 +716,7 @@
         <!--Message View-->
         <scene sceneID="lii-9g-B0p">
             <objects>
-                <viewController title="Message View" modalTransitionStyle="flipHorizontal" hidesBottomBarWhenPushed="YES" id="up8-0f-dqs" customClass="ChatViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Message View" modalTransitionStyle="flipHorizontal" hidesBottomBarWhenPushed="YES" id="up8-0f-dqs" customClass="ChatViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lrf-p9-Aau"/>
                         <viewControllerLayoutGuide type="bottom" id="u3Q-ci-J78"/>
@@ -737,7 +740,7 @@
         <!--Messages List-->
         <scene sceneID="tQv-er-pJT">
             <objects>
-                <tableViewController title="Messages List" modalTransitionStyle="flipHorizontal" clearsSelectionOnViewWillAppear="NO" id="q6t-Rn-sQd" customClass="MessagesTableViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Messages List" modalTransitionStyle="flipHorizontal" clearsSelectionOnViewWillAppear="NO" id="q6t-Rn-sQd" customClass="MessagesTableViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="147" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rcp-Cv-RV1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -745,7 +748,7 @@
                         <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="147" id="eJR-p7-6fZ" customClass="MessagesTableViewCell" customModule="ParseStarterProject_Swift" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="147" id="eJR-p7-6fZ" customClass="MessagesTableViewCell" customModule="Noir" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="147"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eJR-p7-6fZ" id="IPH-lb-npo">
@@ -872,7 +875,7 @@
         <!--Update Profile-->
         <scene sceneID="EiK-HN-Sje">
             <objects>
-                <viewController autoresizesArchivedViewToFullSize="NO" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="flipHorizontal" id="nbz-Qi-FUC" customClass="ProfileInitViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController autoresizesArchivedViewToFullSize="NO" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="flipHorizontal" id="nbz-Qi-FUC" customClass="ProfileInitViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MnT-pK-ibJ"/>
                         <viewControllerLayoutGuide type="bottom" id="s8N-CC-IJD"/>
@@ -882,7 +885,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LSp-qW-b3D">
-                                <rect key="frame" x="10" y="30" width="394" height="539.33333333333337"/>
+                                <rect key="frame" x="10" y="50" width="394" height="539.33333333333337"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-13-bJU" customClass="DesignableImageView" customModule="Spring">
                                         <rect key="frame" x="62" y="0.0" width="270" height="270"/>
@@ -1187,7 +1190,7 @@
         <!--Ads-->
         <scene sceneID="IWg-Ku-ift">
             <objects>
-                <viewController title="Ads" id="hpy-8Z-ows" customClass="GADViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Ads" id="hpy-8Z-ows" customClass="GADViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8e9-lS-tW2"/>
                         <viewControllerLayoutGuide type="bottom" id="doq-SC-uqU"/>
@@ -1215,7 +1218,7 @@
         <!--Interstitial-->
         <scene sceneID="YOL-Kp-hvC">
             <objects>
-                <viewController title="Interstitial" id="542-aX-Fhh" customClass="GADViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Interstitial" id="542-aX-Fhh" customClass="GADViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3dW-YR-HR0"/>
                         <viewControllerLayoutGuide type="bottom" id="2B4-jo-KDh"/>
@@ -1257,9 +1260,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="s8Z-GI-tjN"/>
         <segue reference="91V-p6-PRr"/>
-        <segue reference="LpR-YC-hxA"/>
-        <segue reference="gxt-Ll-4Kg"/>
         <segue reference="DCv-eO-Ujz"/>
+        <segue reference="nn4-G8-Q4v"/>
+        <segue reference="gxt-Ll-4Kg"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
