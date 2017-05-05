@@ -110,7 +110,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                 if let objects = objects {
                     for message in objects {
                       
-                        if self.senders.contains(message["senderName"] as! String) {
+                        if self.senders.contains(message["senderName"] as! String){
                         
                         } else {
                         

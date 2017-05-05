@@ -176,6 +176,10 @@ class ViewController: UIViewController {
         loginOrSignup.setTitle("Log In", for: [])
         
         submitButton.setTitle("Sign Up", for: [])
+        
+        commonActionSheet(title: "Terms of Use", message: "Noir Open Beta. By clicking 'OK' you are agreeing to and understand the following terms of use, valid during the course of this beta test. Noir's goal is to recreate the inclusive environment of the Black nightclubs in 1920's Harlem. The Harlem Nightclubs catered to people of color but everyone was welcome. They were one of the few places where people of color were able to enter through the front door and have services tailored specifically to them. All were welcome, but everyone knew the deal. As such, racism, racist language and blatant discrimination will not be tolerated. That said, make no mistake, this is a home for gay people of color. It is a place for us to meet each other, mingle with each other and stay in touch with each other. The following rules are in Affect: No Nudity on public images. No Discriminatory language such as 'No, <insert race/religion/bodytype here>'. No Harassament. Please report ANY profiles that are participating in trolling, cyber bullying, cyber stalking, or discriminatory language. Otherwise, enjoy your time here on Noir, Mobile Dating for Gay People of Color.")
+        
+        
     }
     
     func signUpUser() {
@@ -414,6 +418,16 @@ class ViewController: UIViewController {
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
+    }
+    
+    func commonActionSheet(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func dialogueBox(title:String, messageText:String ){

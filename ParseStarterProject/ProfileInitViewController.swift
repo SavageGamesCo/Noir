@@ -50,15 +50,22 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet var userBodyTextField: UITextField!
     
     @IBAction func logoutClicked(_ sender: Any) {
-        PFUser.current()?["online"] = false
-        
-        PFUser.current()?.saveInBackground()
-        
-        PFUser.logOut()
+        if PFUser.current()?["online"] as! Bool == true {
+            
+            PFUser.current()?["online"] = false
+            
+            PFUser.current()?.saveInBackground(block: {(success, error) in
+                if error != nil {
+                    print(error!)
+                } else {
+                    PFUser.logOut()
+                    
+                    self.performSegue(withIdentifier: "LogInScreen", sender: self)
+                }
+            })
+        }
         
         //        currentUser = PFUser.current()!.username
-        
-        performSegue(withIdentifier: "LogInScreen", sender: self)
     }
     
     var activityIndicater = UIActivityIndicatorView()
