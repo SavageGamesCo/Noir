@@ -519,6 +519,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         alert.addAction(cancel)
         
+        alert.popoverPresentationController?.sourceView = view
+        
         present(alert, animated: true, completion: nil)
     }
     

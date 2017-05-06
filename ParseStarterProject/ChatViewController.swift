@@ -29,6 +29,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     let inComingColor = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
     let bkgColor = UIColor(colorLiteralRed: 0.224, green: 0.224, blue: 0.223, alpha: 1.0)
 
+    @IBOutlet var MainView: UIView!
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -356,6 +357,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         //alert.addAction(camera)
         alert.addAction(cancel)
         
+        alert.popoverPresentationController?.sourceView = view
+        
         present(alert, animated: true, completion: nil)
         
     }
@@ -500,6 +503,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         
         alert.addAction(cancel)
+        
+        alert.popoverPresentationController?.sourceView = view
         
         present(alert, animated: true, completion: nil)
     }

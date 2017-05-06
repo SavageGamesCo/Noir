@@ -141,6 +141,7 @@ class ViewController: UIViewController {
     }
     
     func LoginMode(){
+        
         logInModeGreeting.isHidden = false
         logInModeEmailTextField.isHidden = false
         logInModePasswordTextField.isHidden = false
@@ -429,6 +430,8 @@ class ViewController: UIViewController {
         let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         
         alert.addAction(cancel)
+        
+        alert.popoverPresentationController?.sourceView = view
         
         present(alert, animated: true, completion: nil)
     }
