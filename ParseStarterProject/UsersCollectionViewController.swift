@@ -20,6 +20,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     @IBOutlet var UserTableView: UICollectionView!
     
+    @IBOutlet weak var navTitle: UINavigationItem!
     var usernames = [String]()
     var userID = [String]()
     var online = [String]()
@@ -229,6 +230,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
         switch showUser {
         case "AUser":
+            self.navTitle.title = "Global"
+
             let query = PFUser.query()
             
             query?.whereKey("online", equalTo: true as NSNumber)
@@ -274,6 +277,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             })
             break
         case "LUser":
+            self.navTitle.title = "Local"
+
             let query = PFUser.query()
             //Show Local Users
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
@@ -324,6 +329,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             }
             break
         case "Fave":
+            self.navTitle.title = "Favorites"
+
             let query = PFUser.query()
             //Show Favorites
             query?.findObjectsInBackground(block: {(objects, error) in
@@ -377,6 +384,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             
             break
         case "Flirts":
+            self.navTitle.title = "Flirts"
+
             let query = PFUser.query()
             //Show Favorites
             query?.findObjectsInBackground(block: {(objects, error) in
@@ -430,6 +439,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             
             break
         default:
+            self.navTitle.title = "Noir"
             break
         }
         

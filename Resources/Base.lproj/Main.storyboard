@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -504,7 +505,7 @@
                                 </constraints>
                             </stackView>
                             <imageView autoresizesSubviews="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="nxH-a0-kSC" customClass="DesignableImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="20" width="480.66666666666669" height="317"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="273"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nxH-a0-kSC" secondAttribute="height" multiplier="138:91" id="sc5-35-5Oe"/>
@@ -535,7 +536,6 @@
                             <constraint firstItem="ucV-B6-GUC" firstAttribute="leading" secondItem="npx-EC-KNG" secondAttribute="leading" id="bDj-Ey-Hy5"/>
                             <constraint firstItem="UTr-pr-O5D" firstAttribute="top" secondItem="ucV-B6-GUC" secondAttribute="bottom" id="fYN-Lo-oI9"/>
                             <constraint firstAttribute="trailing" secondItem="ucV-B6-GUC" secondAttribute="trailing" id="vXN-Cp-c4V"/>
-                            <constraint firstItem="nxH-a0-kSC" firstAttribute="top" secondItem="MPh-jo-UnJ" secondAttribute="bottom" id="wbg-dp-Y7k"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -688,11 +688,14 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Noir" id="yfP-b7-lme">
-                        <barButtonItem key="leftBarButtonItem" image="gear-7.png" id="dUx-VM-ghV">
-                            <connections>
-                                <segue destination="nbz-Qi-FUC" kind="show" id="dbx-4a-p2Z"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem image="gear-7.png" id="dUx-VM-ghV">
+                                <connections>
+                                    <segue destination="nbz-Qi-FUC" kind="show" id="dbx-4a-p2Z"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="shopping-cart-7.png" id="Jn7-Vf-sSR"/>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="heart-7.png" style="plain" id="oa5-XN-7XG">
                             <connections>
                                 <action selector="flirtsClicked:" destination="ijc-SN-gV4" id="6o7-1j-8xW"/>
@@ -702,6 +705,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="UserTableView" destination="blK-Zg-EfE" id="qQu-Ea-fRv"/>
+                        <outlet property="navTitle" destination="yfP-b7-lme" id="zfn-h5-kFa"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogInScreen" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="AQS-Bi-6uX"/>
                         <segue destination="Ypb-KF-sBj" kind="show" identifier="toUserDetails" id="rbA-RT-zmT"/>
                         <segue destination="q6t-Rn-sQd" kind="show" identifier="toMsgList" id="gxt-Ll-4Kg"/>
@@ -1261,14 +1265,15 @@
         <image name="noir_big_logo.png" width="865" height="378"/>
         <image name="photo-7.png" width="30" height="30"/>
         <image name="pin-map-7.png" width="30" height="30"/>
+        <image name="shopping-cart-7.png" width="30" height="30"/>
         <image name="star-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AaL-5j-Oxz"/>
+        <segue reference="nn4-G8-Q4v"/>
+        <segue reference="DCv-eO-Ujz"/>
+        <segue reference="AQS-Bi-6uX"/>
         <segue reference="dbx-4a-p2Z"/>
         <segue reference="gxt-Ll-4Kg"/>
-        <segue reference="AQS-Bi-6uX"/>
-        <segue reference="DCv-eO-Ujz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

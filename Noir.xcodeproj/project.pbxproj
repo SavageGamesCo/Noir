@@ -22,6 +22,8 @@
 		B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */; };
 		B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71402061EAA8030008E6CFB /* ProfileViewController.swift */; };
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
+		B7C829181EBE877500EFE93D /* shop-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C829171EBE877500EFE93D /* shop-7.png */; };
+		B7C8291A1EBE878700EFE93D /* shopping-cart-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C829191EBE878700EFE93D /* shopping-cart-7.png */; };
 		B7D9CE3D1EBB83E2007236A7 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE291EBB83E2007236A7 /* Contents.json */; };
 		B7D9CE3E1EBB83E2007236A7 /* Icon-App-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE2A1EBB83E2007236A7 /* Icon-App-20x20@1x.png */; };
 		B7D9CE3F1EBB83E2007236A7 /* Icon-App-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE2B1EBB83E2007236A7 /* Icon-App-20x20@2x.png */; };
@@ -98,6 +100,8 @@
 		B71402061EAA8030008E6CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B778BBDD1EBCD409002EE330 /* ParseStarterProject-Swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ParseStarterProject-Swift.entitlements"; sourceTree = "<group>"; };
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B7C829171EBE877500EFE93D /* shop-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shop-7.png"; path = "../../../../../../Volumes/lynx/Desktop/iconbeast-lite-200 2/iconbeast lite 200 - png/shop-7.png"; sourceTree = "<group>"; };
+		B7C829191EBE878700EFE93D /* shopping-cart-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shopping-cart-7.png"; path = "../../../../../../Volumes/lynx/Desktop/iconbeast-lite-200 2/iconbeast lite 200 - png/shopping-cart-7.png"; sourceTree = "<group>"; };
 		B7D9CE291EBB83E2007236A7 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		B7D9CE2A1EBB83E2007236A7 /* Icon-App-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@1x.png"; sourceTree = "<group>"; };
 		B7D9CE2B1EBB83E2007236A7 /* Icon-App-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@2x.png"; sourceTree = "<group>"; };
@@ -292,6 +296,7 @@
 				B7E5A3E71EB28056007E9620 /* heart-7.png */,
 				B7E5A3F31EB287C7007E9620 /* thumb-up-7.png */,
 				B7E5A3EF1EB28190007E9620 /* list-simple-star-7.png */,
+				B7C829191EBE878700EFE93D /* shopping-cart-7.png */,
 				B7E5A4051EB28978007E9620 /* bin-7.png */,
 				B7E5A4031EB2893E007E9620 /* circle-x-7.png */,
 				B7E5A3ED1EB280DF007E9620 /* earth-america-7.png */,
@@ -300,6 +305,7 @@
 				B7E5A3F51EB287E1007E9620 /* star-7.png */,
 				B7E5A3FB1EB288CB007E9620 /* gear-7.png */,
 				B7E5A3EB1EB28081007E9620 /* pin-map-7.png */,
+				B7C829171EBE877500EFE93D /* shop-7.png */,
 				B7E5A4011EB28926007E9620 /* crown-7.png */,
 				B7E5A3E91EB28066007E9620 /* message-7.png */,
 				B7FAF5551EA707650044B07B /* background_gradient.png */,
@@ -393,9 +399,11 @@
 				B7E5A3E81EB28056007E9620 /* heart-7.png in Resources */,
 				B7D9CE3D1EBB83E2007236A7 /* Contents.json in Resources */,
 				B7FAF55B1EA707650044B07B /* noir_big_logo.png in Resources */,
+				B7C8291A1EBE878700EFE93D /* shopping-cart-7.png in Resources */,
 				B7D9CE4D1EBB83E2007236A7 /* Icon-App-76x76@1x.png in Resources */,
 				B7FAF5591EA707650044B07B /* background_gradient.png in Resources */,
 				B7D9CE501EBB83E2007236A7 /* Icon-App-83.5x83.5@2x.png in Resources */,
+				B7C829181EBE877500EFE93D /* shop-7.png in Resources */,
 				B7E5A3F21EB2878C007E9620 /* write-simple-7.png in Resources */,
 				B7FAF55C1EA707650044B07B /* noir_nav_logo.png in Resources */,
 				B7D9CE4C1EBB83E2007236A7 /* Icon-App-60x60@3x.png in Resources */,
