@@ -8,15 +8,16 @@
 //
 
 import UIKit
-import Parse
-import Firebase
+
+
 import GoogleMobileAds
+
 
 private let reuseIdentifier = "Cell"
 
 
 
-class UsersCollectionViewController: UICollectionViewController, UIToolbarDelegate {
+class UsersCollectionViewController: UICollectionViewController, UIToolbarDelegate, FetchData {
     
     @IBOutlet var UserTableView: UICollectionView!
     
@@ -24,6 +25,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var usernames = [String]()
     var userID = [String]()
     var online = [String]()
+    
+    var members = [Member]()
     
     var withinDistance = 10
     
@@ -134,6 +137,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Database.Instance.delegate = self
+        
         commonActionSheet(title: "Safety Statement", message: "Please be careful when meeting people from the internet in real life. Practice basic safety such as meeting in public, informing someone you trust of your whereabouts. Practice safety at all times. Be sure to ask the pertinent questions before engaging in risky behavior.")
         
         UserTableView.refreshControl = refreshControl
@@ -142,7 +147,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.lusrClicked(_:)), for: .touchDown)
         refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.favsClicked(_:)), for: .touchDown)
         
-                geoPoint()
+        geoPoint()
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
 
@@ -152,15 +157,27 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         UserView()
         // Do any additional setup after loading the view.
 
-       self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         self.createAndLoadInterstitial()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func dataReceived(members: [Member]) {
         
-        geoPoint()
+        self.members = members
+        print("DataReceived")
+        
+        for member in members {
+            if member.userID == Authentication.Instance.userID() {
+               Authentication.Instance.username = member.username
+            }
+        }
+        
+        UserTableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -168,8 +185,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        geoPoint()
+
         
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
         
@@ -195,15 +211,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     func geoPoint(){
         
-        PFGeoPoint.geoPointForCurrentLocation(inBackground: {(geopoint, error) in
-            
-            print(geopoint!)
-            if let geopoint = geopoint {
-                PFUser.current()?["location"] = geopoint
-                
-                PFUser.current()?.saveInBackground()
-            }
-        })
+        
 
     }
     
@@ -232,214 +240,36 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         case "AUser":
             self.navTitle.title = "Global"
 
-            let query = PFUser.query()
+            Database.Instance.getMembers()
             
-            query?.whereKey("online", equalTo: true as NSNumber)
-            //Show All Users
-            query?.findObjectsInBackground(block: {(objects, error) in
-                
-                if error != nil {
-                    print(error!)
-                } else if let users = objects {
-                    
-                    self.usernames.removeAll()
-                    self.userID.removeAll()
-                    self.images.removeAll()
-                    self.online.removeAll()
-                    
-                    self.UserTableView.reloadData()
-                    
-                    for object in users {
-                        if let user = object as? PFUser {
-                            
-                            
-                            let imageFile = user["mainPhoto"] as! PFFile
-                            
-                            imageFile.getDataInBackground(block: {(data, error) in
-                                
-                                if let imageData = data {
-                                    self.images.append(UIImage(data: imageData)!)
-                                    
-                                    self.usernames.append(user.username!)
-                                    self.userID.append(user.objectId!)
-                                    self.online.append(user.objectId!)
-                                    
-                                    self.UserTableView.reloadData()
-                                }
-                            })
+            print(members)
 
-                            
-                            
-                        }
-                    }
-                }
-                
-            })
             break
         case "LUser":
             self.navTitle.title = "Local"
+            
+            Database.Instance.getMembers()
 
-            let query = PFUser.query()
-            //Show Local Users
-            if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
-                if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
-                    
-                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(self.withinDistance))
-                    query?.whereKey("online", equalTo: true as NSNumber)
-                    
-                    query?.findObjectsInBackground(block: {(objects, error) in
-                        
-                        if error != nil {
-                            print(error!)
-                        } else if let users = objects {
-                            
-                            self.usernames.removeAll()
-                            self.userID.removeAll()
-                            self.images.removeAll()
-                            self.online.removeAll()
-                            
-                            self.UserTableView.reloadData()
-                            
-                            for object in users {
-                                if let user = object as? PFUser {
-                                    
-                                    
-                                    let imageFile = user["mainPhoto"] as! PFFile
-                                    
-                                    imageFile.getDataInBackground(block: {(data, error) in
-                                        
-                                        if let imageData = data {
-                                            self.images.append(UIImage(data: imageData)!)
-                                            
-                                            self.usernames.append(user.username!)
-                                            self.userID.append(user.objectId!)
-                                            self.online.append(user.objectId!)
-                                            
-                                            
-                                            self.UserTableView.reloadData()
-                                        }
-                                    })
-                                    
-                                }
-                            }
-                        }
-                      
-                    })
-                }
-            }
             break
         case "Fave":
             self.navTitle.title = "Favorites"
+            
+            Database.Instance.getMembers()
 
-            let query = PFUser.query()
-            //Show Favorites
-            query?.findObjectsInBackground(block: {(objects, error) in
-                
-                if error != nil {
-                    print(error!)
-                } else if let users = objects {
-                    
-                    
-                    self.usernames.removeAll()
-                    self.userID.removeAll()
-                    self.images.removeAll()
-                    self.online.removeAll()
-
-                    
-                    for object in users {
-                        if let user = object as? PFUser {
-                            
-                            if let favoriteUsers = PFUser.current()?["favorites"] {
-                                if (favoriteUsers as AnyObject).contains(user.objectId! as String!){
-                                    
-                                    let imageFile = user["mainPhoto"] as! PFFile
-                                    
-                                    imageFile.getDataInBackground(block: {(data, error) in
-                                        
-                                        if let imageData = data {
-                                            self.images.append(UIImage(data: imageData)!)
-                                            
-                                            self.usernames.append(user.username!)
-                                            self.userID.append(user.objectId!)
-                                            
-                                            if user["online"] as! Bool {
-                                                self.online.append(user.objectId!)
-                                            } else {
-//                                                self.online.append("offline")
-                                            }
-                                            
-                                            self.UserTableView.reloadData()
-                                            
-                                        }
-                                    })
-                                    
-                                }
-                                
-                            }
-                        }
-                    }
-                }
-                
-            })
             
             break
         case "Flirts":
             self.navTitle.title = "Flirts"
+            
+            Database.Instance.getMembers()
 
-            let query = PFUser.query()
-            //Show Favorites
-            query?.findObjectsInBackground(block: {(objects, error) in
-                
-                if error != nil {
-                    print(error!)
-                } else if let users = objects {
-                    
-                    self.usernames.removeAll()
-                    self.userID.removeAll()
-                    self.images.removeAll()
-                    self.online.removeAll()
-                    
-                    self.UserTableView.reloadData()
-                    
-                    for object in users {
-                        if let user = object as? PFUser {
-                            
-                            if let userFlirts = user["flirt"] {
-                                if (userFlirts as AnyObject).contains(PFUser.current()?.objectId! as String!){
-                                    
-                                    let imageFile = user["mainPhoto"] as! PFFile
-                                    
-                                    imageFile.getDataInBackground(block: {(data, error) in
-                                        
-                                        if let imageData = data {
-                                            self.images.append(UIImage(data: imageData)!)
-                                            
-                                            self.usernames.append(user.username!)
-                                            self.userID.append(user.objectId!)
-                                            
-                                            if user["online"] as! Bool {
-                                                self.online.append(user.objectId!)
-                                            } else {
-                                                //                                                self.online.append("offline")
-                                            }
-                                            
-                                            self.UserTableView.reloadData()
-                                            
-                                        }
-                                    })
-                                    
-                                }
-                                
-                            }
-                        }
-                    }
-                }
-                
-            })
             
             break
         default:
             self.navTitle.title = "Noir"
+            
+            Database.Instance.getMembers()
+            
             break
         }
         
@@ -465,24 +295,25 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return images.count
+        return members.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UsersCollectionViewCell
         
-        cell.ProfilePics.image = images[indexPath.item]
+        cell.ProfilePics.image = nil
         
-        cell.userID = userID[indexPath.item]
+        cell.userID = members[indexPath.item].userID
         
-        cell.userName.text = usernames[indexPath.item]
+        cell.userName.text = members[indexPath.item].username
         
-        if online.contains(cell.userID) {
-            cell.ProfilePics.layer.borderColor = onlineColor.cgColor
-        } else {
-            cell.ProfilePics.layer.borderColor = offlineColor.cgColor
-            
-        }
+        
+//        if online.contains(cell.userID) {
+//            cell.ProfilePics.layer.borderColor = onlineColor.cgColor
+//        } else {
+//            cell.ProfilePics.layer.borderColor = offlineColor.cgColor
+//            
+//        }
         
         cell.layer.shadowOpacity = 0.6
         cell.layer.shadowRadius = 2

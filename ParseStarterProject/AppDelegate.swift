@@ -9,8 +9,6 @@
 
 import UIKit
 
-import Parse
-
 import Firebase
 
 import GoogleMobileAds
@@ -29,18 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //--------------------------------------
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
-        Parse.enableLocalDatastore()
+        //Parse.enableLocalDatastore()
         
-        let parseConfiguration = ParseClientConfiguration(block: { (ParseMutableClientConfiguration) -> Void in
-            ParseMutableClientConfiguration.applicationId = "03b20bffa0ad3b38f8c231e50bf10dddbf10bf5b"
-            ParseMutableClientConfiguration.clientKey = "b5e23c00eca0ae2c787fec4f8ef09c68bdea6426"
-            ParseMutableClientConfiguration.server = "http://ec2-35-166-115-178.us-west-2.compute.amazonaws.com:80/parse"
-        })
-        
-        Parse.initialize(with: parseConfiguration)
-
+//        let parseConfiguration = ParseClientConfiguration(block: { (ParseMutableClientConfiguration) -> Void in
+//            ParseMutableClientConfiguration.applicationId = "03b20bffa0ad3b38f8c231e50bf10dddbf10bf5b"
+//            ParseMutableClientConfiguration.clientKey = "b5e23c00eca0ae2c787fec4f8ef09c68bdea6426"
+//            ParseMutableClientConfiguration.server = "http://ec2-35-166-115-178.us-west-2.compute.amazonaws.com:80/parse"
+//        })
+//        
+//        Parse.initialize(with: parseConfiguration)
+//
 
         // ****************************************************************************
         // Uncomment and fill in with your Parse credentials:
@@ -54,12 +53,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //PFUser.enableAutomaticUser()
 
-        let defaultACL = PFACL();
+//        let defaultACL = PFACL();
 
         // If you would like all objects to be private by default, remove this line.
-        defaultACL.getPublicReadAccess = true
+//        defaultACL.getPublicReadAccess = true
 
-        PFACL.setDefault(defaultACL, withAccessForCurrentUser: true)
+//        PFACL.setDefault(defaultACL, withAccessForCurrentUser: true)
 
         if application.applicationState != UIApplicationState.background {
             // Track an app open here if we launch with a push, unless
@@ -114,33 +113,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //--------------------------------------
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let installation = PFInstallation.current()
-        installation.setDeviceTokenFrom(deviceToken)
-        installation.saveInBackground()
-
-        PFPush.subscribeToChannel(inBackground: "") { (succeeded, error) in // (succeeded: Bool, error: NSError?) is now (succeeded, error)
-
-            if succeeded {
-                print("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.\n");
-            } else {
-                print("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.\n", error)
-            }
-        }
+//        let installation = PFInstallation.current()
+//        installation.setDeviceTokenFrom(deviceToken)
+//        installation.saveInBackground()
+//
+//        PFPush.subscribeToChannel(inBackground: "") { (succeeded, error) in // (succeeded: Bool, error: NSError?) is now (succeeded, error)
+//
+//            if succeeded {
+//                print("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.\n");
+//            } else {
+//                print("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.\n", error)
+//            }
+//        }
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        if error.code == 3010 {
-            print("Push notifications are not supported in the iOS Simulator.\n")
-        } else {
-            print("application:didFailToRegisterForRemoteNotificationsWithError: %@\n", error)
-        }
+//        if error.code == 3010 {
+//            print("Push notifications are not supported in the iOS Simulator.\n")
+//        } else {
+//            print("application:didFailToRegisterForRemoteNotificationsWithError: %@\n", error)
+//        }
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        PFPush.handle(userInfo)
-        if application.applicationState == UIApplicationState.inactive {
-            PFAnalytics.trackAppOpened(withRemoteNotificationPayload: userInfo)
-        }
+//        PFPush.handle(userInfo)
+//        if application.applicationState == UIApplicationState.inactive {
+//            PFAnalytics.trackAppOpened(withRemoteNotificationPayload: userInfo)
+//        }
     }
 
     ///////////////////////////////////////////////////////////

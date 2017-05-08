@@ -21,6 +21,10 @@
 		B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BE63C1EAE9ED600A6729F /* GADViewController.swift */; };
 		B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */; };
 		B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71402061EAA8030008E6CFB /* ProfileViewController.swift */; };
+		B77452C81EC0C3D100E096D1 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77452C71EC0C3D100E096D1 /* Authentication.swift */; };
+		B77452CA1EC0DCA300E096D1 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77452C91EC0DCA300E096D1 /* Database.swift */; };
+		B77452CC1EC0E0A400E096D1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77452CB1EC0E0A400E096D1 /* Constants.swift */; };
+		B77452CF1EC0EADF00E096D1 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77452CE1EC0EADF00E096D1 /* Member.swift */; };
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
 		B7C829181EBE877500EFE93D /* shop-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C829171EBE877500EFE93D /* shop-7.png */; };
 		B7C8291A1EBE878700EFE93D /* shopping-cart-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C829191EBE878700EFE93D /* shopping-cart-7.png */; };
@@ -75,9 +79,11 @@
 		B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF55D1EA7CF010044B07B /* UsersCollectionViewController.swift */; };
 		B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */; };
 		B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */; };
+		D44DE4547BD12DFCFF970CED /* Pods_Noir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97992D78317D04265DE5723 /* Pods_Noir.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		464E6CF07B9DAFC3BD7DD176 /* Pods-Noir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noir.release.xcconfig"; path = "Pods/Target Support Files/Pods-Noir/Pods-Noir.release.xcconfig"; sourceTree = "<group>"; };
 		494AF7283E9E6AAB696EF8C1 /* Pods-ParseStarterProject-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParseStarterProject-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift.release.xcconfig"; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -94,10 +100,15 @@
 		81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81BA81801A49E10C00E65899 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		901E471E12D617052CB7DFDE /* Pods-ParseStarterProject-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParseStarterProject-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		953F0B5F305387270A8AECC5 /* Pods-Noir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noir.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Noir/Pods-Noir.debug.xcconfig"; sourceTree = "<group>"; };
 		AD8062C7FF338BC70799BCB2 /* Pods_ParseStarterProject_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ParseStarterProject_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70BE63C1EAE9ED600A6729F /* GADViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GADViewController.swift; sourceTree = "<group>"; };
 		B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B71402061EAA8030008E6CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B77452C71EC0C3D100E096D1 /* Authentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		B77452C91EC0DCA300E096D1 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		B77452CB1EC0E0A400E096D1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B77452CE1EC0EADF00E096D1 /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		B778BBDD1EBCD409002EE330 /* ParseStarterProject-Swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ParseStarterProject-Swift.entitlements"; sourceTree = "<group>"; };
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B7C829171EBE877500EFE93D /* shop-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shop-7.png"; path = "../../../../../../Volumes/lynx/Desktop/iconbeast-lite-200 2/iconbeast lite 200 - png/shop-7.png"; sourceTree = "<group>"; };
@@ -153,6 +164,7 @@
 		B7FAF55D1EA7CF010044B07B /* UsersCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewController.swift; sourceTree = "<group>"; };
 		B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewCell.swift; sourceTree = "<group>"; };
+		D97992D78317D04265DE5723 /* Pods_Noir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Noir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +180,7 @@
 				81BA81711A49DB6800E65899 /* Parse.framework in Frameworks */,
 				81BA81701A49DB6800E65899 /* Bolts.framework in Frameworks */,
 				A82C914F081165F40870C495 /* Pods_ParseStarterProject_Swift.framework in Frameworks */,
+				D44DE4547BD12DFCFF970CED /* Pods_Noir.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +192,8 @@
 			children = (
 				901E471E12D617052CB7DFDE /* Pods-ParseStarterProject-Swift.debug.xcconfig */,
 				494AF7283E9E6AAB696EF8C1 /* Pods-ParseStarterProject-Swift.release.xcconfig */,
+				953F0B5F305387270A8AECC5 /* Pods-Noir.debug.xcconfig */,
+				464E6CF07B9DAFC3BD7DD176 /* Pods-Noir.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -216,6 +231,8 @@
 		81BA81471A49DA1800E65899 /* ParseStarterProject */ = {
 			isa = PBXGroup;
 			children = (
+				B77452CD1EC0E22F00E096D1 /* Util */,
+				B77452C61EC0C3AC00E096D1 /* HelperClasses */,
 				B7FAF5541EA707650044B07B /* noirImages */,
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
@@ -231,7 +248,6 @@
 				B71402061EAA8030008E6CFB /* ProfileViewController.swift */,
 				B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */,
 				B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */,
-				B7EDF1D41EBA33D6003D013B /* MessagesHandler.swift */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -246,6 +262,7 @@
 				81BA81801A49E10C00E65899 /* ParseUI.framework */,
 				81BA81751A49E0C500E65899 /* System Frameworks */,
 				AD8062C7FF338BC70799BCB2 /* Pods_ParseStarterProject_Swift.framework */,
+				D97992D78317D04265DE5723 /* Pods_Noir.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -259,6 +276,25 @@
 				81BA81761A49E0D500E65899 /* libsqlite3.dylib */,
 			);
 			name = "System Frameworks";
+			sourceTree = "<group>";
+		};
+		B77452C61EC0C3AC00E096D1 /* HelperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				B7EDF1D41EBA33D6003D013B /* MessagesHandler.swift */,
+				B77452C71EC0C3D100E096D1 /* Authentication.swift */,
+				B77452C91EC0DCA300E096D1 /* Database.swift */,
+				B77452CE1EC0EADF00E096D1 /* Member.swift */,
+			);
+			name = HelperClasses;
+			sourceTree = "<group>";
+		};
+		B77452CD1EC0E22F00E096D1 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B77452CB1EC0E0A400E096D1 /* Constants.swift */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 		B7D9CE281EBB83E2007236A7 /* AppIcon2.appiconset */ = {
@@ -456,7 +492,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Noir/Pods-Noir-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9E3FFC994FC6FD36B0535975 /* [CP] Check Pods Manifest.lock */ = {
@@ -486,7 +522,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Noir/Pods-Noir-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -500,6 +536,8 @@
 				B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */,
 				B7EDF1D31EBA1023003D013B /* ChatViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
+				B77452C81EC0C3D100E096D1 /* Authentication.swift in Sources */,
+				B77452CC1EC0E0A400E096D1 /* Constants.swift in Sources */,
 				B7FAF5531EA6DF8E0044B07B /* ProfileInitViewController.swift in Sources */,
 				B7EDF1CB1EB972EE003D013B /* MessageListTableViewController.swift in Sources */,
 				B7EDF1D51EBA33D6003D013B /* MessagesHandler.swift in Sources */,
@@ -507,7 +545,9 @@
 				B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */,
 				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,
 				B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */,
+				B77452CA1EC0DCA300E096D1 /* Database.swift in Sources */,
 				B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */,
+				B77452CF1EC0EADF00E096D1 /* Member.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,7 +654,7 @@
 		};
 		81BA81651A49DA1800E65899 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 901E471E12D617052CB7DFDE /* Pods-ParseStarterProject-Swift.debug.xcconfig */;
+			baseConfigurationReference = 953F0B5F305387270A8AECC5 /* Pods-Noir.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ParseStarterProject-Swift.entitlements";
@@ -635,7 +675,7 @@
 		};
 		81BA81661A49DA1800E65899 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 494AF7283E9E6AAB696EF8C1 /* Pods-ParseStarterProject-Swift.release.xcconfig */;
+			baseConfigurationReference = 464E6CF07B9DAFC3BD7DD176 /* Pods-Noir.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ParseStarterProject-Swift.entitlements";

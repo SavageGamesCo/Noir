@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import Parse
+import FirebaseDatabase
+import FirebaseStorage
 
 protocol MessageReceivedDelegate: class {
     
-    func messageReceived(senderID: String, text: String, messageID: String)
+    func messageReceived(senderID: String, senderName: String, text: String)
     
     
 }
@@ -31,27 +32,9 @@ class MessagesHandler {
     
     func sendMessage(senderID: String, senderName: String, toUser: String, toUserName: String, text: String) {
         
-        let chat = PFObject(className: "Chat")
+        let data: Dictionary <String, Any> = [Constants.SENDER_ID: senderID, Constants.SENDER_NAME: senderName, Constants.TO_MEMBER_NAME: toUserName, Constants.TO_MEMBER_ID: toUser, Constants.TEXT: text]
         
-        chat["senderID"] = senderID
-        chat["senderName"] = senderName
-        chat["text"] = text
-        chat["url"] = ""
-        chat["toUser"] = toUser
-        chat["toUserName"] = toUserName
-        
-        
-        //let chatData : Dictionary<String, Any> = ["senderId": senderID, "senderName": senderName, "text": text]
-        
-        chat.saveInBackground { (success, error) in
-            
-            if error != nil {
-                print(error!)
-            } else {
-                
-            }
-            
-        }
+        Database.Instance.messagesRef.childByAutoId().setValue(data)
         
     }
     
@@ -81,14 +64,19 @@ class MessagesHandler {
     }
     
     func observeMessages(){
-        let chat = PFObject(className: "Chat")
-        
-        if let senderID = chat["senderID"] as? String {
-            if let text = chat["text"] as? String {
-                if let messageID = chat.objectId {
-                    self.delegate?.messageReceived(senderID: senderID, text: text, messageID: messageID)
+        Database.Instance.messagesRef.observe(FIRDataEventType.childAdded) {
+            (snapshot: FIRDataSnapshot ) in
+            
+            if let data = snapshot.value as? NSDictionary {
+                if let senderID = data[Constants.SENDER_ID] as? String {
+                    if let senderName = data[Constants.SENDER_NAME] as? String {
+                        if let text = data[Constants.TEXT] as? String {
+                            self.delegate?.messageReceived(senderID: senderID, senderName: senderName, text: text)
+                        }
+                    }
                 }
             }
+            
         }
         
     }

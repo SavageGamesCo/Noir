@@ -7,8 +7,10 @@
 //
 
 import UIKit
-import Parse
 import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 import GoogleMobileAds
 
 class UserDetailViewController: UIViewController, UINavigationControllerDelegate {
@@ -28,6 +30,8 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     
     @IBOutlet weak var blockButton: UIBarButtonItem!
     @IBOutlet var navBarItem: UINavigationItem!
+    
+    let currentUser = FIRAuth.auth()?.currentUser
     
     var favorite = Bool()
     
@@ -52,70 +56,66 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
         if favorite == true {
             
-            PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "favorites")
             
-            PFUser.current()?.saveInBackground(block: {(success, error) in
-                
-            })
             
-            let query = PFUser.query()
-            
-            query?.findObjectsInBackground(block: { (objects, error) in
-                if error != nil {
-                    
-                } else if let users = objects {
-                    for object in users {
-                        if let user = object as? PFUser {
-                            if let favorites = PFUser.current()?["favorites"] {
-                                if (favorites as AnyObject).contains(displayedUserID as String!) {
-                                    self.favorite = true
-//                                    self.favoriteButton.title = "UnFavorite"
-                                    self.favoriteButton.tintColor = self.green
-                                    
-                                } else {
-                                    self.favorite = false
-//                                    self.favoriteButton.title = "Favorite"
-                                    self.favoriteButton.tintColor = self.tan
-                                }
-                            }
-                        }
-                    }
-                }
-            })
+//            let query = PFUser.query()
+//            
+//            query?.findObjectsInBackground(block: { (objects, error) in
+//                if error != nil {
+//                    
+//                } else if let users = objects {
+//                    for object in users {
+//                        if let user = object as? PFUser {
+//                            if let favorites = PFUser.current()?["favorites"] {
+//                                if (favorites as AnyObject).contains(displayedUserID as String!) {
+//                                    self.favorite = true
+////                                    self.favoriteButton.title = "UnFavorite"
+//                                    self.favoriteButton.tintColor = self.green
+//                                    
+//                                } else {
+//                                    self.favorite = false
+////                                    self.favoriteButton.title = "Favorite"
+//                                    self.favoriteButton.tintColor = self.tan
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            })
             
             favorite = false
         
         } else {
             
-            PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: "favorites")
-            
-            PFUser.current()?.saveInBackground(block: {(success, error) in
-                
-            })
-            
-            let query = PFUser.query()
-            
-            query?.findObjectsInBackground(block: { (objects, error) in
-                if error != nil {
-                    
-                } else if let users = objects {
-                    for object in users {
-                        if let user = object as? PFUser {
-                            if let favorites = PFUser.current()?["favorites"] {
-                                if (favorites as AnyObject).contains(displayedUserID as String!) {
-                                    self.favorite = true
-//                                    self.favoriteButton.title = "UnFavorite"
-                                    self.favoriteButton.tintColor = self.green
-                                } else {
-                                    self.favorite = false
-//                                    self.favoriteButton.title = "Favorite"
-                                    self.favoriteButton.tintColor = self.tan
-                                }
-                            }
-                        }
-                    }
-                }
-            })
+//            PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: "favorites")
+//            
+//            PFUser.current()?.saveInBackground(block: {(success, error) in
+//                
+//            })
+//            
+//            let query = PFUser.query()
+//            
+//            query?.findObjectsInBackground(block: { (objects, error) in
+//                if error != nil {
+//                    
+//                } else if let users = objects {
+//                    for object in users {
+//                        if let user = object as? PFUser {
+//                            if let favorites = PFUser.current()?["favorites"] {
+//                                if (favorites as AnyObject).contains(displayedUserID as String!) {
+//                                    self.favorite = true
+////                                    self.favoriteButton.title = "UnFavorite"
+//                                    self.favoriteButton.tintColor = self.green
+//                                } else {
+//                                    self.favorite = false
+////                                    self.favoriteButton.title = "Favorite"
+//                                    self.favoriteButton.tintColor = self.tan
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            })
             
             favorite = true
         
@@ -127,7 +127,7 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if displayedUserID == PFUser.current()?.objectId {
+        if displayedUserID == currentUser?.uid {
             chatButton.isEnabled = false
             blockButton.isEnabled = false
             favoriteButton.isEnabled = false
@@ -160,29 +160,29 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
         
 //        updateImage()
         
-        let query = PFUser.query()
-        
-        query?.findObjectsInBackground(block: { (objects, error) in
-            if error != nil {
-            
-            } else if let users = objects {
-                for object in users {
-                    if let user = object as? PFUser {
-                        if let favorites = PFUser.current()?["favorites"] {
-                            if (favorites as AnyObject).contains(displayedUserID as String!) {
-                                self.favorite = true
-//                                self.favoriteButton.title = "UnFavorite"
-                                self.favoriteButton.tintColor = self.green
-                            } else {
-                                self.favorite = false
-//                                self.favoriteButton.title = "Favorite"
-                                self.favoriteButton.tintColor = self.tan
-                            }
-                        }
-                    }
-                }
-            }
-        })
+//        let query = PFUser.query()
+//        
+//        query?.findObjectsInBackground(block: { (objects, error) in
+//            if error != nil {
+//            
+//            } else if let users = objects {
+//                for object in users {
+//                    if let user = object as? PFUser {
+//                        if let favorites = PFUser.current()?["favorites"] {
+//                            if (favorites as AnyObject).contains(displayedUserID as String!) {
+//                                self.favorite = true
+////                                self.favoriteButton.title = "UnFavorite"
+//                                self.favoriteButton.tintColor = self.green
+//                            } else {
+//                                self.favorite = false
+////                                self.favoriteButton.title = "Favorite"
+//                                self.favoriteButton.tintColor = self.tan
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        })
         
     
        profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.profileImage.center.y )
@@ -258,19 +258,19 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
             
             if tracking != "" && displayedUserID != "" && tracking != "unflirt" {
                 
-                PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: tracking)
+//                PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: tracking)
+//                
+//                PFUser.current()?.saveInBackground(block: {(success, error) in
+//                   
+//                })
                 
-                PFUser.current()?.saveInBackground(block: {(success, error) in
-                   
-                })
-                    
                 
             } else if tracking == "unflirt" {
-                PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "flirt")
-                
-                PFUser.current()?.saveInBackground(block: {(success, error) in
-                    
-                })
+//                PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "flirt")
+//                
+//                PFUser.current()?.saveInBackground(block: {(success, error) in
+//                    
+//                })
             }
             
             rotation = CGAffineTransform(rotationAngle: 0)
@@ -285,39 +285,39 @@ class UserDetailViewController: UIViewController, UINavigationControllerDelegate
     
     func updateImage() {
     
-        let query = PFUser.query()
-        
-        query?.whereKey("objectId", equalTo: displayedUserID)
-        
-      
-        query?.findObjectsInBackground(block: {(objects, error) in
-            if let users = objects {
-                for object in users {
-                    if let user = object as? PFUser {
-                        
-                            self.navBarItem.title = user.username
-                        
-                            let imageFile = user["mainPhoto"] as! PFFile
-                            
-                            imageFile.getDataInBackground(block: {(data, error) in
-                                
-                                if let imageData = data {
-                                    self.profileImage.image = UIImage(data: imageData)
-                                }
-                            })
-                            self.ageTag.text = user["age"] as? String
-                            self.ethnicityTag.text = user["ethnicity"] as? String
-                            self.maritalTag.text = user["marital"] as? String
-                            self.heightTag.text = user["height"] as? String
-                            self.weightTag.text = user["weight"] as? String
-                            self.bodyTag.text = user["body"] as? String
-                            self.about.text = user["about"] as? String
-                            self.username = user.username!
-                        
-                    }
-                }
-            }
-        })
+//        let query = PFUser.query()
+//        
+//        query?.whereKey("objectId", equalTo: displayedUserID)
+//        
+//      
+//        query?.findObjectsInBackground(block: {(objects, error) in
+//            if let users = objects {
+//                for object in users {
+//                    if let user = object as? PFUser {
+//                        
+//                            self.navBarItem.title = user.username
+//                        
+//                            let imageFile = user["mainPhoto"] as! PFFile
+//                            
+//                            imageFile.getDataInBackground(block: {(data, error) in
+//                                
+//                                if let imageData = data {
+//                                    self.profileImage.image = UIImage(data: imageData)
+//                                }
+//                            })
+//                            self.ageTag.text = user["age"] as? String
+//                            self.ethnicityTag.text = user["ethnicity"] as? String
+//                            self.maritalTag.text = user["marital"] as? String
+//                            self.heightTag.text = user["height"] as? String
+//                            self.weightTag.text = user["weight"] as? String
+//                            self.bodyTag.text = user["body"] as? String
+//                            self.about.text = user["about"] as? String
+//                            self.username = user.username!
+//                        
+//                    }
+//                }
+//            }
+//        })
         
         
         

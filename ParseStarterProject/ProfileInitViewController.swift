@@ -8,6 +8,9 @@
 
 import UIKit
 import Parse
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 var activeField: UITextField?
 
@@ -50,22 +53,12 @@ class ProfileInitViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet var userBodyTextField: UITextField!
     
     @IBAction func logoutClicked(_ sender: Any) {
-        if PFUser.current()?["online"] as! Bool == true {
-            
-            PFUser.current()?["online"] = false
-            
-            PFUser.current()?.saveInBackground(block: {(success, error) in
-                if error != nil {
-                    print(error!)
-                } else {
-                    PFUser.logOut()
-                    
-                    self.performSegue(withIdentifier: "LogInScreen", sender: self)
-                }
-            })
-        }
+        if Authentication.Instance.logout() {
+            dismiss(animated: true, completion: nil)
+            self.performSegue(withIdentifier: "toLogin", sender: self)
+        } else {
         
-        //        currentUser = PFUser.current()!.username
+        }
     }
     
     var activityIndicater = UIActivityIndicatorView()

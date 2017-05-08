@@ -8,14 +8,13 @@
 */
 
 import UIKit
-import Parse
-import Firebase
+import FirebaseAuth
 import GoogleMobileAds
 
 
 var displayedUserID = String()
 
-var currentUser = PFUser.current()!.username
+var currentUser = ""
 
 class ViewController: UIViewController {
     
@@ -77,11 +76,86 @@ class ViewController: UIViewController {
         //Submit button has different functions based on app mode.
         if signUpMode {
             
-            signUpUser()
+            activityIndicater = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            
+            activityIndicater.center = self.view.center
+            activityIndicater.hidesWhenStopped = true
+            activityIndicater.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+            
+            view.addSubview(activityIndicater)
+            activityIndicater.startAnimating()
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            
+            //sign Up
+            if signUpUsernameTextField.text == "" || signUpModePasswordTextField.text == "" || signUpModeEmailTextField.text == "" || signUpModeVerifyPasswordTextField.text == "" || signUpModeVerifyPasswordTextField.text != signUpModePasswordTextField.text {
+                
+                dialogueBox(title: "Login Error", messageText: "Please enter you email address and password. Be sure your password matches for verification")
+                
+            } else {
+                
+                if (signUpUsernameTextField.text?.characters.count)! > 30 || (signUpModePasswordTextField.text?.characters.count)! > 30 || (signUpModeEmailTextField.text?.characters.count)! > 80 || (signUpModeVerifyPasswordTextField.text?.characters.count)! > 30 || signUpModeVerifyPasswordTextField.text != signUpModePasswordTextField.text {
+                    
+                    dialogueBox(title: "Login Error", messageText: "Please enter no more than 30 characters for your username or password. No more than 80 characters for your email address.")
+                    
+                } else {
+                    
+                    Authentication.Instance.signUp(withUsername: signUpUsernameTextField.text!, withEmail: signUpModeEmailTextField.text!, withPassword: signUpModePasswordTextField.text!, signUpHandler: { (message) in
+                        
+                        if message != nil {
+                            self.dialogueBox(title: "New User Creation Error", messageText: message!)
+                        } else {
+                            print("SignUp Completed")
+                            
+                            self.logInModeEmailTextField.text = ""
+                            self.logInModePasswordTextField.text = ""
+                            
+                            self.performSegue(withIdentifier: "toUserTable", sender: self)
+                            
+                        }
+                        
+                    })
+                    
+                }
+                
+                self.activityIndicater.stopAnimating()
+                
+                UIApplication.shared.endIgnoringInteractionEvents()
+            }
+            
+            
             
         } else {
             
-            loginUser()
+            activityIndicater = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            
+            activityIndicater.center = self.view.center
+            activityIndicater.hidesWhenStopped = true
+            activityIndicater.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+            
+            view.addSubview(activityIndicater)
+            activityIndicater.startAnimating()
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            
+            if logInModeEmailTextField.text != "" && logInModePasswordTextField.text != "" {
+                
+                Authentication.Instance.login(withEmail: logInModeEmailTextField.text!, withPassword: logInModePasswordTextField.text!, loginHandler: { (message) in
+                    
+                    if message != nil {
+                        self.dialogueBox(title: "Login Error", messageText: message!)
+                    } else {
+                        print("Login Completed")
+                        
+                        self.logInModeEmailTextField.text = ""
+                        self.logInModePasswordTextField.text = ""
+                        
+                        self.performSegue(withIdentifier: "toUserTable", sender: self)
+                    }
+                    
+                })
+            }
+            self.activityIndicater.stopAnimating()
+            
+            UIApplication.shared.endIgnoringInteractionEvents()
         }
 
         
@@ -90,6 +164,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         //Show a view dependent on which mode is visible.
         if signUpMode {
             
@@ -97,10 +172,18 @@ class ViewController: UIViewController {
             
         } else {
             
-           LoginMode()
+            LoginMode()
             
         }
         
+        if Authentication.Instance.isLoggedIn() {
+            
+            self.performSegue(withIdentifier: "toUserTable", sender: self)
+            
+        }
+        
+        
+
         print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
         bannerAdView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         bannerAdView.rootViewController = self
@@ -119,23 +202,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //Using parse to check if the user is still logged in
-        if PFUser.current() != nil {
-            
-            performSegue(withIdentifier: "toUserTable", sender: self)
-            
-        } else {
-            
-            if signUpMode {
-                
-                SignUpMode()
-                
-            } else {
-                
-                LoginMode()
-                
-            }
-        }
+        
         
         self.navigationController?.navigationBar.isHidden = true
     }
@@ -185,150 +252,7 @@ class ViewController: UIViewController {
         
     }
     
-    func signUpUser() {
-        
-        //sign Up
-        if signUpUsernameTextField.text == "" || signUpModePasswordTextField.text == "" || signUpModeEmailTextField.text == "" || signUpModeVerifyPasswordTextField.text == "" || signUpModeVerifyPasswordTextField.text != signUpModePasswordTextField.text {
-            
-            dialogueBox(title: "Login Error", messageText: "Please enter you email address and password. Be sure your password matches for verification")
-            
-        } else {
-            
-            if (signUpUsernameTextField.text?.characters.count)! > 30 || (signUpModePasswordTextField.text?.characters.count)! > 30 || (signUpModeEmailTextField.text?.characters.count)! > 80 || (signUpModeVerifyPasswordTextField.text?.characters.count)! > 30 || signUpModeVerifyPasswordTextField.text != signUpModePasswordTextField.text {
-                
-                dialogueBox(title: "Login Error", messageText: "Please enter no more than 30 characters for your username or password. No more than 80 characters for your email address.")
-            
-            } else {
-                
-                activityIndicater = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-                
-                activityIndicater.center = self.view.center
-                activityIndicater.hidesWhenStopped = true
-                activityIndicater.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-                
-                view.addSubview(activityIndicater)
-                activityIndicater.startAnimating()
-                UIApplication.shared.beginIgnoringInteractionEvents()
-                
-                let user = PFUser()
-                //Reminder parse has it's own verification for email addresses
-                user.username = signUpUsernameTextField.text
-                user.email = signUpModeEmailTextField.text
-                user.password = signUpModePasswordTextField.text
-                //Setup default image
-                let defImage = UIImageView()
-                
-                defImage.image = UIImage(named: "default_user_image.png")
-                
-                let imageData = UIImageJPEGRepresentation(defImage.image!, 0.5)
-                //Setup user defaults
-                user["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: imageData!)
-                user["age"] = ""
-                user["height"] = ""
-                user["weight"] = ""
-                user["marital"] = ""
-                user["about"] = ""
-                user["ethnicity"] = ""
-                user["body"] = ""
-                user["withinDistance"] = 10
-                user["localLimit"] = 25
-                user["globalLimit"] = 50
-                user["flirtLimit"] = 25
-                user["favoriteLimit"] = 25
-                user["membership"] = "basic"
-                user["adFree"] = false
-                user["online"] = false
-                
-                
-                user.signUpInBackground(block: { (success, error) in
-                    
-                    self.activityIndicater.stopAnimating()
-                    
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                    
-                    if error != nil {
-                        
-                        var displayErrorMessage = "Something went wrong"
-                        
-                        if let errorMessage = error?.localizedDescription {
-                            displayErrorMessage = errorMessage
-                        }
-                        
-                        self.dialogueBox(title: "Error", messageText: displayErrorMessage)
-                    } else {
-//                        print("user signed up")
-                        
-                        PFUser.current()?["online"] = true
-                        PFUser.current()?.saveInBackground()
-                        
-                        self.performSegue(withIdentifier: "toUserTable", sender: self)
-                    }
-                    
-                })
-                
-            }
-        }
-    }
     
-    func loginUser() {
-        
-        //login mode
-        if logInModeEmailTextField.text! == "" || logInModePasswordTextField.text! == ""  {
-            
-            dialogueBox(title: "Login Error", messageText: "Please enter your username and password.")
-            
-        } else {
-            
-            if (logInModeEmailTextField.text?.characters.count)! > 30 || (logInModePasswordTextField.text?.characters.count)! > 30 {
-                
-                dialogueBox(title: "Login Error", messageText: "Please enter no more than 30 characters for your username or password.")
-            
-            } else {
-                
-                activityIndicater = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-                
-                activityIndicater.center = self.view.center
-                activityIndicater.hidesWhenStopped = true
-                activityIndicater.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-                
-                view.addSubview(activityIndicater)
-                activityIndicater.startAnimating()
-                UIApplication.shared.beginIgnoringInteractionEvents()
-                
-                PFUser.logInWithUsername(inBackground: logInModeEmailTextField.text!, password: logInModePasswordTextField.text!, block: { (user, error) in
-                    
-                    self.activityIndicater.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                    
-                    if error != nil {
-                        var displayErrorMessage = "Oops! Something went wrong while logging in."
-                        
-                        if let errorMessage = error?.localizedDescription {
-                            displayErrorMessage = errorMessage
-                        }
-                        
-                        self.dialogueBox(title: "Log In Error", messageText: displayErrorMessage)
-                    } else {
-//                        print("logged in")
-                        if PFUser.current() != nil {
-                            
-                            PFUser.current()?["online"] = true
-                            PFUser.current()?.saveInBackground()
-                            
-                            self.performSegue(withIdentifier: "toUserTable", sender: self)
-                            
-                            
-                            
-                        } else {
-                            self.dialogueBox(title: "User Error", messageText: "Unable to load user profile.")
-                        }
-                    }
-                    
-                })
-            }
-        }
-        
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
