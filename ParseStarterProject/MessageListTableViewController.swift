@@ -41,11 +41,11 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getMessages()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getMessages()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,7 +64,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         // #warning Incomplete implementation, return the number of rows
         
         
-        return senderID.count
+        return senderPic.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,18 +103,14 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                 var messageText = "No Messages"
                 var sender = "No Sender"
                 
-                self.senderID.removeAll()
-                self.senderPic.removeAll()
-                self.senderName.removeAll()
-                
                 if let objects = objects {
                     for message in objects {
                       
-                        if self.senders.contains(message["senderName"] as! String){
+                        if self.senders.contains(message["senderID"] as! String){
                         
                         } else {
                         
-                            self.senders.append(message["senderName"] as! String)
+                            self.senders.append(message["senderID"] as! String)
                             
                             sender = message["senderID"] as! String
                             
@@ -135,7 +131,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                                     
                                                     self.senderPic.append(UIImage(data: imageData)!)
 
-                                                    self.senderID.append(sender)
+                                                    self.senderID.append(message["senderID"] as! String)
                                                     self.senderName.append((user.username!))
                                                     
                                                     self.msgTableView.reloadData()

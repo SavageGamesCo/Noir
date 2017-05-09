@@ -75,10 +75,12 @@
 		B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF55D1EA7CF010044B07B /* UsersCollectionViewController.swift */; };
 		B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */; };
 		B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */; };
+		C5152F9E3F16A01CFB4ABF0D /* Pods_Noir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F280494CA807A5E164682988 /* Pods_Noir.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		494AF7283E9E6AAB696EF8C1 /* Pods-ParseStarterProject-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParseStarterProject-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		7BB70A20A921B4A38EC22ACB /* Pods-Noir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noir.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Noir/Pods-Noir.debug.xcconfig"; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		814C3AC91B69877600E307BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,6 +155,8 @@
 		B7FAF55D1EA7CF010044B07B /* UsersCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewController.swift; sourceTree = "<group>"; };
 		B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewCell.swift; sourceTree = "<group>"; };
+		CA61033430ED3394A1C95768 /* Pods-Noir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noir.release.xcconfig"; path = "Pods/Target Support Files/Pods-Noir/Pods-Noir.release.xcconfig"; sourceTree = "<group>"; };
+		F280494CA807A5E164682988 /* Pods_Noir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Noir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +172,7 @@
 				81BA81711A49DB6800E65899 /* Parse.framework in Frameworks */,
 				81BA81701A49DB6800E65899 /* Bolts.framework in Frameworks */,
 				A82C914F081165F40870C495 /* Pods_ParseStarterProject_Swift.framework in Frameworks */,
+				C5152F9E3F16A01CFB4ABF0D /* Pods_Noir.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +184,8 @@
 			children = (
 				901E471E12D617052CB7DFDE /* Pods-ParseStarterProject-Swift.debug.xcconfig */,
 				494AF7283E9E6AAB696EF8C1 /* Pods-ParseStarterProject-Swift.release.xcconfig */,
+				7BB70A20A921B4A38EC22ACB /* Pods-Noir.debug.xcconfig */,
+				CA61033430ED3394A1C95768 /* Pods-Noir.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -246,6 +253,7 @@
 				81BA81801A49E10C00E65899 /* ParseUI.framework */,
 				81BA81751A49E0C500E65899 /* System Frameworks */,
 				AD8062C7FF338BC70799BCB2 /* Pods_ParseStarterProject_Swift.framework */,
+				F280494CA807A5E164682988 /* Pods_Noir.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -456,7 +464,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Noir/Pods-Noir-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9E3FFC994FC6FD36B0535975 /* [CP] Check Pods Manifest.lock */ = {
@@ -486,7 +494,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Noir/Pods-Noir-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -614,7 +622,7 @@
 		};
 		81BA81651A49DA1800E65899 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 901E471E12D617052CB7DFDE /* Pods-ParseStarterProject-Swift.debug.xcconfig */;
+			baseConfigurationReference = 7BB70A20A921B4A38EC22ACB /* Pods-Noir.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ParseStarterProject-Swift.entitlements";
@@ -635,7 +643,7 @@
 		};
 		81BA81661A49DA1800E65899 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 494AF7283E9E6AAB696EF8C1 /* Pods-ParseStarterProject-Swift.release.xcconfig */;
+			baseConfigurationReference = CA61033430ED3394A1C95768 /* Pods-Noir.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "ParseStarterProject-Swift.entitlements";
