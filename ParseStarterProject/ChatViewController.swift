@@ -10,6 +10,7 @@ import UIKit
 import JSQMessagesViewController
 import MobileCoreServices
 import AVKit
+import SDWebImage
 
 
 private let reuseIdentifier = "Cell"
@@ -41,6 +42,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         self.senderDisplayName = Authentication.Instance.username
         
         MessagesHandler.Instance.observeMessages()
+        
+        MessagesHandler.Instance.observeMediaMessages()
         
         self.collectionView.backgroundView?.backgroundColor = bkgColor
         
@@ -145,16 +148,15 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         if let pic = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-            let img = JSQPhotoMediaItem(image: pic)
+            let data = UIImageJPEGRepresentation(pic, 0.05)
             
-            self.messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: img ))
+            MessagesHandler.Instance.sendMedia(image: data, video: nil, senderID: senderId, senderName: senderDisplayName, toUser:displayedUserID, toUserName: "")
             
         
         } else if let vid = info [UIImagePickerControllerMediaURL] as? URL {
             
-            let video = JSQVideoMediaItem(fileURL: vid, isReadyToPlay: true)
             
-            messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: video))
+            MessagesHandler.Instance.sendMedia(image: nil, video: vid, senderID: senderId, senderName: senderDisplayName, toUser: displayedUserID, toUserName: "")
         
         }
         
@@ -211,36 +213,59 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         collectionView.reloadData()
     }
     
-    func mediaMessageReceived(senderID: String, media: PFFile, messageID: String) {
+    func mediaMessageReceived(senderID: String, senderName: String, url: String) {
         
-        //        messages.removeAll()
-        if messageIDs.contains(messageID){
-            collectionView.reloadData()
+        if let mediaURL = URL(string: url){
             
-        } else {
-            messageIDs.append(messageID)
-            
-            var pictureMessage = UIImage()
-            
-            let imageM = JSQPhotoMediaItem()
-            
-            let imageFile = media 
-            
-            imageFile.getDataInBackground(block: {(data, error) in
+            do {
                 
-                if let imageData = data {
-                    pictureMessage = UIImage(data: imageData)!
-                    imageM.image = pictureMessage
+                let data = try Data(contentsOf: mediaURL)
+                
+                if let _ = UIImage(data: data) {
+                    let _ = SDWebImageDownloader.shared().downloadImage(with: mediaURL, options: [], progress: nil, completed: { (image, data, error, finished) in
+                        
+                        DispatchQueue.main.async {
+                            
+                            let photo = JSQPhotoMediaItem(image: image)
+                            
+                            if senderID == self.senderId {
+                                photo?.appliesMediaViewMaskAsOutgoing = true
+                            } else {
+                                photo?.appliesMediaViewMaskAsOutgoing = false
+                            }
+                            
+                            self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: photo))
+                            
+                            self.collectionView.reloadData()
+                        }
+                        
+                        
+                        
+                    })
+                } else {
+                    let video = JSQVideoMediaItem(fileURL: mediaURL, isReadyToPlay: true)
+                    
+                    if senderID == self.senderId {
+                        video?.appliesMediaViewMaskAsOutgoing = true
+                    } else {
+                        video?.appliesMediaViewMaskAsOutgoing = false
+                    }
+                    
+                    self.messages.append(JSQMessage(senderId: senderID, displayName: senderName, media: video))
+                    
+                    self.collectionView.reloadData()
+                    
                 }
                 
-            })
+                
+            } catch {
             
-            messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, media: imageM))
+            }
             
-            collectionView.reloadData()
         }
         
-        
+            collectionView.reloadData()
+
     }
     
     //end del functions

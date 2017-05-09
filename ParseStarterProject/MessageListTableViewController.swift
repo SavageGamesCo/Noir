@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 import Firebase
+import FirebaseDatabase
+import FirebaseStorage
 import GoogleMobileAds
 
 private let reuseIdentifier = "Cell"
