@@ -11,7 +11,7 @@ import Parse
 import Firebase
 import GoogleMobileAds
 
-class UserDetailViewController: UIViewController, UINavigationControllerDelegate {
+class UserDetailViewController: UITableViewController, UINavigationControllerDelegate {
 
     @IBOutlet var profileImage: UIImageView!
     
