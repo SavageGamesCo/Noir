@@ -78,6 +78,19 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         
         registerForKeyboardNotifications()
         
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
         agePicker.dataSource = self
         agePicker.delegate = self
         
@@ -92,13 +105,19 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         
         ethnicityPicker.dataSource = self
         ethnicityPicker.delegate = self
+
         
         //binding textfield to picker
         userAgeTextField.inputView = agePicker
+        userAgeTextField.inputAccessoryView = toolBar
         userHeightField.inputView = heightPicker
+        userHeightField.inputAccessoryView = toolBar
         userEthnicityTextField.inputView = ethnicityPicker
+        userEthnicityTextField.inputAccessoryView = toolBar
         userMaritalStatusTextField.inputView = maritalPicker
+        userMaritalStatusTextField.inputAccessoryView = toolBar
         userBodyTextField.inputView = bodyPicker
+        userBodyTextField.inputAccessoryView = toolBar
         
         //downloadImages()
         //createAgePicker()
@@ -235,60 +254,11 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         // Dispose of any resources that can be recreated.
     }
     
-//    func downloadImages() {
-//        let urls = ["https://s-media-cache-ak0.pinimg.com/originals/e2/58/29/e25829f574827842dc7f54f32a984b91.jpg", "https://s-media-cache-ak0.pinimg.com/236x/71/db/ab/71dbab74727f3dcceb20f340e51edbc3.jpg", "https://ldawkins.files.wordpress.com/2016/01/portrait-by-maryland-portrait-photographer-l-dawkins.jpg", "https://ldawkins.files.wordpress.com/2012/06/black-male-with-tattoos-and-cap-in-park.jpg"]
-//        
-//        var counter = 0
-//        
-//        for urlString in urls {
-//            
-//            counter += 1
-//            
-//            let url = URL(string: urlString)!
-//            
-//            do{
-//                
-//                let data = try Data(contentsOf: url)
-//                
-//                let imageFile = PFFile(name: "photo" + counter.description + ".jpg", data: data)
-//                
-//                let user = PFUser()
-//                
-//                user["mainPhoto"] = imageFile
-//                
-//                user.username = String(counter)
-//                
-//                user.password = "nopassword"
-//                
-//                user["age"] = String(20 + counter)
-//                
-//                user["ethnicity"] = "Black"
-//                
-//                user["height"] = "6'"
-//                
-//                user["weight"] = "210"
-//                
-//                user["marital"] = "Single"
-//                
-//                let acl = PFACL()
-//                
-//                acl.getPublicWriteAccess = true
-//                
-//                user.acl = acl
-//                
-//                user.signUpInBackground(block: {(success, error) in
-//                    if success {
-//                        print("User created")
-//                        
-//                    }
-//                })
-//                
-//            } catch {
-//                print("Could not get datae")
-//            }
-//        }
-//    }
 
+    func donePicker(){
+        
+        self.view.endEditing(true)
+    }
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -380,7 +350,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView == agePicker {
             
@@ -411,30 +381,26 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
             
             userAgeTextField.text = agePickerData[row]
             
-            view.endEditing(false)
             
         } else if pickerView == heightPicker {
             
             userHeightField.text = heightDataFeet[row]
             
-            view.endEditing(false)
+
         } else if pickerView == ethnicityPicker {
             
             userEthnicityTextField.text = ethnicityData[row]
             
-            view.endEditing(false)
             
         } else if pickerView == maritalPicker {
             
             userMaritalStatusTextField.text = maritalData[row]
             
-            view.endEditing(false)
             
         } else if pickerView == bodyPicker {
             
             userBodyTextField.text = bodyData[row]
             
-            view.endEditing(false)
             
         }
     }
