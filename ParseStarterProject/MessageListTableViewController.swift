@@ -92,7 +92,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         
         let msgQuery = PFQuery(className: "Chat")
         
-        msgQuery.whereKey("toUser", equalTo: (PFUser.current()?.objectId!)!)
+        msgQuery.whereKey("toUser", equalTo: (PFUser.current()?.objectId!)!).order(byDescending: "createdAt")
         
         msgQuery.findObjectsInBackground { (objects, error) in
             
