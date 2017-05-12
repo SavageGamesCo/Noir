@@ -11,7 +11,7 @@ import Parse
 import JSQMessagesViewController
 import MobileCoreServices
 import AVKit
-
+import UserNotifications
 
 private let reuseIdentifier = "Cell"
 
@@ -37,6 +37,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        
         
         picker.delegate = self
         MessagesHandler.Instance.delegate = self
@@ -381,9 +383,25 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
             
+            notification(displayName: senderDisplayName)
+            
             collectionView.reloadData()
         }
         
+        
+    }
+    
+    func notification(displayName: String){
+    
+        let chatNotification = UNMutableNotificationContent()
+        chatNotification.title = "Noir Chat Notification"
+        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier:"Noir", content: chatNotification, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
     }
     

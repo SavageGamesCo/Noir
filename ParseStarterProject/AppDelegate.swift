@@ -15,6 +15,8 @@ import Firebase
 
 import GoogleMobileAds
 
+import UserNotifications
+
 
 // If you want to use any of the UI components, uncomment this line
 // import ParseUI
@@ -34,9 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.enableLocalDatastore()
         
         let parseConfiguration = ParseClientConfiguration(block: { (ParseMutableClientConfiguration) -> Void in
-            ParseMutableClientConfiguration.applicationId = "03b20bffa0ad3b38f8c231e50bf10dddbf10bf5b"
-            ParseMutableClientConfiguration.clientKey = "b5e23c00eca0ae2c787fec4f8ef09c68bdea6426"
-            ParseMutableClientConfiguration.server = "http://ec2-35-166-115-178.us-west-2.compute.amazonaws.com:80/parse"
+            ParseMutableClientConfiguration.applicationId = "7XSgD4z6lpoNGGCbQEoi5MxIgDxBnopMmNYw92cq"
+            ParseMutableClientConfiguration.clientKey = "aANqvWmGX0JFvNuy0qQ887TT5WRBtYbeEB8D4ink"
+            ParseMutableClientConfiguration.server = "https://parseapi.back4app.com/"
         })
         
         Parse.initialize(with: parseConfiguration)
@@ -104,6 +106,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //            application.registerForRemoteNotificationTypes(types)
         //        }
         
+        let center = UNUserNotificationCenter.current()
+        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
+        center.requestAuthorization(options: options, completionHandler: { authorized, error in
+            if authorized {
+                application.registerForRemoteNotifications()
+            }
+        })
+        
+        
         FIRApp.configure()
         GADMobileAds.configure(withApplicationID: "ca-app-pub-9770059916027069~1452473359")
         return true
@@ -112,21 +123,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //--------------------------------------
     // MARK: Push Notifications
     //--------------------------------------
-
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let installation = PFInstallation.current()
         installation.setDeviceTokenFrom(deviceToken)
         installation.saveInBackground()
-
-        PFPush.subscribeToChannel(inBackground: "") { (succeeded, error) in // (succeeded: Bool, error: NSError?) is now (succeeded, error)
-
-            if succeeded {
-                print("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.\n");
-            } else {
-                print("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.\n", error)
-            }
-        }
     }
+
+//    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//        let installation = PFInstallation.current()
+//        installation.setDeviceTokenFrom(deviceToken)
+//        installation.saveInBackground()
+//
+//        PFPush.subscribeToChannel(inBackground: "") { (succeeded, error) in // (succeeded: Bool, error: NSError?) is now (succeeded, error)
+//
+//            if succeeded {
+//                print("Noir successfully subscribed to push notifications on the broadcast channel.\n");
+//            } else {
+//                print("Noir failed to subscribe to push notifications on the broadcast channel with error = %@.\n", error)
+//            }
+//        }
+//    }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         if error.code == 3010 {
@@ -146,11 +163,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ///////////////////////////////////////////////////////////
     // Uncomment this method if you want to use Push Notifications with Background App Refresh
     ///////////////////////////////////////////////////////////
-    // func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    //     if application.applicationState == UIApplicationState.Inactive {
-    //         PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-    //     }
-    // }
+     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+         if application.applicationState == UIApplicationState.inactive {
+             PFAnalytics.trackAppOpened(withRemoteNotificationPayload: userInfo)
+         }
+     }
 
     //--------------------------------------
     // MARK: Facebook SDK Integration

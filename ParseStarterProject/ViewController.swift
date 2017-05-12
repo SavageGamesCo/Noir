@@ -11,6 +11,7 @@ import UIKit
 import Parse
 import Firebase
 import GoogleMobileAds
+import UserNotifications
 
 
 var displayedUserID = String()
@@ -90,6 +91,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
+            //code here
+        }
+        
         //Show a view dependent on which mode is visible.
         if signUpMode {
             

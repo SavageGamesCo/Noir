@@ -50,6 +50,11 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     @IBOutlet var userBodyTextField: UITextField!
     
     @IBAction func logoutClicked(_ sender: Any) {
+        
+//        PFUser.logOut()
+//        
+//        self.performSegue(withIdentifier: "toLogin", sender: self)
+
         if PFUser.current()?["online"] as! Bool == true {
             
             PFUser.current()?["online"] = false
@@ -60,7 +65,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
                 } else {
                     PFUser.logOut()
                     
-                    self.performSegue(withIdentifier: "LogInScreen", sender: self)
+                    self.performSegue(withIdentifier: "toLogin", sender: self)
                 }
             })
         }

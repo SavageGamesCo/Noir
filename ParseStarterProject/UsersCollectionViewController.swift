@@ -122,6 +122,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         }
 
     }
+    
+    func refreshing(){
+        self.UserTableView.reloadData()
+        self.refreshControl.endRefreshing()
+
+    }
   
     @IBAction func messagesClicked(_ sender: Any) {
         
@@ -137,12 +143,19 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         commonActionSheet(title: "Safety Statement", message: "Please be careful when meeting people from the internet in real life. Practice basic safety such as meeting in public, informing someone you trust of your whereabouts. Practice safety at all times. Be sure to ask the pertinent questions before engaging in risky behavior.")
         
         UserTableView.refreshControl = refreshControl
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
         
-        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.auserClicked(_:)), for: .touchDown)
-        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.lusrClicked(_:)), for: .touchDown)
-        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.favsClicked(_:)), for: .touchDown)
+        refreshControl.addTarget(self, action: #selector(self.refreshing), for: .touchDragExit)
         
-                geoPoint()
+        UserTableView.addSubview(refreshControl)
+        
+        
+        
+        
+//        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.lusrClicked(_:)), for: .touchDown)
+//        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.favsClicked(_:)), for: .touchDown)
+        
+        geoPoint()
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
 
