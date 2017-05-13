@@ -14,6 +14,8 @@ import GoogleMobileAds
 import UserNotifications
 
 
+
+
 var displayedUserID = String()
 
 var currentUser = PFUser.current()!.username
@@ -91,6 +93,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
             //code here
@@ -428,6 +432,20 @@ class ViewController: UIViewController {
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
+    }
+    
+    func notification(displayName: String){
+        
+        let chatNotification = UNMutableNotificationContent()
+        chatNotification.title = "Noir Chat Notification"
+        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier:"Noir", content: chatNotification, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
     }
     
     func commonActionSheet(title: String, message: String){

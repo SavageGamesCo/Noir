@@ -11,6 +11,8 @@ import UIKit
 import Parse
 import Firebase
 import GoogleMobileAds
+import UserNotifications
+import ParseLiveQuery
 
 private let reuseIdentifier = "Cell"
 
@@ -18,12 +20,18 @@ private let reuseIdentifier = "Cell"
 
 class UsersCollectionViewController: UICollectionViewController, UIToolbarDelegate {
     
+    let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
+    
+    private var subscription: Subscription<PFObject>!
+    
     @IBOutlet var UserTableView: UICollectionView!
     
     @IBOutlet weak var navTitle: UINavigationItem!
     var usernames = [String]()
     var userID = [String]()
     var online = [String]()
+    
+    var badge = [NSNumber]()
     
     var withinDistance = 10
     
@@ -140,6 +148,31 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        badge.removeAll()
+        
+        let currentUser = PFUser.current()?.objectId!
+        
+        // This message query filters every incoming message that is
+        // On the class 'Message' and has a 'message' field
+        let msgQuery = PFQuery(className: "Chat").whereKey("toUser", equalTo: currentUser!)
+        
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            if Thread.current != Thread.main {
+                return DispatchQueue.main.async {
+                    self.badge.append(self.badge.count + 1 as NSNumber)
+                    self.notification(displayName: message["senderName"] as! String)
+                }
+            } else {
+                self.badge.append(self.badge.count + 1 as NSNumber)
+                self.notification(displayName: message["senderName"] as! String)
+            }
+            
+        }
+
+        
+        
         commonActionSheet(title: "Safety Statement", message: "Please be careful when meeting people from the internet in real life. Practice basic safety such as meeting in public, informing someone you trust of your whereabouts. Practice safety at all times. Be sure to ask the pertinent questions before engaging in risky behavior.")
         
         UserTableView.refreshControl = refreshControl
@@ -149,12 +182,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         UserTableView.addSubview(refreshControl)
         
-        
-        
-        
-//        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.lusrClicked(_:)), for: .touchDown)
-//        refreshControl.addTarget(self, action: #selector(UsersCollectionViewController.favsClicked(_:)), for: .touchDown)
-        
         geoPoint()
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
@@ -163,7 +190,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         //self.collectionView!.register(UsersCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         UserView()
-        // Do any additional setup after loading the view.
 
        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -535,6 +561,20 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         return true
     }
     
+    func notification(displayName: String){
+        
+        let chatNotification = UNMutableNotificationContent()
+        chatNotification.title = "Noir Chat Notification"
+        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.badge = badge.count as NSNumber
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier:"Noir", content: chatNotification, trigger: nil)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+    }
+    
     func commonActionSheet(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
@@ -545,24 +585,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         alert.popoverPresentationController?.sourceView = view
         
         present(alert, animated: true, completion: nil)
-    }
-    
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    */
-    
-    @IBAction func logout(_ sender: Any) {
-        
-        
     }
 
 }

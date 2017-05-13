@@ -10,5 +10,6 @@ target 'Noir' do
     pod 'Firebase/AdMob'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
     pod 'JSQMessagesViewController'
+    pod 'ParseLiveQuery'
 
 end
