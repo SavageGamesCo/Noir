@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import Firebase
+import GoogleMobileAds
 import JSQMessagesViewController
 import MobileCoreServices
 import AVKit

@@ -240,7 +240,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         
         if gestureRecognizer.state == UIGestureRecognizerState.ended {
             
-            var tracking = ""
+            var tracking = String()
             
             if profileImg.center.x < 100 {
                 print("not chosen")
@@ -251,21 +251,25 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             } else if profileImg.center.x > self.view.bounds.width - 100 {
                 print("chosen")
                 
-                let flirt = PFUser.current()?["flirt"] as! NSArray
-                
-                let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
-                
-                
-                print(flirtlimit)
-                
-                
-                if flirt.count  < flirtlimit {
-                    tracking = "flirt"
-                    self.dialogueBox(title: "Flirt Sent!", messageText: "You have flirted with " + self.username)
-                } else {
+                if let flirt = PFUser.current()?["flirt"] as? NSArray {
                     
-                    self.dialogueBox(title: "Flirt Limit Reached", messageText: "You have reached your flirt limit. Visit the in-app store to learn how to get unlimited flirts, local members and global members.")
+                    let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
+                    
+                    
+                    print(flirtlimit)
+                    
+                    
+                    if (flirt.count)  < flirtlimit {
+                        tracking = "flirt"
+                        self.dialogueBox(title: "Flirt Sent!", messageText: "You have flirted with " + self.username)
+                    } else {
+                        
+                        self.dialogueBox(title: "Flirt Limit Reached", messageText: "You have reached your flirt limit. Visit the in-app store to learn how to get unlimited flirts, local members and global members.")
+                    }
+                
                 }
+                
+                
 
                 
                 

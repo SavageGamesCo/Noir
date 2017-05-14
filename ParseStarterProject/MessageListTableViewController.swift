@@ -19,6 +19,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     @IBOutlet var msgTableView: UITableView!
     
+    @IBOutlet weak var adBannerView: GADBannerView!
     var senderID = [String]()
     var senderName = [String]()
     var senderPic = [UIImage]()
@@ -28,6 +29,17 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if PFUser.current()?["adFree"] as? Bool == false  {
+            adBannerView.isHidden = false
+        } else {
+            adBannerView.isHidden = true
+        }
+        
+        print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
+        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        adBannerView.rootViewController = self
+        adBannerView.load(GADRequest())
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -93,6 +105,12 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         let msgQuery = PFQuery(className: "Chat")
         
         msgQuery.whereKey("toUser", equalTo: (PFUser.current()?.objectId!)!).order(byDescending: "createdAt")
+        if PFUser.current()?["membership"] as? String == "basic" {
+            print("basic member")
+            msgQuery.limit = 10
+        } else {
+            print("monthly member")
+        }
         
         msgQuery.findObjectsInBackground { (objects, error) in
             

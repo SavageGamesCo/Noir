@@ -27,6 +27,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     @IBOutlet var UserTableView: UICollectionView!
     
     @IBOutlet weak var navTitle: UINavigationItem!
+    @IBOutlet weak var chatIcon: UIBarButtonItem!
     var usernames = [String]()
     var userID = [String]()
     var online = [String]()
@@ -35,6 +36,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     var withinDistance = 10
     
+    @IBOutlet weak var adBanner: GADBannerView!
     var userIdent = String()
     
     var images = [UIImage]()
@@ -47,6 +49,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     let onlineColor = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
     let offlineColor = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
+    var green = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
     
     
 
@@ -140,6 +143,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         self.showAd()
         
+        self.chatIcon.tintColor = onlineColor
+        
         performSegue(withIdentifier: "toMsgList", sender: self)
         
     }
@@ -154,17 +159,22 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         // This message query filters every incoming message that is
         // On the class 'Message' and has a 'message' field
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: currentUser!)
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
         
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
             
+            
+            
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
+                    self.chatIcon.tintColor = self.green
                     self.badge.append(1)
                     self.notification(displayName: message["senderName"] as! String)
+                    
                 }
             } else {
+                self.chatIcon.tintColor = self.green
                 self.badge.append(1)
                 self.notification(displayName: message["senderName"] as! String)
             }
@@ -191,7 +201,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
         UserView()
 
-       self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         self.createAndLoadInterstitial()
         
@@ -202,8 +212,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         geoPoint()
         
-//        badge.removeAll()
-//        UIApplication.shared.applicationIconBadgeNumber = 0
         
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -213,8 +221,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidAppear(_ animated: Bool) {
         
         geoPoint()
-//        badge.removeAll()
-//        UIApplication.shared.applicationIconBadgeNumber = 0
+
         
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
         
@@ -253,10 +260,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     }
     
     func showAd() {
-        if interstitial.isReady {
-            interstitial.present(fromRootViewController: self)
+        if PFUser.current()?["adFree"] as? Bool == false {
+            if interstitial.isReady {
+                interstitial.present(fromRootViewController: self)
+            } else {
+                print("Ad wasn't ready")
+            }
         } else {
-            print("Ad wasn't ready")
+            print("User is Ad Free.")
         }
     }
     
@@ -279,7 +290,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
             let query = PFUser.query()
             
-            query?.limit = PFUser.current()?["globalLimit"] as! Int
+            if PFUser.current()?["membership"] as? String == "basic" {
+                
+                query?.limit = PFUser.current()?["globalLimit"] as! Int
+            }
             
             query?.whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
             //Show All Users
@@ -331,7 +345,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
                     
-                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double((PFUser.current()?["localLimit"] as? Int)!)).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
+                    if PFUser.current()?["membership"] as? String == "basic" {
+                        
+                        withinDistance = (PFUser.current()?["localLimit"] as? Int)!
+                    } else {
+                        withinDistance = 100
+                    }
+                    
+                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(withinDistance)).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
                     
                     query?.findObjectsInBackground(block: {(objects, error) in
                         

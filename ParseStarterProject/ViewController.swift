@@ -247,6 +247,7 @@ class ViewController: UIViewController {
                 user["about"] = ""
                 user["ethnicity"] = ""
                 user["body"] = ""
+                user["gender"] = "male"
                 user["withinDistance"] = 10
                 user["localLimit"] = 25
                 user["globalLimit"] = 50
@@ -259,6 +260,8 @@ class ViewController: UIViewController {
                 user["online"] = false
                 user["app"] = "noir"
                 user["gender"] = "male"
+                user["favorites"] = ["EcBWsQHeKa"]
+                user["flirt"] = ["EcBWsQHeKa"]
                 
                 
                 
