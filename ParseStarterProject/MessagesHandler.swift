@@ -11,7 +11,7 @@ import Parse
 
 protocol MessageReceivedDelegate: class {
     
-    func messageReceived(senderID: String, text: String, messageID: String)
+    func messageReceived(senderID: String, text: String, messageID: String, chatID: String)
     
     
 }
@@ -66,6 +66,7 @@ class MessagesHandler {
             chat["toUser"] = toUser
             chat["toUserName"] = toUserName
             
+            
             chat.saveInBackground { (success, error) in
                 
                 if error != nil {
@@ -80,17 +81,5 @@ class MessagesHandler {
         }
     }
     
-    func observeMessages(){
-        let chat = PFObject(className: "Chat")
-        
-        if let senderID = chat["senderID"] as? String {
-            if let text = chat["text"] as? String {
-                if let messageID = chat.objectId {
-                    self.delegate?.messageReceived(senderID: senderID, text: text, messageID: messageID)
-                }
-            }
-        }
-        
-    }
     
 }
