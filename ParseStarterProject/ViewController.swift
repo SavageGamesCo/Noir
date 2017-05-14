@@ -90,6 +90,13 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func recoverPasswordPressed(_ sender: Any) {
+        
+        resetDialogueBox(title: "Reset Account Password", messageText: "Enter Your Account Email Address Below!")
+    
+    }
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -248,6 +255,7 @@ class ViewController: UIViewController {
                 user["membership"] = "basic"
                 user["adFree"] = false
                 user["online"] = false
+                user["app"] = "noir"
                 
                 
                 user.signUpInBackground(block: { (success, error) in
@@ -467,6 +475,34 @@ class ViewController: UIViewController {
         
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         dialog.addAction(defaultAction)
+        // Present the dialog.
+        
+        self.present(dialog,
+                     animated: true,
+                     completion: nil)
+    }
+    
+    func resetDialogueBox(title:String, messageText:String ){
+        let dialog = UIAlertController(title: title,
+                                       message: messageText,
+                                       preferredStyle: UIAlertControllerStyle.alert)
+        
+        let defaultAction = UIAlertAction(title: "Submit", style: .default, handler: {
+            alert -> Void in
+            
+            let emailTextField = dialog.textFields![0] as UITextField
+            
+            PFUser.requestPasswordResetForEmail(inBackground: emailTextField.text!)
+            
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        
+        dialog.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter Email Address"
+        }
+
+        dialog.addAction(defaultAction)
+        dialog.addAction(cancelAction)
         // Present the dialog.
         
         self.present(dialog,

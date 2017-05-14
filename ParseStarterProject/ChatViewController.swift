@@ -142,7 +142,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         let query = PFQuery(className: "Chat")
         
-        query.order(byAscending: "createdAt")
+        query.order(byAscending: "createdAt").whereKey("app", equalTo: "noir")
         
         query.findObjectsInBackground { (objects, error) in
             
@@ -216,7 +216,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 
                 let query = PFQuery(className: "Chat")
                 
-                query.order(byAscending: "createdAt")
+                query.order(byAscending: "createdAt").whereKey("app", equalTo: "noir")
                 
                 query.findObjectsInBackground { (objects, error) in
                     
@@ -254,7 +254,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             let msgQuery = PFQuery(className: "Chat")
             
-            msgQuery.whereKeyExists("toUser")
+            msgQuery.whereKeyExists("toUser").whereKey("app", equalTo: "noir")
             
             
             self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
@@ -302,7 +302,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             let msgQuery = PFQuery(className: "Chat")
             
-            msgQuery.whereKeyExists("media")
+            msgQuery.whereKeyExists("media").whereKey("app", equalTo: "noir")
             
             
             self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
@@ -347,7 +347,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             query.whereKey("toUser", equalTo: PFUser.current()?.objectId! as Any)
             
-            query.order(byAscending: "createdAt")
+            query.order(byAscending: "createdAt").whereKey("app", equalTo: "noir")
             
             query.findObjectsInBackground { (objects, error) in
                 
@@ -557,6 +557,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         chat["toUser"] = toUser
         chat["toUserName"] = toUserName
         chat["chatID"] = chatID
+        chat["app"] = "noir"
         
         
         //let chatData : Dictionary<String, Any> = ["senderId": senderID, "senderName": senderName, "text": text]
@@ -587,6 +588,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             chat["toUser"] = toUser
             chat["toUserName"] = toUserName
             chat["chatID"] = chatID
+            chat["app"] = "noir"
             
             chat.saveInBackground { (success, error) in
                 

@@ -57,13 +57,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
-                self.refreshControl.endRefreshing()
+
             }
         } else {
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
-                self.refreshControl.endRefreshing()
             }
         }
         
@@ -77,13 +76,13 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
-                self.refreshControl.endRefreshing()
+                
             }
         } else {
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
-                self.refreshControl.endRefreshing()
+                
             }
         }
         
@@ -97,14 +96,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
-                self.refreshControl.endRefreshing()
+                
             }
             
         } else {
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
-                self.refreshControl.endRefreshing()
+                
             }
         }
         
@@ -118,14 +117,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
-                self.refreshControl.endRefreshing()
+                
             }
             
         } else {
             DispatchQueue.main.async {
                 
                 self.UserTableView.reloadData()
-                self.refreshControl.endRefreshing()
+                
             }
         }
 
@@ -178,9 +177,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         UserTableView.refreshControl = refreshControl
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
         
-        refreshControl.addTarget(self, action: #selector(self.refreshing), for: .touchDragExit)
+        refreshControl.addTarget(self, action: #selector(self.refreshing), for: .touchDown)
         
-        UserTableView.addSubview(refreshControl)
+        //UserTableView.addSubview(refreshControl)
         
         geoPoint()
         // Uncomment the following line to preserve selection between presentations
@@ -273,7 +272,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
             let query = PFUser.query()
             
-            query?.whereKey("online", equalTo: true as NSNumber)
+            query?.whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
             //Show All Users
             query?.findObjectsInBackground(block: {(objects, error) in
                 
@@ -323,8 +322,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
                     
-                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(self.withinDistance))
-                    query?.whereKey("online", equalTo: true as NSNumber)
+                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(self.withinDistance)).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
                     
                     query?.findObjectsInBackground(block: {(objects, error) in
                         
@@ -372,6 +370,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
             let query = PFUser.query()
             //Show Favorites
+            query?.whereKey("app", equalTo: "noir")
             query?.findObjectsInBackground(block: {(objects, error) in
                 
                 if error != nil {
@@ -426,6 +425,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             self.navTitle.title = "Flirts"
 
             let query = PFUser.query()
+            
+            query?.whereKey("app", equalTo: "noir")
             //Show Favorites
             query?.findObjectsInBackground(block: {(objects, error) in
                 

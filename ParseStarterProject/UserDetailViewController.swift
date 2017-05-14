@@ -60,6 +60,8 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             
             let query = PFUser.query()
             
+            query?.whereKey("app", equalTo: "noir")
+            
             query?.findObjectsInBackground(block: { (objects, error) in
                 if error != nil {
                     

@@ -189,9 +189,17 @@
                                 <rect key="frame" x="87" y="553" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7PJ-HA-Fzv">
+                                <rect key="frame" x="268" y="662" width="126" height="30"/>
+                                <state key="normal" title="Recover Password"/>
+                                <connections>
+                                    <action selector="recoverPasswordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5q4-H5-z8h"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7PJ-HA-Fzv" secondAttribute="bottom" id="3Ti-5f-Dhu"/>
                             <constraint firstItem="bGo-03-JDg" firstAttribute="top" secondItem="Dtv-tU-Ugf" secondAttribute="bottom" constant="79" id="7Of-dY-Rdz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gt3-OR-fbD" secondAttribute="trailing" id="8gA-2G-9tV"/>
                             <constraint firstItem="bGo-03-JDg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8hP-Td-jbg"/>
@@ -206,6 +214,7 @@
                             <constraint firstItem="m4s-M2-hU5" firstAttribute="top" secondItem="Dtv-tU-Ugf" secondAttribute="bottom" constant="101.99999999999997" id="V49-Au-E6I"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m4s-M2-hU5" secondAttribute="trailing" id="X4D-fd-YUy"/>
                             <constraint firstItem="ZC8-Xp-eZi" firstAttribute="top" secondItem="bGo-03-JDg" secondAttribute="bottom" constant="10" id="Z5M-Z3-0Fa"/>
+                            <constraint firstItem="7PJ-HA-Fzv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ZN5-1w-Egp"/>
                             <constraint firstItem="gt3-OR-fbD" firstAttribute="top" secondItem="m4s-M2-hU5" secondAttribute="bottom" constant="106.00000000000011" id="aZX-A9-AyM"/>
                             <constraint firstItem="m4s-M2-hU5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fCh-sM-AFm"/>
                             <constraint firstAttribute="trailing" secondItem="ZC8-Xp-eZi" secondAttribute="trailing" id="ihg-d7-Gcc"/>
@@ -1357,9 +1366,9 @@
         <image name="star-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iFA-Nf-wsQ"/>
-        <segue reference="cUZ-UY-Xrm"/>
+        <segue reference="LpR-YC-hxA"/>
         <segue reference="b7p-8z-hIe"/>
+        <segue reference="cUZ-UY-Xrm"/>
         <segue reference="K6o-u3-E9D"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
