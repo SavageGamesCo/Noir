@@ -142,7 +142,11 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         let query = PFQuery(className: "Chat")
         
-        query.order(byAscending: "createdAt").whereKey("app", equalTo: "noir")
+        query.order(byAscending: "createdAt")
+        query.whereKey("app", equalTo: "noir").whereKey("chatID", contains: currentUser!)
+        
+        query.cachePolicy = .networkElseCache
+
         
         query.findObjectsInBackground { (objects, error) in
             
@@ -207,16 +211,18 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             let msgQuery = PFQuery(className: "Chat")
             
-            msgQuery.whereKeyExists("text")
-            func queryish(){
-            
-            }
+            msgQuery.whereKey("app", equalTo: "noir").whereKey("chatID", contains: self.currentUser!)
             
             self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
                 
                 let query = PFQuery(className: "Chat")
                 
-                query.order(byAscending: "createdAt").whereKey("app", equalTo: "noir")
+                
+                query.order(byAscending: "createdAt")
+                
+                query.whereKey("app", equalTo: "noir").whereKey("chatID", contains: self.currentUser!)
+                
+                query.cachePolicy = .networkElseCache
                 
                 query.findObjectsInBackground { (objects, error) in
                     
@@ -249,53 +255,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
     }
     
-    func observeIncomingMessages(){
-        DispatchQueue.main.async {
-            
-            let msgQuery = PFQuery(className: "Chat")
-            
-            msgQuery.whereKeyExists("toUser").whereKey("app", equalTo: "noir")
-            
-            
-            self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
-            
-                let query = PFQuery(className: "Chat")
-                
-                query.whereKey("toUser", equalTo: PFUser.current()?.objectId! as Any)
-                
-                query.order(byAscending: "createdAt")
-                
-                query.findObjectsInBackground { (objects, error) in
-                    
-                    if error != nil {
-                        print(error!)
-                    } else if let messages = objects {
-                        for message in messages {
-                            if message["senderID"] as? String == displayedUserID {
-                                if let senderID = message["senderID"] as? String {
-                                    if let text = message["text"] as? String {
-                                        if let chatID = message["chatID"] as? String{
-                                            if let messageID = message.objectId {
-                                                
-                                                self.chatAvatar()
-                                                
-                                                self.messageReceived(senderID: senderID, text: text, messageID: messageID, chatID: chatID)
-                                            }
-                                            
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
     
     func observeMediaMessages() {
         DispatchQueue.main.async {
@@ -339,39 +298,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         }
         collectionView.reloadData()
     }
-
-    func observeIncomingMediaMessages() {
-        DispatchQueue.main.async {
-            
-            let query = PFQuery(className: "Chat")
-            
-            query.whereKey("toUser", equalTo: PFUser.current()?.objectId! as Any)
-            
-            query.order(byAscending: "createdAt").whereKey("app", equalTo: "noir")
-            
-            query.findObjectsInBackground { (objects, error) in
-                
-                if error != nil {
-                    print(error!)
-                } else if let messages = objects {
-                    for message in messages {
-                        if message["senderID"] as? String == displayedUserID {
-                            if let senderID = message["senderID"] as? String {
-                                if let media = message["media"] as? PFFile {
-                                    if let messageID = message.objectId {
-                                        self.chatAvatar()
-                                        self.mediaMessageReceived(senderID: senderID, media: media, messageID: messageID)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-            }
-            
-        }
-    }
     
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
@@ -406,8 +332,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         if let pic = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-//            let img = JSQPhotoMediaItem(image: pic)
-            
             let imageData = UIImageJPEGRepresentation( pic, 0.5)
             
             let image = PFFile(name: "mainProfile.jpg", data: imageData!)
@@ -425,7 +349,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             }
             
             sendMedia(image: image, senderID: senderId, senderName: senderDisplayName, toUser: displayedUserID, toUserName: toUserName)
-//            self.messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: img))
         
         } else if let vid = info [UIImagePickerControllerMediaURL] as? URL {
             

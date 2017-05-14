@@ -148,6 +148,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         super.viewDidLoad()
         
         badge.removeAll()
+        UIApplication.shared.applicationIconBadgeNumber = 0
         
         let currentUser = PFUser.current()?.objectId!
         
@@ -160,11 +161,11 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
-                    self.badge.append(self.badge.count + 1 as NSNumber)
+                    self.badge.append(1)
                     self.notification(displayName: message["senderName"] as! String)
                 }
             } else {
-                self.badge.append(self.badge.count + 1 as NSNumber)
+                self.badge.append(1)
                 self.notification(displayName: message["senderName"] as! String)
             }
             
@@ -196,9 +197,13 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         
         geoPoint()
+        
+//        badge.removeAll()
+//        UIApplication.shared.applicationIconBadgeNumber = 0
         
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -208,6 +213,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidAppear(_ animated: Bool) {
         
         geoPoint()
+//        badge.removeAll()
+//        UIApplication.shared.applicationIconBadgeNumber = 0
         
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
         
@@ -568,9 +575,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         chatNotification.title = "Noir Chat Notification"
         chatNotification.subtitle = "You Have a New Chat message from " + displayName
         chatNotification.badge = badge.count as NSNumber
+        chatNotification.sound = .default()
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier:"Noir", content: chatNotification, trigger: nil)
+        let request = UNNotificationRequest(identifier:"Noir", content: chatNotification, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         

@@ -129,6 +129,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation?.setDeviceTokenFrom(deviceToken)
         installation?.saveInBackground()
     }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
 
 //    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 //        let installation = PFInstallation.current()
