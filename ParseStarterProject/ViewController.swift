@@ -251,11 +251,15 @@ class ViewController: UIViewController {
                 user["localLimit"] = 25
                 user["globalLimit"] = 50
                 user["flirtLimit"] = 25
+                user["flirtCount"] = 0
                 user["favoriteLimit"] = 25
+                user["favoriteCount"] = 0
                 user["membership"] = "basic"
                 user["adFree"] = false
                 user["online"] = false
                 user["app"] = "noir"
+                user["gender"] = "male"
+                
                 
                 
                 user.signUpInBackground(block: { (success, error) in

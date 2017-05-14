@@ -143,7 +143,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let query = PFQuery(className: "Chat")
         
         query.order(byAscending: "createdAt")
-        query.whereKey("app", equalTo: "noir").whereKey("chatID", contains: currentUser!)
+        query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: currentUser!)
         
         query.cachePolicy = .networkElseCache
 
@@ -211,7 +211,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             let msgQuery = PFQuery(className: "Chat")
             
-            msgQuery.whereKey("app", equalTo: "noir").whereKey("chatID", contains: self.currentUser!)
+            msgQuery.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: self.currentUser!)
             
             self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
                 
@@ -220,7 +220,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 
                 query.order(byAscending: "createdAt")
                 
-                query.whereKey("app", equalTo: "noir").whereKey("chatID", contains: self.currentUser!)
+                query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: self.currentUser!)
                 
                 query.cachePolicy = .networkElseCache
                 
@@ -261,7 +261,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             let msgQuery = PFQuery(className: "Chat")
             
-            msgQuery.whereKeyExists("media").whereKey("app", equalTo: "noir")
+            msgQuery.whereKeyExists("media").whereKey("app", equalTo: APPLICATION)
             
             
             self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
@@ -400,7 +400,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         chatNotification.badge = 1
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier:"Noir", content: chatNotification, trigger: trigger)
+        let request = UNNotificationRequest(identifier:APPLICATION, content: chatNotification, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
@@ -480,7 +480,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         chat["toUser"] = toUser
         chat["toUserName"] = toUserName
         chat["chatID"] = chatID
-        chat["app"] = "noir"
+        chat["app"] = APPLICATION
         
         
         //let chatData : Dictionary<String, Any> = ["senderId": senderID, "senderName": senderName, "text": text]
@@ -511,7 +511,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             chat["toUser"] = toUser
             chat["toUserName"] = toUserName
             chat["chatID"] = chatID
-            chat["app"] = "noir"
+            chat["app"] = APPLICATION
             
             chat.saveInBackground { (success, error) in
                 

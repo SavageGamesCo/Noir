@@ -60,7 +60,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             
             let query = PFUser.query()
             
-            query?.whereKey("app", equalTo: "noir")
+            query?.whereKey("app", equalTo: APPLICATION)
             
             query?.findObjectsInBackground(block: { (objects, error) in
                 if error != nil {
@@ -222,8 +222,6 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     
     func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
         
-        print("Was dragged")
-        
         let translation = gestureRecognizer.translation(in: view)
         
         let profileImg = gestureRecognizer.view!
@@ -252,8 +250,23 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                 
             } else if profileImg.center.x > self.view.bounds.width - 100 {
                 print("chosen")
-                tracking = "flirt"
-                dialogueBox(title: "Flirt Sent!", messageText: "You have flirted with " + username)
+                
+                let flirt = PFUser.current()?["flirt"] as! NSArray
+                
+                let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
+                
+                
+                print(flirtlimit)
+                
+                
+                if flirt.count  < flirtlimit {
+                    tracking = "flirt"
+                    self.dialogueBox(title: "Flirt Sent!", messageText: "You have flirted with " + self.username)
+                } else {
+                    
+                    self.dialogueBox(title: "Flirt Limit Reached", messageText: "You have reached your flirt limit. Visit the in-app store to learn how to get unlimited flirts, local members and global members.")
+                }
+
                 
                 
             }

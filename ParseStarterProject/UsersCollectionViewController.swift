@@ -154,7 +154,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         // This message query filters every incoming message that is
         // On the class 'Message' and has a 'message' field
-        let msgQuery = PFQuery(className: "Chat").whereKey("toUser", equalTo: currentUser!)
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: currentUser!)
         
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
@@ -279,6 +279,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
             let query = PFUser.query()
             
+            query?.limit = PFUser.current()?["globalLimit"] as! Int
+            
             query?.whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
             //Show All Users
             query?.findObjectsInBackground(block: {(objects, error) in
@@ -329,7 +331,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
                     
-                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(self.withinDistance)).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
+                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double((PFUser.current()?["localLimit"] as? Int)!)).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
                     
                     query?.findObjectsInBackground(block: {(objects, error) in
                         
@@ -374,6 +376,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             break
         case "Fave":
             self.navTitle.title = "Favorites"
+            
+            self.UserTableView.reloadData()
 
             let query = PFUser.query()
             //Show Favorites
@@ -430,6 +434,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             break
         case "Flirts":
             self.navTitle.title = "Flirts"
+            
+            self.UserTableView.reloadData()
 
             let query = PFUser.query()
             
