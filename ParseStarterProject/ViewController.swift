@@ -240,13 +240,13 @@ class ViewController: UIViewController {
                 let imageData = UIImageJPEGRepresentation(defImage.image!, 0.5)
                 //Setup user defaults
                 user["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: imageData!)
-                user["age"] = ""
-                user["height"] = ""
-                user["weight"] = ""
-                user["marital"] = ""
-                user["about"] = ""
-                user["ethnicity"] = ""
-                user["body"] = ""
+                user["age"] = " "
+                user["height"] = " "
+                user["weight"] = " "
+                user["marital"] = "Single"
+                user["about"] = " "
+                user["ethnicity"] = "Black American"
+                user["body"] = "Average"
                 user["gender"] = "male"
                 user["withinDistance"] = 10
                 user["localLimit"] = 25
@@ -260,8 +260,8 @@ class ViewController: UIViewController {
                 user["online"] = false
                 user["app"] = "noir"
                 user["gender"] = "male"
-                user["favorites"] = ["EcBWsQHeKa"]
-                user["flirt"] = ["EcBWsQHeKa"]
+                user["favorites"] = ["5eINpheoSH"]
+                user["flirt"] = ["5eINpheoSH"]
                 
                 
                 
