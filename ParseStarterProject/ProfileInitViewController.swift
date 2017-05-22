@@ -613,7 +613,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         activityIndicater.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        let imageData = UIImageJPEGRepresentation(currentImageView.image!, 0.5)
+        let imageData = UIImageJPEGRepresentation(currentImageView.image!, 0.3)
         
         PFUser.current()?["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: imageData!)
         PFUser.current()?["age"] = userAgeTextField.text

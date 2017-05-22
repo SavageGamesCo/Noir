@@ -32,11 +32,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var userID = [String]()
     var online = [String]()
     
-    var badge = [NSNumber]()
+    var badge = Int()
     
     var withinDistance = 10
     
-    @IBOutlet weak var adBanner: GADBannerView!
     var userIdent = String()
     
     var images = [UIImage]()
@@ -52,6 +51,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var green = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
     
     
+    @IBAction func reload(_ sender: Any) {
+        
+        refreshing()
+    }
 
     @IBAction func auserClicked(_ sender: Any) {
         if showUser != "AUser" {
@@ -134,8 +137,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     }
     
     func refreshing(){
+        UserView()
         self.UserTableView.reloadData()
-        self.refreshControl.endRefreshing()
+//        self.refreshControl.endRefreshing()
 
     }
   
@@ -152,8 +156,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        badge.removeAll()
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
         
         let currentUser = PFUser.current()?.objectId!
         
@@ -169,27 +173,29 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
                     self.chatIcon.tintColor = self.green
-                    self.badge.append(1)
+                    self.badge += 1
                     self.notification(displayName: message["senderName"] as! String)
+                    print("Got new message")
                     
                 }
             } else {
                 self.chatIcon.tintColor = self.green
-                self.badge.append(1)
+                self.badge += 1
                 self.notification(displayName: message["senderName"] as! String)
+                print("Got new message")
             }
             
         }
 
         
         
-        commonActionSheet(title: "Safety Statement", message: "Please be careful when meeting people from the internet in real life. Practice basic safety such as meeting in public, informing someone you trust of your whereabouts. Practice safety at all times. Be sure to ask the pertinent questions before engaging in risky behavior.")
-        
-        UserTableView.refreshControl = refreshControl
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
-        
-        refreshControl.addTarget(self, action: #selector(self.refreshing), for: .touchDown)
-        
+        commonActionSheet(title: "Support Noir!", message: "Noir is a mobile dating application for people of color and lovers of diversity within the gay community. \n\n Noir is not possible without the support of the community. With your support we can upgrade servers to provide a faster and smoother experience for you, we can add new features, we can staff technical support and we can continue to bring you a service made by us, for us. \n\n Noir is made available for free, ad supported, with restrictions. Please consider upgrading to the ad-free version of Noir to have the advertising removed for a one time cost.\n\n Consider one of Noir's monthly memberships to have an increased amount of members shown in the global view, increase the distance for finding local members, have an infinite amount of flirst and favorites! Your monthly subscription goes towards the monthly expenses to run Noir and as mentioned above, bringing you more features and an overall better product.\n\n Noir is not possible without the support of the community it was created for.")
+//        
+//        UserTableView.refreshControl = refreshControl
+//        refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+//        
+//        refreshControl.addTarget(self, action: #selector(self.refreshing), for: .touchDown)
+//        
         //UserTableView.addSubview(refreshControl)
         
         geoPoint()
@@ -203,7 +209,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
-        self.createAndLoadInterstitial()
+        //preloading the interstitial
+        _ = self.createAndLoadInterstitial()
+        
         
     }
     
@@ -275,6 +283,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
         interstitial.delegate = self as? GADInterstitialDelegate
         interstitial.load(GADRequest())
+        
         return interstitial
     }
     
@@ -601,10 +610,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         let chatNotification = UNMutableNotificationContent()
         chatNotification.title = "Noir Chat Notification"
         chatNotification.subtitle = "You Have a New Chat message from " + displayName
-        chatNotification.badge = badge.count as NSNumber
+        chatNotification.badge = badge as NSNumber
         chatNotification.sound = .default()
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier:"Noir", content: chatNotification, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)

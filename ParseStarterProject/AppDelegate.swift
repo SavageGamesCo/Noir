@@ -106,6 +106,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //            application.registerForRemoteNotificationTypes(types)
         //        }
         
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
+            //code here
+        }
+        
+        application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
+        
         let center = UNUserNotificationCenter.current()
         let options: UNAuthorizationOptions = [.alert, .badge, .sound]
         center.requestAuthorization(options: options, completionHandler: { authorized, error in
@@ -113,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 application.registerForRemoteNotifications()
             }
         })
+        
         
         
         FIRApp.configure()

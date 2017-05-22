@@ -52,6 +52,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         super.viewDidLoad()
         
+//        self.showLoadEarlierMessagesHeader = true
         
         picker.delegate = self
         MessagesHandler.Instance.delegate = self

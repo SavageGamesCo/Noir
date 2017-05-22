@@ -17,14 +17,11 @@
 		81BA81791A49E0DB00E65899 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA81781A49E0DB00E65899 /* AudioToolbox.framework */; };
 		81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */; };
 		81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */; };
-		A82C914F081165F40870C495 /* Pods_ParseStarterProject_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8062C7FF338BC70799BCB2 /* Pods_ParseStarterProject_Swift.framework */; };
 		B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BE63C1EAE9ED600A6729F /* GADViewController.swift */; };
 		B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */; };
 		B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71402061EAA8030008E6CFB /* ProfileViewController.swift */; };
 		B774D8341EC8299C000CC615 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B774D8331EC8299C000CC615 /* Constants.swift */; };
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
-		B7C829181EBE877500EFE93D /* shop-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C829171EBE877500EFE93D /* shop-7.png */; };
-		B7C8291A1EBE878700EFE93D /* shopping-cart-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C829191EBE878700EFE93D /* shopping-cart-7.png */; };
 		B7D9CE3D1EBB83E2007236A7 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE291EBB83E2007236A7 /* Contents.json */; };
 		B7D9CE3E1EBB83E2007236A7 /* Icon-App-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE2A1EBB83E2007236A7 /* Icon-App-20x20@1x.png */; };
 		B7D9CE3F1EBB83E2007236A7 /* Icon-App-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE2B1EBB83E2007236A7 /* Icon-App-20x20@2x.png */; };
@@ -47,6 +44,14 @@
 		B7D9CE501EBB83E2007236A7 /* Icon-App-83.5x83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE3C1EBB83E2007236A7 /* Icon-App-83.5x83.5@2x.png */; };
 		B7D9CE521EBB84D0007236A7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE511EBB84D0007236A7 /* Launch Screen.storyboard */; };
 		B7D9CE541EBB8777007236A7 /* couple_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE531EBB8777007236A7 /* couple_4.jpg */; };
+		B7DA38911EC92D38001EFD5F /* BoltsSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA388A1EC92D37001EFD5F /* BoltsSwift.framework */; };
+		B7DA38921EC92D38001EFD5F /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA388B1EC92D37001EFD5F /* GoogleToolboxForMac.framework */; };
+		B7DA38931EC92D38001EFD5F /* JSQMessagesViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA388C1EC92D37001EFD5F /* JSQMessagesViewController.framework */; };
+		B7DA38941EC92D38001EFD5F /* JSQSystemSoundPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA388D1EC92D37001EFD5F /* JSQSystemSoundPlayer.framework */; };
+		B7DA38951EC92D38001EFD5F /* ParseLiveQuery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA388E1EC92D37001EFD5F /* ParseLiveQuery.framework */; };
+		B7DA38961EC92D38001EFD5F /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA388F1EC92D37001EFD5F /* Spring.framework */; };
+		B7DA38971EC92D38001EFD5F /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA38901EC92D37001EFD5F /* Starscream.framework */; };
+		B7DA38991EC93199001EFD5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA38981EC93199001EFD5F /* UIKit.framework */; };
 		B7E5A3E01EB27CAE007E9620 /* 011.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A3DF1EB27CAE007E9620 /* 011.png */; };
 		B7E5A3E81EB28056007E9620 /* heart-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A3E71EB28056007E9620 /* heart-7.png */; };
 		B7E5A3EA1EB28066007E9620 /* message-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A3E91EB28066007E9620 /* message-7.png */; };
@@ -68,6 +73,9 @@
 		B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EDF1CC1EBA0D3D003D013B /* MessagesTableViewCell.swift */; };
 		B7EDF1D31EBA1023003D013B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EDF1D21EBA1023003D013B /* ChatViewController.swift */; };
 		B7EDF1D51EBA33D6003D013B /* MessagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EDF1D41EBA33D6003D013B /* MessagesHandler.swift */; };
+		B7F083CD1ECA830B00FCD167 /* shopping-cart-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F083CC1ECA830B00FCD167 /* shopping-cart-7.png */; };
+		B7F083CF1ECA832000FCD167 /* shop-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F083CE1ECA832000FCD167 /* shop-7.png */; };
+		B7F083D11ECA912E00FCD167 /* update-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F083D01ECA912E00FCD167 /* update-7.png */; };
 		B7FAF5531EA6DF8E0044B07B /* ProfileInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF5521EA6DF8E0044B07B /* ProfileInitViewController.swift */; };
 		B7FAF5591EA707650044B07B /* background_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = B7FAF5551EA707650044B07B /* background_gradient.png */; };
 		B7FAF55A1EA707650044B07B /* default_user_image.png in Resources */ = {isa = PBXBuildFile; fileRef = B7FAF5561EA707650044B07B /* default_user_image.png */; };
@@ -97,15 +105,12 @@
 		81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81BA81801A49E10C00E65899 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		901E471E12D617052CB7DFDE /* Pods-ParseStarterProject-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParseStarterProject-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift.debug.xcconfig"; sourceTree = "<group>"; };
-		AD8062C7FF338BC70799BCB2 /* Pods_ParseStarterProject_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ParseStarterProject_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70BE63C1EAE9ED600A6729F /* GADViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GADViewController.swift; sourceTree = "<group>"; };
 		B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B71402061EAA8030008E6CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B774D8331EC8299C000CC615 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		B778BBDD1EBCD409002EE330 /* ParseStarterProject-Swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ParseStarterProject-Swift.entitlements"; sourceTree = "<group>"; };
+		B778BBDD1EBCD409002EE330 /* Noir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Noir.entitlements; sourceTree = "<group>"; };
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		B7C829171EBE877500EFE93D /* shop-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shop-7.png"; path = "../../../../../../Volumes/lynx/Desktop/iconbeast-lite-200 2/iconbeast lite 200 - png/shop-7.png"; sourceTree = "<group>"; };
-		B7C829191EBE878700EFE93D /* shopping-cart-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shopping-cart-7.png"; path = "../../../../../../Volumes/lynx/Desktop/iconbeast-lite-200 2/iconbeast lite 200 - png/shopping-cart-7.png"; sourceTree = "<group>"; };
 		B7D9CE291EBB83E2007236A7 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		B7D9CE2A1EBB83E2007236A7 /* Icon-App-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@1x.png"; sourceTree = "<group>"; };
 		B7D9CE2B1EBB83E2007236A7 /* Icon-App-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@2x.png"; sourceTree = "<group>"; };
@@ -128,6 +133,14 @@
 		B7D9CE3C1EBB83E2007236A7 /* Icon-App-83.5x83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-83.5x83.5@2x.png"; sourceTree = "<group>"; };
 		B7D9CE511EBB84D0007236A7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		B7D9CE531EBB8777007236A7 /* couple_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = couple_4.jpg; sourceTree = "<group>"; };
+		B7DA388A1EC92D37001EFD5F /* BoltsSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoltsSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/Bolts-Swift/BoltsSwift.framework"; sourceTree = "<group>"; };
+		B7DA388B1EC92D37001EFD5F /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
+		B7DA388C1EC92D37001EFD5F /* JSQMessagesViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSQMessagesViewController.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/JSQMessagesViewController/JSQMessagesViewController.framework"; sourceTree = "<group>"; };
+		B7DA388D1EC92D37001EFD5F /* JSQSystemSoundPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSQSystemSoundPlayer.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework"; sourceTree = "<group>"; };
+		B7DA388E1EC92D37001EFD5F /* ParseLiveQuery.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseLiveQuery.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/ParseLiveQuery/ParseLiveQuery.framework"; sourceTree = "<group>"; };
+		B7DA388F1EC92D37001EFD5F /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/Spring/Spring.framework"; sourceTree = "<group>"; };
+		B7DA38901EC92D37001EFD5F /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/Starscream/Starscream.framework"; sourceTree = "<group>"; };
+		B7DA38981EC93199001EFD5F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B7E5A3DF1EB27CAE007E9620 /* 011.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 011.png; sourceTree = "<group>"; };
 		B7E5A3E71EB28056007E9620 /* heart-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-7.png"; sourceTree = "<group>"; };
 		B7E5A3E91EB28066007E9620 /* message-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-7.png"; sourceTree = "<group>"; };
@@ -149,6 +162,9 @@
 		B7EDF1CC1EBA0D3D003D013B /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		B7EDF1D21EBA1023003D013B /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		B7EDF1D41EBA33D6003D013B /* MessagesHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesHandler.swift; sourceTree = "<group>"; };
+		B7F083CC1ECA830B00FCD167 /* shopping-cart-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping-cart-7.png"; sourceTree = "<group>"; };
+		B7F083CE1ECA832000FCD167 /* shop-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop-7.png"; sourceTree = "<group>"; };
+		B7F083D01ECA912E00FCD167 /* update-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "update-7.png"; sourceTree = "<group>"; };
 		B7FAF5521EA6DF8E0044B07B /* ProfileInitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileInitViewController.swift; sourceTree = "<group>"; };
 		B7FAF5551EA707650044B07B /* background_gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_gradient.png; sourceTree = "<group>"; };
 		B7FAF5561EA707650044B07B /* default_user_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_user_image.png; sourceTree = "<group>"; };
@@ -166,6 +182,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7DA38991EC93199001EFD5F /* UIKit.framework in Frameworks */,
+				B7DA38911EC92D38001EFD5F /* BoltsSwift.framework in Frameworks */,
+				B7DA38921EC92D38001EFD5F /* GoogleToolboxForMac.framework in Frameworks */,
+				B7DA38931EC92D38001EFD5F /* JSQMessagesViewController.framework in Frameworks */,
+				B7DA38941EC92D38001EFD5F /* JSQSystemSoundPlayer.framework in Frameworks */,
+				B7DA38951EC92D38001EFD5F /* ParseLiveQuery.framework in Frameworks */,
+				B7DA38961EC92D38001EFD5F /* Spring.framework in Frameworks */,
+				B7DA38971EC92D38001EFD5F /* Starscream.framework in Frameworks */,
 				81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */,
 				81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */,
 				81BA81791A49E0DB00E65899 /* AudioToolbox.framework in Frameworks */,
@@ -173,7 +197,6 @@
 				81BA81771A49E0D500E65899 /* libsqlite3.dylib in Frameworks */,
 				81BA81711A49DB6800E65899 /* Parse.framework in Frameworks */,
 				81BA81701A49DB6800E65899 /* Bolts.framework in Frameworks */,
-				A82C914F081165F40870C495 /* Pods_ParseStarterProject_Swift.framework in Frameworks */,
 				C5152F9E3F16A01CFB4ABF0D /* Pods_Noir.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,7 +228,7 @@
 		81BA813C1A49DA1800E65899 = {
 			isa = PBXGroup;
 			children = (
-				B778BBDD1EBCD409002EE330 /* ParseStarterProject-Swift.entitlements */,
+				B778BBDD1EBCD409002EE330 /* Noir.entitlements */,
 				81BA81471A49DA1800E65899 /* ParseStarterProject */,
 				814C3AC51B69877600E307BB /* Resources */,
 				81BA816A1A49DB5600E65899 /* Frameworks */,
@@ -249,13 +272,20 @@
 		81BA816A1A49DB5600E65899 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7DA38981EC93199001EFD5F /* UIKit.framework */,
+				B7DA388A1EC92D37001EFD5F /* BoltsSwift.framework */,
+				B7DA388B1EC92D37001EFD5F /* GoogleToolboxForMac.framework */,
+				B7DA388C1EC92D37001EFD5F /* JSQMessagesViewController.framework */,
+				B7DA388D1EC92D37001EFD5F /* JSQSystemSoundPlayer.framework */,
+				B7DA388E1EC92D37001EFD5F /* ParseLiveQuery.framework */,
+				B7DA388F1EC92D37001EFD5F /* Spring.framework */,
+				B7DA38901EC92D37001EFD5F /* Starscream.framework */,
 				B778BBDE1EBCD416002EE330 /* StoreKit.framework */,
 				81BA816B1A49DB6800E65899 /* Bolts.framework */,
 				81BA816C1A49DB6800E65899 /* Parse.framework */,
 				81BA816E1A49DB6800E65899 /* ParseFacebookUtils.framework */,
 				81BA81801A49E10C00E65899 /* ParseUI.framework */,
 				81BA81751A49E0C500E65899 /* System Frameworks */,
-				AD8062C7FF338BC70799BCB2 /* Pods_ParseStarterProject_Swift.framework */,
 				F280494CA807A5E164682988 /* Pods_Noir.framework */,
 			);
 			name = Frameworks;
@@ -307,16 +337,17 @@
 				B7E5A3E71EB28056007E9620 /* heart-7.png */,
 				B7E5A3F31EB287C7007E9620 /* thumb-up-7.png */,
 				B7E5A3EF1EB28190007E9620 /* list-simple-star-7.png */,
-				B7C829191EBE878700EFE93D /* shopping-cart-7.png */,
+				B7F083CC1ECA830B00FCD167 /* shopping-cart-7.png */,
 				B7E5A4051EB28978007E9620 /* bin-7.png */,
 				B7E5A4031EB2893E007E9620 /* circle-x-7.png */,
 				B7E5A3ED1EB280DF007E9620 /* earth-america-7.png */,
 				B7E5A3F91EB28830007E9620 /* photo-7.png */,
+				B7F083D01ECA912E00FCD167 /* update-7.png */,
 				B7E5A3F71EB28826007E9620 /* photos-simple-7.png */,
 				B7E5A3F51EB287E1007E9620 /* star-7.png */,
 				B7E5A3FB1EB288CB007E9620 /* gear-7.png */,
 				B7E5A3EB1EB28081007E9620 /* pin-map-7.png */,
-				B7C829171EBE877500EFE93D /* shop-7.png */,
+				B7F083CE1ECA832000FCD167 /* shop-7.png */,
 				B7E5A4011EB28926007E9620 /* crown-7.png */,
 				B7E5A3E91EB28066007E9620 /* message-7.png */,
 				B7FAF5551EA707650044B07B /* background_gradient.png */,
@@ -410,11 +441,9 @@
 				B7E5A3E81EB28056007E9620 /* heart-7.png in Resources */,
 				B7D9CE3D1EBB83E2007236A7 /* Contents.json in Resources */,
 				B7FAF55B1EA707650044B07B /* noir_big_logo.png in Resources */,
-				B7C8291A1EBE878700EFE93D /* shopping-cart-7.png in Resources */,
 				B7D9CE4D1EBB83E2007236A7 /* Icon-App-76x76@1x.png in Resources */,
 				B7FAF5591EA707650044B07B /* background_gradient.png in Resources */,
 				B7D9CE501EBB83E2007236A7 /* Icon-App-83.5x83.5@2x.png in Resources */,
-				B7C829181EBE877500EFE93D /* shop-7.png in Resources */,
 				B7E5A3F21EB2878C007E9620 /* write-simple-7.png in Resources */,
 				B7FAF55C1EA707650044B07B /* noir_nav_logo.png in Resources */,
 				B7D9CE4C1EBB83E2007236A7 /* Icon-App-60x60@3x.png in Resources */,
@@ -426,9 +455,11 @@
 				B7D9CE4B1EBB83E2007236A7 /* Icon-App-60x60@2x.png in Resources */,
 				B7D9CE3E1EBB83E2007236A7 /* Icon-App-20x20@1x.png in Resources */,
 				B7E5A3EA1EB28066007E9620 /* message-7.png in Resources */,
+				B7F083CF1ECA832000FCD167 /* shop-7.png in Resources */,
 				B7D9CE451EBB83E2007236A7 /* Icon-App-40x40@2x.png in Resources */,
 				B7D9CE411EBB83E2007236A7 /* Icon-App-29x29@1x.png in Resources */,
 				B7FAF55A1EA707650044B07B /* default_user_image.png in Resources */,
+				B7F083D11ECA912E00FCD167 /* update-7.png in Resources */,
 				B7E5A3F61EB287E1007E9620 /* star-7.png in Resources */,
 				B7E5A3FA1EB28830007E9620 /* photo-7.png in Resources */,
 				B7E5A4021EB28926007E9620 /* crown-7.png in Resources */,
@@ -443,6 +474,7 @@
 				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 				B7D9CE401EBB83E2007236A7 /* Icon-App-20x20@3x.png in Resources */,
 				B7D9CE3F1EBB83E2007236A7 /* Icon-App-20x20@2x.png in Resources */,
+				B7F083CD1ECA830B00FCD167 /* shopping-cart-7.png in Resources */,
 				B7D9CE4F1EBB83E2007236A7 /* Icon-App-76x76@3x.png in Resources */,
 				B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */,
 				B7D9CE4E1EBB83E2007236A7 /* Icon-App-76x76@2x.png in Resources */,
@@ -629,7 +661,7 @@
 			baseConfigurationReference = 7BB70A20A921B4A38EC22ACB /* Pods-Noir.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "ParseStarterProject-Swift.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Noir.entitlements;
 				DEVELOPMENT_TEAM = Y48X6YTBV7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -641,7 +673,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.savage-code.Noir";
 				PRODUCT_NAME = Noir;
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -650,7 +682,7 @@
 			baseConfigurationReference = CA61033430ED3394A1C95768 /* Pods-Noir.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "ParseStarterProject-Swift.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Noir.entitlements;
 				DEVELOPMENT_TEAM = Y48X6YTBV7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -663,7 +695,7 @@
 				PRODUCT_NAME = Noir;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

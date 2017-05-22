@@ -101,12 +101,6 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
-            //code here
-        }
-        
         //Show a view dependent on which mode is visible.
         if signUpMode {
             
@@ -176,7 +170,7 @@ class ViewController: UIViewController {
         
         submitButton.setTitle("Log In", for: [])
         
-        commonActionSheet(title: "Beta: What To Test", message: "Thank you for participating in the beta. During the Beta, this screen will inform you of what needs to be tested, what issues we are already aware of and feature changes.\n\n This is the first beta test. We will be testing the login process, the all user view, local user view and the database. To participate in this test please do the following: Log In, tap the globe to view all logged in users, tap the nav pin to view users within 10 miles of you, select a user, send a flirt, click the star to favorite, click the chat bubble to chat with someone. \n\n Known Issues: Chat Message order is NOT consistent.\n\n Warning: This is a Beta test, not the full end product. This is also testing the server and database. The results will determine if we change databases. This means you MAY lose conversations on the next beta update. As the test period moves forward different features will be added and you will be asked to test. This is currently a closed beta, so there will only be about 30 users initially. So you may not have any members near you yet. Hang in there!")
+        commonActionSheet(title: "Beta Test Phase 2: What To Test", message: "Thank you for participating in the beta. During the Beta, this screen will inform you of what needs to be tested, what issues we are already aware of and feature changes.\n\n This is the second beta test phase. We will be testing the login process again for the new servers. To participate in this test please do the following: Log In, tap the globe to view all logged in users, tap the nav pin to view users within 10 miles of you, select a user, send a flirt, click the star to favorite, tap the chat bubble to chat with someone. \n\n Known Issues: Application Icon Badge does noes show a number in testflight.\n\n Warning: This is a Beta test, not the final product. This is also testing the server and database. The results will determine if how much bandwidth is purchased per month to run this service. This means you MAY lose conversations or even the account on the next beta update. As the test period moves forward different features will be added and you will be asked to test. This is currently a closed beta, so there will only be about 30 users initially. So you may not have any members near you yet. Hang in there! We will also test out Push Notifications. Some members with have their accounts flagged for ad-free. A notification will alert you when your account has been made ad-free for testing.")
     }
     
     func SignUpMode(){
