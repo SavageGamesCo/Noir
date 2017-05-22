@@ -61,6 +61,11 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         
     }
     
+    @IBAction func reportButtonClicked(_ sender: Any) {
+        commonActionSheet(title: "Report User", message: "Are you certain you wish to report this user? Bear in mind reporting a user is to be used in cases of harassment, cyber bullying, doxxing and violations of Noir profile rules. To validate a violation a profile must do one of the following:\n\n * Display Nudity\n\n * Contain Racist Language\n\n * Display a False Picture (no catfishing)\n\n * Contain OVERLY Vulgar Language\n\n * Promotes ANY Crime\n\n * Participate in Cyber Stalking/Cyber Bullying/Harrassment.\n\n\n **REPORTING A USER WILL ALSO BLOCK THIS USER** ", whatCase: "report")
+    
+    }
+    
     @IBAction func favorites_clicked(_ sender: Any) {
         
         if favorite == true {
@@ -452,6 +457,12 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             alert.addAction(block)
             alert.addAction(cancel)
             break
+        case "report":
+            let report = UIAlertAction(title: "report", style: .default, handler: {(alert: UIAlertAction!) in self.reportUser()} )
+            let cancel = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+            alert.addAction(report)
+            alert.addAction(cancel)
+            break
         case "normal":
             let cancel = UIAlertAction(title: "Close", style: .cancel, handler: nil)
             alert.addAction(cancel)
@@ -481,6 +492,40 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             }
             
         })
+    }
+    
+    func reportUser() {
+        PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: "blocked")
+        
+        let reported = PFObject(className: "Reported")
+        
+        reported["reportedBy"] = PFUser.current()?.objectId
+        reported["reportedByUserName"] = PFUser.current()?.username
+        reported["reportedUser"] = displayedUserID 
+        reported["reportedUserUsername"] = username 
+        
+        reported.saveInBackground { (success, error) in
+            
+            if error != nil {
+                print("error in reporting user")
+            } else {
+                print("user reported")
+                self.dialogueBox(title: "User Blocked", messageText: "You have Blocked " + self.username + ".")
+            }
+        }
+        
+        PFUser.current()?.saveInBackground(block: {(success, error) in
+            
+            if error != nil {
+                print("Error saving after blocking user")
+            } else {
+                print("user reported")
+                self.performSegue(withIdentifier: "toUserTable", sender: self)
+            }
+            
+        })
+
+        
     }
 
     /*

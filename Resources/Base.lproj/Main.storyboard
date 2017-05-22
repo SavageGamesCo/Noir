@@ -629,6 +629,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYq-po-Cgt">
                                                     <rect key="frame" x="183" y="7" width="47" height="30"/>
                                                     <state key="normal" title="Report"/>
+                                                    <connections>
+                                                        <action selector="reportButtonClicked:" destination="A68-zX-6Ek" eventType="touchUpInside" id="dwk-MQ-nUj"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
