@@ -178,20 +178,27 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                 if let users = objects {
                                     for object in users {
                                         if let user = object as? PFUser {
-                                            let imageFile = user["mainPhoto"] as! PFFile
                                             
-                                            imageFile.getDataInBackground(block: { (data, error) in
-                                                
-                                                if let imageData = data {
+                                            if let blockedUsers = PFUser.current()?["blocked"] {
+                                                if (blockedUsers as AnyObject).contains(user.objectId! as String!){
                                                     
-                                                    self.senderPic.append(UIImage(data: imageData)!)
-
-                                                    self.senderID.append(message["senderID"] as! String)
-                                                    self.senderName.append((user.username!))
+                                                }else {
+                                                    let imageFile = user["mainPhoto"] as! PFFile
                                                     
-                                                    self.msgTableView.reloadData()
+                                                    imageFile.getDataInBackground(block: { (data, error) in
+                                                        
+                                                        if let imageData = data {
+                                                            
+                                                            self.senderPic.append(UIImage(data: imageData)!)
+                                                            
+                                                            self.senderID.append(message["senderID"] as! String)
+                                                            self.senderName.append((user.username!))
+                                                            
+                                                            self.msgTableView.reloadData()
+                                                        }
+                                                    })
                                                 }
-                                            })
+                                            }
                                             
                                         }
                                     }

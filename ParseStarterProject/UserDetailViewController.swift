@@ -474,6 +474,12 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         
         PFUser.current()?.saveInBackground(block: {(success, error) in
             
+            if error != nil {
+                print("Error saving after blocking user")
+            } else {
+                self.performSegue(withIdentifier: "toUserTable", sender: self)
+            }
+            
         })
     }
 

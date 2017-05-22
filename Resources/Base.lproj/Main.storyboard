@@ -688,6 +688,7 @@
                         <outlet property="profileImage" destination="nxH-a0-kSC" id="0tj-SP-pg4"/>
                         <outlet property="weightTag" destination="lrc-vC-1JX" id="cVt-Hb-EEH"/>
                         <segue destination="Qtl-TD-lmx" kind="show" id="Abi-JI-2DL"/>
+                        <segue destination="ijc-SN-gV4" kind="show" identifier="toUserTable" id="9pk-Jv-8jF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nye-LJ-Piw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1768,9 +1769,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="K6o-u3-E9D"/>
-        <segue reference="Abi-JI-2DL"/>
+        <segue reference="9pk-Jv-8jF"/>
         <segue reference="AQS-Bi-6uX"/>
         <segue reference="cUZ-UY-Xrm"/>
+        <segue reference="Abi-JI-2DL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
