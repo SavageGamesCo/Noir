@@ -249,7 +249,7 @@
             </objects>
             <point key="canvasLocation" x="-2683" y="-166"/>
         </scene>
-        <!--UserDetail-->
+        <!--User Detail View Controller-->
         <scene sceneID="JMt-tl-For">
             <objects>
                 <tableViewController id="A68-zX-6Ek" customClass="UserDetailViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
@@ -260,6 +260,15 @@
                         <color key="separatorColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexColor" red="0.95760530229999996" green="0.87718737130000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="hWg-nZ-fCI" customClass="GADBannerView">
+                            <rect key="frame" x="0.0" y="785" width="414" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="autoloadEnabled" value="YES"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="adUnitID" value="ca-app-pub-3940256099942544/2934735716"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                         <sections>
                             <tableViewSection id="PFb-J4-qyg">
                                 <cells>
@@ -658,10 +667,13 @@
                             <color key="tintColor" red="0.98806899790000002" green="0.6853456497" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="UserDetail" id="hth-sT-1sH"/>
+                    <navigationItem key="navigationItem" id="hth-sT-1sH">
+                        <nil key="title"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="about" destination="T79-zs-gkX" id="eKt-Bi-SNm"/>
                         <outlet property="ageTag" destination="9f8-1V-f6c" id="Bx8-bj-y05"/>
+                        <outlet property="bannerAd" destination="hWg-nZ-fCI" id="smh-oi-wbn"/>
                         <outlet property="blockButton" destination="Jki-YV-gDe" id="kdw-SH-Qgk"/>
                         <outlet property="bodyTag" destination="kzr-jE-97Z" id="yCr-F3-jP1"/>
                         <outlet property="chatButton" destination="SK0-by-KJB" id="mrv-nV-WzF"/>
@@ -677,13 +689,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nye-LJ-Piw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-757" y="602"/>
+            <point key="canvasLocation" x="-757.97101449275374" y="601.63043478260875"/>
         </scene>
         <!--Noir Users-->
         <scene sceneID="vfq-Ku-Ucd">
             <objects>
                 <collectionViewController title="Noir Users" modalTransitionStyle="flipHorizontal" id="ijc-SN-gV4" customClass="UsersCollectionViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -691,7 +703,7 @@
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Wrb-YW-Apx">
                             <size key="itemSize" width="80" height="107"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="50" height="50"/>
                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
@@ -751,6 +763,23 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9Rz-QW-LXx">
+                            <rect key="frame" x="0.0" y="117" width="414" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade Your Membership For More!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpC-Lh-FrI">
+                                    <rect key="frame" x="8" y="15" width="398" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <color key="textColor" red="0.98806899790000002" green="0.6853456497" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="NpC-Lh-FrI" firstAttribute="centerY" secondItem="9Rz-QW-LXx" secondAttribute="centerY" id="3Te-Mu-Qur"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="NpC-Lh-FrI" secondAttribute="trailing" id="Kg7-aU-wQR"/>
+                                <constraint firstItem="NpC-Lh-FrI" firstAttribute="leading" secondItem="9Rz-QW-LXx" secondAttribute="leadingMargin" id="mlF-9I-1nx"/>
+                            </constraints>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="ijc-SN-gV4" id="ttG-9E-hxP"/>
                             <outlet property="delegate" destination="ijc-SN-gV4" id="8gd-7l-Ldi"/>
@@ -792,7 +821,11 @@
                                     <segue destination="ZXN-uZ-4SD" kind="show" id="uKU-yI-vux"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="shopping-cart-7.png" id="Jn7-Vf-sSR"/>
+                            <barButtonItem image="shopping-cart-7.png" id="Jn7-Vf-sSR">
+                                <connections>
+                                    <segue destination="Vb4-l1-Xmp" kind="show" id="xFX-Mh-bqV"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem image="heart-7.png" style="plain" id="oa5-XN-7XG">
@@ -1486,7 +1519,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="27"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kac-A4-kCj" id="3dN-XJ-v9B">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="26.666666666666668"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="27"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1499,7 +1532,7 @@
                                         <rect key="frame" x="0.0" y="83" width="414" height="102"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="699-qm-OyV" id="fiT-ta-RhQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="101.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ad-Free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5G-pb-3me">
@@ -1544,7 +1577,7 @@
                                         <rect key="frame" x="0.0" y="213" width="414" height="102"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UcH-za-x1X" id="khI-DK-U1j">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="101.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urT-Ro-Pfs">
@@ -1585,7 +1618,7 @@
                                         <rect key="frame" x="0.0" y="315" width="414" height="102"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nFp-c4-OV7" id="hzh-5W-D1P">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="101.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3 Months" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MwN-cR-WD1">
@@ -1626,7 +1659,7 @@
                                         <rect key="frame" x="0.0" y="417" width="414" height="102"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AbQ-45-uZ1" id="vaa-te-QCD">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="101.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccK-fx-OCl">
@@ -1671,7 +1704,7 @@
                                         <rect key="frame" x="0.0" y="547" width="414" height="177"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LKg-q0-yxd" id="b5L-IW-yBA">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="176.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="177"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GoFundMe!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBl-yx-Ecc">
@@ -1732,9 +1765,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="K6o-u3-E9D"/>
-        <segue reference="iFA-Nf-wsQ"/>
-        <segue reference="uKU-yI-vux"/>
-        <segue reference="b7p-8z-hIe"/>
+        <segue reference="Abi-JI-2DL"/>
+        <segue reference="AQS-Bi-6uX"/>
+        <segue reference="cUZ-UY-Xrm"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -21,6 +21,8 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
 
     @IBOutlet var profileImage: UIImageView!
     
+    @IBOutlet weak var bannerAd: GADBannerView!
+    
     @IBOutlet var ageTag: UILabel!
     @IBOutlet var locationTag: UILabel!
     @IBOutlet var maritalTag: UILabel!
@@ -135,6 +137,18 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if PFUser.current()?["adFree"] as? Bool == false  {
+            bannerAd.isHidden = false
+            print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
+            bannerAd.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            bannerAd.rootViewController = self
+            bannerAd.load(GADRequest())
+        } else {
+            bannerAd.isHidden = true
+        }
+        
+        
+        
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
@@ -174,7 +188,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         
         
         
-        print(displayedUserID)
+//        print(displayedUserID)
         
 
         // Do any additional setup after loading the view.
@@ -189,6 +203,8 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         profileImage.center = CGPoint(x: self.view.bounds.width / 2, y: self.profileImage.center.y )
         
         profileImage.alpha = 1
+        
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
