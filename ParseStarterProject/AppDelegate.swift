@@ -21,6 +21,8 @@ import UserNotifications
 // If you want to use any of the UI components, uncomment this line
 // import ParseUI
 
+var badge = Int()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -139,10 +141,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         
+        badge = 0
+        
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
+        
+        badge = 0
         
         UIApplication.shared.applicationIconBadgeNumber = 0
     }

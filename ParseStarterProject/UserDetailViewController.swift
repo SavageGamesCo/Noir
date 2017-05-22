@@ -8,10 +8,16 @@
 
 import UIKit
 import Parse
+import ParseLiveQuery
 import Firebase
 import GoogleMobileAds
+import UserNotifications
 
 class UserDetailViewController: UITableViewController, UINavigationControllerDelegate {
+    
+    let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
+    
+    private var subscription: Subscription<PFObject>!
 
     @IBOutlet var profileImage: UIImageView!
     
@@ -129,6 +135,33 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+        
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
+        
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            
+            
+            if Thread.current != Thread.main {
+                return DispatchQueue.main.async {
+                    
+                    badge += 1
+                    self.notification(displayName: message["senderName"] as! String)
+                    print("Got new message")
+                    
+                }
+            } else {
+                
+                badge += 1
+                self.notification(displayName: message["senderName"] as! String)
+                print("Got new message")
+            }
+            
+        }
+        
         if displayedUserID == PFUser.current()?.objectId {
             chatButton.isEnabled = false
             blockButton.isEnabled = false
@@ -159,6 +192,10 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+
         
 //        updateImage()
         
@@ -363,6 +400,19 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         // Dispose of any resources that can be recreated.
     }
     
+    func notification(displayName: String){
+        
+        let chatNotification = UNMutableNotificationContent()
+        chatNotification.title = "Noir Chat Notification"
+        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.badge = badge as NSNumber
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier:APPLICATION, content: chatNotification, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+    }
 
     /*
     // MARK: - Navigation

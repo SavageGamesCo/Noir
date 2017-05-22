@@ -32,7 +32,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var userID = [String]()
     var online = [String]()
     
-    var badge = Int()
+    
     
     var withinDistance = 10
     
@@ -173,14 +173,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
                     self.chatIcon.tintColor = self.green
-                    self.badge += 1
+                    badge += 1
                     self.notification(displayName: message["senderName"] as! String)
                     print("Got new message")
                     
                 }
             } else {
                 self.chatIcon.tintColor = self.green
-                self.badge += 1
+                badge += 1
                 self.notification(displayName: message["senderName"] as! String)
                 print("Got new message")
             }

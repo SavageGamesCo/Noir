@@ -8,13 +8,19 @@
 
 import UIKit
 import Parse
+import ParseLiveQuery
 import Firebase
 import GoogleMobileAds
+import UserNotifications
 
 private let reuseIdentifier = "Cell"
 private let CHAT_SEGUE = "toChat"
 
 class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
+    
+    let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
+    
+    private var subscription: Subscription<PFObject>!
    
     
     @IBOutlet var msgTableView: UITableView!
@@ -29,6 +35,34 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+        
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
+        
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            
+            
+            if Thread.current != Thread.main {
+                return DispatchQueue.main.async {
+//                    self.chatIcon.tintColor = self.green
+                    badge += 1
+                    self.notification(displayName: message["senderName"] as! String)
+                    print("Got new message")
+                    
+                }
+            } else {
+//                self.chatIcon.tintColor = self.green
+                badge += 1
+                self.notification(displayName: message["senderName"] as! String)
+                print("Got new message")
+            }
+            
+        }
+
         
         if PFUser.current()?["adFree"] as? Bool == false  {
             adBannerView.isHidden = false
@@ -57,6 +91,9 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
         
     }
     
@@ -175,6 +212,21 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         }
         
         
+        
+    }
+    
+    func notification(displayName: String){
+        
+        let chatNotification = UNMutableNotificationContent()
+        chatNotification.title = "Noir Chat Notification"
+        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.badge = badge as NSNumber
+        chatNotification.sound = .default()
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier:"Noir", content: chatNotification, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
     }
     

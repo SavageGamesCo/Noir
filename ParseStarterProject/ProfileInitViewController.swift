@@ -8,10 +8,16 @@
 
 import UIKit
 import Parse
+import ParseLiveQuery
+import UserNotifications
 
 var activeField: UITextField?
 
 class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
+    
+    private var subscription: Subscription<PFObject>!
     
     let agePicker = UIPickerView()
     let agePickerData = ["18", "19", "20", "21","22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"]
@@ -480,6 +486,33 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+        
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
+        
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            
+            
+            if Thread.current != Thread.main {
+                return DispatchQueue.main.async {
+                    
+                    badge += 1
+                    self.notification(displayName: message["senderName"] as! String)
+                    print("Got new message")
+                    
+                }
+            } else {
+                
+                badge += 1
+                self.notification(displayName: message["senderName"] as! String)
+                print("Got new message")
+            }
+            
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -657,6 +690,10 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+
         
         self.navigationController?.navigationBar.isHidden = false
     }
@@ -850,6 +887,20 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         self.present(dialog,
                      animated: true,
                      completion: nil)
+    }
+    
+    func notification(displayName: String){
+        
+        let chatNotification = UNMutableNotificationContent()
+        chatNotification.title = "Noir Chat Notification"
+        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.badge = badge as NSNumber
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier:APPLICATION, content: chatNotification, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
     }
 
 
