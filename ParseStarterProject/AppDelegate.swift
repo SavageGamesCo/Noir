@@ -153,21 +153,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
-//    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//        let installation = PFInstallation.current()
-//        installation.setDeviceTokenFrom(deviceToken)
-//        installation.saveInBackground()
-//
-//        PFPush.subscribeToChannel(inBackground: "") { (succeeded, error) in // (succeeded: Bool, error: NSError?) is now (succeeded, error)
-//
-//            if succeeded {
-//                print("Noir successfully subscribed to push notifications on the broadcast channel.\n");
-//            } else {
-//                print("Noir failed to subscribe to push notifications on the broadcast channel with error = %@.\n", error)
-//            }
-//        }
-//    }
-
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         if error.code == 3010 {
             print("Push notifications are not supported in the iOS Simulator.\n")

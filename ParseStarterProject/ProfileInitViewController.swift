@@ -19,6 +19,31 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     
     private var subscription: Subscription<PFObject>!
     
+    @IBAction func deleteAccountButton(_ sender: Any) {
+        
+        commonActionSheet(title: "Delete Account", message: "Are you certain you wish you to delete your account?", whatCase: "delUser")
+        
+    }
+    
+    @IBAction func TermsOfUseButton(_ sender: Any) {
+        
+        commonActionSheet(title: "Terms of User / End User License Agreement", message: "EULA", whatCase: "normal")
+        
+    }
+    
+    @IBAction func privacyPolicyButton(_ sender: Any) {
+        
+        commonActionSheet(title: "Privacy Policy", message: "Privacy Policy", whatCase: "normal")
+        
+    }
+    
+    @IBAction func aboutNoir(_ sender: Any) {
+        
+        commonActionSheet(title: "About Noir", message: "About Noir", whatCase: "normal")
+        
+    }
+    
+    
     let agePicker = UIPickerView()
     let agePickerData = ["18", "19", "20", "21","22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"]
     
@@ -900,6 +925,45 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         let request = UNNotificationRequest(identifier:APPLICATION, content: chatNotification, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+    }
+    
+    func commonActionSheet(title: String, message: String, whatCase: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        
+        switch whatCase {
+        case "delUser":
+            let delete = UIAlertAction(title: "Delete", style: .default, handler: {(alert: UIAlertAction!) in self.deleteUserCurrent()})
+            let cancel = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            break
+        case "normal":
+            let cancel = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+            alert.addAction(cancel)
+            break
+        default:
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancel)
+            break
+        }
+        
+        
+        
+        alert.popoverPresentationController?.sourceView = view
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func deleteUserCurrent() {
+        
+        if PFUser.current() != nil {
+            PFUser.current()?.deleteInBackground(block: { (deleteSuccessful, error) -> Void in
+                print("success = \(deleteSuccessful)")
+                PFUser.logOut()
+            })
+        }
         
     }
 
