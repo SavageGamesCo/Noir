@@ -665,6 +665,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="GNp-gJ-XnO"/>
                         <barButtonItem image="emoticon-sad-7.png" id="Jki-YV-gDe">
                             <color key="tintColor" red="0.98806899790000002" green="0.6853456497" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="blockUserClicked:" destination="A68-zX-6Ek" id="oOH-8c-MA7"/>
+                            </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="hth-sT-1sH">

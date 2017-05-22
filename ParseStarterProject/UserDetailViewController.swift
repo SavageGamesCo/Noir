@@ -55,6 +55,11 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         showAd()
     }
     
+    @IBAction func blockUserClicked(_ sender: Any) {
+        
+        commonActionSheet(title: "Block Member", message: "Are you certain you wish to block this user?", whatCase: "block")
+        
+    }
     
     @IBAction func favorites_clicked(_ sender: Any) {
         
@@ -137,7 +142,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if PFUser.current()?["adFree"] as? Bool == false  {
+        if PFUser.current()?["adFree"] as? Bool == false || PFUser.current()?["membership"] as? String != "basic"  {
             bannerAd.isHidden = false
             print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
             bannerAd.adUnitID = "ca-app-pub-3940256099942544/2934735716"
@@ -428,6 +433,48 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
+    }
+    
+    func commonActionSheet(title: String, message: String, whatCase: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        
+        switch whatCase {
+        case "delUser":
+            let delete = UIAlertAction(title: "Delete", style: .default, handler: nil)
+            let cancel = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            break
+        case "block":
+            let block = UIAlertAction(title: "Block", style: .default, handler: {(alert: UIAlertAction!) in self.blockUser()} )
+            let cancel = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+            alert.addAction(block)
+            alert.addAction(cancel)
+            break
+        case "normal":
+            let cancel = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+            alert.addAction(cancel)
+            break
+        default:
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancel)
+            break
+        }
+        
+        
+        
+        alert.popoverPresentationController?.sourceView = view
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func blockUser() {
+        PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: "blocked")
+        
+        PFUser.current()?.saveInBackground(block: {(success, error) in
+            
+        })
     }
 
     /*

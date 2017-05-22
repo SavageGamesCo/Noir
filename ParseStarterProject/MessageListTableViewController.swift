@@ -64,7 +64,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         }
 
         
-        if PFUser.current()?["adFree"] as? Bool == false  {
+        if PFUser.current()?["adFree"] as? Bool == false || PFUser.current()?["membership"] as? String != "basic" {
             adBannerView.isHidden = false
         } else {
             adBannerView.isHidden = true

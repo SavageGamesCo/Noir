@@ -31,6 +31,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var usernames = [String]()
     var userID = [String]()
     var online = [String]()
+    var blocked = [String]()
     
     
     
@@ -220,6 +221,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         geoPoint()
         
+        if PFUser.current()?["blocked"] != nil {
+        }
         
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -268,7 +271,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     }
     
     func showAd() {
-        if PFUser.current()?["adFree"] as? Bool == false {
+        if PFUser.current()?["adFree"] as? Bool == false || PFUser.current()?["membership"] as? String != "basic" {
             if interstitial.isReady {
                 interstitial.present(fromRootViewController: self)
             } else {
@@ -322,24 +325,27 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     for object in users {
                         if let user = object as? PFUser {
                             
-                            
-                            let imageFile = user["mainPhoto"] as! PFFile
-                            
-                            imageFile.getDataInBackground(block: {(data, error) in
-                                
-                                if let imageData = data {
-                                    self.images.append(UIImage(data: imageData)!)
+                            if let blockedUsers = PFUser.current()?["blocked"] {
+                                if (blockedUsers as AnyObject).contains(user.objectId! as String!){
                                     
-                                    self.usernames.append(user.username!)
-                                    self.userID.append(user.objectId!)
-                                    self.online.append(user.objectId!)
+                                } else {
+                                    let imageFile = user["mainPhoto"] as! PFFile
                                     
-                                    self.UserTableView.reloadData()
-                                }
-                            })
+                                    imageFile.getDataInBackground(block: {(data, error) in
+                                        
+                                        if let imageData = data {
+                                            self.images.append(UIImage(data: imageData)!)
+                                            
+                                            self.usernames.append(user.username!)
+                                            self.userID.append(user.objectId!)
+                                            self.online.append(user.objectId!)
+                                            
+                                            self.UserTableView.reloadData()
+                                        }
+                                    })
 
-                            
-                            
+                                }
+                            }
                         }
                     }
                 }
@@ -355,7 +361,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
                     
                     if PFUser.current()?["membership"] as? String == "basic" {
-                        
+                        query?.limit = PFUser.current()?["globalLimit"] as! Int
                         withinDistance = (PFUser.current()?["localLimit"] as? Int)!
                     } else {
                         withinDistance = 100
@@ -379,22 +385,29 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                             for object in users {
                                 if let user = object as? PFUser {
                                     
-                                    
-                                    let imageFile = user["mainPhoto"] as! PFFile
-                                    
-                                    imageFile.getDataInBackground(block: {(data, error) in
-                                        
-                                        if let imageData = data {
-                                            self.images.append(UIImage(data: imageData)!)
+                                    if let blockedUsers = PFUser.current()?["blocked"] {
+                                        if ( blockedUsers as AnyObject).contains(user.objectId! as String!){
                                             
-                                            self.usernames.append(user.username!)
-                                            self.userID.append(user.objectId!)
-                                            self.online.append(user.objectId!)
+                                        } else {
+                                            let imageFile = user["mainPhoto"] as! PFFile
                                             
-                                            
-                                            self.UserTableView.reloadData()
+                                            imageFile.getDataInBackground(block: {(data, error) in
+                                                
+                                                if let imageData = data {
+                                                    self.images.append(UIImage(data: imageData)!)
+                                                    
+                                                    self.usernames.append(user.username!)
+                                                    self.userID.append(user.objectId!)
+                                                    self.online.append(user.objectId!)
+                                                    
+                                                    
+                                                    self.UserTableView.reloadData()
+                                                }
+                                            })
+
                                         }
-                                    })
+                                    
+                                    }
                                     
                                 }
                             }
