@@ -283,7 +283,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     }
     
     func createAndLoadInterstitial() -> GADInterstitial {
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-9770059916027069/7359406151")
         interstitial.delegate = self as? GADInterstitialDelegate
         interstitial.load(GADRequest())
         

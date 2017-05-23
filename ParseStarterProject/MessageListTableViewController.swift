@@ -71,7 +71,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         }
         
         print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
-        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        adBannerView.adUnitID = "ca-app-pub-9770059916027069/9870169753"
         adBannerView.rootViewController = self
         adBannerView.load(GADRequest())
         

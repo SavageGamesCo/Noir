@@ -150,7 +150,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         if PFUser.current()?["adFree"] as? Bool == false || PFUser.current()?["membership"] as? String != "basic"  {
             bannerAd.isHidden = false
             print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
-            bannerAd.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            bannerAd.adUnitID = "ca-app-pub-9770059916027069/2101714155"
             bannerAd.rootViewController = self
             bannerAd.load(GADRequest())
         } else {
