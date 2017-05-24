@@ -30,6 +30,7 @@ PODS:
     - Starscream (= 2.0.3)
   - Spring (1.0.3)
   - Starscream (2.0.3)
+  - SwiftyStoreKit (0.8.6)
 
 DEPENDENCIES:
   - Firebase/AdMob
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - JSQMessagesViewController
   - ParseLiveQuery
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
+  - SwiftyStoreKit
 
 EXTERNAL SOURCES:
   Spring:
@@ -63,7 +65,8 @@ SPEC CHECKSUMS:
   ParseLiveQuery: 38fb42e4b8611ecfcb199d47e48aeaf6879f8560
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   Starscream: 3fdd5c277e57cca6b5c406d274e3f34a7c88f2ce
+  SwiftyStoreKit: 3cd98b53dc4ab9fd33c1023a8eae38225ebae312
 
-PODFILE CHECKSUM: 6dfcba5aa5e526871991872e96aa9dd90d10249d
+PODFILE CHECKSUM: 70d61ed81a1b4683efb0d2df0c059d22cb6981b6
 
 COCOAPODS: 1.2.1

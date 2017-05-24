@@ -112,6 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //code here
         }
         
+        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound , .badge , .alert], categories: nil))
+        
         application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
         
         let center = UNUserNotificationCenter.current()

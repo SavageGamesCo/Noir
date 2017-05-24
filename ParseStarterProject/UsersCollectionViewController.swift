@@ -13,12 +13,17 @@ import Firebase
 import GoogleMobileAds
 import UserNotifications
 import ParseLiveQuery
+import StoreKit
+import SwiftyStoreKit
 
 private let reuseIdentifier = "Cell"
 
 
 
+
 class UsersCollectionViewController: UICollectionViewController, UIToolbarDelegate {
+    
+    let bundleID = "comsavagecodeNoir"
     
     let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
     
@@ -154,13 +159,48 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //validate subscription receipt
+        let appleValidator = AppleReceiptValidator(service: .production)
+        SwiftyStoreKit.verifyReceipt(using: appleValidator, password: sharedSecret) { result in
+            
+            if case .success(let receipt) = result {
+                let purchaseResult = SwiftyStoreKit.verifySubscription(
+                    type: .autoRenewable,
+                    productId: self.bundleID + RegisteredPurchase.OneMonth.rawValue,
+                    inReceipt: receipt)
+                
+                switch purchaseResult {
+                case .expired(let expiryDate):
+                    print("Product is expired since \(expiryDate)")
+                    PFUser.current()?["membership"] = "basic"
+                    PFUser.current()?.saveInBackground()
+                case .notPurchased:
+                    print("This product has never been purchased")
+                    
+                default:
+                    print("Membership is active and not expired")
+                    break
+                }
+                
+            } else {
+                // receipt verification error
+            }
+        }
+        //end validate subscription
         
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
         let currentUser = PFUser.current()?.objectId!
+        
+        if PFUser.current()?["membership"] as? String == "basic" {
+            self.commonActionSheet(title: "Support Noir!", message: "Noir is a mobile dating application for people of color and lovers of diversity within the gay community. \n\n Noir is not possible without the support of the community. With your support we can upgrade servers to provide a faster and smoother experience for you, we can add new features, we can staff technical support and we can continue to bring you a service made by us, for us. \n\n Noir is made available for free, ad supported, with restrictions. Please consider upgrading to the ad-free version of Noir to have the advertising removed for a one time cost.\n\n Consider one of Noir's monthly memberships to have an increased amount of members shown in the global view, increase the distance for finding local members, have an infinite amount of flirst and favorites! Your monthly subscription goes towards the monthly expenses to run Noir and as mentioned above, bringing you more features and an overall better product.\n\n Noir is not possible without the support of the community it was created for.")
+        }
         
         // This message query filters every incoming message that is
         // On the class 'Message' and has a 'message' field
@@ -187,10 +227,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             }
             
         }
-
-        
-        
-        commonActionSheet(title: "Support Noir!", message: "Noir is a mobile dating application for people of color and lovers of diversity within the gay community. \n\n Noir is not possible without the support of the community. With your support we can upgrade servers to provide a faster and smoother experience for you, we can add new features, we can staff technical support and we can continue to bring you a service made by us, for us. \n\n Noir is made available for free, ad supported, with restrictions. Please consider upgrading to the ad-free version of Noir to have the advertising removed for a one time cost.\n\n Consider one of Noir's monthly memberships to have an increased amount of members shown in the global view, increase the distance for finding local members, have an infinite amount of flirst and favorites! Your monthly subscription goes towards the monthly expenses to run Noir and as mentioned above, bringing you more features and an overall better product.\n\n Noir is not possible without the support of the community it was created for.")
 //        
 //        UserTableView.refreshControl = refreshControl
 //        refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
