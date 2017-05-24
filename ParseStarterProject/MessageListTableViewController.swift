@@ -39,7 +39,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event

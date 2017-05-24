@@ -42,8 +42,6 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     var username = ""
     
     var interstitial: GADInterstitial!
-    var green = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
-    var tan = UIColor(colorLiteralRed: 197.0, green: 157.0, blue: 108.0, alpha: 1.0)
     
     
     func menuBarButtonItemClicked() {
@@ -90,12 +88,12 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                                 if (favorites as AnyObject).contains(displayedUserID as String!) {
                                     self.favorite = true
 //                                    self.favoriteButton.title = "UnFavorite"
-                                    self.favoriteButton.tintColor = self.green
+                                    self.favoriteButton.tintColor = FAVORITE_BUTTON_COLOR_ON
                                     
                                 } else {
                                     self.favorite = false
 //                                    self.favoriteButton.title = "Favorite"
-                                    self.favoriteButton.tintColor = self.tan
+                                    self.favoriteButton.tintColor = FAVORITE_BUTTON_COLOR_OFF
                                 }
                             }
                         }
@@ -125,11 +123,11 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                                 if (favorites as AnyObject).contains(displayedUserID as String!) {
                                     self.favorite = true
 //                                    self.favoriteButton.title = "UnFavorite"
-                                    self.favoriteButton.tintColor = self.green
+                                    self.favoriteButton.tintColor = FAVORITE_BUTTON_COLOR_ON
                                 } else {
                                     self.favorite = false
 //                                    self.favoriteButton.title = "Favorite"
-                                    self.favoriteButton.tintColor = self.tan
+                                    self.favoriteButton.tintColor = FAVORITE_BUTTON_COLOR_OFF
                                 }
                             }
                         }
@@ -162,7 +160,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
@@ -237,11 +235,11 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                             if (favorites as AnyObject).contains(displayedUserID as String!) {
                                 self.favorite = true
 //                                self.favoriteButton.title = "UnFavorite"
-                                self.favoriteButton.tintColor = self.green
+                                self.favoriteButton.tintColor = FAVORITE_BUTTON_COLOR_ON
                             } else {
                                 self.favorite = false
 //                                self.favoriteButton.title = "Favorite"
-                                self.favoriteButton.tintColor = self.tan
+                                self.favoriteButton.tintColor = FAVORITE_BUTTON_COLOR_OFF
                             }
                         }
                     }

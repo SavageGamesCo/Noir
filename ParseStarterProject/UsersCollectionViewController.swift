@@ -52,10 +52,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     let refreshControl = UIRefreshControl()
     
-    let onlineColor = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
-    let offlineColor = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
-    var green = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
-    
     
     @IBAction func reload(_ sender: Any) {
         
@@ -153,7 +149,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         self.showAd()
         
-        self.chatIcon.tintColor = onlineColor
+        self.chatIcon.tintColor = ONLINE_COLOR
         
         performSegue(withIdentifier: "toMsgList", sender: self)
         
@@ -196,7 +192,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-        let currentUser = PFUser.current()?.objectId!
         
         if PFUser.current()?["membership"] as? String == "basic" {
             self.commonActionSheet(title: "Support Noir!", message: "Noir is a mobile dating application for people of color and lovers of diversity within the gay community. \n\n Noir is not possible without the support of the community. With your support we can upgrade servers to provide a faster and smoother experience for you, we can add new features, we can staff technical support and we can continue to bring you a service made by us, for us. \n\n Noir is made available for free, ad supported, with restrictions. Please consider upgrading to the ad-free version of Noir to have the advertising removed for a one time cost.\n\n Consider one of Noir's monthly memberships to have an increased amount of members shown in the global view, increase the distance for finding local members, have an infinite amount of flirst and favorites! Your monthly subscription goes towards the monthly expenses to run Noir and as mentioned above, bringing you more features and an overall better product.\n\n Noir is not possible without the support of the community it was created for.")
@@ -204,7 +199,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         // This message query filters every incoming message that is
         // On the class 'Message' and has a 'message' field
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
@@ -213,14 +208,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
-                    self.chatIcon.tintColor = self.green
+                    self.chatIcon.tintColor = CHAT_ALERT_COLOR
                     badge += 1
                     self.notification(displayName: message["senderName"] as! String)
                     print("Got new message")
                     
                 }
             } else {
-                self.chatIcon.tintColor = self.green
+                self.chatIcon.tintColor = CHAT_ALERT_COLOR
                 badge += 1
                 self.notification(displayName: message["senderName"] as! String)
                 print("Got new message")
@@ -610,9 +605,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         cell.userName.text = usernames[indexPath.item]
         
         if online.contains(cell.userID) {
-            cell.ProfilePics.layer.borderColor = onlineColor.cgColor
+            cell.ProfilePics.layer.borderColor = ONLINE_COLOR.cgColor
         } else {
-            cell.ProfilePics.layer.borderColor = offlineColor.cgColor
+            cell.ProfilePics.layer.borderColor = OFFLINE_COLOR.cgColor
             
         }
         

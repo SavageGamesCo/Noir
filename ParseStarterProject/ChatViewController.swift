@@ -20,8 +20,6 @@ private let reuseIdentifier = "Cell"
 
 class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let currentUser = PFUser.current()?.objectId!
-    
     let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
     
     private var subscription: Subscription<PFObject>!
@@ -41,9 +39,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     let picker = UIImagePickerController()
     
-    let outGoingColor = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
-    let inComingColor = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
-    let bkgColor = UIColor(colorLiteralRed: 0.224, green: 0.224, blue: 0.223, alpha: 1.0)
 
     @IBOutlet var MainView: UIView!
     
@@ -55,7 +50,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
@@ -112,7 +107,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         //setup of Current USer
         
         //Setup the color of the background
-        self.collectionView.backgroundView?.backgroundColor = bkgColor
+        self.collectionView.backgroundView?.backgroundColor = CHAT_BACKGROUND_COLOR
         self.inputToolbar.contentView.leftBarButtonItem = nil
         
         self.collectionView.collectionViewLayout.springinessEnabled = true
@@ -177,7 +172,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let query = PFQuery(className: "Chat")
         
         query.order(byAscending: "createdAt")
-        query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: currentUser!)
+        query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
         
         query.cachePolicy = .networkElseCache
 
@@ -245,7 +240,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             let msgQuery = PFQuery(className: "Chat")
             
-            msgQuery.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: self.currentUser!)
+            msgQuery.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
             
             self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
                 
@@ -254,7 +249,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 
                 query.order(byAscending: "createdAt")
                 
-                query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: self.currentUser!)
+                query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
                 
                 query.cachePolicy = .networkElseCache
                 
@@ -619,9 +614,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let message = messages[indexPath.item]
         
         if message.senderId == self.senderId {
-            return bubbleFactory?.outgoingMessagesBubbleImage(with: outGoingColor)
+            return bubbleFactory?.outgoingMessagesBubbleImage(with: CHAT_OUTGOING_COLOR)
         } else {
-            return bubbleFactory?.incomingMessagesBubbleImage(with: inComingColor)
+            return bubbleFactory?.incomingMessagesBubbleImage(with: CHAT_INCOMING_COLOR)
         }
     
     }

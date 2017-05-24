@@ -19,6 +19,16 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     
     private var subscription: Subscription<PFObject>!
     
+    @IBOutlet var currentImageView: UIImageView!
+    @IBOutlet var ScrollView: UIScrollView!
+    @IBOutlet var userAgeTextField: UITextField!
+    @IBOutlet var userEthnicityTextField: UITextField!
+    @IBOutlet var userHeightField: UITextField!
+    @IBOutlet var userWeightField: UITextField!
+    @IBOutlet var userMaritalStatusTextField: UITextField!
+    @IBOutlet var userAboutTextField: UITextView!
+    @IBOutlet var userBodyTextField: UITextField!
+    
     @IBAction func deleteAccountButton(_ sender: Any) {
         
         commonActionSheet(title: "Delete Account", message: "Are you certain you wish you to delete your account?", whatCase: "delUser")
@@ -45,12 +55,15 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     
     
     let agePicker = UIPickerView()
+    let aPickerData = [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"], ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]]
     let agePickerData = ["18", "19", "20", "21","22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"]
     
     let heightPicker = UIPickerView()
+    let hPickerData = [["1'", "2'", "3'", "4'", "5'", "6'", "7'", "8'", "9'"], ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]]
     let heightDataFeet = ["4'0", "4'1", "4'2", "4'3", "4'4", "4'5", "4'6", "4'7", "4'8", "4'9", "4'10", "4'11", "5'0", "5'1", "5'2", "5'3", "5'4", "5'5", "5'6", "5'7", "5'8", "5'9", "5'10", "5'11", "6'0", "6'1", "6'2", "6'3", "6'4", "6'5", "6'6", "6'7", "6'8", "6'9", "6'10", "6'11", "7'0"]
     
     let weightPicker = UIPickerView()
+    let wPickerData = [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]]
     var weightPickerData = ["100",
                             "101",
                             "102",
@@ -462,31 +475,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     let bodyPicker = UIPickerView()
     let bodyData = ["Chub", "Bear", "Muscle Bear", "Stocky", "Jock", "Muscular", "Athletic", "Average", "Slim"]
     
-
-    @IBOutlet var currentImageView: UIImageView!
-    
-    @IBOutlet var ScrollView: UIScrollView!
-    
-    
-    @IBOutlet var userAgeTextField: UITextField!
-    
-    @IBOutlet var userEthnicityTextField: UITextField!
-    
-    @IBOutlet var userHeightField: UITextField!
-    
-    @IBOutlet var userWeightField: UITextField!
-    
-    @IBOutlet var userMaritalStatusTextField: UITextField!
-    
-    @IBOutlet var userAboutTextField: UITextView!
-    
-    @IBOutlet var userBodyTextField: UITextField!
-    
     @IBAction func logoutClicked(_ sender: Any) {
-        
-//        PFUser.logOut()
-//        
-//        self.performSegue(withIdentifier: "toLogin", sender: self)
 
         if PFUser.current()?["online"] as! Bool == true {
             
@@ -502,8 +491,6 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
                 }
             })
         }
-        
-        //        currentUser = PFUser.current()!.username
     }
     
     var activityIndicater = UIActivityIndicatorView()
@@ -514,13 +501,11 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: currentUser!)
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
-            
-            
-            
+ 
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
                     
@@ -588,9 +573,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         userMaritalStatusTextField.inputAccessoryView = toolBar
         userBodyTextField.inputView = bodyPicker
         userBodyTextField.inputAccessoryView = toolBar
-        
-        //downloadImages()
-        //createAgePicker()
+
 
         // Do any additional setup after loading the view.
         if let age = PFUser.current()?["age"] as? String {
@@ -698,7 +681,6 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
                 
                 self.dialogueBox(title: "Profile Error", messageText: displayErrorMessage)
             } else {
-//                print("user profile updated")
                 
                 self.performSegue(withIdentifier: "toUserTable", sender: self)
             }
@@ -886,19 +868,6 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         }
     }
 
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    //MARK: My utilities
     
     func dialogueBox(title:String, messageText:String ){
         let dialog = UIAlertController(title: title,

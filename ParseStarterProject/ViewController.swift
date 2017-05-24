@@ -18,7 +18,6 @@ import UserNotifications
 
 var displayedUserID = String()
 
-var currentUser = PFUser.current()!.username
 
 class ViewController: UIViewController {
     
