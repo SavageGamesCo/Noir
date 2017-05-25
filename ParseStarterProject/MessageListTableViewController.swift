@@ -94,6 +94,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
+        getMessages()
         
     }
     
@@ -144,7 +145,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         msgQuery.whereKey("toUser", equalTo: (PFUser.current()?.objectId!)!).order(byDescending: "createdAt")
         if PFUser.current()?["membership"] as? String == "basic" {
             print("basic member")
-            msgQuery.limit = 10
+//            msgQuery.limit = 30
         } else {
             print("monthly member")
         }
