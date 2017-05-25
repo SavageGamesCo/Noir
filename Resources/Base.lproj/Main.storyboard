@@ -212,12 +212,10 @@
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7PJ-HA-Fzv" secondAttribute="bottom" id="3Ti-5f-Dhu"/>
-                            <constraint firstItem="bGo-03-JDg" firstAttribute="top" secondItem="Dtv-tU-Ugf" secondAttribute="bottom" constant="79" id="7Of-dY-Rdz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gt3-OR-fbD" secondAttribute="trailing" id="8gA-2G-9tV"/>
                             <constraint firstItem="bGo-03-JDg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8hP-Td-jbg"/>
                             <constraint firstItem="gt3-OR-fbD" firstAttribute="top" secondItem="ZC8-Xp-eZi" secondAttribute="bottom" constant="2.6666666666666856" id="Gdu-hK-YTU"/>
                             <constraint firstItem="ZC8-Xp-eZi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="KHD-GH-phD"/>
-                            <constraint firstAttribute="bottom" secondItem="Dtv-tU-Ugf" secondAttribute="bottom" constant="658" id="Lqf-11-4Kx"/>
                             <constraint firstItem="ZC8-Xp-eZi" firstAttribute="top" secondItem="bGo-03-JDg" secondAttribute="bottom" constant="10" id="NaG-xK-ler"/>
                             <constraint firstItem="gt3-OR-fbD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="P3J-OS-BnL"/>
                             <constraint firstItem="Dtv-tU-Ugf" firstAttribute="leading" secondItem="bGo-03-JDg" secondAttribute="leading" id="RMY-bV-PE8"/>
@@ -716,7 +714,7 @@
         <scene sceneID="vfq-Ku-Ucd">
             <objects>
                 <collectionViewController title="Noir Users" modalTransitionStyle="flipHorizontal" id="ijc-SN-gV4" customClass="UsersCollectionViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

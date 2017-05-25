@@ -167,23 +167,21 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     func initMessages(){
         
         
-        self.chatID = (PFUser.current()?.objectId!)! + displayedUserID
+        self.chatID = CURRENT_USER! + displayedUserID
         
         let query = PFQuery(className: "Chat")
         
         query.order(byAscending: "createdAt")
-        query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
+        query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!).whereKey("chatID", contains:displayedUserID)
         
-        query.cachePolicy = .networkElseCache
+//        query.cachePolicy = .networkElseCache
 
-        
         query.findObjectsInBackground { (objects, error) in
             
             if error != nil {
                 print(error!)
             } else if let messages = objects {
                 for message in messages {
-                    if (message["senderID"] as? String == PFUser.current()?.objectId! && message["toUser"] as? String == displayedUserID) || (message["senderID"] as? String == displayedUserID && message["toUser"] as? String == PFUser.current()?.objectId!) {
                         if let senderID = message["senderID"] as? String {
                             if let text = message["text"] as? String {
                                 if let messageID = message.objectId {
@@ -199,7 +197,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                 }
                             }
                         }
-                    }
                 }
             }
             
@@ -249,9 +246,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 
                 query.order(byAscending: "createdAt")
                 
-                query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
+                query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!).whereKey("chatID", contains: displayedUserID)
                 
-                query.cachePolicy = .networkElseCache
+//                query.cachePolicy = .networkElseCache
                 
                 query.findObjectsInBackground { (objects, error) in
                     
@@ -259,7 +256,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                         print(error!)
                     } else if let messages = objects {
                         for message in messages {
-                            if (message["senderID"] as? String == PFUser.current()?.objectId! && message["toUser"] as? String == displayedUserID) || (message["senderID"] as? String == displayedUserID && message["toUser"] as? String == PFUser.current()?.objectId!) {
                                 if let senderID = message["senderID"] as? String {
                                     if let text = message["text"] as? String {
                                         if let messageID = message.objectId {
@@ -272,7 +268,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                         }
                                     }
                                 }
-                            }
+                            
                         }
                     }
                     

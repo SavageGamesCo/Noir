@@ -142,7 +142,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         
         let msgQuery = PFQuery(className: "Chat")
         
-        msgQuery.whereKey("toUser", equalTo: (PFUser.current()?.objectId!)!).order(byDescending: "createdAt")
+        msgQuery.whereKey("toUser", equalTo: CURRENT_USER!).order(byDescending: "createdAt")
         if PFUser.current()?["membership"] as? String == "basic" {
             print("basic member")
 //            msgQuery.limit = 30
@@ -165,7 +165,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                         if self.senders.contains(message["senderID"] as! String){
                         
                         } else {
-                        
+                
                             self.senders.append(message["senderID"] as! String)
                             
                             sender = message["senderID"] as! String
@@ -195,7 +195,6 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                                             self.senderID.append(message["senderID"] as! String)
                                                             self.senderName.append((user.username!))
                                                             
-                                                            self.msgTableView.reloadData()
                                                         }
                                                     })
                                                 }
@@ -218,7 +217,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
             }
             
         }
-        
+        self.msgTableView.reloadData()
         
         
     }
