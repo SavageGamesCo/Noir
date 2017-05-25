@@ -20,6 +20,9 @@
 		B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BE63C1EAE9ED600A6729F /* GADViewController.swift */; };
 		B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */; };
 		B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71402061EAA8030008E6CFB /* ProfileViewController.swift */; };
+		B745EBBD1ED76DCC000E498D /* privacy_policy_sclcm.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */; };
+		B745EBBF1ED77296000E498D /* eula_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBE1ED77296000E498D /* eula_noir.txt */; };
+		B745EBC11ED775DA000E498D /* about_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBC01ED775DA000E498D /* about_noir.txt */; };
 		B774D8341EC8299C000CC615 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B774D8331EC8299C000CC615 /* Constants.swift */; };
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
 		B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A672E1ED5ED45001DF856 /* ShopViewController.swift */; };
@@ -110,6 +113,9 @@
 		B70BE63C1EAE9ED600A6729F /* GADViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GADViewController.swift; sourceTree = "<group>"; };
 		B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B71402061EAA8030008E6CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privacy_policy_sclcm.txt; sourceTree = "<group>"; };
+		B745EBBE1ED77296000E498D /* eula_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eula_noir.txt; sourceTree = "<group>"; };
+		B745EBC01ED775DA000E498D /* about_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about_noir.txt; sourceTree = "<group>"; };
 		B774D8331EC8299C000CC615 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B778BBDD1EBCD409002EE330 /* Noir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Noir.entitlements; sourceTree = "<group>"; };
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -271,6 +277,9 @@
 				B774D8331EC8299C000CC615 /* Constants.swift */,
 				B77A672E1ED5ED45001DF856 /* ShopViewController.swift */,
 				B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */,
+				B745EBC01ED775DA000E498D /* about_noir.txt */,
+				B745EBBE1ED77296000E498D /* eula_noir.txt */,
+				B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -452,6 +461,7 @@
 				B7D9CE501EBB83E2007236A7 /* Icon-App-83.5x83.5@2x.png in Resources */,
 				B7E5A3F21EB2878C007E9620 /* write-simple-7.png in Resources */,
 				B7FAF55C1EA707650044B07B /* noir_nav_logo.png in Resources */,
+				B745EBC11ED775DA000E498D /* about_noir.txt in Resources */,
 				B7D9CE4C1EBB83E2007236A7 /* Icon-App-60x60@3x.png in Resources */,
 				B7E5A3FF1EB2890C007E9620 /* emoticon-sad-7.png in Resources */,
 				814C3ACA1B69877600E307BB /* Main.storyboard in Resources */,
@@ -476,6 +486,7 @@
 				B7D9CE4A1EBB83E2007236A7 /* Icon-App-60x60@1x.png in Resources */,
 				B7E5A3E01EB27CAE007E9620 /* 011.png in Resources */,
 				B7D9CE471EBB83E2007236A7 /* Icon-App-57x57@1x.png in Resources */,
+				B745EBBD1ED76DCC000E498D /* privacy_policy_sclcm.txt in Resources */,
 				B7D9CE431EBB83E2007236A7 /* Icon-App-29x29@3x.png in Resources */,
 				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 				B7D9CE401EBB83E2007236A7 /* Icon-App-20x20@3x.png in Resources */,
@@ -483,6 +494,7 @@
 				B7F083CD1ECA830B00FCD167 /* shopping-cart-7.png in Resources */,
 				B7D9CE4F1EBB83E2007236A7 /* Icon-App-76x76@3x.png in Resources */,
 				B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */,
+				B745EBBF1ED77296000E498D /* eula_noir.txt in Resources */,
 				B7D9CE4E1EBB83E2007236A7 /* Icon-App-76x76@2x.png in Resources */,
 				B7D9CE491EBB83E2007236A7 /* Icon-App-57x57@3x.png in Resources */,
 				B7E5A3F81EB28826007E9620 /* photos-simple-7.png in Resources */,

@@ -18,9 +18,6 @@ import SwiftyStoreKit
 
 private let reuseIdentifier = "Cell"
 
-
-
-
 class UsersCollectionViewController: UICollectionViewController, UIToolbarDelegate {
     
     let bundleID = "comsavagecodeNoir"
@@ -198,13 +195,11 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         }
         
         // This message query filters every incoming message that is
-        // On the class 'Message' and has a 'message' field
+        // On the class 'Message' and has a 'message' field to a particular user
         let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
-            
-            
             
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
@@ -222,20 +217,10 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             }
             
         }
-//        
-//        UserTableView.refreshControl = refreshControl
-//        refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
-//        
-//        refreshControl.addTarget(self, action: #selector(self.refreshing), for: .touchDown)
-//        
-        //UserTableView.addSubview(refreshControl)
         
         geoPoint()
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(UsersCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         UserView()
 
@@ -249,11 +234,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        //update geopoint
         geoPoint()
-        
-        if PFUser.current()?["blocked"] != nil {
-        }
         
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -261,26 +243,16 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        //update geopoint
         geoPoint()
 
-        
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
-        
         self.UserTableView.reloadData()
-        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         
     }
     
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "toUserDetails" {
-//            let secondViewController = segue.destination as! UserDetailViewController
-//
-//        }
-//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -571,16 +543,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         }
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 

@@ -89,6 +89,19 @@ class ShopSwiftyViewController: UITableViewController {
         
     }
     
+    @IBAction func RestorePurchases(_ sender: Any) {
+        
+        restorePurchase()
+        
+    }
+    
+    @IBAction func Donations(_ sender: Any) {
+        
+        donate()
+        
+    }
+    
+    
     func getInfo(purchase : RegisteredPurchase) {
     
         NetworkActivityIndiciatorManager.NetworkOperationStarted()
@@ -293,6 +306,9 @@ class ShopSwiftyViewController: UITableViewController {
                 
             }
         })
+        
+        UIApplication.shared.openURL(NSURL(string: "http://www.gofundme.com")! as URL)
+        
         //end function for donate
     }
 

@@ -13,11 +13,7 @@ import Firebase
 import GoogleMobileAds
 import UserNotifications
 
-
-
-
 var displayedUserID = String()
-
 
 class ViewController: UIViewController {
     
@@ -113,7 +109,6 @@ class ViewController: UIViewController {
         
         print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
         bannerAdView.adUnitID = "ca-app-pub-9770059916027069/440593975"
-//        bannerAdView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         bannerAdView.rootViewController = self
         bannerAdView.load(GADRequest())
         
@@ -170,7 +165,7 @@ class ViewController: UIViewController {
         
         submitButton.setTitle("Log In", for: [])
         
-        commonActionSheet(title: "Beta Test Phase 3: What To Test", message: "WOW! We have come quite a long way guys!\n\n I am so grateful for you all participating in this beta test. We have reached the final stretch! This beta test is simple. Do you see the ads or don't you. Now these are not real ads, but placeholders. The code for the real adds is what is driving this though.\n\n After this short phase your accounts will be permanently marked as 'Ad Free'.\n\n Thank you for your support! Now get out there and tell people about Noir! Mobile Dating for Gay People of Color!\n\n ~ Noir Admin  ")
+        commonActionSheet(title: "Beta Test Phase 3: What To Test", message: "WOW! We have come quite a long way guys!\n\n I am so grateful for you all participating in this beta test. We have reached the final stretch! This beta test is simple. Do you see the ads or don't you. Now these are not real ads, but placeholders. The code for the real ads is what is driving this though.\n\n You can try out the in-app purchases just to ensure they go through, no money will be charged, but I also think only my sandbox account can do this, but hey... give it a shot and let me know if it crashes.\n\n After this short phase your accounts will be permanently marked as 'Ad Free'.\n\n Thank you for your support! Now get out there and tell people about Noir! Mobile Dating for Gay People of Color!\n\n ~ Noir Admin  ")
     }
     
     func SignUpMode(){
