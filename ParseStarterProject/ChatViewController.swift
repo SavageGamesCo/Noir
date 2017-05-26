@@ -556,15 +556,15 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     //TIMESTAMP - uncomment to turn on. Currently bugged.
     
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
-        let message: JSQMessage = self.messages[indexPath.item]
-
-        return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: message.date)
-    }
-
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
-        return 15.0
-    }
+//    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+//        let message: JSQMessage = self.messages[indexPath.item]
+//
+//        return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: message.date)
+//    }
+//
+//    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
+//        return 15.0
+//    }
     
     //END TIMESTAMP
     
