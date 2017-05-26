@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
     @IBOutlet var tagline: UILabel!
     
-    @IBOutlet weak var bannerAdView: GADBannerView!
+//    @IBOutlet weak var bannerAdView: GADBannerView!
     
     @IBAction func loginOrSignup(_ sender: Any) {
         //Check if the app is in the sign up or the login mode and switch the modes based on that
@@ -108,9 +108,9 @@ class ViewController: UIViewController {
         }
         
         print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
-        bannerAdView.adUnitID = "ca-app-pub-9770059916027069/440593975"
-        bannerAdView.rootViewController = self
-        bannerAdView.load(GADRequest())
+//        bannerAdView.adUnitID = "ca-app-pub-9770059916027069/440593975"
+//        bannerAdView.rootViewController = self
+//        bannerAdView.load(GADRequest())
         
         registerForKeyboardNotifications()
         
@@ -172,8 +172,8 @@ class ViewController: UIViewController {
         logInModeGreeting.isHidden = true
         logInModeEmailTextField.isHidden = true
         logInModePasswordTextField.isHidden = true
-        logoBig.isHidden = true
-        tagline.isHidden = true
+        logoBig.isHidden = false
+        tagline.isHidden = false
         
         signUpUsernameTextField.isHidden = false
         signUpModeEmailTextField.isHidden = false

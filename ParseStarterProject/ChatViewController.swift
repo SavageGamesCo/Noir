@@ -169,14 +169,19 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         self.chatID = CURRENT_USER! + displayedUserID
         
-        let query = PFQuery(className: "Chat")
+        let query1 = PFQuery(className: "Chat")
+        let query2 = PFQuery(className: "Chat")
         
-        query.order(byAscending: "createdAt")
-        query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!).whereKey("chatID", contains:displayedUserID)
+        query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER! + displayedUserID)
+        query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
         
-//        query.cachePolicy = .networkElseCache
+        let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
+        query3.order(byAscending: "createdAt")
+//        query.whereKey("app", equalTo: APPLICATION).whereKey("ChatID", contains: [CURRENT_USER!, displayedUserID])
+        
+        query3.cachePolicy = .networkElseCache
 
-        query.findObjectsInBackground { (objects, error) in
+        query3.findObjectsInBackground { (objects, error) in
             
             if error != nil {
                 print(error!)
@@ -241,16 +246,19 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
                 
-                let query = PFQuery(className: "Chat")
+                let query1 = PFQuery(className: "Chat")
+                let query2 = PFQuery(className: "Chat")
+                
+                query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER! + displayedUserID)
+                query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
+                
+                let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
+                query3.order(byAscending: "createdAt")
                 
                 
-                query.order(byAscending: "createdAt")
+                query3.cachePolicy = .networkElseCache
                 
-                query.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!).whereKey("chatID", contains: displayedUserID)
-                
-//                query.cachePolicy = .networkElseCache
-                
-                query.findObjectsInBackground { (objects, error) in
+                query3.findObjectsInBackground { (objects, error) in
                     
                     if error != nil {
                         print(error!)
