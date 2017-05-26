@@ -613,9 +613,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let message = messages[indexPath.item]
         
         if message.senderId == self.senderId {
-            return JSQMessagesAvatarImageFactory.avatarImage(with: avatar, diameter: 30)
+            return JSQMessagesAvatarImageFactory.avatarImage(with: avatar, diameter: 10)
         } else {
-            return JSQMessagesAvatarImageFactory.avatarImage(with: senderavatar, diameter: 30)
+            return JSQMessagesAvatarImageFactory.avatarImage(with: senderavatar, diameter: 10)
         }
         
         
