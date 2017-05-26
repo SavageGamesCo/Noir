@@ -11,7 +11,7 @@ import Parse
 
 protocol MessageReceivedDelegate: class {
     
-    func messageReceived(senderID: String, text: String, messageID: String, chatID: String)
+    func messageReceived(senderID: String, text: String, messageID: String, chatID: String, date: NSDate)
     
     
 }

@@ -96,6 +96,9 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.tabBarController?.tabBar.isHidden = true
+        
         //Show a view dependent on which mode is visible.
         if signUpMode {
             
@@ -142,8 +145,6 @@ class ViewController: UIViewController {
                 
             }
         }
-        
-        self.navigationController?.navigationBar.isHidden = true
     }
     
     func LoginMode(){
@@ -172,7 +173,7 @@ class ViewController: UIViewController {
         logInModeGreeting.isHidden = true
         logInModeEmailTextField.isHidden = true
         logInModePasswordTextField.isHidden = true
-        logoBig.isHidden = false
+        logoBig.isHidden = true
         tagline.isHidden = false
         
         signUpUsernameTextField.isHidden = false

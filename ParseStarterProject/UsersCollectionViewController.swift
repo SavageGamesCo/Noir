@@ -39,6 +39,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     var withinDistance = 10
     
+    var activityIndicater = UIActivityIndicatorView()
+    
     var userIdent = String()
     
     var images = [UIImage]()
@@ -138,7 +140,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     func refreshing(){
         UserView()
         self.UserTableView.reloadData()
-//        self.refreshControl.endRefreshing()
 
     }
   
@@ -186,12 +187,13 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         }
         //end validate subscription
         
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
-        
+        var support_shown = false
         
         if PFUser.current()?["membership"] as? String == "basic" {
-            self.commonActionSheet(title: "Support Noir!", message: "Noir is a mobile dating application for people of color and lovers of diversity within the gay community. \n\n Noir is not possible without the support of the community. With your support we can upgrade servers to provide a faster and smoother experience for you, we can add new features, we can staff technical support and we can continue to bring you a service made by us, for us. \n\n Noir is made available for free, ad supported, with restrictions. Please consider upgrading to the ad-free version of Noir to have the advertising removed for a one time cost.\n\n Consider one of Noir's monthly memberships to have an increased amount of members shown in the global view, increase the distance for finding local members, have an infinite amount of flirst and favorites! Your monthly subscription goes towards the monthly expenses to run Noir and as mentioned above, bringing you more features and an overall better product.\n\n Noir is not possible without the support of the community it was created for.")
+            if support_shown == false {
+                self.commonActionSheet(title: "Support Noir!", message: "Noir is a mobile dating application for people of color and lovers of diversity within the gay community. \n\n Noir is not possible without the support of the community. With your support we can upgrade servers to provide a faster and smoother experience for you, we can add new features, we can staff technical support and we can continue to bring you a service made by us, for us. \n\n Noir is made available for free, ad supported, with restrictions. Please consider upgrading to the ad-free version of Noir to have the advertising removed for a one time cost.\n\n Consider one of Noir's monthly memberships to have an increased amount of members shown in the global view, increase the distance for finding local members, have an infinite amount of flirst and favorites! Your monthly subscription goes towards the monthly expenses to run Noir and as mentioned above, bringing you more features and an overall better product.\n\n Noir is not possible without the support of the community it was created for.")
+                support_shown = true
+            }
         }
         
         // This message query filters every incoming message that is
@@ -201,19 +203,12 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
             
-            if Thread.current != Thread.main {
-                return DispatchQueue.main.async {
-                    self.chatIcon.tintColor = CHAT_ALERT_COLOR
-                    badge += 1
-                    self.notification(displayName: message["senderName"] as! String)
-                    print("Got new message")
-                    
-                }
-            } else {
+            DispatchQueue.main.async {
                 self.chatIcon.tintColor = CHAT_ALERT_COLOR
                 badge += 1
                 self.notification(displayName: message["senderName"] as! String)
                 print("Got new message")
+                
             }
             
         }
@@ -221,8 +216,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         geoPoint()
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
-
-        UserView()
 
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -234,18 +227,26 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     
     override func viewWillAppear(_ animated: Bool) {
-        //update geopoint
-        geoPoint()
+        activityIndicater = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
+        activityIndicater.center = self.view.center
+        activityIndicater.hidesWhenStopped = true
+        activityIndicater.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        
+        view.addSubview(activityIndicater)
+        activityIndicater.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        geoPoint()
+        UserView()
         self.UserTableView.reloadData()
+        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //update geopoint
-        geoPoint()
-
+        
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -535,13 +536,17 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 }
                 
             })
+
             
             break
         default:
             self.navTitle.title = "Noir"
+            
             break
         }
         
+        self.activityIndicater.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
 
     // MARK: UICollectionViewDataSource

@@ -116,7 +116,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         //observers
         self.initMessages()
         
-        self.observeMessages()
         
     }
     
@@ -154,19 +153,20 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
 
         
         DispatchQueue.main.async {
-//            self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(ChatViewController.observeMessages), userInfo: nil, repeats: true)
+            self.observeMessages()
         }
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        timer.invalidate()
+
     }
     
     func initMessages(){
         
-        
+        DispatchQueue.main.async {
+            
         self.chatID = CURRENT_USER! + displayedUserID
         
         let query1 = PFQuery(className: "Chat")
@@ -174,14 +174,14 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER! + displayedUserID)
         query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
-        
         let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
         query3.order(byAscending: "createdAt")
-//        query.whereKey("app", equalTo: APPLICATION).whereKey("ChatID", contains: [CURRENT_USER!, displayedUserID])
         
         query3.cachePolicy = .networkElseCache
-
-        query3.findObjectsInBackground { (objects, error) in
+        
+        
+        
+            query3.findObjectsInBackground { (objects, error) in
             
             if error != nil {
                 print(error!)
@@ -194,7 +194,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                         self.chatID = cID
                                     }
                                     self.chatAvatar()
-                                    self.messageReceived(senderID: senderID, text: text, messageID: messageID, chatID: self.chatID)
+                                    self.messageReceived(senderID: senderID, text: text, messageID: messageID, chatID: self.chatID, date: message.createdAt! as NSDate)
                                     
                                     self.scrollToBottom(animated: true)
                                     
@@ -202,37 +202,11 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                 }
                             }
                         }
+                    }
                 }
             }
-            
         }
-        
-        
-//        let mQuery = PFQuery(className: "Chat")
-//        
-//        mQuery.order(byAscending: "createdAt")
-//        
-//        mQuery.findObjectsInBackground { (objects, error) in
-//            
-//            if error != nil {
-//                print(error!)
-//            } else if let messages = objects {
-//                for message in messages {
-//                    if (message["senderID"] as? String == PFUser.current()?.objectId! && message["toUser"] as? String == displayedUserID) || (message["senderID"] as? String == displayedUserID && message["toUser"] as? String == PFUser.current()?.objectId!)  {
-//                        if let senderID = message["senderID"] as? String {
-//                            if let media = message["media"] as? PFFile {
-//                                if let messageID = message.objectId {
-//                                    
-//                                    self.chatAvatar()
-//                                    self.mediaMessageReceived(senderID: senderID, media: media, messageID: messageID)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            
-//        }
+
         
     }
     
@@ -269,7 +243,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                         if let messageID = message.objectId {
                                             
                                             self.chatAvatar()
-                                            self.messageReceived(senderID: senderID, text: text, messageID: messageID, chatID: self.chatID)
+                                            self.messageReceived(senderID: senderID, text: text, messageID: messageID, chatID: self.chatID, date: message.createdAt! as NSDate)
                                             
                                             self.scrollToBottom(animated: true)
                                             self.automaticallyScrollsToMostRecentMessage = true
@@ -407,19 +381,28 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     //end picker functions
     
     //delegate functions
-    func messageReceived(senderID: String, text: String, messageID: String, chatID: String) {
+    func messageReceived(senderID: String, text: String, messageID: String, chatID: String, date: NSDate) {
         
         if messageIDs.contains(messageID){
-            collectionView.reloadData()
+
         
         } else {
-            messageIDs.append(messageID)
+            //messageIDs.append(messageID)
             
-            messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
-            
-            notification(displayName: senderDisplayName)
-            
-            collectionView.reloadData()
+            if messages.count > 30 {
+                messages.removeFirst()
+                messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
+                
+                notification(displayName: senderDisplayName)
+                
+                collectionView.reloadData()
+            } else {
+                messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
+                
+                notification(displayName: senderDisplayName)
+                
+                collectionView.reloadData()
+            }
         }
         
         
@@ -432,7 +415,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         chatNotification.subtitle = "You Have a New Chat message from " + displayName
         chatNotification.badge = badge as NSNumber
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier:APPLICATION, content: chatNotification, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
@@ -573,15 +556,15 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     //TIMESTAMP - uncomment to turn on. Currently bugged.
     
-//    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
-//        let message: JSQMessage = self.messages[indexPath.item]
-//
-//        return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: message.date)
-//    }
-//
-//    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
-//        return 15.0
-//    }
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        let message: JSQMessage = self.messages[indexPath.item]
+
+        return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: message.date)
+    }
+
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        return 15.0
+    }
     
     //END TIMESTAMP
     

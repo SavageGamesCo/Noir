@@ -25,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JTq-RD-cJR">
-                                <rect key="frame" x="0.0" y="100" width="320" height="565.5"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="565.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bGo-03-JDg">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="191"/>
@@ -202,7 +202,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="JTq-RD-cJR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="80" id="B7Y-AV-mK1"/>
+                            <constraint firstItem="JTq-RD-cJR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="B7Y-AV-mK1"/>
                             <constraint firstAttribute="trailing" secondItem="JTq-RD-cJR" secondAttribute="trailing" id="C2e-sH-htF"/>
                             <constraint firstItem="JTq-RD-cJR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="o2M-t1-q3x"/>
                             <constraint firstItem="JTq-RD-cJR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xcb-dE-hwg"/>
@@ -230,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2683" y="-166"/>
+            <point key="canvasLocation" x="-2873" y="-217"/>
         </scene>
         <!--User Detail View Controller-->
         <scene sceneID="JMt-tl-For">
@@ -1510,7 +1510,7 @@
                         <outlet property="userMaritalStatusTextField" destination="GKw-6v-AO7" id="6Pp-BT-a5d"/>
                         <outlet property="userWeightField" destination="oLp-xJ-8bn" id="ZO6-k4-dVP"/>
                         <segue destination="Qtl-TD-lmx" kind="show" identifier="toUserTable" id="iFA-Nf-wsQ"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="toLogin" id="b7p-8z-hIe"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLogin" id="b7p-8z-hIe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qw8-PP-fET" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1914,11 +1914,11 @@
         <image name="update-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cUZ-UY-Xrm"/>
-        <segue reference="AQS-Bi-6uX"/>
         <segue reference="9pk-Jv-8jF"/>
+        <segue reference="AQS-Bi-6uX"/>
+        <segue reference="cUZ-UY-Xrm"/>
+        <segue reference="LpR-YC-hxA"/>
         <segue reference="5wl-SB-5WG"/>
-        <segue reference="IsW-VB-D0B"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
