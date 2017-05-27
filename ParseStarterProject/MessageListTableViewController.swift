@@ -36,65 +36,72 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getMessages()
+        
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-        
-        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-            // This is where we handle the event
-            
-            
-            
-            if Thread.current != Thread.main {
-                return DispatchQueue.main.async {
-//                    self.chatIcon.tintColor = self.green
-                    badge += 1
-                    self.notification(displayName: message["senderName"] as! String)
-                    print("Got new message")
-                    
-                }
-            } else {
-//                self.chatIcon.tintColor = self.green
-                badge += 1
-                self.notification(displayName: message["senderName"] as! String)
-                print("Got new message")
-            }
-            
-        }
+//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+//        
+//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+//            // This is where we handle the event
+//            
+//            
+//            
+//            if Thread.current != Thread.main {
+//                return DispatchQueue.main.async {
+////                    self.chatIcon.tintColor = self.green
+//                    badge += 1
+//                    self.notification(displayName: message["senderName"] as! String)
+//                    print("Got new message")
+//                    
+//                }
+//            } else {
+////                self.chatIcon.tintColor = self.green
+//                badge += 1
+//                self.notification(displayName: message["senderName"] as! String)
+//                print("Got new message")
+//            }
+//        
+//        }
 
         
-        if PFUser.current()?["adFree"] as? Bool == false || PFUser.current()?["membership"] as? String != "basic" {
+        if PFUser.current()?["adFree"] as? Bool == false {
+            
+            print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
+            adBannerView.adUnitID = "ca-app-pub-9770059916027069/9870169753"
+            adBannerView.rootViewController = self
+            adBannerView.load(GADRequest())
             adBannerView.isHidden = false
-        } else {
+            
+        } else if PFUser.current()?["adFree"] as? Bool == true || PFUser.current()?["membership"] as? String != "basic" {
+            
             adBannerView.isHidden = true
+            
         }
         
-        print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
-        adBannerView.adUnitID = "ca-app-pub-9770059916027069/9870169753"
-        adBannerView.rootViewController = self
-        adBannerView.load(GADRequest())
         
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+         self.clearsSelectionOnViewWillAppear = true
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setToolbarHidden(true, animated: true)
         
-        getMessages()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
+        getMessages()
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
         getMessages()
+//        badge = 0
+//        UIApplication.shared.applicationIconBadgeNumber = badge
         
     }
     
@@ -140,15 +147,18 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     func getMessages() {
         
-        let msgQuery = PFQuery(className: "Chat")
+        let query1 = PFQuery(className: "Chat")
+        let query2 = PFQuery(className: "Chat")
         
-        msgQuery.whereKey("toUser", equalTo: CURRENT_USER!).order(byDescending: "createdAt")
-        if PFUser.current()?["membership"] as? String == "basic" {
-            print("basic member")
-//            msgQuery.limit = 30
-        } else {
-            print("monthly member")
-        }
+        query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER! + displayedUserID)
+        query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
+        let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
+        msgQuery.order(byAscending: "createdAt")
+        
+//        let msgQuery = PFQuery(className: "Chat")
+//        
+//        msgQuery.whereKey("toUser", equalTo: CURRENT_USER!)
+//        msgQuery.order(byDescending: "createdAt")
         
         msgQuery.findObjectsInBackground { (objects, error) in
             
@@ -181,9 +191,13 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                         if let user = object as? PFUser {
                                             
                                             if let blockedUsers = PFUser.current()?["blocked"] {
-                                                if (blockedUsers as AnyObject).contains(user.objectId! as String!){
+                                                
+                                                if (blockedUsers as AnyObject).contains(user.objectId! as String!) {
                                                     
-                                                }else {
+                                                    
+                                                    
+                                                } else {
+                                                    
                                                     let imageFile = user["mainPhoto"] as! PFFile
                                                     
                                                     imageFile.getDataInBackground(block: { (data, error) in
@@ -191,7 +205,6 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                                         if let imageData = data {
                                                             
                                                             self.senderPic.append(UIImage(data: imageData)!)
-                                                            
                                                             self.senderID.append(message["senderID"] as! String)
                                                             self.senderName.append((user.username!))
                                                             
@@ -203,23 +216,14 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                         }
                                     }
                                 }
-                                
                             })
-
-                            
                         }
-                        
-                        
                     }
-                    
                 }
                 //end big block
+                self.msgTableView.reloadData()
             }
-            
         }
-        self.msgTableView.reloadData()
-        
-        
     }
     
     func notification(displayName: String){

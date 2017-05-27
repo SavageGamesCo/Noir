@@ -242,6 +242,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         self.UserTableView.reloadData()
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setToolbarHidden(false, animated: true)
         
     }
     
@@ -250,7 +251,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
+        self.navigationController?.setToolbarHidden(false, animated: true)
         
     }
     

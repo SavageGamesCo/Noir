@@ -26,3 +26,6 @@ let FAVORITE_BUTTON_COLOR_OFF = UIColor(colorLiteralRed: 197.0, green: 157.0, bl
 let CHAT_OUTGOING_COLOR = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
 let CHAT_INCOMING_COLOR = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
 let CHAT_BACKGROUND_COLOR = UIColor(colorLiteralRed: 0.224, green: 0.224, blue: 0.223, alpha: 1.0)
+
+//FONT
+let SYSTEM_FONT = UIFont.boldSystemFont(ofSize: 12)
