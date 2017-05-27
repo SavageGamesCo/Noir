@@ -50,29 +50,29 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-//        
-//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-//            // This is where we handle the event
-//            
-//            
-//            
-//            if Thread.current != Thread.main {
-//                return DispatchQueue.main.async {
-//                    
-//                    badge += 1
-//                    self.notification(displayName: message["senderName"] as! String)
-//                    print("Got new message")
-//                    
-//                }
-//            } else {
-//                
-//                badge += 1
-//                self.notification(displayName: message["senderName"] as! String)
-//                print("Got new message")
-//            }
-//            
-//        }
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+        
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            
+            
+            if Thread.current != Thread.main {
+                return DispatchQueue.main.async {
+                    
+                    badge += 1
+                    self.notification(displayName: message["senderName"] as! String)
+                    print("Got new message")
+                    
+                }
+            } else {
+                
+                badge += 1
+                self.notification(displayName: message["senderName"] as! String)
+                print("Got new message")
+            }
+            
+        }
         
 //        self.showLoadEarlierMessagesHeader = true
         
@@ -390,7 +390,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         } else {
             //messageIDs.append(messageID)
             
-            if messages.count > 30 {
+            if messages.count > 200 {
                 messages.removeFirst()
                 messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
                 

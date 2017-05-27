@@ -35,9 +35,9 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getMessages()
-        
+        DispatchQueue.main.async {
+            self.getMessages()
+        }
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
@@ -93,13 +93,17 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getMessages()
+        DispatchQueue.main.async {
+            self.getMessages()
+        }
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getMessages()
+        DispatchQueue.main.async {
+            self.getMessages()
+        }
 //        badge = 0
 //        UIApplication.shared.applicationIconBadgeNumber = badge
         
@@ -150,9 +154,9 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         let query1 = PFQuery(className: "Chat")
         let query2 = PFQuery(className: "Chat")
         
-        query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER! + displayedUserID)
-        query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
-        let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
+        query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
+//        query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
+        let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1])
         msgQuery.order(byAscending: "createdAt")
         
 //        let msgQuery = PFQuery(className: "Chat")

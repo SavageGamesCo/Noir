@@ -297,12 +297,13 @@
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="fjV-6n-2rt">
                                         <rect key="frame" x="0.0" y="274" width="320" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fjV-6n-2rt" id="HdC-fZ-kMG">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="fjV-6n-2rt" id="HdC-fZ-kMG">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marital Status" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wj-w0-fbB">
-                                                    <rect key="frame" x="8" y="10" width="160" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Marital Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wj-w0-fbB">
+                                                    <rect key="frame" x="8" y="5" width="160" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" red="0.98806899790000002" green="0.6853456497" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                     <color key="textColor" red="0.98806899790000002" green="0.6853456497" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -311,11 +312,6 @@
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstItem="5Wj-w0-fbB" firstAttribute="top" secondItem="HdC-fZ-kMG" secondAttribute="topMargin" constant="2" id="gn8-pj-rSe"/>
-                                                <constraint firstItem="5Wj-w0-fbB" firstAttribute="leading" secondItem="HdC-fZ-kMG" secondAttribute="leadingMargin" id="uBh-ah-tp7"/>
-                                                <constraint firstItem="5Wj-w0-fbB" firstAttribute="centerY" secondItem="HdC-fZ-kMG" secondAttribute="centerY" id="xvq-Qa-9UX"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -679,7 +675,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nye-LJ-Piw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-757.97101449275374" y="601.63043478260875"/>
+            <point key="canvasLocation" x="-759.375" y="601.05633802816897"/>
         </scene>
         <!--Noir Users-->
         <scene sceneID="vfq-Ku-Ucd">
@@ -905,7 +901,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are having a conversation with this member." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vV1-Is-XnK">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are having a conversation with this member." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vV1-Is-XnK">
                                             <rect key="frame" x="144" y="53" width="168" height="73"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="73" id="t8h-Iw-WfZ"/>
@@ -1584,7 +1580,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YS-xt-dwP">
                                                             <rect key="frame" x="0.0" y="0.0" width="304" height="43"/>
-                                                            <string key="text">This one time purchase will enable your account to use Noir ad free. No more banner ads within the app and nor more fullscreen ads!</string>
+                                                            <string key="text">This one time purchase will enable your account to use Noir ad free. No more banner ads within the app and no more fullscreen ads!</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.98668628930000002" green="0.65372842549999999" blue="0.011683546939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1807,7 +1803,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egq-rT-i9J">
                                                             <rect key="frame" x="0.0" y="0.0" width="304" height="86"/>
-                                                            <string key="text">The ultimate savings! Save over $3 per month on a 1 year Recurring Membership! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit.</string>
+                                                            <string key="text">The ultimate savings! Save over $3 per month on a 1 Year Recurring Membership! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit.</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.98668628930000002" green="0.65372842549999999" blue="0.011683546939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1914,11 +1910,11 @@
         <image name="update-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9pk-Jv-8jF"/>
         <segue reference="AQS-Bi-6uX"/>
-        <segue reference="cUZ-UY-Xrm"/>
-        <segue reference="LpR-YC-hxA"/>
+        <segue reference="9pk-Jv-8jF"/>
+        <segue reference="IsW-VB-D0B"/>
         <segue reference="5wl-SB-5WG"/>
+        <segue reference="cUZ-UY-Xrm"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
