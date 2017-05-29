@@ -37,7 +37,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         super.viewDidLoad()
         DispatchQueue.main.async {
             self.getMessages()
-        }
+        
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
@@ -69,14 +69,14 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         if PFUser.current()?["adFree"] as? Bool == false {
             
             print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
-            adBannerView.adUnitID = "ca-app-pub-9770059916027069/9870169753"
-            adBannerView.rootViewController = self
-            adBannerView.load(GADRequest())
-            adBannerView.isHidden = false
+            self.adBannerView.adUnitID = "ca-app-pub-9770059916027069/9870169753"
+            self.adBannerView.rootViewController = self
+            self.adBannerView.load(GADRequest())
+            self.adBannerView.isHidden = false
             
         } else if PFUser.current()?["adFree"] as? Bool == true || PFUser.current()?["membership"] as? String != "basic" {
             
-            adBannerView.isHidden = true
+            self.adBannerView.isHidden = true
             
         }
         
@@ -89,6 +89,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(true, animated: true)
+        }
         
     }
     
