@@ -161,6 +161,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
 
     }
     

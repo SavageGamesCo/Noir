@@ -41,29 +41,29 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-//        
-//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-//            // This is where we handle the event
-//            
-//            
-//            
-//            if Thread.current != Thread.main {
-//                return DispatchQueue.main.async {
-////                    self.chatIcon.tintColor = self.green
-//                    badge += 1
-//                    self.notification(displayName: message["senderName"] as! String)
-//                    print("Got new message")
-//                    
-//                }
-//            } else {
-////                self.chatIcon.tintColor = self.green
-//                badge += 1
-//                self.notification(displayName: message["senderName"] as! String)
-//                print("Got new message")
-//            }
-//        
-//        }
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+        
+        self.subscription = self.liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            
+            
+            if Thread.current != Thread.main {
+                return DispatchQueue.main.async {
+//                    self.chatIcon.tintColor = self.green
+                    badge += 1
+                    self.notification(displayName: message["senderName"] as! String)
+                    print("Got new message")
+                    
+                }
+            } else {
+//                self.chatIcon.tintColor = self.green
+                badge += 1
+                self.notification(displayName: message["senderName"] as! String)
+                print("Got new message")
+            }
+        
+        }
 
         
         if PFUser.current()?["adFree"] as? Bool == false {
@@ -96,17 +96,19 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.getMessages()
+            badge = 0
+            UIApplication.shared.applicationIconBadgeNumber = badge
         }
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.getMessages()
+            badge = 0
+            UIApplication.shared.applicationIconBadgeNumber = badge
         }
-//        badge = 0
-//        UIApplication.shared.applicationIconBadgeNumber = badge
+        
         
     }
     

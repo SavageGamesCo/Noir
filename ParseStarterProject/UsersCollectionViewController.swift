@@ -158,6 +158,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+        
         //validate subscription receipt
         let appleValidator = AppleReceiptValidator(service: .production)
         SwiftyStoreKit.verifyReceipt(using: appleValidator, password: sharedSecret) { result in
@@ -244,6 +247,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(false, animated: true)
         
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -252,6 +258,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(false, animated: true)
+        
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
         
     }
     
