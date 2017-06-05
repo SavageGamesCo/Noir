@@ -51,14 +51,14 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
 //                    self.chatIcon.tintColor = self.green
-                    badge += 1
+                    badge = 1
                     self.notification(displayName: message["senderName"] as! String)
                     print("Got new message")
                     
                 }
             } else {
 //                self.chatIcon.tintColor = self.green
-                badge += 1
+                badge = 1
                 self.notification(displayName: message["senderName"] as! String)
                 print("Got new message")
             }

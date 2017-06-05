@@ -208,7 +208,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             
             DispatchQueue.main.async {
                 self.chatIcon.tintColor = CHAT_ALERT_COLOR
-                badge += 1
+                badge = 1
                 self.notification(displayName: message["senderName"] as! String)
                 print("Got new message")
                 

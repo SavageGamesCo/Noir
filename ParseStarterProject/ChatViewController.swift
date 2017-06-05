@@ -60,14 +60,14 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
                     
-                    badge += 1
+                    badge = 1
                     self.notification(displayName: message["senderName"] as! String)
                     print("Got new message")
                     
                 }
             } else {
                 
-                badge += 1
+                badge = 1
                 self.notification(displayName: message["senderName"] as! String)
                 print("Got new message")
             }
