@@ -227,8 +227,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 let query1 = PFQuery(className: "Chat")
                 let query2 = PFQuery(className: "Chat")
                 
-                query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER! + displayedUserID)
-                query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
+                query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", equalTo: CURRENT_USER! + displayedUserID)
+                query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", equalTo: displayedUserID + CURRENT_USER!)
                 
                 let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
                 query3.order(byAscending: "createdAt")
@@ -391,7 +391,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
 
         
         } else {
-            //messageIDs.append(messageID)
+            messageIDs.append(messageID)
             
             if messages.count > 200 {
                 messages.removeFirst()
@@ -617,9 +617,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let message = messages[indexPath.item]
         
         if message.senderId == self.senderId {
-            return JSQMessagesAvatarImageFactory.avatarImage(withUserInitials: "--♂", backgroundColor: CHAT_BACKGROUND_COLOR, textColor: CHAT_ALERT_COLOR, font: SYSTEM_FONT, diameter: 30)
+            return JSQMessagesAvatarImageFactory.avatarImage(withUserInitials: "N", backgroundColor: CHAT_BACKGROUND_COLOR, textColor: CHAT_ALERT_COLOR, font: SYSTEM_FONT, diameter: 30)
         } else {
-            return JSQMessagesAvatarImageFactory.avatarImage(withUserInitials: "-♂-", backgroundColor: CHAT_BACKGROUND_COLOR, textColor: ONLINE_COLOR, font: SYSTEM_FONT, diameter: 30)
+            return JSQMessagesAvatarImageFactory.avatarImage(withUserInitials: "N", backgroundColor: CHAT_BACKGROUND_COLOR, textColor: ONLINE_COLOR, font: SYSTEM_FONT, diameter: 30)
         }
         
         

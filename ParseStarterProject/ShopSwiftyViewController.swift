@@ -277,6 +277,11 @@ class ShopSwiftyViewController: UITableViewController {
         //function to set the user account to a membership type, either one month, three month or one year
         PFUser.current()?["membership"] = type
         
+        PFUser.current()?["globalLimit"] = 1000
+        
+        PFUser.current()?["withinDistance"] = 100
+        
+        
         PFUser.current()?.saveInBackground(block: { (success, error) in
             
             if error != nil {
