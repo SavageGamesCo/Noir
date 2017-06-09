@@ -101,6 +101,33 @@ class ShopSwiftyViewController: UITableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print(indexPath.section)
+        print(indexPath.row)
+        
+        if indexPath.section == 0 && indexPath.row == 0 {
+            print("ad free")
+            purchase(purchase: AdFree)
+        } else if indexPath.section == 1 && indexPath.row == 0 {
+            print("one month")
+            purchase(purchase: OneMonth)
+        } else if indexPath.section == 1 && indexPath.row == 1 {
+            print("three month")
+            purchase(purchase: ThreeMonths)
+        } else if indexPath.section == 1 && indexPath.row == 2 {
+            print("one year")
+            purchase(purchase: OneYear)
+        } else if indexPath.section == 2 && indexPath.row == 0 {
+            print("restore")
+            restorePurchase()
+        }
+        if let index = self.tableView.indexPathForSelectedRow{
+            self.tableView.deselectRow(at: index, animated: true)
+        }
+        
+    }
+    
     
     func getInfo(purchase : RegisteredPurchase) {
     
@@ -267,6 +294,7 @@ class ShopSwiftyViewController: UITableViewController {
                 
                 print("This account is now ad free")
                 
+                
             }
         })
         //end function for ad removal
@@ -312,7 +340,7 @@ class ShopSwiftyViewController: UITableViewController {
             }
         })
         
-        UIApplication.shared.openURL(NSURL(string: "http://www.gofundme.com")! as URL)
+//        UIApplication.shared.openURL(NSURL(string: "http://www.gofundme.com")! as URL)
         
         //end function for donate
     }
@@ -411,7 +439,7 @@ extension UITableViewController {
         switch result {
         
         case .purchased(let expiryDate):
-            return alertWithTitle(title: "Membership Purchased", message: "Membership is valid until \(expiryDate)")
+            return alertWithTitle(title: "Membership Purchased", message: "Membership is valid until \(expiryDate). Please LogOut and Log back in to experience Noir with no restrictions and Ad-Free! See the Terms of Use/EULA and Privacy Policy in your settings at the bottom of the screen.")
         case .notPurchased:
             return alertWithTitle(title: "Membership Not Purchased", message: "You have not purchased this membership")
         case .expired(let expiryDate):
@@ -430,7 +458,7 @@ extension UITableViewController {
         switch result {
             
         case .purchased:
-            return alertWithTitle(title: "Ad Free Purchased", message: "Noir is now completely Ad Free!")
+            return alertWithTitle(title: "Ad Free Purchased", message: "Noir is now completely Ad Free! Please Logout and Log back in to Experience Noir Ad Free! See the Terms of Use/EULA and Privacy Policy in your settings at the bottom of the screen.")
         case .notPurchased:
             return alertWithTitle(title: "Ad Free is Not Purchased", message: "You have not purchased this feature")
         

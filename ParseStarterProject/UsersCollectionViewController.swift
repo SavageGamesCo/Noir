@@ -285,7 +285,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     }
     
     func showAd() {
-        if PFUser.current()?["adFree"] as? Bool == false || PFUser.current()?["membership"] as? String != "basic" {
+        if PFUser.current()?["adFree"] as? Bool == false {
             if interstitial.isReady {
                 interstitial.present(fromRootViewController: self)
             } else {

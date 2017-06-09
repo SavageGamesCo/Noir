@@ -145,13 +145,13 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if PFUser.current()?["adFree"] as? Bool == false || PFUser.current()?["membership"] as? String != "basic"  {
+        if PFUser.current()?["adFree"] as? Bool == false {
             bannerAd.isHidden = false
             print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
             bannerAd.adUnitID = "ca-app-pub-9770059916027069/2101714155"
             bannerAd.rootViewController = self
             bannerAd.load(GADRequest())
-        } else {
+        } else if PFUser.current()?["adFree"] as? Bool == true || PFUser.current()?["membership"] as? String != "basic" {
             bannerAd.isHidden = true
         }
         

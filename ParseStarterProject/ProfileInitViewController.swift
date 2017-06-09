@@ -949,7 +949,9 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
             PFUser.current()?.deleteInBackground(block: { (deleteSuccessful, error) -> Void in
                 print("success = \(deleteSuccessful)")
                 PFUser.logOut()
+                self.performSegue(withIdentifier: "toLogin", sender: self)
             })
+            
         }
         
     }
