@@ -103,6 +103,7 @@ class ShopSwiftyViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        
         print(indexPath.section)
         print(indexPath.row)
         
@@ -423,7 +424,7 @@ extension UITableViewController {
     func alertForVerifiedReceipt(result : VerifyReceiptResult) -> UIAlertController {
     
         switch result {
-        case .success(let receipt):
+        case .success( _):
             
             return alertWithTitle(title: "Verified Receipt", message: "Receipt verified")
         case . error(let error):

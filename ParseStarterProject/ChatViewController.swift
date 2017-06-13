@@ -50,29 +50,29 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
-        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
             // This is where we handle the event
             
             
             
-            if Thread.current != Thread.main {
-                return DispatchQueue.main.async {
-                    
-                    badge = 1
-                    self.notification(displayName: message["senderName"] as! String)
-                    print("Got new message")
-                    
-                }
-            } else {
-                
-                badge = 1
-                self.notification(displayName: message["senderName"] as! String)
-                print("Got new message")
-            }
-            
-        }
+//            if Thread.current != Thread.main {
+//                return DispatchQueue.main.async {
+//                    
+//                    badge = 1
+//                    self.notification(displayName: message["senderName"] as! String)
+//                    print("Got new message")
+//                    
+//                }
+//            } else {
+//                
+//                badge = 1
+//                self.notification(displayName: message["senderName"] as! String)
+//                print("Got new message")
+//            }
+//            
+//        }
         
 //        self.showLoadEarlierMessagesHeader = true
         
@@ -513,6 +513,14 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 
                 self.scrollToBottom(animated: true)
                 self.automaticallyScrollsToMostRecentMessage = true
+                let pushQuery = PFInstallation.query()!
+                pushQuery.whereKey("user", equalTo: toUser) //friend is a PFUser object
+                
+                let data = ["alert" : "New message from \(PFUser.current()!.username!)", "badge" : "Increment"]
+                let push = PFPush()
+                push.setQuery(pushQuery as! PFQuery<PFInstallation>)
+                push.setData(data)
+                push.sendInBackground()
                 
             }
             

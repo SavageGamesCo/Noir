@@ -83,7 +83,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                     
                 } else if let users = objects {
                     for object in users {
-                        if let user = object as? PFUser {
+                        if object is PFUser {
                             if let favorites = PFUser.current()?["favorites"] {
                                 if (favorites as AnyObject).contains(displayedUserID as String!) {
                                     self.favorite = true
@@ -118,7 +118,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                     
                 } else if let users = objects {
                     for object in users {
-                        if let user = object as? PFUser {
+                        if object is PFUser {
                             if let favorites = PFUser.current()?["favorites"] {
                                 if (favorites as AnyObject).contains(displayedUserID as String!) {
                                     self.favorite = true
@@ -160,29 +160,29 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         badge = 0
         UIApplication.shared.applicationIconBadgeNumber = badge
         
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-        
-        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-            // This is where we handle the event
-            
-            
-            
-            if Thread.current != Thread.main {
-                return DispatchQueue.main.async {
-                    
-                    badge = 1
-                    self.notification(displayName: message["senderName"] as! String)
-                    print("Got new message")
-                    
-                }
-            } else {
-                
-                badge = 1
-                self.notification(displayName: message["senderName"] as! String)
-                print("Got new message")
-            }
-            
-        }
+//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+//        
+//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+//            // This is where we handle the event
+//            
+//            
+//            
+//            if Thread.current != Thread.main {
+//                return DispatchQueue.main.async {
+//                    
+//                    badge = 1
+//                    self.notification(displayName: message["senderName"] as! String)
+//                    print("Got new message")
+//                    
+//                }
+//            } else {
+//                
+//                badge = 1
+//                self.notification(displayName: message["senderName"] as! String)
+//                print("Got new message")
+//            }
+//            
+//        }
         
         if displayedUserID == PFUser.current()?.objectId {
             chatButton.isEnabled = false
@@ -230,7 +230,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             
             } else if let users = objects {
                 for object in users {
-                    if let user = object as? PFUser {
+                    if object is PFUser {
                         if let favorites = PFUser.current()?["favorites"] {
                             if (favorites as AnyObject).contains(displayedUserID as String!) {
                                 self.favorite = true

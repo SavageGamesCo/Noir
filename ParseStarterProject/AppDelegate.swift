@@ -113,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound , .badge , .alert], categories: nil))
-        
+        application.registerForRemoteNotifications()
         application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
         
         let center = UNUserNotificationCenter.current()
@@ -123,6 +123,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 application.registerForRemoteNotifications()
             }
         })
+        
+        
         
         
         
@@ -143,16 +145,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         
-        badge = 0
-        
-        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        
-        badge = 0
-        
-        UIApplication.shared.applicationIconBadgeNumber = 0
+    func applicationWillBecomeActive(_ application: UIApplication) {
+        clearBadges()
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -178,6 +174,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              PFAnalytics.trackAppOpened(withRemoteNotificationPayload: userInfo)
          }
      }
+    
+    func clearBadges() {
+        let installation = PFInstallation.current()
+        installation?.badge = 0
+        installation?.saveInBackground { (success, error) -> Void in
+            if success {
+                print("cleared badges")
+                UIApplication.shared.applicationIconBadgeNumber = 0
+            }
+            else {
+                print("failed to clear badges")
+            }
+        }
+    }
 
     //--------------------------------------
     // MARK: Facebook SDK Integration

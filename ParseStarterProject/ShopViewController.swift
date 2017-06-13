@@ -95,7 +95,7 @@ class ShopViewController: UITableViewController, SKProductsRequestDelegate, SKPa
         
         for transaction: AnyObject in transactions {
             let trans = transaction as! SKPaymentTransaction
-            print(trans.error)
+            print(trans.error!)
             
             switch trans.transactionState {
             case .purchased:

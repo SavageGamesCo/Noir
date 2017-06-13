@@ -20,6 +20,7 @@
 		B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BE63C1EAE9ED600A6729F /* GADViewController.swift */; };
 		B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */; };
 		B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71402061EAA8030008E6CFB /* ProfileViewController.swift */; };
+		B716D73B1EEB0AAE00B250C1 /* Reachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B716D73A1EEB0AAE00B250C1 /* Reachable.swift */; };
 		B745EBBD1ED76DCC000E498D /* privacy_policy_sclcm.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */; };
 		B745EBBF1ED77296000E498D /* eula_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBE1ED77296000E498D /* eula_noir.txt */; };
 		B745EBC11ED775DA000E498D /* about_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBC01ED775DA000E498D /* about_noir.txt */; };
@@ -113,6 +114,7 @@
 		B70BE63C1EAE9ED600A6729F /* GADViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GADViewController.swift; sourceTree = "<group>"; };
 		B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B71402061EAA8030008E6CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B716D73A1EEB0AAE00B250C1 /* Reachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachable.swift; sourceTree = "<group>"; };
 		B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privacy_policy_sclcm.txt; sourceTree = "<group>"; };
 		B745EBBE1ED77296000E498D /* eula_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eula_noir.txt; sourceTree = "<group>"; };
 		B745EBC01ED775DA000E498D /* about_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about_noir.txt; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				B745EBC01ED775DA000E498D /* about_noir.txt */,
 				B745EBBE1ED77296000E498D /* eula_noir.txt */,
 				B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */,
+				B716D73A1EEB0AAE00B250C1 /* Reachable.swift */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B77A67311ED60919001DF856 /* ShopSwiftyViewController.swift in Sources */,
+				B716D73B1EEB0AAE00B250C1 /* Reachable.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */,
 				B7EDF1D31EBA1023003D013B /* ChatViewController.swift in Sources */,

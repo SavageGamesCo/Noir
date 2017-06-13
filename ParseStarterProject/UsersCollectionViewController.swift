@@ -201,20 +201,20 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         // This message query filters every incoming message that is
         // On the class 'Message' and has a 'message' field to a particular user
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-        
-        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-            // This is where we handle the event
-            
-            DispatchQueue.main.async {
-                self.chatIcon.tintColor = CHAT_ALERT_COLOR
-                badge = 1
-                self.notification(displayName: message["senderName"] as! String)
-                print("Got new message")
-                
-            }
-            
-        }
+//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+//        
+//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+//            // This is where we handle the event
+//            
+//            DispatchQueue.main.async {
+//                self.chatIcon.tintColor = CHAT_ALERT_COLOR
+//                badge = 1
+//                self.notification(displayName: message["senderName"] as! String)
+//                print("Got new message")
+//                
+//            }
+//            
+//        }
         
         geoPoint()
         // Uncomment the following line to preserve selection between presentations
