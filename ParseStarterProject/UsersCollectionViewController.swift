@@ -158,9 +158,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
-        
         //validate subscription receipt
         let appleValidator = AppleReceiptValidator(service: .production)
         SwiftyStoreKit.verifyReceipt(using: appleValidator, password: sharedSecret) { result in
@@ -201,20 +198,21 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         // This message query filters every incoming message that is
         // On the class 'Message' and has a 'message' field to a particular user
-//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-//        
-//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-//            // This is where we handle the event
-//            
-//            DispatchQueue.main.async {
-//                self.chatIcon.tintColor = CHAT_ALERT_COLOR
-//                badge = 1
-//                self.notification(displayName: message["senderName"] as! String)
-//                print("Got new message")
-//                
-//            }
-//            
-//        }
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+        
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            DispatchQueue.main.async {
+                self.chatIcon.tintColor = CHAT_ALERT_COLOR
+                badge += 1
+                UIApplication.shared.applicationIconBadgeNumber = badge
+                self.notification(displayName: message["senderName"] as! String)
+                print("Got new message")
+                
+            }
+            
+        }
         
         geoPoint()
         // Uncomment the following line to preserve selection between presentations
@@ -247,9 +245,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(false, animated: true)
         
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -259,8 +254,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(false, animated: true)
         
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
         
     }
     
@@ -628,7 +621,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         let chatNotification = UNMutableNotificationContent()
         chatNotification.title = "Noir Chat Notification"
-        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.body = "You Have a New Chat message from " + displayName
         chatNotification.badge = badge as NSNumber
         chatNotification.sound = .default()
         

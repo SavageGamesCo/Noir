@@ -47,9 +47,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         super.viewDidLoad()
         
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
-        
 //        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
 //        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
@@ -149,10 +146,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
-
-        
         DispatchQueue.main.async {
             self.observeMessages()
         }
@@ -161,9 +154,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
 
     }
     
@@ -513,14 +503,14 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 
                 self.scrollToBottom(animated: true)
                 self.automaticallyScrollsToMostRecentMessage = true
-                let pushQuery = PFInstallation.query()!
-                pushQuery.whereKey("user", equalTo: toUser) //friend is a PFUser object
-                
-                let data = ["alert" : "New message from \(PFUser.current()!.username!)", "badge" : "Increment"]
-                let push = PFPush()
-                push.setQuery(pushQuery as! PFQuery<PFInstallation>)
-                push.setData(data)
-                push.sendInBackground()
+//                let pushQuery = PFInstallation.query()!
+//                pushQuery.whereKey("user", equalTo: toUser) //friend is a PFUser object
+//                
+//                let data = ["alert" : "New message from \(PFUser.current()!.username!)", "badge" : "Increment"]
+//                let push = PFPush()
+//                push.setQuery(pushQuery as! PFQuery<PFInstallation>)
+//                push.setData(data)
+//                push.sendInBackground()
                 
             }
             

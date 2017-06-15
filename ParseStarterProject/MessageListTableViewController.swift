@@ -38,32 +38,29 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         DispatchQueue.main.async {
             self.getMessages()
         
-//        badge = 0
-//        UIApplication.shared.applicationIconBadgeNumber = badge
-//        
-//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-//        
-//        self.subscription = self.liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-//            // This is where we handle the event
-//            
-//            
-//            
-//            if Thread.current != Thread.main {
-//                return DispatchQueue.main.async {
-////                    self.chatIcon.tintColor = self.green
-//                    badge = 1
-//                    self.notification(displayName: message["senderName"] as! String)
-//                    print("Got new message")
-//                    
-//                }
-//            } else {
-////                self.chatIcon.tintColor = self.green
-//                badge = 1
-//                self.notification(displayName: message["senderName"] as! String)
-//                print("Got new message")
-//            }
-//        
-//        }
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+        
+        self.subscription = self.liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            
+            
+            if Thread.current != Thread.main {
+                return DispatchQueue.main.async {
+//                    self.chatIcon.tintColor = self.green
+                    badge += 1
+                    self.notification(displayName: message["senderName"] as! String)
+                    print("Got new message")
+                    
+                }
+            } else {
+//                self.chatIcon.tintColor = self.green
+                badge += 1
+                self.notification(displayName: message["senderName"] as! String)
+                print("Got new message")
+            }
+        
+        }
 
         
         if PFUser.current()?["adFree"] as? Bool == false {
@@ -95,14 +92,14 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
-            self.getMessages()
+//            self.getMessages()
         }
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.async {
-            
+            self.getMessages()
         }
         
         
@@ -151,12 +148,12 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     func getMessages() {
         
         let query1 = PFQuery(className: "Chat")
-        _ = PFQuery(className: "Chat")
+//        _ = PFQuery(className: "Chat")
         
         query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
 //        query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
         let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1])
-        msgQuery.order(byAscending: "createdAt")
+        msgQuery.order(byDescending: "createdAt")
         
 //        let msgQuery = PFQuery(className: "Chat")
 //        
@@ -233,7 +230,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         
         let chatNotification = UNMutableNotificationContent()
         chatNotification.title = "Noir Chat Notification"
-        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.body = "You Have a New Chat message from " + displayName
         chatNotification.badge = badge as NSNumber
         chatNotification.sound = .default()
         

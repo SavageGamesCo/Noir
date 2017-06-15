@@ -133,6 +133,7 @@ class ViewController: UIViewController {
             
             performSegue(withIdentifier: "toUserTable", sender: self)
             
+            
         } else {
             
             if signUpMode {
@@ -277,6 +278,10 @@ class ViewController: UIViewController {
                         PFUser.current()?["online"] = true
                         PFUser.current()?.saveInBackground()
                         
+                        let installation: PFInstallation = PFInstallation.current()!
+                        installation["user"] = PFUser.current()
+                        installation.saveInBackground()
+                        
                         self.performSegue(withIdentifier: "toUserTable", sender: self)
                     }
                     
@@ -330,6 +335,10 @@ class ViewController: UIViewController {
                             
                             PFUser.current()?["online"] = true
                             PFUser.current()?.saveInBackground()
+                            
+                            let installation: PFInstallation = PFInstallation.current()!
+                            installation["user"] = PFUser.current()
+                            installation.saveInBackground()
                             
                             self.performSegue(withIdentifier: "toUserTable", sender: self)
                             

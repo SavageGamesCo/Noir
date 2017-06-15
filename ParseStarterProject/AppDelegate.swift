@@ -109,20 +109,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        }
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
-            //code here
+            application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound , .badge , .alert], categories: nil))
+            application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
+            application.registerForRemoteNotifications()
         }
         
-        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound , .badge , .alert], categories: nil))
-        application.registerForRemoteNotifications()
-        application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
         
-        let center = UNUserNotificationCenter.current()
-        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
-        center.requestAuthorization(options: options, completionHandler: { authorized, error in
-            if authorized {
-                application.registerForRemoteNotifications()
-            }
-        })
+        
+//        let center = UNUserNotificationCenter.current()
+//        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
+//        center.requestAuthorization(options: options, completionHandler: { authorized, error in
+//            if authorized {
+//                application.registerForRemoteNotifications()
+//            }
+//        })
         
         
         
@@ -144,7 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        
+        clearBadges()
     }
     
     func applicationWillBecomeActive(_ application: UIApplication) {
@@ -159,12 +159,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        PFPush.handle(userInfo)
-        if application.applicationState == UIApplicationState.inactive {
-            PFAnalytics.trackAppOpened(withRemoteNotificationPayload: userInfo)
-        }
-    }
+//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+//        PFPush.handle(userInfo)
+//        if application.applicationState == UIApplicationState.inactive {
+//            PFAnalytics.trackAppOpened(withRemoteNotificationPayload: userInfo)
+//        }
+//    }
 
     ///////////////////////////////////////////////////////////
     // Uncomment this method if you want to use Push Notifications with Background App Refresh
@@ -176,17 +176,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      }
     
     func clearBadges() {
-        let installation = PFInstallation.current()
-        installation?.badge = 0
-        installation?.saveInBackground { (success, error) -> Void in
-            if success {
-                print("cleared badges")
-                UIApplication.shared.applicationIconBadgeNumber = 0
-            }
-            else {
-                print("failed to clear badges")
-            }
-        }
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+//        let installation = PFInstallation.current()
+//        installation?.badge = 0
+//        installation?.saveInBackground { (success, error) -> Void in
+//            if success {
+//                print("cleared badges")
+//                UIApplication.shared.applicationIconBadgeNumber = 0
+//            }
+//            else {
+//                print("failed to clear badges")
+//            }
+//        }
     }
 
     //--------------------------------------

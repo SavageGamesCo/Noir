@@ -516,30 +516,29 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         }
         
         
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
-//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-//        
-//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-//            // This is where we handle the event
-// 
-//            if Thread.current != Thread.main {
-//                return DispatchQueue.main.async {
-//                    
-//                    badge = 1
-//                    self.notification(displayName: message["senderName"] as! String)
-//                    print("Got new message")
-//                    
-//                }
-//            } else {
-//                
-//                badge = 1
-//                self.notification(displayName: message["senderName"] as! String)
-//                print("Got new message")
-//            }
-//            
-//        }
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+ 
+            if Thread.current != Thread.main {
+                return DispatchQueue.main.async {
+                    
+                    badge += 1
+                    self.notification(displayName: message["senderName"] as! String)
+                    UIApplication.shared.applicationIconBadgeNumber = badge
+                    print("Got new message")
+                    
+                }
+            } else {
+                
+                badge += 1
+                self.notification(displayName: message["senderName"] as! String)
+                UIApplication.shared.applicationIconBadgeNumber = badge
+                print("Got new message")
+            }
+            
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -716,8 +715,6 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     
     override func viewDidAppear(_ animated: Bool) {
         
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
 
         
         self.navigationController?.navigationBar.isHidden = false
@@ -905,7 +902,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         
         let chatNotification = UNMutableNotificationContent()
         chatNotification.title = "Noir Chat Notification"
-        chatNotification.subtitle = "You Have a New Chat message from " + displayName
+        chatNotification.body = "You Have a New Chat message from " + displayName
         chatNotification.badge = badge as NSNumber
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
