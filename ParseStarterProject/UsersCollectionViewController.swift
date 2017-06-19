@@ -16,6 +16,7 @@ import ParseLiveQuery
 import StoreKit
 import SwiftyStoreKit
 
+
 private let reuseIdentifier = "Cell"
 
 class UsersCollectionViewController: UICollectionViewController, UIToolbarDelegate {
@@ -274,6 +275,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 PFUser.current()?.saveInBackground()
             }
         })
+        
+        //Show Local Users
+        
 
     }
     
@@ -364,6 +368,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             //Show Local Users
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
+                    
                     
                     if PFUser.current()?["membership"] as? String == "basic" {
                         query?.limit = PFUser.current()?["localLimit"] as! Int

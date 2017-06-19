@@ -28,6 +28,7 @@
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
 		B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A672E1ED5ED45001DF856 /* ShopViewController.swift */; };
 		B77A67311ED60919001DF856 /* ShopSwiftyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */; };
+		B79A85D71EF83E1A00DF3157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79A85D61EF83E1A00DF3157 /* MapKit.framework */; };
 		B7D9CE3D1EBB83E2007236A7 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE291EBB83E2007236A7 /* Contents.json */; };
 		B7D9CE3E1EBB83E2007236A7 /* Icon-App-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE2A1EBB83E2007236A7 /* Icon-App-20x20@1x.png */; };
 		B7D9CE3F1EBB83E2007236A7 /* Icon-App-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE2B1EBB83E2007236A7 /* Icon-App-20x20@2x.png */; };
@@ -123,6 +124,7 @@
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B77A672E1ED5ED45001DF856 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopSwiftyViewController.swift; sourceTree = "<group>"; };
+		B79A85D61EF83E1A00DF3157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B7D9CE291EBB83E2007236A7 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		B7D9CE2A1EBB83E2007236A7 /* Icon-App-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@1x.png"; sourceTree = "<group>"; };
 		B7D9CE2B1EBB83E2007236A7 /* Icon-App-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@2x.png"; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				B7DA38961EC92D38001EFD5F /* Spring.framework in Frameworks */,
 				B7DA38971EC92D38001EFD5F /* Starscream.framework in Frameworks */,
 				81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */,
+				B79A85D71EF83E1A00DF3157 /* MapKit.framework in Frameworks */,
 				81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */,
 				81BA81791A49E0DB00E65899 /* AudioToolbox.framework in Frameworks */,
 				B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */,
@@ -290,6 +293,7 @@
 		81BA816A1A49DB5600E65899 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B79A85D61EF83E1A00DF3157 /* MapKit.framework */,
 				B7DA38981EC93199001EFD5F /* UIKit.framework */,
 				B7DA388A1EC92D37001EFD5F /* BoltsSwift.framework */,
 				B7DA388B1EC92D37001EFD5F /* GoogleToolboxForMac.framework */,
@@ -418,6 +422,9 @@
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
 							com.apple.Push = {

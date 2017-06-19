@@ -12,8 +12,13 @@ import ParseLiveQuery
 import Firebase
 import GoogleMobileAds
 import UserNotifications
+import MapKit
+
+var currentLocation = NSString()
 
 class UserDetailViewController: UITableViewController, UINavigationControllerDelegate {
+    
+    var currentLocation = NSString()
     
     let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
     
@@ -23,8 +28,8 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     
     @IBOutlet weak var bannerAd: GADBannerView!
     
+    @IBOutlet weak var locationTag: UILabel!
     @IBOutlet var ageTag: UILabel!
-    @IBOutlet var locationTag: UILabel!
     @IBOutlet var maritalTag: UILabel!
     @IBOutlet var heightTag: UILabel!
     @IBOutlet var weightTag: UILabel!
@@ -382,6 +387,51 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                                     self.profileImage.image = UIImage(data: imageData)
                                 }
                             })
+                        if let latitude = (user["location"] as AnyObject).latitude {
+                            if let longitude = (user["location"] as AnyObject).longitude {
+                                
+                                //get location & set location name
+                                let geoCoder = CLGeocoder()
+                                let location = CLLocation(latitude: latitude, longitude: longitude)
+                                geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+                                    
+                                    // Place details
+                                    var placeMark: CLPlacemark!
+                                    placeMark = placemarks?[0]
+                                    
+                                    // Address dictionary
+                                    //print(placeMark.addressDictionary as Any)
+                                    
+                                    // City
+                                    if let city = placeMark.addressDictionary!["City"] as? NSString {
+                                        print(city)
+                                        // Country
+                                        if let state = placeMark.addressDictionary!["State"] as? NSString {
+                                            print(state)
+                                            
+                                            if let country = placeMark.addressDictionary!["Country"] as? NSString {
+                                                print(country)
+                                                
+                                                self.currentLocation = ((city as NSString) as String) + ", " + ((state as NSString) as String) + " " + ((country as NSString) as String) as NSString
+                                                
+                                                print(self.currentLocation)
+                                                
+                                                self.locationTag.text = self.currentLocation as String
+                                            }
+                                            
+                                            
+                                        }
+                                        
+                                        
+                                    }
+                                    
+                                })
+                                
+                                //end get location
+                            }
+                        }
+                        
+                        
                             self.ageTag.text = user["age"] as? String
                             self.ethnicityTag.text = user["ethnicity"] as? String
                             self.maritalTag.text = user["marital"] as? String
