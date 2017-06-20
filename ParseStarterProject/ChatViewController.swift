@@ -383,20 +383,12 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         } else {
             messageIDs.append(messageID)
             
-            if messages.count > 200 {
-                messages.removeFirst()
                 messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
                 
 //                notification(displayName: senderDisplayName)
                 
                 collectionView.reloadData()
-            } else {
-                messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, text: text))
-                
-//                notification(displayName: senderDisplayName)
-                
-                collectionView.reloadData()
-            }
+            
         }
         
         
@@ -503,14 +495,17 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 
                 self.scrollToBottom(animated: true)
                 self.automaticallyScrollsToMostRecentMessage = true
-//                let pushQuery = PFInstallation.query()!
-//                pushQuery.whereKey("user", equalTo: toUser) //friend is a PFUser object
-//                
-//                let data = ["alert" : "New message from \(PFUser.current()!.username!)", "badge" : "Increment"]
-//                let push = PFPush()
-//                push.setQuery(pushQuery as! PFQuery<PFInstallation>)
-//                push.setData(data)
-//                push.sendInBackground()
+                
+                
+                PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)"], block: { (object: Any?, error: Error?) in
+                    
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        print("PFCloud push was successful")
+                    }
+                    
+                })
                 
             }
             

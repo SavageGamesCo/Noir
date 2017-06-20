@@ -36,7 +36,6 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         DispatchQueue.main.async {
-            self.getMessages()
         
         let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
@@ -48,16 +47,16 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
             if Thread.current != Thread.main {
                 return DispatchQueue.main.async {
 //                    self.chatIcon.tintColor = self.green
-                    badge += 1
-                    self.notification(displayName: message["senderName"] as! String)
-                    print("Got new message")
+                     
+//                    self.notification(displayName: message["senderName"] as! String)
+//                    print("Got new message")
                     
                 }
             } else {
 //                self.chatIcon.tintColor = self.green
-                badge += 1
-                self.notification(displayName: message["senderName"] as! String)
-                print("Got new message")
+                 
+//                self.notification(displayName: message["senderName"] as! String)
+//                print("Got new message")
             }
         
         }
@@ -87,6 +86,8 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(true, animated: true)
         }
+        
+        self.getMessages()
         
     }
     
