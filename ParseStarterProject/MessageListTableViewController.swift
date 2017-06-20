@@ -197,7 +197,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                                     
                                                     
                                                     
-                                                } else if user.objectId != CURRENT_USER {
+                                                } else if user.objectId != CURRENT_USER && user.objectId != nil {
                                                     
                                                     let imageFile = user["mainPhoto"] as! PFFile
                                                     
