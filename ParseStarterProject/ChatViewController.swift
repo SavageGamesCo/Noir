@@ -169,10 +169,12 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER! + displayedUserID)
         query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
         let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
-        query3.order(byAscending: "createdAt")
+            query3.limit = 2000
+        query3.order(byDescending: "createdAt")
         
         query3.cachePolicy = .networkElseCache
         
+            query3.order(byAscending: "createdAt")
         
         
             query3.findObjectsInBackground { (objects, error) in
@@ -193,6 +195,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                     self.scrollToBottom(animated: true)
                                     
                                     self.automaticallyScrollsToMostRecentMessage = true
+                                    
+                                    print(messages.count)
                                 }
                             }
                         }
@@ -221,6 +225,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", equalTo: displayedUserID + CURRENT_USER!)
                 
                 let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
+                query3.limit = 2000
+                
                 query3.order(byAscending: "createdAt")
                 
                 
