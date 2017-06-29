@@ -334,6 +334,14 @@ class ViewController: UIViewController {
                         if PFUser.current() != nil {
                             
                             PFUser.current()?["online"] = true
+                            
+                            if PFUser.current()?["echo"] != nil {
+                            
+                            } else {
+                                PFUser.current()?["echo"] = true
+                                
+                            }
+                            
                             PFUser.current()?.saveInBackground()
                             
                             let installation: PFInstallation = PFInstallation.current()!

@@ -15,6 +15,7 @@ import UserNotifications
 import ParseLiveQuery
 import StoreKit
 import SwiftyStoreKit
+import AVFoundation
 
 
 private let reuseIdentifier = "Cell"
@@ -123,7 +124,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             showUser = "Flirts"
             UserView()
             DispatchQueue.main.async {
-                
+                self.clearBadges()
                 self.UserTableView.reloadData()
                 
             }
@@ -142,6 +143,22 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         UserView()
         self.UserTableView.reloadData()
 
+    }
+    
+    func clearBadges() {
+        //        badge = 0
+        //        UIApplication.shared.applicationIconBadgeNumber = badge
+        let installation = PFInstallation.current()
+        installation?.badge = 0
+        installation?.saveInBackground { (success, error) -> Void in
+            if success {
+                print("cleared badges")
+                UIApplication.shared.applicationIconBadgeNumber = (installation?.badge.hashValue)!
+            }
+            else {
+                print("failed to clear badges")
+            }
+        }
     }
   
     @IBAction func messagesClicked(_ sender: Any) {
@@ -206,9 +223,19 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             
             DispatchQueue.main.async {
                 self.chatIcon.tintColor = CHAT_ALERT_COLOR
+                // import this
                 
-                UIApplication.shared.applicationIconBadgeNumber = 1
-                self.notification(displayName: message["senderName"] as! String)
+                
+                // create a sound ID, in this case its the tweet sound.
+                let systemSoundID: SystemSoundID = 1016
+                
+                // to play sound
+                AudioServicesPlaySystemSound (systemSoundID)
+                
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                
+//                UIApplication.shared.applicationIconBadgeNumber = 1
+//                self.notification(displayName: message["senderName"] as! String)
 //                print("Got new message")
                 
             }
@@ -223,6 +250,22 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         //preloading the interstitial
         _ = self.createAndLoadInterstitial()
+        
+        let installation = PFInstallation.current()
+        
+        if installation?.badge != nil {
+            if installation?.badge != 0 {
+                self.chatIcon.tintColor = CHAT_ALERT_COLOR
+                // create a sound ID, in this case its the tweet sound.
+                let systemSoundID: SystemSoundID = SystemSoundID(SYSTEM_SOUND)
+                
+                // to play sound
+                AudioServicesPlaySystemSound (systemSoundID)
+                
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            }
+
+        }
         
         
     }
@@ -243,6 +286,22 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         UserView()
         self.UserTableView.reloadData()
         
+        let installation = PFInstallation.current()
+        
+        if installation?.badge != nil {
+            if installation?.badge != 0 {
+                self.chatIcon.tintColor = CHAT_ALERT_COLOR
+                // create a sound ID, in this case its the tweet sound.
+                let systemSoundID: SystemSoundID = SystemSoundID(SYSTEM_SOUND)
+                
+                // to play sound
+                AudioServicesPlaySystemSound (systemSoundID)
+                
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            }
+            
+        }
+        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(false, animated: true)
         
@@ -251,6 +310,23 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidAppear(_ animated: Bool) {
         
         self.interstitialDidDismissScreen(createAndLoadInterstitial())
+        
+        let installation = PFInstallation.current()
+        
+        if installation?.badge != nil {
+            if installation?.badge != 0 {
+                self.chatIcon.tintColor = CHAT_ALERT_COLOR
+                // create a sound ID, in this case its the tweet sound.
+                let systemSoundID: SystemSoundID = SystemSoundID(SYSTEM_SOUND)
+                
+                // to play sound
+                AudioServicesPlaySystemSound (systemSoundID)
+                
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            }
+            
+        }
+        
         self.UserTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(false, animated: true)
@@ -317,6 +393,11 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             query?.limit = PFUser.current()?["globalLimit"] as! Int
             
             query?.whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
+            
+            var currentLoc: PFGeoPoint = PFGeoPoint()
+            
+            
+            
             //Show All Users
             query?.findObjectsInBackground(block: {(objects, error) in
                 

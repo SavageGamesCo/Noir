@@ -176,8 +176,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      }
     
     func clearBadges() {
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
+//        badge = 0
+//        UIApplication.shared.applicationIconBadgeNumber = badge
 //        let installation = PFInstallation.current()
 //        installation?.badge = 0
 //        installation?.saveInBackground { (success, error) -> Void in

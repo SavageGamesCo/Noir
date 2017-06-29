@@ -119,10 +119,13 @@ class ShopSwiftyViewController: UITableViewController {
         } else if indexPath.section == 1 && indexPath.row == 2 {
             print("one year")
             purchase(purchase: OneYear)
+        } else if indexPath.section == 1 && indexPath.row == 3 {
+            print("donate")
+            donate()
         } else if indexPath.section == 2 && indexPath.row == 0 {
             print("restore")
             restorePurchase()
-        }
+        } 
         if let index = self.tableView.indexPathForSelectedRow{
             self.tableView.deselectRow(at: index, animated: true)
         }
@@ -341,7 +344,7 @@ class ShopSwiftyViewController: UITableViewController {
             }
         })
         
-//        UIApplication.shared.openURL(NSURL(string: "http://www.gofundme.com")! as URL)
+        UIApplication.shared.openURL(NSURL(string: "https://www.indiegogo.com/projects/noir-mobile-dating-for-gay-people-of-color-apps/x/16898469#/")! as URL)
         
         //end function for donate
     }

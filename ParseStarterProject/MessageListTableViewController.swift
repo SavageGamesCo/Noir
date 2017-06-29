@@ -91,6 +91,22 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         
     }
     
+    func clearBadges() {
+        //        badge = 0
+        //        UIApplication.shared.applicationIconBadgeNumber = badge
+                let installation = PFInstallation.current()
+                installation?.badge = 0
+                installation?.saveInBackground { (success, error) -> Void in
+                    if success {
+                        print("cleared badges")
+                        UIApplication.shared.applicationIconBadgeNumber = (installation?.badge.hashValue)!
+                    }
+                    else {
+                        print("failed to clear badges")
+                    }
+                }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
 //            self.getMessages()
@@ -222,6 +238,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                     }
                 }
                 //end big block
+                self.clearBadges()
                 self.msgTableView.reloadData()
             }
         }

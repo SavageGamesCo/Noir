@@ -324,7 +324,9 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                     
                     if (flirt.count)  < flirtlimit {
                         tracking = "flirt"
-                        self.dialogueBox(title: "Flirt Sent!", messageText: "You have flirted with " + self.username)
+                        self.dialogueBoxFlirt(title: "Flirt Sent!", messageText: "You have flirted with " + self.username)
+                        
+                        
                     } else {
                         
                         self.dialogueBox(title: "Flirt Limit Reached", messageText: "You have reached your flirt limit. Visit the in-app store to learn how to get unlimited flirts, local members and global members.")
@@ -464,6 +466,35 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                      animated: true,
                      completion: nil)
     }
+    
+    func dialogueBoxFlirt(title:String, messageText:String ){
+        let dialog = UIAlertController(title: title,
+                                       message: messageText,
+                                       preferredStyle: UIAlertControllerStyle.alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        dialog.addAction(defaultAction)
+        // Present the dialog.
+        
+        func sendFlirt(){
+            PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": displayedUserID, "chatmessage": "\(PFUser.current()!.username!) has flirted with you"], block: { (object: Any?, error: Error?) in
+                
+                if error != nil {
+                    print(error!)
+                } else {
+                    print("PFCloud push was successful")
+                }
+                
+            })
+            
+        }
+        
+        self.present(dialog,
+                     animated: true,
+                     completion: sendFlirt)
+    }
+    
+    
 
 
     override func didReceiveMemoryWarning() {
@@ -473,15 +504,15 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
     
     func notification(displayName: String){
         
-        let chatNotification = UNMutableNotificationContent()
-        chatNotification.title = "Noir Chat Notification"
-        chatNotification.body = "You Have a New Chat message from " + displayName
-        chatNotification.badge = badge as NSNumber
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier:APPLICATION, content: chatNotification, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//        let chatNotification = UNMutableNotificationContent()
+//        chatNotification.title = "Noir Chat Notification"
+//        chatNotification.body = "You Have a New Chat message from " + displayName
+//        chatNotification.badge = badge as NSNumber
+//        
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//        let request = UNNotificationRequest(identifier:APPLICATION, content: chatNotification, trigger: trigger)
+//        
+//        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
     }
     

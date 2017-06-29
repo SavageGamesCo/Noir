@@ -29,6 +29,20 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     @IBOutlet var userAboutTextField: UITextView!
     @IBOutlet var userBodyTextField: UITextField!
     
+    @IBOutlet weak var EchoSwitch: UISwitch!
+    
+    var Echo = Bool()
+    
+    @IBAction func EchoSwitchPressed(_ sender: Any) {
+        
+        if EchoSwitch.isOn {
+            Echo = true
+        } else {
+            Echo = false
+        }
+        
+    }
+    
     @IBAction func deleteAccountButton(_ sender: Any) {
         
         commonActionSheet(title: "Delete Account", message: "Are you certain you wish you to delete your account?", whatCase: "delUser")
@@ -681,6 +695,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         PFUser.current()?["about"] = userAboutTextField.text
         PFUser.current()?["ethnicity"] = userEthnicityTextField.text
         PFUser.current()?["body"] = userBodyTextField.text
+        PFUser.current()?["echo"] = Echo
         
         PFUser.current()?.saveInBackground(block: {(success, error) in
             

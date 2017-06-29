@@ -29,3 +29,6 @@ let CHAT_BACKGROUND_COLOR = UIColor(colorLiteralRed: 0.224, green: 0.224, blue: 
 
 //FONT
 let SYSTEM_FONT = UIFont.boldSystemFont(ofSize: 12)
+
+//SOUNDS
+let SYSTEM_SOUND = 1016
