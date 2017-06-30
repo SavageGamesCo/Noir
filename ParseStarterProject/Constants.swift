@@ -17,7 +17,7 @@ let CURRENT_USER = PFUser.current()?.objectId!
 let CURRENT_USERNAME = PFUser.current()?.username!
 
 //Echo Helpers
-let WithinArea = 0.2
+let WithinArea = 11.0
 
 //COLORS
 

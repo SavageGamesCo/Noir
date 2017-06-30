@@ -31,7 +31,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     
     @IBOutlet weak var EchoSwitch: UISwitch!
     
-    var Echo = Bool()
+    var Echo = false
     
     @IBAction func EchoSwitchPressed(_ sender: Any) {
         
@@ -516,7 +516,13 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        EchoSwitch.setOn((PFUser.current()?["echo"] as? Bool)!, animated: true)
+        if (PFUser.current()?["echo"] as? Bool) != nil {
+            EchoSwitch.setOn((PFUser.current()?["echo"] as? Bool)!, animated: true)
+        } else {
+            EchoSwitch.setOn(false, animated: true)
+        }
+        
+        
         
         let bundle = Bundle.main
         let PrivacyPath = bundle.path(forResource: "privacy_policy_sclcm", ofType: "txt")

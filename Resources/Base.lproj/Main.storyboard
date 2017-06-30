@@ -955,11 +955,13 @@
                     <navigationItem key="navigationItem" title="Echo" id="WZJ-yB-JrE"/>
                     <connections>
                         <outlet property="sonarView" destination="O50-gR-nU9" id="ibI-Vz-zc9"/>
+                        <segue destination="up8-0f-dqs" kind="show" identifier="toChat" id="5bb-rV-oM5"/>
+                        <segue destination="A68-zX-6Ek" kind="show" identifier="toUserDetails" id="5jn-AI-LZb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QMo-i9-lfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2572" y="1702"/>
+            <point key="canvasLocation" x="-2768" y="1785"/>
         </scene>
         <!--Messages List-->
         <scene sceneID="tQv-er-pJT">
@@ -1063,7 +1065,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TzH-ZF-GIJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1729" y="1695"/>
+            <point key="canvasLocation" x="-1877" y="2120"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9vu-Ll-Aj7">
@@ -2131,11 +2133,12 @@
         <image name="update-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9pk-Jv-8jF"/>
-        <segue reference="K6o-u3-E9D"/>
-        <segue reference="uKU-yI-vux"/>
         <segue reference="b7p-8z-hIe"/>
-        <segue reference="iFA-Nf-wsQ"/>
+        <segue reference="uKU-yI-vux"/>
+        <segue reference="9pk-Jv-8jF"/>
+        <segue reference="5jn-AI-LZb"/>
+        <segue reference="5bb-rV-oM5"/>
+        <segue reference="IsW-VB-D0B"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
