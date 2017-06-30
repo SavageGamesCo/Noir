@@ -516,6 +516,8 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        EchoSwitch.setOn((PFUser.current()?["echo"] as? Bool)!, animated: true)
+        
         let bundle = Bundle.main
         let PrivacyPath = bundle.path(forResource: "privacy_policy_sclcm", ofType: "txt")
         let EULAPath = bundle.path(forResource: "eula_noir", ofType: "txt")

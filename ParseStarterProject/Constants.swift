@@ -16,9 +16,13 @@ let APPLICATION = "noir"
 let CURRENT_USER = PFUser.current()?.objectId!
 let CURRENT_USERNAME = PFUser.current()?.username!
 
+//Echo Helpers
+let WithinArea = 0.2
+
 //COLORS
 
 let ONLINE_COLOR = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
+let ONLINE_COLOR_2 = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 0.4)
 let OFFLINE_COLOR = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
 let CHAT_ALERT_COLOR = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
 let FAVORITE_BUTTON_COLOR_ON = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)

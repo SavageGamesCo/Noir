@@ -880,7 +880,7 @@
                             <barButtonItem image="update-7.png" id="REF-3O-Ymh">
                                 <connections>
                                     <action selector="echoButtonPressed:" destination="ijc-SN-gV4" id="T0n-mF-4fv"/>
-                                    <segue destination="tZX-Hy-DmZ" kind="presentation" id="zqe-SQ-qXK"/>
+                                    <segue destination="tZX-Hy-DmZ" kind="show" id="zqe-SQ-qXK"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -927,7 +927,7 @@
             </objects>
             <point key="canvasLocation" x="-804.34782608695662" y="1694.8369565217392"/>
         </scene>
-        <!--Echo Sonar View Controller-->
+        <!--Echo-->
         <scene sceneID="BcN-W0-aZZ">
             <objects>
                 <viewController id="tZX-Hy-DmZ" customClass="EchoSonarViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
@@ -941,10 +941,10 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O50-gR-nU9" customClass="SonarView" customModule="Sonar">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="O50-gR-nU9" secondAttribute="trailing" id="4f7-WQ-J4T"/>
                             <constraint firstAttribute="bottom" secondItem="O50-gR-nU9" secondAttribute="bottom" id="A2d-c2-x8n"/>
@@ -952,6 +952,7 @@
                             <constraint firstItem="O50-gR-nU9" firstAttribute="leading" secondItem="jrM-zO-SOj" secondAttribute="leading" id="pZe-JW-9Ex"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Echo" id="WZJ-yB-JrE"/>
                     <connections>
                         <outlet property="sonarView" destination="O50-gR-nU9" id="ibI-Vz-zc9"/>
                     </connections>
@@ -1099,7 +1100,7 @@
         <!--Update Profile-->
         <scene sceneID="mYW-pg-h3j">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="ZXN-uZ-4SD" customClass="ProfileInitViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ZXN-uZ-4SD" customClass="ProfileInitViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TgF-ZF-Qwn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1462,7 +1463,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Options" id="Rvm-bX-79I">
                                 <cells>
-                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="PbO-Vp-TBE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="PbO-Vp-TBE">
                                         <rect key="frame" x="0.0" y="945" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PbO-Vp-TBE" id="F2O-jp-lKi">
@@ -2132,8 +2133,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="9pk-Jv-8jF"/>
         <segue reference="K6o-u3-E9D"/>
-        <segue reference="AQS-Bi-6uX"/>
         <segue reference="uKU-yI-vux"/>
+        <segue reference="b7p-8z-hIe"/>
         <segue reference="iFA-Nf-wsQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

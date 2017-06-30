@@ -20,10 +20,15 @@ class EchoSonarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        SonarView.lineColor = ONLINE_COLOR
+        SonarView.lineShadowColor = ONLINE_COLOR_2
+        SonarView.distanceTextColor = ONLINE_COLOR
         
-        
+        sonarView.backgroundColor = UIColor.darkGray
+
         self.sonarView.delegate = self as? SonarViewDelegate
         self.sonarView.dataSource = self as? SonarViewDataSource
+        
         
     }
     
@@ -38,6 +43,7 @@ class EchoSonarViewController: UIViewController {
 }
 
 extension EchoSonarViewController: SonarViewDataSource {
+    
     func numberOfWaves(sonarView: SonarView) -> Int {
         return 4
     }
@@ -75,6 +81,8 @@ extension EchoSonarViewController: SonarViewDataSource {
 }
 
 extension EchoSonarViewController: SonarViewDelegate {
+    
+    
     func sonarView(sonarView: SonarView, didSelectObjectInWave waveIndex: Int, atIndex: Int) {
         print("Did select item in wave \(waveIndex) at index \(atIndex)")
     }
