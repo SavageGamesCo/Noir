@@ -145,6 +145,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
     }
     
+    
+    @IBOutlet weak var echoPressed: UIBarButtonItem!
+    
+    @IBAction func echoButtonPressed(_ sender: Any) {
+        
+        
+        
+    }
     func clearBadges() {
         //        badge = 0
         //        UIApplication.shared.applicationIconBadgeNumber = badge

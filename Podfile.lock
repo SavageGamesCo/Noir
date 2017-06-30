@@ -28,6 +28,7 @@ PODS:
     - Bolts-Swift (~> 1.3)
     - Parse (~> 1.14.2)
     - Starscream (= 2.0.3)
+  - Sonar (3.0.0)
   - Spring (1.0.3)
   - Starscream (2.0.3)
   - SwiftyStoreKit (0.8.6)
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - Firebase/Core
   - JSQMessagesViewController
   - ParseLiveQuery
+  - Sonar
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
   - SwiftyStoreKit
 
@@ -63,10 +65,11 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   Parse: b0aa91d2c435e53d4a9af26e741e014c9b35c42e
   ParseLiveQuery: 38fb42e4b8611ecfcb199d47e48aeaf6879f8560
+  Sonar: 72afea99952a2a681d0a843ee6679b4eaf217ad5
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   Starscream: 3fdd5c277e57cca6b5c406d274e3f34a7c88f2ce
   SwiftyStoreKit: 3cd98b53dc4ab9fd33c1023a8eae38225ebae312
 
-PODFILE CHECKSUM: 70d61ed81a1b4683efb0d2df0c059d22cb6981b6
+PODFILE CHECKSUM: 5fd3298f18a4a4674cb608377a8293d5f36c6ba5
 
 COCOAPODS: 1.2.1

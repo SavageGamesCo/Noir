@@ -21,6 +21,9 @@
 		B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */; };
 		B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71402061EAA8030008E6CFB /* ProfileViewController.swift */; };
 		B716D73B1EEB0AAE00B250C1 /* Reachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B716D73A1EEB0AAE00B250C1 /* Reachable.swift */; };
+		B72F13441F05CA8C008EABCE /* EchoSonarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */; };
+		B72F13471F05D347008EABCE /* EchoSonarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F13461F05D347008EABCE /* EchoSonarViewController.swift */; };
+		B72F134B1F05D8CF008EABCE /* EchoSonarItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */; };
 		B745EBBD1ED76DCC000E498D /* privacy_policy_sclcm.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */; };
 		B745EBBF1ED77296000E498D /* eula_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBE1ED77296000E498D /* eula_noir.txt */; };
 		B745EBC11ED775DA000E498D /* about_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBC01ED775DA000E498D /* about_noir.txt */; };
@@ -116,6 +119,9 @@
 		B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B71402061EAA8030008E6CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B716D73A1EEB0AAE00B250C1 /* Reachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachable.swift; sourceTree = "<group>"; };
+		B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EchoSonarItemView.swift; sourceTree = "<group>"; };
+		B72F13461F05D347008EABCE /* EchoSonarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EchoSonarViewController.swift; sourceTree = "<group>"; };
+		B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EchoSonarItemView.xib; sourceTree = "<group>"; };
 		B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privacy_policy_sclcm.txt; sourceTree = "<group>"; };
 		B745EBBE1ED77296000E498D /* eula_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eula_noir.txt; sourceTree = "<group>"; };
 		B745EBC01ED775DA000E498D /* about_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about_noir.txt; sourceTree = "<group>"; };
@@ -263,9 +269,11 @@
 		81BA81471A49DA1800E65899 /* ParseStarterProject */ = {
 			isa = PBXGroup;
 			children = (
+				B72F13451F05D31B008EABCE /* New Group */,
 				B7FAF5541EA707650044B07B /* noirImages */,
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
+				B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
 				B7D9CE511EBB84D0007236A7 /* Launch Screen.storyboard */,
 				B7EDF1CA1EB972EE003D013B /* MessageListTableViewController.swift */,
@@ -286,6 +294,8 @@
 				B745EBBE1ED77296000E498D /* eula_noir.txt */,
 				B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */,
 				B716D73A1EEB0AAE00B250C1 /* Reachable.swift */,
+				B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */,
+				B72F13461F05D347008EABCE /* EchoSonarViewController.swift */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -322,6 +332,13 @@
 				81BA81761A49E0D500E65899 /* libsqlite3.dylib */,
 			);
 			name = "System Frameworks";
+			sourceTree = "<group>";
+		};
+		B72F13451F05D31B008EABCE /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		B7D9CE281EBB83E2007236A7 /* AppIcon2.appiconset */ = {
@@ -472,6 +489,7 @@
 				B7E5A3F21EB2878C007E9620 /* write-simple-7.png in Resources */,
 				B7FAF55C1EA707650044B07B /* noir_nav_logo.png in Resources */,
 				B745EBC11ED775DA000E498D /* about_noir.txt in Resources */,
+				B72F134B1F05D8CF008EABCE /* EchoSonarItemView.xib in Resources */,
 				B7D9CE4C1EBB83E2007236A7 /* Icon-App-60x60@3x.png in Resources */,
 				B7E5A3FF1EB2890C007E9620 /* emoticon-sad-7.png in Resources */,
 				814C3ACA1B69877600E307BB /* Main.storyboard in Resources */,
@@ -578,10 +596,12 @@
 				B7EDF1D51EBA33D6003D013B /* MessagesHandler.swift in Sources */,
 				B774D8341EC8299C000CC615 /* Constants.swift in Sources */,
 				B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */,
+				B72F13471F05D347008EABCE /* EchoSonarViewController.swift in Sources */,
 				B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */,
 				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,
 				B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */,
 				B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */,
+				B72F13441F05CA8C008EABCE /* EchoSonarItemView.swift in Sources */,
 				B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

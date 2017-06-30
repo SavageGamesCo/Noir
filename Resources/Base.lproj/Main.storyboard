@@ -739,7 +739,7 @@
         <scene sceneID="vfq-Ku-Ucd">
             <objects>
                 <collectionViewController title="Noir Users" modalTransitionStyle="flipHorizontal" id="ijc-SN-gV4" customClass="UsersCollectionViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -879,7 +879,8 @@
                             </barButtonItem>
                             <barButtonItem image="update-7.png" id="REF-3O-Ymh">
                                 <connections>
-                                    <action selector="reload:" destination="ijc-SN-gV4" id="aB3-Px-8sv"/>
+                                    <action selector="echoButtonPressed:" destination="ijc-SN-gV4" id="T0n-mF-4fv"/>
+                                    <segue destination="tZX-Hy-DmZ" kind="presentation" id="zqe-SQ-qXK"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -888,6 +889,7 @@
                     <connections>
                         <outlet property="UserTableView" destination="blK-Zg-EfE" id="qQu-Ea-fRv"/>
                         <outlet property="chatIcon" destination="mYc-qI-yyy" id="Z6E-dN-rci"/>
+                        <outlet property="echoPressed" destination="REF-3O-Ymh" id="OUb-HA-vCi"/>
                         <outlet property="navTitle" destination="yfP-b7-lme" id="zfn-h5-kFa"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogInScreen" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="AQS-Bi-6uX"/>
                         <segue destination="q6t-Rn-sQd" kind="show" identifier="toMsgList" id="gxt-Ll-4Kg"/>
@@ -924,6 +926,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L9H-l2-IDv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-804.34782608695662" y="1694.8369565217392"/>
+        </scene>
+        <!--Echo Sonar View Controller-->
+        <scene sceneID="BcN-W0-aZZ">
+            <objects>
+                <viewController id="tZX-Hy-DmZ" customClass="EchoSonarViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2UC-5b-T1v"/>
+                        <viewControllerLayoutGuide type="bottom" id="XCR-b8-TMg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jrM-zO-SOj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O50-gR-nU9" customClass="SonarView" customModule="Sonar">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="O50-gR-nU9" secondAttribute="trailing" id="4f7-WQ-J4T"/>
+                            <constraint firstAttribute="bottom" secondItem="O50-gR-nU9" secondAttribute="bottom" id="A2d-c2-x8n"/>
+                            <constraint firstItem="O50-gR-nU9" firstAttribute="top" secondItem="jrM-zO-SOj" secondAttribute="top" id="iGi-ut-eKd"/>
+                            <constraint firstItem="O50-gR-nU9" firstAttribute="leading" secondItem="jrM-zO-SOj" secondAttribute="leading" id="pZe-JW-9Ex"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="sonarView" destination="O50-gR-nU9" id="ibI-Vz-zc9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QMo-i9-lfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2572" y="1702"/>
         </scene>
         <!--Messages List-->
         <scene sceneID="tQv-er-pJT">
@@ -2095,10 +2130,10 @@
         <image name="update-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uKU-yI-vux"/>
         <segue reference="9pk-Jv-8jF"/>
         <segue reference="K6o-u3-E9D"/>
-        <segue reference="b7p-8z-hIe"/>
+        <segue reference="AQS-Bi-6uX"/>
+        <segue reference="uKU-yI-vux"/>
         <segue reference="iFA-Nf-wsQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

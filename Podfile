@@ -12,5 +12,6 @@ target 'Noir' do
     pod 'JSQMessagesViewController'
     pod 'ParseLiveQuery'
     pod 'SwiftyStoreKit'
+    pod 'Sonar'
 
 end
