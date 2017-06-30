@@ -877,7 +877,7 @@
                                     <action selector="flirtsClicked:" destination="ijc-SN-gV4" id="6o7-1j-8xW"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="update-7.png" id="REF-3O-Ymh">
+                            <barButtonItem image="games-abstract-7.png" id="REF-3O-Ymh">
                                 <connections>
                                     <action selector="echoButtonPressed:" destination="ijc-SN-gV4" id="T0n-mF-4fv"/>
                                     <segue destination="tZX-Hy-DmZ" kind="show" id="zqe-SQ-qXK"/>
@@ -2122,6 +2122,7 @@
         <image name="default_user_image.png" width="270" height="271"/>
         <image name="earth-america-7.png" width="30" height="30"/>
         <image name="emoticon-sad-7.png" width="30" height="30"/>
+        <image name="games-abstract-7.png" width="30" height="30"/>
         <image name="gear-7.png" width="30" height="30"/>
         <image name="heart-7.png" width="30" height="30"/>
         <image name="message-7.png" width="30" height="30"/>
@@ -2130,15 +2131,14 @@
         <image name="pin-map-7.png" width="30" height="30"/>
         <image name="shopping-cart-7.png" width="30" height="30"/>
         <image name="star-7.png" width="30" height="30"/>
-        <image name="update-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="b7p-8z-hIe"/>
-        <segue reference="uKU-yI-vux"/>
+        <segue reference="AQS-Bi-6uX"/>
         <segue reference="9pk-Jv-8jF"/>
-        <segue reference="5jn-AI-LZb"/>
-        <segue reference="5bb-rV-oM5"/>
+        <segue reference="Va7-PB-RdT"/>
+        <segue reference="uKU-yI-vux"/>
         <segue reference="IsW-VB-D0B"/>
+        <segue reference="5bb-rV-oM5"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -39,6 +39,7 @@ class EchoSonarViewController: UIViewController {
     
     var withinDistance = 10
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -55,7 +56,7 @@ class EchoSonarViewController: UIViewController {
             
             sonarView.isHidden = true
             let label = UILabel()
-            label.text = "Please Turn On Echo To Use This Feature."
+            label.text = "Turn On Echo To Use Echo."
             label.textColor = ONLINE_COLOR
             label.numberOfLines = 2
             label.center.x = self.view.center.x / 4
@@ -67,6 +68,23 @@ class EchoSonarViewController: UIViewController {
         
         } else {
             
+            let bundle = Bundle.main
+            let EchoFeaturePath = bundle.path(forResource: "echo_feature", ofType: "txt")
+            let EchoWarningPath = bundle.path(forResource: "echo_warning", ofType: "txt")
+            
+            var EchoFeatureText = String()
+            var EchoWarningText = String()
+            
+            do{
+                try EchoFeatureText = String(contentsOfFile: EchoFeaturePath!)
+                try EchoWarningText = String(contentsOfFile: EchoWarningPath!)
+                
+            }catch{
+                print("Unable to load privacy policy")
+            }
+            
+            commonActionSheet(title: "Echo", message: EchoFeatureText + "\n\n" + EchoWarningText , whatCase: "normal")
+//            commonActionSheet(title: "Echo - WARNING", message: EchoWarningText , whatCase: "normal")
             update()
             var timer = Timer()
             timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
@@ -314,6 +332,29 @@ class EchoSonarViewController: UIViewController {
         
         
         
+    }
+    
+    func commonActionSheet(title: String, message: String, whatCase: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        
+        switch whatCase {
+        
+        case "normal":
+            let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(cancel)
+            break
+        default:
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancel)
+            break
+        }
+        
+        
+        
+        alert.popoverPresentationController?.sourceView = view
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func reloadData(_ sender: AnyObject) {

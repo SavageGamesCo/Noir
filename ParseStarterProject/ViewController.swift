@@ -254,6 +254,7 @@ class ViewController: UIViewController {
                 user["favorites"] = ["5eINpheoSH"]
                 user["flirt"] = ["5eINpheoSH"]
                 user["blocked"] = ["abcdefg"]
+                user["echo"] = false
                 
                 
                 

@@ -32,6 +32,12 @@
 		B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A672E1ED5ED45001DF856 /* ShopViewController.swift */; };
 		B77A67311ED60919001DF856 /* ShopSwiftyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */; };
 		B79A85D71EF83E1A00DF3157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79A85D61EF83E1A00DF3157 /* MapKit.framework */; };
+		B7B5B8681F07041700F126AD /* echo_feature.txt in Resources */ = {isa = PBXBuildFile; fileRef = B7B5B8671F07041700F126AD /* echo_feature.txt */; };
+		B7B5B86A1F07042D00F126AD /* echo_warning.txt in Resources */ = {isa = PBXBuildFile; fileRef = B7B5B8691F07042D00F126AD /* echo_warning.txt */; };
+		B7B5B86C1F070A4400F126AD /* games-abstract-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B5B86B1F070A4400F126AD /* games-abstract-7.png */; };
+		B7B5B86E1F070A5000F126AD /* wifi-signal-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B5B86D1F070A5000F126AD /* wifi-signal-7.png */; };
+		B7B5B8701F070A9100F126AD /* compass-point-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B5B86F1F070A9100F126AD /* compass-point-7.png */; };
+		B7B5B8721F070AA300F126AD /* character-e-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B5B8711F070AA300F126AD /* character-e-7.png */; };
 		B7D9CE3D1EBB83E2007236A7 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE291EBB83E2007236A7 /* Contents.json */; };
 		B7D9CE3E1EBB83E2007236A7 /* Icon-App-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE2A1EBB83E2007236A7 /* Icon-App-20x20@1x.png */; };
 		B7D9CE3F1EBB83E2007236A7 /* Icon-App-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CE2B1EBB83E2007236A7 /* Icon-App-20x20@2x.png */; };
@@ -131,6 +137,12 @@
 		B77A672E1ED5ED45001DF856 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopSwiftyViewController.swift; sourceTree = "<group>"; };
 		B79A85D61EF83E1A00DF3157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B7B5B8671F07041700F126AD /* echo_feature.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = echo_feature.txt; sourceTree = "<group>"; };
+		B7B5B8691F07042D00F126AD /* echo_warning.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = echo_warning.txt; sourceTree = "<group>"; };
+		B7B5B86B1F070A4400F126AD /* games-abstract-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "games-abstract-7.png"; sourceTree = "<group>"; };
+		B7B5B86D1F070A5000F126AD /* wifi-signal-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wifi-signal-7.png"; sourceTree = "<group>"; };
+		B7B5B86F1F070A9100F126AD /* compass-point-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass-point-7.png"; sourceTree = "<group>"; };
+		B7B5B8711F070AA300F126AD /* character-e-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "character-e-7.png"; sourceTree = "<group>"; };
 		B7D9CE291EBB83E2007236A7 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		B7D9CE2A1EBB83E2007236A7 /* Icon-App-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@1x.png"; sourceTree = "<group>"; };
 		B7D9CE2B1EBB83E2007236A7 /* Icon-App-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@2x.png"; sourceTree = "<group>"; };
@@ -296,6 +308,8 @@
 				B716D73A1EEB0AAE00B250C1 /* Reachable.swift */,
 				B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */,
 				B72F13461F05D347008EABCE /* EchoSonarViewController.swift */,
+				B7B5B8671F07041700F126AD /* echo_feature.txt */,
+				B7B5B8691F07042D00F126AD /* echo_warning.txt */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -378,9 +392,13 @@
 				B7E5A3EF1EB28190007E9620 /* list-simple-star-7.png */,
 				B7F083CC1ECA830B00FCD167 /* shopping-cart-7.png */,
 				B7E5A4051EB28978007E9620 /* bin-7.png */,
+				B7B5B86B1F070A4400F126AD /* games-abstract-7.png */,
 				B7E5A4031EB2893E007E9620 /* circle-x-7.png */,
 				B7E5A3ED1EB280DF007E9620 /* earth-america-7.png */,
+				B7B5B86D1F070A5000F126AD /* wifi-signal-7.png */,
 				B7E5A3F91EB28830007E9620 /* photo-7.png */,
+				B7B5B86F1F070A9100F126AD /* compass-point-7.png */,
+				B7B5B8711F070AA300F126AD /* character-e-7.png */,
 				B7F083D01ECA912E00FCD167 /* update-7.png */,
 				B7E5A3F71EB28826007E9620 /* photos-simple-7.png */,
 				B7E5A3F51EB287E1007E9620 /* star-7.png */,
@@ -475,6 +493,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7E5A4041EB2893E007E9620 /* circle-x-7.png in Resources */,
+				B7B5B8721F070AA300F126AD /* character-e-7.png in Resources */,
 				B7E5A3EC1EB28081007E9620 /* pin-map-7.png in Resources */,
 				B7D9CE481EBB83E2007236A7 /* Icon-App-57x57@2x.png in Resources */,
 				B7D9CE521EBB84D0007236A7 /* Launch Screen.storyboard in Resources */,
@@ -483,6 +502,7 @@
 				B7E5A3E81EB28056007E9620 /* heart-7.png in Resources */,
 				B7D9CE3D1EBB83E2007236A7 /* Contents.json in Resources */,
 				B7FAF55B1EA707650044B07B /* noir_big_logo.png in Resources */,
+				B7B5B86C1F070A4400F126AD /* games-abstract-7.png in Resources */,
 				B7D9CE4D1EBB83E2007236A7 /* Icon-App-76x76@1x.png in Resources */,
 				B7FAF5591EA707650044B07B /* background_gradient.png in Resources */,
 				B7D9CE501EBB83E2007236A7 /* Icon-App-83.5x83.5@2x.png in Resources */,
@@ -508,6 +528,7 @@
 				B7E5A3FA1EB28830007E9620 /* photo-7.png in Resources */,
 				B7E5A4021EB28926007E9620 /* crown-7.png in Resources */,
 				B7D9CE421EBB83E2007236A7 /* Icon-App-29x29@2x.png in Resources */,
+				B7B5B8701F070A9100F126AD /* compass-point-7.png in Resources */,
 				B7D9CE441EBB83E2007236A7 /* Icon-App-40x40@1x.png in Resources */,
 				B7E5A4061EB28978007E9620 /* bin-7.png in Resources */,
 				B7E5A3F01EB28190007E9620 /* list-simple-star-7.png in Resources */,
@@ -516,10 +537,13 @@
 				B7D9CE471EBB83E2007236A7 /* Icon-App-57x57@1x.png in Resources */,
 				B745EBBD1ED76DCC000E498D /* privacy_policy_sclcm.txt in Resources */,
 				B7D9CE431EBB83E2007236A7 /* Icon-App-29x29@3x.png in Resources */,
+				B7B5B86E1F070A5000F126AD /* wifi-signal-7.png in Resources */,
 				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 				B7D9CE401EBB83E2007236A7 /* Icon-App-20x20@3x.png in Resources */,
 				B7D9CE3F1EBB83E2007236A7 /* Icon-App-20x20@2x.png in Resources */,
 				B7F083CD1ECA830B00FCD167 /* shopping-cart-7.png in Resources */,
+				B7B5B86A1F07042D00F126AD /* echo_warning.txt in Resources */,
+				B7B5B8681F07041700F126AD /* echo_feature.txt in Resources */,
 				B7D9CE4F1EBB83E2007236A7 /* Icon-App-76x76@3x.png in Resources */,
 				B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */,
 				B745EBBF1ED77296000E498D /* eula_noir.txt in Resources */,

@@ -184,6 +184,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if PFUser.current()?["echo"] != nil {
+        
+        } else {
+            PFUser.current()?["echo"] = false
+            
+            PFUser.current()?.saveInBackground()
+        }
+        
         //validate subscription receipt
         let appleValidator = AppleReceiptValidator(service: .production)
         SwiftyStoreKit.verifyReceipt(using: appleValidator, password: sharedSecret) { result in
@@ -217,7 +225,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         if PFUser.current()?["membership"] as? String == "basic" {
             if support_shown == false {
-                self.commonActionSheet(title: "Support Noir!", message: "Noir is a mobile dating application for people of color and lovers of diversity within the gay community. \n\n Noir is not possible without the support of the community. With your support we can upgrade servers to provide a faster and smoother experience for you, we can add new features, we can staff technical support and we can continue to bring you a service made by us, for us. \n\n Noir is made available for free, ad supported, with restrictions. Please consider upgrading to the ad-free version of Noir to have the advertising removed for a one time cost.\n\n Consider one of Noir's monthly memberships to have an increased amount of members shown in the global view, increase the distance for finding local members, have an infinite amount of flirts and favorites! Your monthly subscription goes towards the monthly expenses to run Noir and as mentioned above, bringing you more features and an overall better product.\n\n Noir developed as a solo effort and is not possible without the support of the community it was created for.")
+                self.commonActionSheet(title: "Support Noir!", message: "NEW FEATURE WITH v1.3! Echo! Turn on Echo in your Profile Settings Options area, tap to Echo Icon next to the Flirts Heart Icon and explore this new feature found only in Noir! \n\nNoir is a mobile dating application for people of color and lovers of diversity within the gay community. \n\n Noir is not possible without the support of the community. With your support we can upgrade servers to provide a faster and smoother experience for you, we can add new features, we can staff technical support and we can continue to bring you a service made by us, for us. \n\n Noir is made available for free, ad supported, with restrictions. Please consider upgrading to the ad-free version of Noir to have the advertising removed for a one time cost.\n\n Consider one of Noir's monthly memberships to have an increased amount of members shown in the global view, increase the distance for finding local members, have an infinite amount of flirts and favorites! Your monthly subscription goes towards the monthly expenses to run Noir and as mentioned above, bringing you more features and an overall better product.\n\n Noir developed as a solo effort and is not possible without the support of the community it was created for.")
                 support_shown = true
             }
         }
