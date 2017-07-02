@@ -31,6 +31,11 @@
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
 		B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A672E1ED5ED45001DF856 /* ShopViewController.swift */; };
 		B77A67311ED60919001DF856 /* ShopSwiftyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */; };
+		B791011A1F08E5C80078E188 /* unflirt.png in Resources */ = {isa = PBXBuildFile; fileRef = B79101181F08E5C80078E188 /* unflirt.png */; };
+		B791011B1F08E5C80078E188 /* flirt.png in Resources */ = {isa = PBXBuildFile; fileRef = B79101191F08E5C80078E188 /* flirt.png */; };
+		B791011E1F099D740078E188 /* unflirt_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B791011C1F099D740078E188 /* unflirt_2.png */; };
+		B791011F1F099D740078E188 /* flirt_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B791011D1F099D740078E188 /* flirt_2.png */; };
+		B79101211F09A2EF0078E188 /* favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = B79101201F09A2EF0078E188 /* favorite.png */; };
 		B79A85D71EF83E1A00DF3157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79A85D61EF83E1A00DF3157 /* MapKit.framework */; };
 		B7B5B8681F07041700F126AD /* echo_feature.txt in Resources */ = {isa = PBXBuildFile; fileRef = B7B5B8671F07041700F126AD /* echo_feature.txt */; };
 		B7B5B86A1F07042D00F126AD /* echo_warning.txt in Resources */ = {isa = PBXBuildFile; fileRef = B7B5B8691F07042D00F126AD /* echo_warning.txt */; };
@@ -136,6 +141,11 @@
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B77A672E1ED5ED45001DF856 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopSwiftyViewController.swift; sourceTree = "<group>"; };
+		B79101181F08E5C80078E188 /* unflirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unflirt.png; sourceTree = "<group>"; };
+		B79101191F08E5C80078E188 /* flirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flirt.png; sourceTree = "<group>"; };
+		B791011C1F099D740078E188 /* unflirt_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unflirt_2.png; sourceTree = "<group>"; };
+		B791011D1F099D740078E188 /* flirt_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flirt_2.png; sourceTree = "<group>"; };
+		B79101201F09A2EF0078E188 /* favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite.png; sourceTree = "<group>"; };
 		B79A85D61EF83E1A00DF3157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B7B5B8671F07041700F126AD /* echo_feature.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = echo_feature.txt; sourceTree = "<group>"; };
 		B7B5B8691F07042D00F126AD /* echo_warning.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = echo_warning.txt; sourceTree = "<group>"; };
@@ -385,6 +395,11 @@
 		B7FAF5541EA707650044B07B /* noirImages */ = {
 			isa = PBXGroup;
 			children = (
+				B79101201F09A2EF0078E188 /* favorite.png */,
+				B79101181F08E5C80078E188 /* unflirt.png */,
+				B79101191F08E5C80078E188 /* flirt.png */,
+				B791011C1F099D740078E188 /* unflirt_2.png */,
+				B791011D1F099D740078E188 /* flirt_2.png */,
 				B7E5A3DF1EB27CAE007E9620 /* 011.png */,
 				B7E5A3F11EB2878C007E9620 /* write-simple-7.png */,
 				B7E5A3E71EB28056007E9620 /* heart-7.png */,
@@ -499,6 +514,7 @@
 				B7D9CE521EBB84D0007236A7 /* Launch Screen.storyboard in Resources */,
 				B7E5A3F41EB287C7007E9620 /* thumb-up-7.png in Resources */,
 				B7E5A3EE1EB280DF007E9620 /* earth-america-7.png in Resources */,
+				B791011E1F099D740078E188 /* unflirt_2.png in Resources */,
 				B7E5A3E81EB28056007E9620 /* heart-7.png in Resources */,
 				B7D9CE3D1EBB83E2007236A7 /* Contents.json in Resources */,
 				B7FAF55B1EA707650044B07B /* noir_big_logo.png in Resources */,
@@ -508,6 +524,7 @@
 				B7D9CE501EBB83E2007236A7 /* Icon-App-83.5x83.5@2x.png in Resources */,
 				B7E5A3F21EB2878C007E9620 /* write-simple-7.png in Resources */,
 				B7FAF55C1EA707650044B07B /* noir_nav_logo.png in Resources */,
+				B791011B1F08E5C80078E188 /* flirt.png in Resources */,
 				B745EBC11ED775DA000E498D /* about_noir.txt in Resources */,
 				B72F134B1F05D8CF008EABCE /* EchoSonarItemView.xib in Resources */,
 				B7D9CE4C1EBB83E2007236A7 /* Icon-App-60x60@3x.png in Resources */,
@@ -521,15 +538,18 @@
 				B7E5A3EA1EB28066007E9620 /* message-7.png in Resources */,
 				B7F083CF1ECA832000FCD167 /* shop-7.png in Resources */,
 				B7D9CE451EBB83E2007236A7 /* Icon-App-40x40@2x.png in Resources */,
+				B79101211F09A2EF0078E188 /* favorite.png in Resources */,
 				B7D9CE411EBB83E2007236A7 /* Icon-App-29x29@1x.png in Resources */,
 				B7FAF55A1EA707650044B07B /* default_user_image.png in Resources */,
 				B7F083D11ECA912E00FCD167 /* update-7.png in Resources */,
 				B7E5A3F61EB287E1007E9620 /* star-7.png in Resources */,
 				B7E5A3FA1EB28830007E9620 /* photo-7.png in Resources */,
 				B7E5A4021EB28926007E9620 /* crown-7.png in Resources */,
+				B791011F1F099D740078E188 /* flirt_2.png in Resources */,
 				B7D9CE421EBB83E2007236A7 /* Icon-App-29x29@2x.png in Resources */,
 				B7B5B8701F070A9100F126AD /* compass-point-7.png in Resources */,
 				B7D9CE441EBB83E2007236A7 /* Icon-App-40x40@1x.png in Resources */,
+				B791011A1F08E5C80078E188 /* unflirt.png in Resources */,
 				B7E5A4061EB28978007E9620 /* bin-7.png in Resources */,
 				B7E5A3F01EB28190007E9620 /* list-simple-star-7.png in Resources */,
 				B7D9CE4A1EBB83E2007236A7 /* Icon-App-60x60@1x.png in Resources */,

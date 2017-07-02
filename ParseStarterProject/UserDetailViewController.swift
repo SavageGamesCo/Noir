@@ -13,6 +13,7 @@ import Firebase
 import GoogleMobileAds
 import UserNotifications
 import MapKit
+import Spring
 
 var currentLocation = NSString()
 
@@ -109,6 +110,26 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             favorite = false
         
         } else {
+            
+            let favoriteIcon = SpringImageView()
+            
+            favoriteIcon.image = UIImage(named: "favorite.png")
+            favoriteIcon.contentMode = .scaleAspectFill
+            //flirtGraphic.y = -50
+            favoriteIcon.autostart = true
+            favoriteIcon.animation = "zoomIn"
+            favoriteIcon.animateToNext {
+                favoriteIcon.animation = "zoomOut"
+                favoriteIcon.animateTo()
+                
+            }
+            
+            
+            favoriteIcon.frame = CGRect(x: view.frame.size.width / 2, y: view.frame.size.height  / 2 , width: 600, height: 362)
+            
+            favoriteIcon.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2);
+            
+            self.view.addSubview(favoriteIcon)
             
             PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: "favorites")
             
@@ -308,28 +329,102 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             if profileImg.center.x < 100 {
                 print("not chosen")
                 tracking = "unflirt"
-                dialogueBox(title: "Flirt Removed!", messageText: "You have taken back your flirt with " + username)
+                let unflirtGraphic = SpringImageView()
+                
+                unflirtGraphic.image = UIImage(named: "unflirt_2.png")
+                unflirtGraphic.contentMode = .scaleAspectFill
+                //flirtGraphic.y = -50
+                unflirtGraphic.autostart = true
+                unflirtGraphic.animation = "zoomIn"
+                unflirtGraphic.animateToNext {
+                    unflirtGraphic.animation = "zoomOut"
+                    unflirtGraphic.animateTo()
+                    
+                }
+                
+                
+                unflirtGraphic.frame = CGRect(x: (self.view.window?.center.x)! / 4, y: (self.view.window?.center.y)! / 4, width: 300, height: 300)
+                
+                unflirtGraphic.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2);
+                
+                self.view.addSubview(unflirtGraphic)
                 
                 
             } else if profileImg.center.x > self.view.bounds.width - 100 {
                 print("chosen")
                 
-                if let flirt = PFUser.current()?["flirt"] as? NSArray {
-                    
-                    let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
-                    
-                    
-                    print(flirtlimit)
-                    
-                    
-                    if (flirt.count)  < flirtlimit {
+                if PFUser.current()?["membership"] as? String != "basic" {
+                    if let flirt = PFUser.current()?["flirt"] as? NSArray {
+                        
+                        let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
+                        
                         tracking = "flirt"
-                        self.dialogueBoxFlirt(title: "Flirt Sent!", messageText: "You have flirted with " + self.username)
+                        
+                        let flirtGraphic = SpringImageView()
+                        
+                        flirtGraphic.image = UIImage(named: "flirt_2.png")
+                        flirtGraphic.contentMode = .scaleAspectFill
+                        //flirtGraphic.y = -50
+                        flirtGraphic.autostart = true
+                        flirtGraphic.animation = "zoomIn"
+                        flirtGraphic.animateToNext {
+                            flirtGraphic.animation = "zoomOut"
+                            flirtGraphic.animateTo()
+                            
+                        }
                         
                         
-                    } else {
+                        flirtGraphic.frame = CGRect(x: (self.view.window?.center.x)! / 4, y: (self.view.window?.center.y)! / 4, width: 300, height: 300)
                         
-                        self.dialogueBox(title: "Flirt Limit Reached", messageText: "You have reached your flirt limit. Visit the in-app store to learn how to get unlimited flirts, local members and global members.")
+                        flirtGraphic.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2);
+                        
+                        self.view.addSubview(flirtGraphic)
+                        
+                        sendFlirt()
+                        
+                        
+                    }
+                
+                }else{
+                    if let flirt = PFUser.current()?["flirt"] as? NSArray {
+                        
+                        let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
+                        
+                        
+                        print(flirtlimit)
+                        
+                        
+                        if (flirt.count)  < flirtlimit {
+                            tracking = "flirt"
+                            
+                            let flirtGraphic = SpringImageView()
+                            
+                            flirtGraphic.image = UIImage(named: "flirt_2.png")
+                            flirtGraphic.contentMode = .scaleAspectFill
+                            //flirtGraphic.y = -50
+                            flirtGraphic.autostart = true
+                            flirtGraphic.animation = "zoomIn"
+                            flirtGraphic.animateToNext {
+                                flirtGraphic.animation = "zoomOut"
+                                flirtGraphic.animateTo()
+                                
+                            }
+                            
+                            
+                            flirtGraphic.frame = CGRect(x: (self.view.window?.center.x)! / 4, y: (self.view.window?.center.y)! / 4, width: 300, height: 300)
+                            
+                            flirtGraphic.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2);
+                            
+                            self.view.addSubview(flirtGraphic)
+                            
+                            sendFlirt()
+                            
+                            
+                        } else {
+                            
+                            self.dialogueBox(title: "Flirt Limit Reached", messageText: "You have reached your flirt limit. Visit the in-app store to learn how to get unlimited flirts, local members and global members.")
+                        }
+                        
                     }
                 
                 }
@@ -345,6 +440,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                 PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: tracking)
                 
                 PFUser.current()?.saveInBackground(block: {(success, error) in
+                
                    
                 })
                     
@@ -365,6 +461,31 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
             
             profileImg.center = CGPoint(x: self.view.bounds.width / 2, y: self.profileImage.center.y )
         }
+    }
+    
+    func sendFlirt(){
+        
+        var installationID = PFInstallation()
+        do {
+            let user = try PFQuery.getUserObject(withId: displayedUserID)
+            if user["installation"] != nil {
+                installationID = (user["installation"] as? PFInstallation)!
+            }
+        }catch{
+            print("No User Selected")
+        }
+        
+        PFCloud.callFunction(inBackground: "sendPushToUserTest", withParameters: ["recipientId": displayedUserID, "chatmessage": "\(PFUser.current()!.username!) has flirted with you", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+            
+            if error != nil {
+                print(error!)
+            } else {
+    
+                print("PFCloud push was successful")
+            }
+            
+        })
+        
     }
     
     func updateImage() {

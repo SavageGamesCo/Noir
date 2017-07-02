@@ -283,6 +283,9 @@ class ViewController: UIViewController {
                         installation["user"] = PFUser.current()
                         installation.saveInBackground()
                         
+                        PFUser.current()?["installation"] = installation
+                        PFUser.current()?.saveInBackground()
+                        
                         self.performSegue(withIdentifier: "toUserTable", sender: self)
                     }
                     
@@ -348,6 +351,9 @@ class ViewController: UIViewController {
                             let installation: PFInstallation = PFInstallation.current()!
                             installation["user"] = PFUser.current()
                             installation.saveInBackground()
+                            
+                            PFUser.current()?["installation"] = installation
+                            PFUser.current()?.saveInBackground()
                             
                             self.performSegue(withIdentifier: "toUserTable", sender: self)
                             

@@ -82,49 +82,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  */
         }
 
-        //
-        //  Swift 1.2
-        //
-        //        if application.respondsToSelector("registerUserNotificationSettings:") {
-        //            let userNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
-        //            let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
-        //            application.registerUserNotificationSettings(settings)
-        //            application.registerForRemoteNotifications()
-        //        } else {
-        //            let types = UIRemoteNotificationType.Badge | UIRemoteNotificationType.Alert | UIRemoteNotificationType.Sound
-        //            application.registerForRemoteNotificationTypes(types)
-        //        }
-
-        //
-        //  Swift 2.0
-        //
-        //        if #available(iOS 8.0, *) {
-        //            let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-        //            let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
-        //            application.registerUserNotificationSettings(settings)
-        //            application.registerForRemoteNotifications()
-        //        } else {
-        //            let types: UIRemoteNotificationType = [.Alert, .Badge, .Sound]
-        //            application.registerForRemoteNotificationTypes(types)
-        //        }
+        
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
             application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound , .badge , .alert], categories: nil))
-            application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
+
             application.registerForRemoteNotifications()
         }
-        
-        
-        
-//        let center = UNUserNotificationCenter.current()
-//        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
-//        center.requestAuthorization(options: options, completionHandler: { authorized, error in
-//            if authorized {
-//                application.registerForRemoteNotifications()
-//            }
-//        })
-        
-        
         
         
         

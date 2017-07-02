@@ -39,6 +39,7 @@ class EchoSonarViewController: UIViewController {
     
     var withinDistance = 10
     
+    var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +87,7 @@ class EchoSonarViewController: UIViewController {
             commonActionSheet(title: "Echo", message: EchoFeatureText + "\n\n" + EchoWarningText , whatCase: "normal")
 //            commonActionSheet(title: "Echo - WARNING", message: EchoWarningText , whatCase: "normal")
             update()
-            var timer = Timer()
+            
             timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             
             
@@ -96,10 +97,22 @@ class EchoSonarViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        
+        timer.invalidate()
+        print("Timer invalidated")
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func stopTimer() {
+            timer.invalidate()
     }
     
     func geoPoint(){
@@ -466,6 +479,8 @@ extension EchoSonarViewController: SonarViewDelegate {
         }
     }
 }
+
+
 
 
 func delay(_ delay: Double, closure: @escaping (Void) -> Void) {

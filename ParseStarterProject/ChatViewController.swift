@@ -8,8 +8,6 @@
 
 import UIKit
 import Parse
-import Firebase
-import GoogleMobileAds
 import JSQMessagesViewController
 import MobileCoreServices
 import AVKit
@@ -46,30 +44,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-        
-//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-            // This is where we handle the event
-            
-            
-            
-//            if Thread.current != Thread.main {
-//                return DispatchQueue.main.async {
-//                    
-//                    badge = 1
-//                    self.notification(displayName: message["senderName"] as! String)
-//                    print("Got new message")
-//                    
-//                }
-//            } else {
-//                
-//                badge = 1
-//                self.notification(displayName: message["senderName"] as! String)
-//                print("Got new message")
-//            }
-//            
-//        }
         
 //        self.showLoadEarlierMessagesHeader = true
         
@@ -490,6 +464,30 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         chat["chatID"] = chatID
         chat["app"] = APPLICATION
         
+        var installationID = PFInstallation()
+        do {
+            let user = try PFQuery.getUserObject(withId: displayedUserID)
+            
+            if user["installation"] != nil {
+                installationID = (user["installation"] as? PFInstallation)!
+            }
+            
+        }catch{
+            print("No User Selected")
+        }
+        
+        
+        
+        PFCloud.callFunction(inBackground: "sendPushToUserTest", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+            
+            if error != nil {
+                print(error!)
+                print("Push Not Successful")
+            } else {
+                print("PFCloud push was successful")
+            }
+            
+        })
         
         //let chatData : Dictionary<String, Any> = ["senderId": senderID, "senderName": senderName, "text": text]
         
@@ -501,17 +499,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 
                 self.scrollToBottom(animated: true)
                 self.automaticallyScrollsToMostRecentMessage = true
-                
-                
-                PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)"], block: { (object: Any?, error: Error?) in
-                    
-                    if error != nil {
-                        print(error!)
-                    } else {
-                        print("PFCloud push was successful")
-                    }
-                    
-                })
                 
             }
             
