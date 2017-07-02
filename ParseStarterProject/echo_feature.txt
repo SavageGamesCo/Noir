@@ -4,7 +4,7 @@ Echo is a new feature in Noir v1.3!
 
 Echo uses your GPS location to alert other members of your presence and willingness to connect.
 
-Great for use at events like Parades, Large Conventions and even your favorite Night Club! If you are looking to make new connections, turn on Echo and see who else is looking. You might just meet your future mate. So give Echo a try, you never know what my come your way.
+Great for use at events like pride parades, conventions and even your favorite Night Club! If you are looking to make new connections, turn on Echo and see who else is looking. You might just meet your future mate. So give Echo a try, you never know what my come your way.
 
 Members are visualized by proximity to you within 0.5 miles. This makes Echo perfect for those weekends in PTown, Folsom Street Fairs or nights out at a Night Club!
 

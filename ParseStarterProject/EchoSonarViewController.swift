@@ -59,7 +59,7 @@ class EchoSonarViewController: UIViewController {
             label.text = "Turn On Echo To Use Echo."
             label.textColor = ONLINE_COLOR
             label.numberOfLines = 2
-            label.center.x = self.view.center.x / 4
+            label.center.x = self.view.center.x / 2
             label.center.y = self.view.center.y
             label.sizeToFit()
             label.textAlignment = .center
