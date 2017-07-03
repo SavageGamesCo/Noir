@@ -49,6 +49,8 @@ class EchoSonarViewController: UIViewController {
         SonarView.distanceTextColor = ONLINE_COLOR
         
         sonarView.backgroundColor = UIColor.darkGray
+        
+        geoPoint()
 
         self.sonarView.delegate = self as? SonarViewDelegate
         self.sonarView.dataSource = self as? SonarViewDataSource
@@ -133,6 +135,8 @@ class EchoSonarViewController: UIViewController {
     }
     
     func update() {
+        
+        geoPoint()
         
         sonarView.reloadData()
         
