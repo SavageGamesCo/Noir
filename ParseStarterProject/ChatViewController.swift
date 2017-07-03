@@ -478,7 +478,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         
         
-        PFCloud.callFunction(inBackground: "sendPushToUserTest", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+        PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
             
             if error != nil {
                 print(error!)

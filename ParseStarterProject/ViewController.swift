@@ -110,7 +110,7 @@ class ViewController: UIViewController {
             
         }
         
-        print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
+//        print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
 //        bannerAdView.adUnitID = "ca-app-pub-9770059916027069/440593975"
 //        bannerAdView.rootViewController = self
 //        bannerAdView.load(GADRequest())

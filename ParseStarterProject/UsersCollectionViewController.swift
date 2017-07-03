@@ -160,7 +160,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         installation?.badge = 0
         installation?.saveInBackground { (success, error) -> Void in
             if success {
-                print("cleared badges")
+//                print("cleared badges")
                 UIApplication.shared.applicationIconBadgeNumber = (installation?.badge.hashValue)!
             }
             else {
@@ -205,6 +205,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 switch purchaseResult {
                 case .expired(let expiryDate):
                     print("Product is expired since \(expiryDate)")
+                    self.commonActionSheet(title: "Membership Expired", message: "Product is expired since \(expiryDate)")
                     PFUser.current()?["membership"] = "basic"
                     PFUser.current()?.saveInBackground()
                 case .notPurchased:
@@ -212,6 +213,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     
                 default:
                     print("Membership is active and not expired")
+                    
                     break
                 }
                 
@@ -243,15 +245,13 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                 
                 
                 // create a sound ID, in this case its the tweet sound.
-                let systemSoundID: SystemSoundID = 1016
+                let systemSoundID: SystemSoundID = 1322
                 
                 // to play sound
                 AudioServicesPlaySystemSound (systemSoundID)
                 
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 
-//                UIApplication.shared.applicationIconBadgeNumber = 1
-//                self.notification(displayName: message["senderName"] as! String)
 //                print("Got new message")
                 
             }
@@ -405,12 +405,21 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
             let query = PFUser.query()
             
+            if PFUser.current()?["membership"] as! String != "basic" {
                 
-            query?.limit = PFUser.current()?["globalLimit"] as! Int
+                query?.limit = 4000000
+                
+            } else {
+                
+                query?.limit = PFUser.current()?["globalLimit"] as! Int
+            
+            }
             
             query?.whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir")
             
             var currentLoc: PFGeoPoint = PFGeoPoint()
+            
+            query?.addDescendingOrder("updatedAt")
             
             
             
@@ -463,6 +472,19 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
             let query = PFUser.query()
             //Show Local Users
+            
+            if PFUser.current()?["membership"] as! String != "basic" {
+                
+                query?.limit = 4000000
+                
+            } else {
+                
+                query?.limit = PFUser.current()?["localLimit"] as! Int
+                
+            }
+            
+            query?.addDescendingOrder("updatedAt")
+            
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
                     

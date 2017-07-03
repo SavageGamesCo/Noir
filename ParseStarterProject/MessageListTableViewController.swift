@@ -37,34 +37,9 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         super.viewDidLoad()
         DispatchQueue.main.async {
         
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-        
-        self.subscription = self.liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-            // This is where we handle the event
-            
-            
-            
-            if Thread.current != Thread.main {
-                return DispatchQueue.main.async {
-//                    self.chatIcon.tintColor = self.green
-                     
-//                    self.notification(displayName: message["senderName"] as! String)
-//                    print("Got new message")
-                    
-                }
-            } else {
-//                self.chatIcon.tintColor = self.green
-                 
-//                self.notification(displayName: message["senderName"] as! String)
-//                print("Got new message")
-            }
-        
-        }
-
-        
         if PFUser.current()?["adFree"] as? Bool == false {
             
-            print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
+//            print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
             self.adBannerView.adUnitID = "ca-app-pub-9770059916027069/9870169753"
             self.adBannerView.rootViewController = self
             self.adBannerView.load(GADRequest())
@@ -92,13 +67,11 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     }
     
     func clearBadges() {
-        //        badge = 0
-        //        UIApplication.shared.applicationIconBadgeNumber = badge
                 let installation = PFInstallation.current()
                 installation?.badge = 0
                 installation?.saveInBackground { (success, error) -> Void in
                     if success {
-                        print("cleared badges")
+//                        print("cleared badges")
                         UIApplication.shared.applicationIconBadgeNumber = (installation?.badge.hashValue)!
                     }
                     else {
@@ -116,7 +89,7 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.async {
-            self.getMessages()
+//            self.getMessages()
         }
         
         
@@ -164,18 +137,17 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
     
     func getMessages() {
         
+        DispatchQueue.main.async {
+        
         let query1 = PFQuery(className: "Chat")
-//        _ = PFQuery(className: "Chat")
         
         query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
-//        query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: displayedUserID + CURRENT_USER!)
+
         let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1])
-        msgQuery.order(byDescending: "createdAt")
         
-//        let msgQuery = PFQuery(className: "Chat")
-//        
-//        msgQuery.whereKey("toUser", equalTo: CURRENT_USER!)
-//        msgQuery.order(byDescending: "createdAt")
+        msgQuery.limit = 4000000
+        
+        msgQuery.order(byDescending: "createdAt")
         
         msgQuery.findObjectsInBackground { (objects, error) in
             
@@ -225,6 +197,8 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                                                             self.senderID.append(message["senderID"] as! String)
                                                             self.senderName.append((user.username!))
                                                             
+                                                            self.msgTableView.reloadData()
+                                                            
                                                         }
                                                     })
                                                 }
@@ -239,8 +213,9 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
                 }
                 //end big block
                 self.clearBadges()
-                self.msgTableView.reloadData()
             }
+        }
+            
         }
     }
     
