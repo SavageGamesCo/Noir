@@ -39,11 +39,15 @@ class MessagesTableViewController: UITableViewController, UIToolbarDelegate {
         
         if PFUser.current()?["adFree"] as? Bool == false {
             
-//            print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
-            self.adBannerView.adUnitID = "ca-app-pub-9770059916027069/9870169753"
-            self.adBannerView.rootViewController = self
-            self.adBannerView.load(GADRequest())
-            self.adBannerView.isHidden = false
+            if PFUser.current()?["membership"] as? String == "basic" {
+                
+                //            print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
+                self.adBannerView.adUnitID = "ca-app-pub-9770059916027069/9870169753"
+                self.adBannerView.rootViewController = self
+                self.adBannerView.load(GADRequest())
+                self.adBannerView.isHidden = false
+                
+            }
             
         } else if PFUser.current()?["adFree"] as? Bool == true || PFUser.current()?["membership"] as? String != "basic" {
             

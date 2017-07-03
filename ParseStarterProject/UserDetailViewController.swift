@@ -172,11 +172,13 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
         super.viewDidLoad()
         
         if PFUser.current()?["adFree"] as? Bool == false {
-            bannerAd.isHidden = false
-            print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
-            bannerAd.adUnitID = "ca-app-pub-9770059916027069/2101714155"
-            bannerAd.rootViewController = self
-            bannerAd.load(GADRequest())
+            if PFUser.current()?["membership"] as? String == "basic" {
+                bannerAd.isHidden = false
+                print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
+                bannerAd.adUnitID = "ca-app-pub-9770059916027069/2101714155"
+                bannerAd.rootViewController = self
+                bannerAd.load(GADRequest())
+            }
         } else if PFUser.current()?["adFree"] as? Bool == true || PFUser.current()?["membership"] as? String != "basic" {
             bannerAd.isHidden = true
         }
