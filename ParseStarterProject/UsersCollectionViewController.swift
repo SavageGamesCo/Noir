@@ -150,7 +150,9 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     
     @IBAction func echoButtonPressed(_ sender: Any) {
         
+        self.showAd()
         
+        performSegue(withIdentifier: "toEcho", sender: self)
         
     }
     func clearBadges() {

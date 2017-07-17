@@ -880,7 +880,6 @@
                             <barButtonItem image="games-abstract-7.png" id="REF-3O-Ymh">
                                 <connections>
                                     <action selector="echoButtonPressed:" destination="ijc-SN-gV4" id="T0n-mF-4fv"/>
-                                    <segue destination="tZX-Hy-DmZ" kind="show" id="zqe-SQ-qXK"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -894,11 +893,12 @@
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogInScreen" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="AQS-Bi-6uX"/>
                         <segue destination="q6t-Rn-sQd" kind="show" identifier="toMsgList" id="gxt-Ll-4Kg"/>
                         <segue destination="A68-zX-6Ek" kind="show" identifier="toUserDetails" id="Va7-PB-RdT"/>
+                        <segue destination="tZX-Hy-DmZ" kind="show" identifier="toEcho" id="50h-bV-U4m"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7xu-7Z-UHx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1728.985507246377" y="769.56521739130437"/>
+            <point key="canvasLocation" x="-1543" y="794"/>
         </scene>
         <!--Message View-->
         <scene sceneID="lii-9g-B0p">
@@ -2158,7 +2158,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="5bb-rV-oM5"/>
         <segue reference="9pk-Jv-8jF"/>
-        <segue reference="5jn-AI-LZb"/>
+        <segue reference="Va7-PB-RdT"/>
         <segue reference="uKU-yI-vux"/>
         <segue reference="AQS-Bi-6uX"/>
         <segue reference="IsW-VB-D0B"/>
