@@ -1,11 +1,17 @@
-Introducing Echo!
+What is Noir's Echo?
 
-Echo is a new feature in Noir v1.3!
+Echo is a non-intrusive way to let members around you know that you are actively looking to connect. Other apps use intrusive methods that will flood your inbox and your alerts with members shouting to the world that they are looking to connect. Echo does not send an alert, does not flood your messages and allows you to casually browse members that are looking for more than just a chat.
 
-Echo uses your GPS location to alert other members of your presence and willingness to connect.
+Echo is great for events like pride parades, conventions and even your favorite Night Club! If you are looking to make new connections, turn on Echo and see who else is looking. You just might meet your future!
 
-Great for use at events like pride parades, conventions and even your favorite Night Club! If you are looking to make new connections, turn on Echo and see who else is looking. You might just meet your future mate. So give Echo a try, you never know what my come your way.
+Short Range shows Members interested in connecting within 0.5 miles. This makes Echo perfect for those weekends in PTown, Folsom Street Fairs or nights out at a Night Club!
 
-Members are visualized by proximity to you within 0.5 miles. This makes Echo perfect for those weekends in PTown, Folsom Street Fairs or nights out at a Night Club!
+Long Range shows members with 10 miles is you are a free member or 20 miles if you are a paid member.
 
-The option to turn this feature on or off can be found in your Profile Settings Screen in the Options section.
+Paid Members get an increased number of members from 4 per line to 10 per line to connect with and an increased Echo radius!
+
+Blocked Users Cannot See You & You Cannot See Blocked Users!
+
+If you wish to not broadcast your presence, you can turn Echo on or off via the Profile Settings Screen in the Options section.
+
+Be sure to press 'Save' after you have turned Echo off.

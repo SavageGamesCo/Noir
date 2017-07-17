@@ -37,7 +37,40 @@ class EchoSonarViewController: UIViewController {
     var memberNameLineOne = [String]()
     var memberPicLineOne = [UIImage]()
     
-    var withinDistance = 10
+    
+    @IBOutlet weak var toolbar: UIToolbar!
+    
+    var range = "short"
+    
+    @IBOutlet weak var LongRangeButton: UIBarButtonItem!
+    @IBOutlet weak var ShortRangeButton: UIBarButtonItem!
+    
+    @IBAction func shortRangePressed(_ sender: Any) {
+        
+        if range != "short" {
+            range = "short"
+            
+            ShortRangeButton.isEnabled = false
+            LongRangeButton.isEnabled = true
+            
+        }
+        
+    }
+    @IBAction func longRangePressed(_ sender: Any) {
+        
+        if range != "long" {
+            range = "long"
+            
+            LongRangeButton.isEnabled = false
+            ShortRangeButton.isEnabled = true
+            
+        }
+        
+    }
+    
+    
+    
+    var withinDistance = Int()
     
     var timer = Timer()
     
@@ -50,6 +83,14 @@ class EchoSonarViewController: UIViewController {
         
         sonarView.backgroundColor = UIColor.darkGray
         
+        if range == "short" {
+            ShortRangeButton.isEnabled = false
+            LongRangeButton.isEnabled = true
+        } else {
+            LongRangeButton.isEnabled = false
+            ShortRangeButton.isEnabled = true
+        }
+        
         geoPoint()
 
         self.sonarView.delegate = self as? SonarViewDelegate
@@ -58,7 +99,11 @@ class EchoSonarViewController: UIViewController {
         if PFUser.current()?["echo"] as? Bool != true {
             
             sonarView.isHidden = true
+            LongRangeButton.isEnabled = false
+            ShortRangeButton.isEnabled = false
+            
             let label = UILabel()
+            
             label.text = "Turn On Echo To Use Echo."
             label.textColor = ONLINE_COLOR
             label.numberOfLines = 2
@@ -75,6 +120,10 @@ class EchoSonarViewController: UIViewController {
             let EchoFeaturePath = bundle.path(forResource: "echo_feature", ofType: "txt")
             let EchoWarningPath = bundle.path(forResource: "echo_warning", ofType: "txt")
             
+            self.view.bringSubview(toFront: toolbar)
+            
+            self.navigationController?.setToolbarHidden(true, animated: true)
+            
             var EchoFeatureText = String()
             var EchoWarningText = String()
             
@@ -88,15 +137,21 @@ class EchoSonarViewController: UIViewController {
             
             commonActionSheet(title: "Echo", message: EchoFeatureText + "\n\n" + EchoWarningText , whatCase: "normal")
 //            commonActionSheet(title: "Echo - WARNING", message: EchoWarningText , whatCase: "normal")
-            update()
-            
-            timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+//            update()
+//            
+//            timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             
             
             
         }
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        update()
+        
+        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
     }
     
     override func viewWillDisappear(_ animated: Bool)
@@ -141,82 +196,49 @@ class EchoSonarViewController: UIViewController {
         sonarView.reloadData()
         
         // Something cool
-        let query = PFUser.query()
-        let query2 = PFUser.query()
-        let query3 = PFUser.query()
-        let query4 = PFUser.query()
-        //Show Local Users
-        if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
-            if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
-                
-                
-                
-                //first
-                query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(1) / 16).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
-                
-                query?.findObjectsInBackground(block: {(objects, error) in
+        
+        if range == "short" {
+            //short range logic
+            print("Short Range")
+            let query = PFUser.query()
+            let query2 = PFUser.query()
+            let query3 = PFUser.query()
+            let query4 = PFUser.query()
+            
+            if PFUser.current()?["membership"] as? String == "basic" {
+                query?.limit = 10
+                query2?.limit = 10
+                query3?.limit = 10
+                query4?.limit = 10
+            }
+            //Show Local Users
+            if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
+                if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
                     
-                    if error != nil {
-                        print(error!)
-                    } else if let users = objects {
-                        
-                        self.memberNameLineOne.removeAll()
-                        self.memberIDLineOne.removeAll()
-                        self.memberPicLineOne.removeAll()
-                        
-                        
-//                        self.sonarView.reloadData()
-                        
-                        for object in users {
-                            if let user = object as? PFUser {
-                                
-                                if let blockedUsers = PFUser.current()?["blocked"] {
-                                    if ( blockedUsers as AnyObject).contains(user.objectId! as String!){
-                                        
-                                    } else {
-                                        let imageFile = user["mainPhoto"] as! PFFile
-                                        
-                                        imageFile.getDataInBackground(block: {(data, error) in
-                                            
-                                            if let imageData = data {
-                                                self.memberPicLineOne.append(UIImage(data: imageData)!)
-                                                
-                                                self.memberNameLineOne.append(user.username!)
-                                                self.memberIDLineOne.append(user.objectId!)
-                                                
-                                                //self.sonarView.reloadData()
-                                            }
-                                        })
-                                        
-                                    }
-                                    
-                                }
-                                
-                            }
-                        }
-                    }
                     
-                    //second line
-                    query2?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(1) / 8).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
                     
-                    query2?.findObjectsInBackground(block: {(objects, error) in
+                    //first
+                    query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(1) / 16).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                    
+                    
+                    query?.findObjectsInBackground(block: {(objects, error) in
                         
                         if error != nil {
                             print(error!)
                         } else if let users = objects {
                             
-                            self.memberNameLineTwo.removeAll()
-                            self.memberIDLineTwo.removeAll()
-                            self.memberPicLineTwo.removeAll()
+                            self.memberNameLineOne.removeAll()
+                            self.memberIDLineOne.removeAll()
+                            self.memberPicLineOne.removeAll()
                             
                             
-                            //                                self.sonarView.reloadData()
+                            //                        self.sonarView.reloadData()
                             
                             for object in users {
                                 if let user = object as? PFUser {
                                     
                                     if let blockedUsers = PFUser.current()?["blocked"] {
-                                        if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!){
+                                        if ( blockedUsers as AnyObject).contains(user.objectId! as String!){
                                             
                                         } else {
                                             let imageFile = user["mainPhoto"] as! PFFile
@@ -224,10 +246,10 @@ class EchoSonarViewController: UIViewController {
                                             imageFile.getDataInBackground(block: {(data, error) in
                                                 
                                                 if let imageData = data {
-                                                    self.memberPicLineTwo.append(UIImage(data: imageData)!)
+                                                    self.memberPicLineOne.append(UIImage(data: imageData)!)
                                                     
-                                                    self.memberNameLineTwo.append(user.username!)
-                                                    self.memberIDLineTwo.append(user.objectId!)
+                                                    self.memberNameLineOne.append(user.username!)
+                                                    self.memberIDLineOne.append(user.objectId!)
                                                     
                                                     //self.sonarView.reloadData()
                                                 }
@@ -241,27 +263,27 @@ class EchoSonarViewController: UIViewController {
                             }
                         }
                         
-                        //third
-                        query3?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(1) / 4).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                        //second line
+                        query2?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(1) / 8).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
                         
-                        query3?.findObjectsInBackground(block: {(objects, error) in
+                        query2?.findObjectsInBackground(block: {(objects, error) in
                             
                             if error != nil {
                                 print(error!)
                             } else if let users = objects {
                                 
-                                self.memberNameLineThree.removeAll()
-                                self.memberIDLineThree.removeAll()
-                                self.memberPicLineThree.removeAll()
+                                self.memberNameLineTwo.removeAll()
+                                self.memberIDLineTwo.removeAll()
+                                self.memberPicLineTwo.removeAll()
                                 
                                 
-                                //                                    self.sonarView.reloadData()
+                                //                                self.sonarView.reloadData()
                                 
                                 for object in users {
                                     if let user = object as? PFUser {
                                         
                                         if let blockedUsers = PFUser.current()?["blocked"] {
-                                            if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!) || self.memberIDLineTwo.contains(user.objectId! as String!){
+                                            if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!){
                                                 
                                             } else {
                                                 let imageFile = user["mainPhoto"] as! PFFile
@@ -269,10 +291,10 @@ class EchoSonarViewController: UIViewController {
                                                 imageFile.getDataInBackground(block: {(data, error) in
                                                     
                                                     if let imageData = data {
-                                                        self.memberPicLineThree.append(UIImage(data: imageData)!)
+                                                        self.memberPicLineTwo.append(UIImage(data: imageData)!)
                                                         
-                                                        self.memberNameLineThree.append(user.username!)
-                                                        self.memberIDLineThree.append(user.objectId!)
+                                                        self.memberNameLineTwo.append(user.username!)
+                                                        self.memberIDLineTwo.append(user.objectId!)
                                                         
                                                         //self.sonarView.reloadData()
                                                     }
@@ -285,27 +307,28 @@ class EchoSonarViewController: UIViewController {
                                     }
                                 }
                             }
-                            //fourth
-                            query4?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(1) / 2).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
                             
-                            query4?.findObjectsInBackground(block: {(objects, error) in
+                            //third
+                            query3?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(1) / 4).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                            
+                            query3?.findObjectsInBackground(block: {(objects, error) in
                                 
                                 if error != nil {
                                     print(error!)
                                 } else if let users = objects {
                                     
-                                    self.memberNameLineFour.removeAll()
-                                    self.memberIDLineFour.removeAll()
-                                    self.memberPicLineFour.removeAll()
+                                    self.memberNameLineThree.removeAll()
+                                    self.memberIDLineThree.removeAll()
+                                    self.memberPicLineThree.removeAll()
                                     
                                     
-                                    //                                        self.sonarView.reloadData()
+                                    //                                    self.sonarView.reloadData()
                                     
                                     for object in users {
                                         if let user = object as? PFUser {
                                             
                                             if let blockedUsers = PFUser.current()?["blocked"] {
-                                                if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!) || self.memberIDLineTwo.contains(user.objectId! as String!) || self.memberIDLineThree.contains(user.objectId! as String!) {
+                                                if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!) || self.memberIDLineTwo.contains(user.objectId! as String!){
                                                     
                                                 } else {
                                                     let imageFile = user["mainPhoto"] as! PFFile
@@ -313,10 +336,166 @@ class EchoSonarViewController: UIViewController {
                                                     imageFile.getDataInBackground(block: {(data, error) in
                                                         
                                                         if let imageData = data {
-                                                            self.memberPicLineFour.append(UIImage(data: imageData)!)
+                                                            self.memberPicLineThree.append(UIImage(data: imageData)!)
                                                             
-                                                            self.memberNameLineFour.append(user.username!)
-                                                            self.memberIDLineFour.append(user.objectId!)
+                                                            self.memberNameLineThree.append(user.username!)
+                                                            self.memberIDLineThree.append(user.objectId!)
+                                                            
+                                                            //self.sonarView.reloadData()
+                                                        }
+                                                    })
+                                                    
+                                                }
+                                                
+                                            }
+                                            
+                                        }
+                                    }
+                                }
+                                //fourth
+                                query4?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(1) / 2).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                                
+                                query4?.findObjectsInBackground(block: {(objects, error) in
+                                    
+                                    if error != nil {
+                                        print(error!)
+                                    } else if let users = objects {
+                                        
+                                        self.memberNameLineFour.removeAll()
+                                        self.memberIDLineFour.removeAll()
+                                        self.memberPicLineFour.removeAll()
+                                        
+                                        
+                                        //                                        self.sonarView.reloadData()
+                                        
+                                        for object in users {
+                                            if let user = object as? PFUser {
+                                                
+                                                if let blockedUsers = PFUser.current()?["blocked"] {
+                                                    if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!) || self.memberIDLineTwo.contains(user.objectId! as String!) || self.memberIDLineThree.contains(user.objectId! as String!) {
+                                                        
+                                                    } else {
+                                                        let imageFile = user["mainPhoto"] as! PFFile
+                                                        
+                                                        imageFile.getDataInBackground(block: {(data, error) in
+                                                            
+                                                            if let imageData = data {
+                                                                self.memberPicLineFour.append(UIImage(data: imageData)!)
+                                                                
+                                                                self.memberNameLineFour.append(user.username!)
+                                                                self.memberIDLineFour.append(user.objectId!)
+                                                                
+                                                                //self.sonarView.reloadData()
+                                                            }
+                                                        })
+                                                        
+                                                    }
+                                                    
+                                                }
+                                                
+                                            }
+                                        }
+                                    }
+                                    
+                                })
+                                //end fourth
+                                
+                            })
+                            //end third
+                            
+                            
+                        })
+                        //end second
+                        
+                    })
+                    
+                    //end first
+                }
+                //            sonarView.reloadData()
+            }
+        } else {
+            
+            if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
+                if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
+                    var from = Double()
+                    
+                    //long range logic
+                    print("Long Range")
+                    let query = PFUser.query()
+                    let query2 = PFUser.query()
+                    let query3 = PFUser.query()
+                    let query4 = PFUser.query()
+                    
+                    if PFUser.current()?["membership"] as? String != "basic" {
+                        query?.limit = 10
+                        query2?.limit = 10
+                        query3?.limit = 10
+                        query4?.limit = 10
+                        
+                        from = 22.0
+                        
+                        query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: from / 3.9).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                        query2?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: from / 2).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                        query3?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: from / 1.23).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                        query4?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: from ).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                        
+                        
+                        
+                    } else {
+                        query?.limit = 4
+                        query2?.limit = 4
+                        query3?.limit = 4
+                        query4?.limit = 4
+                        
+//                        from = PFUser.current()?["withinDistance"] as! Double
+                        
+                        from = 10
+                        
+                        query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: from / 4).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                        query2?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: from / 2).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                        query3?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: from / 1.3).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                        query4?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: from ).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
+                    }
+                    
+                    //Show Local Users
+                    if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
+                        if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
+                            
+                            
+                            
+                            //first
+                            
+                            
+                            
+                            query?.findObjectsInBackground(block: {(objects, error) in
+                                
+                                if error != nil {
+                                    print(error!)
+                                } else if let users = objects {
+                                    
+                                    self.memberNameLineOne.removeAll()
+                                    self.memberIDLineOne.removeAll()
+                                    self.memberPicLineOne.removeAll()
+                                    
+                                    
+                                    //                        self.sonarView.reloadData()
+                                    
+                                    for object in users {
+                                        if let user = object as? PFUser {
+                                            
+                                            if let blockedUsers = PFUser.current()?["blocked"] {
+                                                if ( blockedUsers as AnyObject).contains(user.objectId! as String!){
+                                                    
+                                                } else {
+                                                    let imageFile = user["mainPhoto"] as! PFFile
+                                                    
+                                                    imageFile.getDataInBackground(block: {(data, error) in
+                                                        
+                                                        if let imageData = data {
+                                                            self.memberPicLineOne.append(UIImage(data: imageData)!)
+                                                            
+                                                            self.memberNameLineOne.append(user.username!)
+                                                            self.memberIDLineOne.append(user.objectId!)
                                                             
                                                             //self.sonarView.reloadData()
                                                         }
@@ -330,24 +509,164 @@ class EchoSonarViewController: UIViewController {
                                     }
                                 }
                                 
+                                //second line
+                                
+                                
+                                
+                                
+                                query2?.findObjectsInBackground(block: {(objects, error) in
+                                    
+                                    if error != nil {
+                                        print(error!)
+                                    } else if let users = objects {
+                                        
+                                        self.memberNameLineTwo.removeAll()
+                                        self.memberIDLineTwo.removeAll()
+                                        self.memberPicLineTwo.removeAll()
+                                        
+                                        
+                                        //                                self.sonarView.reloadData()
+                                        
+                                        for object in users {
+                                            if let user = object as? PFUser {
+                                                
+                                                if let blockedUsers = PFUser.current()?["blocked"] {
+                                                    if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!){
+                                                        
+                                                    } else {
+                                                        let imageFile = user["mainPhoto"] as! PFFile
+                                                        
+                                                        imageFile.getDataInBackground(block: {(data, error) in
+                                                            
+                                                            if let imageData = data {
+                                                                self.memberPicLineTwo.append(UIImage(data: imageData)!)
+                                                                
+                                                                self.memberNameLineTwo.append(user.username!)
+                                                                self.memberIDLineTwo.append(user.objectId!)
+                                                                
+                                                                //self.sonarView.reloadData()
+                                                            }
+                                                        })
+                                                        
+                                                    }
+                                                    
+                                                }
+                                                
+                                            }
+                                        }
+                                    }
+                                    
+                                    //third
+                                    
+                                    
+                                    query3?.findObjectsInBackground(block: {(objects, error) in
+                                        
+                                        if error != nil {
+                                            print(error!)
+                                        } else if let users = objects {
+                                            
+                                            self.memberNameLineThree.removeAll()
+                                            self.memberIDLineThree.removeAll()
+                                            self.memberPicLineThree.removeAll()
+                                            
+                                            
+                                            //                                    self.sonarView.reloadData()
+                                            
+                                            for object in users {
+                                                if let user = object as? PFUser {
+                                                    
+                                                    if let blockedUsers = PFUser.current()?["blocked"] {
+                                                        if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!) || self.memberIDLineTwo.contains(user.objectId! as String!){
+                                                            
+                                                        } else {
+                                                            let imageFile = user["mainPhoto"] as! PFFile
+                                                            
+                                                            imageFile.getDataInBackground(block: {(data, error) in
+                                                                
+                                                                if let imageData = data {
+                                                                    self.memberPicLineThree.append(UIImage(data: imageData)!)
+                                                                    
+                                                                    self.memberNameLineThree.append(user.username!)
+                                                                    self.memberIDLineThree.append(user.objectId!)
+                                                                    
+                                                                    //self.sonarView.reloadData()
+                                                                }
+                                                            })
+                                                            
+                                                        }
+                                                        
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        }
+                                        //fourth
+                                        
+                                        
+                                        
+                                        
+                                        query4?.findObjectsInBackground(block: {(objects, error) in
+                                            
+                                            if error != nil {
+                                                print(error!)
+                                            } else if let users = objects {
+                                                
+                                                self.memberNameLineFour.removeAll()
+                                                self.memberIDLineFour.removeAll()
+                                                self.memberPicLineFour.removeAll()
+                                                
+                                                
+                                                //                                        self.sonarView.reloadData()
+                                                
+                                                for object in users {
+                                                    if let user = object as? PFUser {
+                                                        
+                                                        if let blockedUsers = PFUser.current()?["blocked"] {
+                                                            if ( blockedUsers as AnyObject).contains(user.objectId! as String!) || self.memberIDLineOne.contains(user.objectId! as String!) || self.memberIDLineTwo.contains(user.objectId! as String!) || self.memberIDLineThree.contains(user.objectId! as String!) {
+                                                                
+                                                            } else {
+                                                                let imageFile = user["mainPhoto"] as! PFFile
+                                                                
+                                                                imageFile.getDataInBackground(block: {(data, error) in
+                                                                    
+                                                                    if let imageData = data {
+                                                                        self.memberPicLineFour.append(UIImage(data: imageData)!)
+                                                                        
+                                                                        self.memberNameLineFour.append(user.username!)
+                                                                        self.memberIDLineFour.append(user.objectId!)
+                                                                        
+                                                                        //self.sonarView.reloadData()
+                                                                    }
+                                                                })
+                                                                
+                                                            }
+                                                            
+                                                        }
+                                                        
+                                                    }
+                                                }
+                                            }
+                                            
+                                        })
+                                        //end fourth
+                                        
+                                    })
+                                    //end third
+                                    
+                                    
+                                })
+                                //end second
+                                
                             })
-                            //end fourth
                             
-                        })
-                        //end third
-                        
-                        
-                    })
-                    //end second
-                    
-                })
-                
-                //end first
+                            //end first
+                        }
+                        //            sonarView.reloadData()
+                    }
+                }
             }
-//            sonarView.reloadData()
+            
         }
-        
-        
         
     }
     
@@ -477,7 +796,24 @@ extension EchoSonarViewController: SonarViewDelegate {
     func sonarView(sonarView: SonarView, textForWaveAtIndex waveIndex: Int) -> String? {
         
         if self.sonarView(sonarView: sonarView, numberOfItemForWaveIndex: waveIndex) % 2 == 0 {
-            return self.distanceFormatter.string(fromDistance: 200.0 * Double(waveIndex + 1))
+            
+            if range != "short" {
+                
+                //let from = PFUser.current()?["withinDistance"] as! Double
+                
+                if PFUser.current()?["membership"] as! String == "basic" {
+                    print(self.distanceFormatter.string(fromDistance: 4000.0 * Double(waveIndex + 1)))
+                    return self.distanceFormatter.string(fromDistance: 4000.0 * Double(waveIndex + 1))
+                } else {
+                    print(self.distanceFormatter.string(fromDistance: 9000 * Double(waveIndex + 1)))
+                    return self.distanceFormatter.string(fromDistance: 9000 * Double(waveIndex + 1))
+                }
+            
+            } else {
+                return self.distanceFormatter.string(fromDistance: 200.0 * Double(waveIndex + 1))
+            }
+            
+            
         } else {
             return nil
         }

@@ -739,7 +739,7 @@
         <scene sceneID="vfq-Ku-Ucd">
             <objects>
                 <collectionViewController title="Noir Users" modalTransitionStyle="flipHorizontal" id="ijc-SN-gV4" customClass="UsersCollectionViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -943,6 +943,26 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XgI-zI-28b">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Sfq-m2-Wv6"/>
+                                    <barButtonItem title="Short Range" id="Mjm-Me-ULF">
+                                        <connections>
+                                            <action selector="shortRangePressed:" destination="tZX-Hy-DmZ" id="FXs-bh-4MQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="9Gg-Bh-F6T"/>
+                                    <barButtonItem title="Long Range" id="BC1-72-VyT">
+                                        <connections>
+                                            <action selector="longRangePressed:" destination="tZX-Hy-DmZ" id="yfB-ae-2Gs"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fSH-NM-Bks"/>
+                                </items>
+                                <color key="barTintColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -954,7 +974,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Echo" id="WZJ-yB-JrE"/>
                     <connections>
+                        <outlet property="LongRangeButton" destination="BC1-72-VyT" id="0Dm-I4-e9h"/>
+                        <outlet property="ShortRangeButton" destination="Mjm-Me-ULF" id="e8n-7r-UHT"/>
                         <outlet property="sonarView" destination="O50-gR-nU9" id="ibI-Vz-zc9"/>
+                        <outlet property="toolbar" destination="XgI-zI-28b" id="bBi-fv-B4b"/>
                         <segue destination="up8-0f-dqs" kind="show" identifier="toChat" id="5bb-rV-oM5"/>
                         <segue destination="A68-zX-6Ek" kind="show" identifier="toUserDetails" id="5jn-AI-LZb"/>
                     </connections>
@@ -2133,12 +2156,12 @@
         <image name="star-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AQS-Bi-6uX"/>
-        <segue reference="9pk-Jv-8jF"/>
-        <segue reference="Va7-PB-RdT"/>
-        <segue reference="uKU-yI-vux"/>
-        <segue reference="IsW-VB-D0B"/>
         <segue reference="5bb-rV-oM5"/>
+        <segue reference="9pk-Jv-8jF"/>
+        <segue reference="5jn-AI-LZb"/>
+        <segue reference="uKU-yI-vux"/>
+        <segue reference="AQS-Bi-6uX"/>
+        <segue reference="IsW-VB-D0B"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
