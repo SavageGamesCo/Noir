@@ -82,6 +82,13 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         self.collectionView.backgroundView?.backgroundColor = CHAT_BACKGROUND_COLOR
 //        self.inputToolbar.contentView.leftBarButtonItem = nil
         
+        if PFUser.current()?["membership"] as! String == "basic" {
+            self.inputToolbar.contentView.leftBarButtonItem = nil
+            dialogueBox(title: "SEND IMAGES!!", messageText: "Paid Monthly Members are able to send images via chat to other members! Visit the Shop to get your membership and start sending images!")
+        } else {
+            //put something in here if I feel like it
+        }
+        
         self.collectionView.collectionViewLayout.springinessEnabled = true
         
         
@@ -108,10 +115,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         }
         
         sendMessage(senderID: senderId, senderName: senderDisplayName, toUser: displayedUserID, toUserName: toUserName, text: text)
+        self.collectionView.reloadData()
         
-        collectionView.reloadData()
-        
-        finishSendingMessage()
+        self.finishSendingMessage()
         
     }
     
@@ -178,6 +184,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                     //                                            self.chatAvatar()
                                     self.mediaMessageReceived(senderID: senderID, media: media, messageID: messageID)
                                     
+                                    self.collectionView.reloadData()
+                                    self.finishReceivingMessage(animated: true)
+                                    
                                     self.scrollToBottom(animated: true)
                                     
                                     self.automaticallyScrollsToMostRecentMessage = true
@@ -188,7 +197,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 }
             }
         }
-
+        
         
     }
     
@@ -238,7 +247,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                             //                                            self.chatAvatar()
                                             self.mediaMessageReceived(senderID: senderID, media: media, messageID: messageID)
                                             
-                                            self.finishReceivingMessage()
                                             
                                             self.scrollToBottom(animated: true)
                                             
@@ -255,6 +263,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             }
             
         }
+       
         
     }
     
@@ -299,9 +308,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             }
             
         }
-        collectionView.reloadData()
         
-        self.finishReceivingMessage(animated: true)
     }
     
     
@@ -354,6 +361,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             }
             
             sendMedia(image: image, senderID: senderId, senderName: senderDisplayName, toUser: displayedUserID, toUserName: toUserName)
+            self.collectionView.reloadData()
+            
+            self.finishSendingMessage()
         
         }
         
@@ -366,9 +376,10 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
 //        }
         
         
+        
+        
         picker.dismiss(animated: true, completion: nil)
-        collectionView.reloadData()
-        finishSendingMessage()
+        
     }
     
 //    picker functions
@@ -395,6 +406,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
 //                notification(displayName: senderDisplayName)
                 
                 collectionView.reloadData()
+            
+            finishReceivingMessage(animated: true)
             
         }
         
@@ -441,9 +454,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, media: imageM))
             
-            collectionView.reloadData()
-            
             finishReceivingMessage(animated: true)
+            
+            collectionView.reloadData()
         }
         
         
@@ -526,6 +539,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 print(error!)
             } else {
                 
+                
                 self.scrollToBottom(animated: true)
                 self.automaticallyScrollsToMostRecentMessage = true
                 
@@ -577,6 +591,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                 if error != nil {
                     print(error!)
                 } else {
+                    
+                    
                     self.scrollToBottom(animated: true)
                     self.automaticallyScrollsToMostRecentMessage = true
                     
@@ -586,6 +602,10 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         } else {
             print("There was an error sending the image to the database")
         }
+        
+        //self.collectionView.reloadData()
+        
+        self.finishSendingMessage()
     }
     
     //end del functions
@@ -619,6 +639,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let msg = messages[indexPath.item]
         
         if (msg.media as? JSQPhotoMediaItem) != nil {
+            
             
         }
         
@@ -670,6 +691,19 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         super.didReceiveMemoryWarning()
     }
     
+    func dialogueBox(title:String, messageText:String ){
+        let dialog = UIAlertController(title: title,
+                                       message: messageText,
+                                       preferredStyle: UIAlertControllerStyle.alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        dialog.addAction(defaultAction)
+        // Present the dialog.
+        
+        self.present(dialog,
+                     animated: true,
+                     completion: nil)
+    }
     
     func commonActionSheet(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)

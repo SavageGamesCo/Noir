@@ -53,6 +53,10 @@ class EchoSonarViewController: UIViewController {
             ShortRangeButton.isEnabled = false
             LongRangeButton.isEnabled = true
             
+            if PFUser.current()?["membership"] as! String == "basic" {
+                dialogueBox(title: "INCREASE YOUR RESULTS", messageText: "Increase the number of Short Range Echo Pings with a monthly subscription! Visit the shop page for more info on membership perks.")
+            }
+            
         }
         
     }
@@ -63,6 +67,10 @@ class EchoSonarViewController: UIViewController {
             
             LongRangeButton.isEnabled = false
             ShortRangeButton.isEnabled = true
+            
+            if PFUser.current()?["membership"] as! String == "basic" {
+                dialogueBox(title: "INCREASE YOUR RESULTS", messageText: "Increase the number of Long Range Echo Pings AND Increase your range to 20 miles with a monthly subscription! Visit the shop page for more info on membership perks.")
+            }
             
         }
         
@@ -695,6 +703,20 @@ class EchoSonarViewController: UIViewController {
     
     @IBAction func reloadData(_ sender: AnyObject) {
         sonarView.reloadData()
+    }
+    
+    func dialogueBox(title:String, messageText:String ){
+        let dialog = UIAlertController(title: title,
+                                       message: messageText,
+                                       preferredStyle: UIAlertControllerStyle.alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        dialog.addAction(defaultAction)
+        // Present the dialog.
+        
+        self.present(dialog,
+                     animated: true,
+                     completion: nil)
     }
 }
 
