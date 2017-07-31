@@ -54,7 +54,7 @@ class EchoSonarViewController: UIViewController {
             LongRangeButton.isEnabled = true
             
             if PFUser.current()?["membership"] as! String == "basic" {
-                dialogueBox(title: "INCREASE YOUR RESULTS", messageText: "Increase the number of Short Range Echo Pings with a monthly subscription! Visit the shop page for more info on membership perks.")
+                dialogueBox(title: "INCREASE YOUR RESULTS!!", messageText: "Increase the number of Short Range Echo hits with a monthly subscription! Visit the shop page for more info on membership perks.")
             }
             
         }
@@ -69,7 +69,7 @@ class EchoSonarViewController: UIViewController {
             ShortRangeButton.isEnabled = true
             
             if PFUser.current()?["membership"] as! String == "basic" {
-                dialogueBox(title: "INCREASE YOUR RESULTS", messageText: "Increase the number of Long Range Echo Pings AND Increase your range to 20 miles with a monthly subscription! Visit the shop page for more info on membership perks.")
+                dialogueBox(title: "INCREASE YOUR RESULTS", messageText: "Increase the number of Long Range Echo hits AND Increase your range to 20+ miles with a monthly subscription! Visit the shop page for more info on membership perks.")
             }
             
         }

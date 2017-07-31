@@ -185,7 +185,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                     self.mediaMessageReceived(senderID: senderID, media: media, messageID: messageID)
                                     
                                     self.collectionView.reloadData()
-                                    self.finishReceivingMessage(animated: true)
                                     
                                     self.scrollToBottom(animated: true)
                                     
@@ -296,6 +295,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                                             
 //                                            self.chatAvatar()
                                             self.mediaMessageReceived(senderID: senderID, media: media, messageID: messageID)
+                                            
                                         }
                                     }
                                 }
@@ -361,7 +361,6 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             }
             
             sendMedia(image: image, senderID: senderId, senderName: senderDisplayName, toUser: displayedUserID, toUserName: toUserName)
-            self.collectionView.reloadData()
             
             self.finishSendingMessage()
         
@@ -406,8 +405,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
 //                notification(displayName: senderDisplayName)
                 
                 collectionView.reloadData()
-            
-            finishReceivingMessage(animated: true)
+
             
         }
         
@@ -454,9 +452,9 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             
             messages.append(JSQMessage(senderId: senderID, displayName: senderDisplayName, media: imageM))
             
-            finishReceivingMessage(animated: true)
-            
             collectionView.reloadData()
+            
+            
         }
         
         
@@ -592,6 +590,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
                     print(error!)
                 } else {
                     
+                    self.sendMessage(senderID: senderID, senderName: senderName, toUser: toUser, toUserName: toUserName, text: "Image sent")
                     
                     self.scrollToBottom(animated: true)
                     self.automaticallyScrollsToMostRecentMessage = true
@@ -639,8 +638,14 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         let msg = messages[indexPath.item]
         
         if (msg.media as? JSQPhotoMediaItem) != nil {
+            var photoItem = JSQPhotoMediaItem()
+            var photo = UIImage()
             
+            photoItem = msg.media as! JSQPhotoMediaItem
             
+            photo = photoItem.image
+            
+        
         }
         
         

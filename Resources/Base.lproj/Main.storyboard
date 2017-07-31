@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -739,7 +739,7 @@
         <scene sceneID="vfq-Ku-Ucd">
             <objects>
                 <collectionViewController title="Noir Users" modalTransitionStyle="flipHorizontal" id="ijc-SN-gV4" customClass="UsersCollectionViewController" customModule="Noir" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="blK-Zg-EfE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1752,15 +1752,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Memberships" id="Gr1-yM-ND5">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="oneMonthRow" rowHeight="145" id="ThA-Wv-kOQ">
-                                        <rect key="frame" x="0.0" y="168" width="320" height="145"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="oneMonthRow" rowHeight="165" id="ThA-Wv-kOQ">
+                                        <rect key="frame" x="0.0" y="168" width="320" height="165"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ThA-Wv-kOQ" id="8Mx-0n-QvR">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="164.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="dP7-MT-St6">
-                                                    <rect key="frame" x="16" y="19" width="288" height="21"/>
+                                                    <rect key="frame" x="16" y="12.5" width="288" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="skk-W6-hvi">
                                                             <rect key="frame" x="0.0" y="0.0" width="99" height="21"/>
@@ -1802,11 +1802,11 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fhY-JA-Q9M">
-                                                    <rect key="frame" x="8" y="48" width="304" height="79"/>
+                                                    <rect key="frame" x="8" y="41.5" width="304" height="105.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyh-YA-qQp">
-                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="79"/>
-                                                            <string key="text">Monthly Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. REQUIRES LOGOUT &amp; LOGIN AFTER PURCHASE</string>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyh-YA-qQp">
+                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="105.5"/>
+                                                            <string key="text">Monthly Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. Increased Echo Long Range distance to 20+ miles! Increased Echo Hits! Only paid members can send images in chat! REQUIRES LOGOUT &amp; LOGIN AFTER PURCHASE</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" red="0.98668628930000002" green="0.65372842549999999" blue="0.011683546939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1825,15 +1825,15 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="threeMonthsRow" rowHeight="145" id="snp-wS-UtN">
-                                        <rect key="frame" x="0.0" y="313" width="320" height="145"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="threeMonthsRow" rowHeight="165" id="snp-wS-UtN">
+                                        <rect key="frame" x="0.0" y="333" width="320" height="165"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="snp-wS-UtN" id="h3T-Zr-62N">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="164.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="NEF-SW-yqN">
-                                                    <rect key="frame" x="16" y="19" width="288" height="21"/>
+                                                    <rect key="frame" x="16" y="12.5" width="288" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Months" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Db-Wq-5iA">
                                                             <rect key="frame" x="0.0" y="0.0" width="99" height="21"/>
@@ -1875,11 +1875,11 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gCJ-zA-XDB">
-                                                    <rect key="frame" x="8" y="48" width="304" height="79"/>
+                                                    <rect key="frame" x="8" y="41.5" width="304" height="105.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEP-RM-TLw">
-                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="79"/>
-                                                            <string key="text">Save $2 per month on a 3 Month Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. REQUIRES LOGOUT &amp; LOGIN AFTER PURCHASE</string>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEP-RM-TLw">
+                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="105.5"/>
+                                                            <string key="text">Save $2 per month on a 3 Month Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. Increased Echo Long Range distance to 20+ miles! Increased Echo Hits! Only paid members can send images in chat! REQUIRES LOGOUT &amp; LOGIN AFTER PURCHASE</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" red="0.98668628930000002" green="0.65372842549999999" blue="0.011683546939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1898,15 +1898,15 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="oneYearRow" rowHeight="145" id="EWG-aQ-73Y">
-                                        <rect key="frame" x="0.0" y="458" width="320" height="145"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="oneYearRow" rowHeight="165" id="EWG-aQ-73Y">
+                                        <rect key="frame" x="0.0" y="498" width="320" height="165"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EWG-aQ-73Y" id="43F-iE-m1k">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="164.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="2vu-ba-ZNq">
-                                                    <rect key="frame" x="16" y="19" width="288" height="21"/>
+                                                    <rect key="frame" x="16" y="12.5" width="288" height="21"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="466-iU-FZS">
                                                             <rect key="frame" x="0.0" y="0.0" width="99" height="21"/>
@@ -1948,11 +1948,11 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gu5-Y4-nAO">
-                                                    <rect key="frame" x="8" y="48" width="304" height="79"/>
+                                                    <rect key="frame" x="8" y="41.5" width="304" height="105.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egq-rT-i9J">
-                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="79"/>
-                                                            <string key="text">The ultimate savings! Save over $3 per month on a 1 Year Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. REQUIRES LOGOUT &amp; LOGIN AFTER PURCHASE</string>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egq-rT-i9J">
+                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="105.5"/>
+                                                            <string key="text">The ultimate savings! Save over $3 per month on a 1 Year Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. Increased Echo Long Range distance to 20+ miles! Increased Echo Hits! Only paid members can send images in chat! REQUIRES LOGOUT &amp; LOGIN AFTER PURCHASE</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" red="0.98668628930000002" green="0.65372842549999999" blue="0.011683546939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1972,7 +1972,7 @@
                                         <color key="backgroundColor" red="0.2235064209" green="0.22354415059999999" blue="0.2234981358" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="donateRow" rowHeight="145" id="mqp-dW-uJM">
-                                        <rect key="frame" x="0.0" y="603" width="320" height="145"/>
+                                        <rect key="frame" x="0.0" y="663" width="320" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mqp-dW-uJM" id="WfL-AF-Mxd">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
@@ -2041,7 +2041,7 @@
                             <tableViewSection headerTitle="Restore" id="kjF-fj-nrV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="restoreRow" rowHeight="60" id="mUL-ub-Gwm">
-                                        <rect key="frame" x="0.0" y="776" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="836" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mUL-ub-Gwm" id="YCS-fX-Yeg">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -2093,7 +2093,7 @@
                             <tableViewSection headerTitle="Terms of Use/Purchase" id="dZF-Ei-LMr">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="tosRow" rowHeight="300" id="dPn-Y1-Cic">
-                                        <rect key="frame" x="0.0" y="864" width="320" height="300"/>
+                                        <rect key="frame" x="0.0" y="924" width="320" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dPn-Y1-Cic" id="pva-93-Uqz">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
