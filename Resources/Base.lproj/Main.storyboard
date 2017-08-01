@@ -976,6 +976,7 @@
                     <connections>
                         <outlet property="LongRangeButton" destination="BC1-72-VyT" id="0Dm-I4-e9h"/>
                         <outlet property="ShortRangeButton" destination="Mjm-Me-ULF" id="e8n-7r-UHT"/>
+                        <outlet property="echo_title_bar" destination="WZJ-yB-JrE" id="QLf-Te-5gq"/>
                         <outlet property="sonarView" destination="O50-gR-nU9" id="ibI-Vz-zc9"/>
                         <outlet property="toolbar" destination="XgI-zI-28b" id="bBi-fv-B4b"/>
                         <segue destination="up8-0f-dqs" kind="show" identifier="toChat" id="5bb-rV-oM5"/>
@@ -1756,7 +1757,7 @@
                                         <rect key="frame" x="0.0" y="168" width="320" height="165"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ThA-Wv-kOQ" id="8Mx-0n-QvR">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="164.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="dP7-MT-St6">
@@ -1829,7 +1830,7 @@
                                         <rect key="frame" x="0.0" y="333" width="320" height="165"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="snp-wS-UtN" id="h3T-Zr-62N">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="164.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="NEF-SW-yqN">
@@ -1902,7 +1903,7 @@
                                         <rect key="frame" x="0.0" y="498" width="320" height="165"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EWG-aQ-73Y" id="43F-iE-m1k">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="164.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="2vu-ba-ZNq">

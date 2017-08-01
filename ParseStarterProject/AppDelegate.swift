@@ -107,6 +107,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation?.saveInBackground()
     }
     
+    func  applicationWillResignActive(_ application: UIApplication) {
+        
+    }
+    
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         clearBadges()
     }

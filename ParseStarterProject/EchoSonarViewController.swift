@@ -38,6 +38,7 @@ class EchoSonarViewController: UIViewController {
     var memberPicLineOne = [UIImage]()
     
     
+    @IBOutlet weak var echo_title_bar: UINavigationItem!
     @IBOutlet weak var toolbar: UIToolbar!
     
     var range = "short"
@@ -52,6 +53,7 @@ class EchoSonarViewController: UIViewController {
             
             ShortRangeButton.isEnabled = false
             LongRangeButton.isEnabled = true
+            echo_title_bar.title = "Echo: Short Range"
             
             if PFUser.current()?["membership"] as! String == "basic" {
                 dialogueBox(title: "INCREASE YOUR RESULTS!!", messageText: "Increase the number of Short Range Echo hits with a monthly subscription! Visit the shop page for more info on membership perks.")
@@ -67,6 +69,7 @@ class EchoSonarViewController: UIViewController {
             
             LongRangeButton.isEnabled = false
             ShortRangeButton.isEnabled = true
+            echo_title_bar.title = "Echo: Long Range"
             
             if PFUser.current()?["membership"] as! String == "basic" {
                 dialogueBox(title: "INCREASE YOUR RESULTS", messageText: "Increase the number of Long Range Echo hits AND Increase your range to 20+ miles with a monthly subscription! Visit the shop page for more info on membership perks.")
@@ -94,9 +97,11 @@ class EchoSonarViewController: UIViewController {
         if range == "short" {
             ShortRangeButton.isEnabled = false
             LongRangeButton.isEnabled = true
+            echo_title_bar.title = "Echo: Short Range"
         } else {
             LongRangeButton.isEnabled = false
             ShortRangeButton.isEnabled = true
+            echo_title_bar.title = "Echo: Long Range"
         }
         
         geoPoint()
