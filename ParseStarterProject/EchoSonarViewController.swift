@@ -56,7 +56,10 @@ class EchoSonarViewController: UIViewController {
             echo_title_bar.title = "Echo: Short Range"
             
             if PFUser.current()?["membership"] as! String == "basic" {
-                dialogueBox(title: "INCREASE YOUR RESULTS!!", messageText: "Increase the number of Short Range Echo hits with a monthly subscription! Visit the shop page for more info on membership perks.")
+                if echoMessageShort == false {
+                self.dialogueBox(title: "INCREASE YOUR RESULTS!!", messageText: "Increase the number of Short Range Echo hits with a monthly subscription! Visit the shop page for more info on membership perks.")
+                    echoMessageShort = true
+                }
             }
             
         }
@@ -72,7 +75,10 @@ class EchoSonarViewController: UIViewController {
             echo_title_bar.title = "Echo: Long Range"
             
             if PFUser.current()?["membership"] as! String == "basic" {
-                dialogueBox(title: "INCREASE YOUR RESULTS", messageText: "Increase the number of Long Range Echo hits AND Increase your range to 20+ miles with a monthly subscription! Visit the shop page for more info on membership perks.")
+                if echoMessageLong == false {
+                self.dialogueBox(title: "INCREASE YOUR RESULTS", messageText: "Increase the number of Long Range Echo hits AND Increase your range to 20+ miles with a monthly subscription! Visit the shop page for more info on membership perks.")
+                    echoMessageLong = true
+                }
             }
             
         }
@@ -137,6 +143,7 @@ class EchoSonarViewController: UIViewController {
             
             self.navigationController?.setToolbarHidden(true, animated: true)
             
+            if echoMessage == false {
             var EchoFeatureText = String()
             var EchoWarningText = String()
             
@@ -149,6 +156,8 @@ class EchoSonarViewController: UIViewController {
             }
             
             commonActionSheet(title: "Echo", message: EchoFeatureText + "\n\n" + EchoWarningText , whatCase: "normal")
+                echoMessage = true
+            }
 //            commonActionSheet(title: "Echo - WARNING", message: EchoWarningText , whatCase: "normal")
 //            update()
 //            

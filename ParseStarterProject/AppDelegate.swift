@@ -23,6 +23,11 @@ import UserNotifications
 
 var badge = Int()
 
+var userListMessage = false
+var echoMessage = false
+var echoMessageShort = false
+var echoMessageLong = false
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

@@ -351,6 +351,12 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                 
                 self.view.addSubview(unflirtGraphic)
                 
+                PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "flirt")
+                
+                PFUser.current()?.saveInBackground(block: {(success, error) in
+                    print("Flirt with " + displayedUserID + "removed")
+                })
+                
                 
             } else if profileImg.center.x > self.view.bounds.width - 100 {
                 print("chosen")
@@ -381,6 +387,13 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                         flirtGraphic.center = CGPoint(x: view.frame.size.width  / 2, y: view.frame.size.height / 2);
                         
                         self.view.addSubview(flirtGraphic)
+                        
+                        PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: tracking)
+                        
+                        PFUser.current()?.saveInBackground(block: {(success, error) in
+                            
+                            print("Flirt with " + displayedUserID + "added")
+                        })
                         
                         sendFlirt()
                         
@@ -419,6 +432,13 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                             
                             self.view.addSubview(flirtGraphic)
                             
+                            PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: tracking)
+                            
+                            PFUser.current()?.saveInBackground(block: {(success, error) in
+                                
+                                print("Flirt with " + displayedUserID + "added")
+                            })
+                            
                             sendFlirt()
                             
                             
@@ -437,23 +457,23 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
                 
             }
             
-            if tracking != "" && displayedUserID != "" && tracking != "unflirt" {
-                
-                PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: tracking)
-                
-                PFUser.current()?.saveInBackground(block: {(success, error) in
-                
-                   
-                })
-                    
-                
-            } else if tracking == "unflirt" {
-                PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "flirt")
-                
-                PFUser.current()?.saveInBackground(block: {(success, error) in
-                    
-                })
-            }
+//            if tracking != "" && displayedUserID != "" && tracking != "unflirt" {
+//                
+//                PFUser.current()?.addUniqueObjects(from: [displayedUserID], forKey: tracking)
+//                
+//                PFUser.current()?.saveInBackground(block: {(success, error) in
+//                
+//                   
+//                })
+//                    
+//                
+//            } else if tracking == "unflirt" {
+//                PFUser.current()?.removeObjects(in: [displayedUserID], forKey: "flirt")
+//                
+//                PFUser.current()?.saveInBackground(block: {(success, error) in
+//                    
+//                })
+//            }
             
             rotation = CGAffineTransform(rotationAngle: 0)
             

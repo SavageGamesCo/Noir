@@ -15,6 +15,8 @@ import UserNotifications
 
 var displayedUserID = String()
 
+
+
 class ViewController: UIViewController {
     
     var signUpMode = false
