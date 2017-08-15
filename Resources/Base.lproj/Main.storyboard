@@ -916,11 +916,19 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="User" id="Eob-J3-U77"/>
+                    <navigationItem key="navigationItem" title="User" id="Eob-J3-U77">
+                        <barButtonItem key="rightBarButtonItem" title="Profile" id="OGk-PM-swx">
+                            <color key="tintColor" red="0.98806899790000002" green="0.6853456497" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="goToProfile:" destination="up8-0f-dqs" id="hmP-rp-UQ9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="MainView" destination="gDa-Iz-OtS" id="pfW-rM-TT6"/>
+                        <segue destination="A68-zX-6Ek" kind="show" identifier="toUserDetails" id="CQx-Me-fNz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L9H-l2-IDv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2157,11 +2165,11 @@
         <image name="star-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5bb-rV-oM5"/>
-        <segue reference="9pk-Jv-8jF"/>
-        <segue reference="Va7-PB-RdT"/>
-        <segue reference="uKU-yI-vux"/>
         <segue reference="AQS-Bi-6uX"/>
+        <segue reference="9pk-Jv-8jF"/>
+        <segue reference="CQx-Me-fNz"/>
+        <segue reference="K6o-u3-E9D"/>
+        <segue reference="uKU-yI-vux"/>
         <segue reference="IsW-VB-D0B"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.77249795200000004" green="0.61375778910000001" blue="0.42250117659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

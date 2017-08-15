@@ -20,6 +20,10 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     
     let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
     
+    @IBAction func goToProfile(_ sender: Any) {
+        
+        performSegue(withIdentifier: "toUserDetails", sender: self)
+    }
     private var subscription: Subscription<PFObject>!
     
     // This message query filters every incoming message that is
@@ -80,11 +84,16 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
         
         //Setup the color of the background
         self.collectionView.backgroundView?.backgroundColor = CHAT_BACKGROUND_COLOR
-//        self.inputToolbar.contentView.leftBarButtonItem = nil
+        //self.inputToolbar.contentView.leftBarButtonItem = nil
         
         if PFUser.current()?["membership"] as! String == "basic" {
-            self.inputToolbar.contentView.leftBarButtonItem = nil
-            dialogueBox(title: "SEND IMAGES!!", messageText: "Paid Monthly Members are able to send images via chat to other members! Visit the Shop to get your membership and start sending images!")
+            
+            if imagesSent == 5 {
+                self.inputToolbar.contentView.leftBarButtonItem = nil
+                
+                dialogueBox(title: "SEND UNLIMITED IMAGES!!", messageText: "Paid Monthly Members are able to send unlimited images via chat to other members! Free Members are limited in how many images they can send. Visit the Shop to get your membership and start sending images!")
+            }
+            
         } else {
             //put something in here if I feel like it
         }
@@ -361,6 +370,13 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
             }
             
             sendMedia(image: image, senderID: senderId, senderName: senderDisplayName, toUser: displayedUserID, toUserName: toUserName)
+            
+            if PFUser.current()?["membership"] as! String == "basic" {
+                
+                if imagesSent < 5 {
+                    imagesSent += 1
+                }
+            }
             
             self.finishSendingMessage()
         

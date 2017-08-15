@@ -23,6 +23,8 @@ import UserNotifications
 
 var badge = Int()
 
+var imagesSent = 0
+
 var userListMessage = false
 var echoMessage = false
 var echoMessageShort = false
