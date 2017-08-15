@@ -408,13 +408,15 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
             let query = PFUser.query()
             
+            query?.addDescendingOrder("updatedAt")
+            
             if PFUser.current()?["membership"] as! String != "basic" {
                 
-                query?.limit = 4000000
+                query?.limit = 300
                 
             } else {
                 
-                query?.limit = PFUser.current()?["globalLimit"] as! Int
+                query?.limit = 50
             
             }
             
@@ -422,7 +424,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             
             var currentLoc: PFGeoPoint = PFGeoPoint()
             
-            query?.addDescendingOrder("updatedAt")
+            
             
             
             
@@ -475,18 +477,19 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
             let query = PFUser.query()
             //Show Local Users
+            query?.addDescendingOrder("updatedAt")
             
             if PFUser.current()?["membership"] as! String != "basic" {
                 
-                query?.limit = 4000000
+                query?.limit = 300
                 
             } else {
                 
-                query?.limit = PFUser.current()?["localLimit"] as! Int
+                query?.limit = 25
                 
             }
             
-            query?.addDescendingOrder("updatedAt")
+            
             
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
@@ -688,6 +691,8 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        collectionView.layoutIfNeeded()
+        
         return 1
     }
 
