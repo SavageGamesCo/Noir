@@ -484,7 +484,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     let maritalData = ["Single", "Married", "Divorced", "Open", "Poly", "Triad", "No Idea"]
     
     let ethnicityPicker = UIPickerView()
-    let ethnicityData = ["Black American", "Black African", "Black European", "Black Hispanic", "Hispanic", "Caribbean", "West Indian", "Puerto Rican", "Arabic", "Central American", "South American", "Native American", "East Asian", "South Asian", "West Asian", "Pacific Islander", "White American", "White European", "White Hispanic"]
+    let ethnicityData = ["Indigenous", "Black American", "Black African", "Black European", "Black Hispanic", "Black Asian", "Hispanic", "Caribbean", "West Indian", "Puerto Rican", "Arabic", "Central American", "South American", "Native American", "Asian American", "East Asian", "South Asian", "South East Asian", "West Asian", "Pacific Islander", "White American", "White European", "White Hispanic"]
     
     let bodyPicker = UIPickerView()
     let bodyData = ["Chub", "Bear", "Muscle Bear", "Stocky", "Jock", "Muscular", "Athletic", "Average", "Slim"]
