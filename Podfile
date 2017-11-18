@@ -1,3 +1,4 @@
+source 'https://github.com/CocoaPods/Specs.git'
 # Uncomment the next line to define a global platform for your project
  platform :ios, '9.0'
 
@@ -10,8 +11,10 @@ target 'Noir' do
     pod 'Firebase/AdMob'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
     pod 'JSQMessagesViewController'
-    pod 'ParseLiveQuery'
-    pod 'SwiftyStoreKit'
+    pod 'Parse', '~> 1.15.3'
+    pod 'ParseLiveQuery', '~> 2.2.1'
+    pod 'SwiftyStoreKit', '~> 0.10.4'
     pod 'Sonar'
+    # pod 'Starscream', '~> 3.0.2'
 
 end

@@ -193,7 +193,7 @@ class ShopSwiftyViewController: UITableViewController {
         
             NetworkActivityIndiciatorManager.NetworkOperationFinished()
             
-            for product in result.restoredProducts {
+            for product in result.restoredPurchases {
             
                 if product.needsFinishTransaction {
                     SwiftyStoreKit.finishTransaction(product.transaction)
@@ -268,11 +268,15 @@ class ShopSwiftyViewController: UITableViewController {
     
     func refreshReceipt() {
     
-        SwiftyStoreKit.refreshReceipt(completion: {
+        SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, completion: {
         
             result in
             
-            self.showAlert(alert: self.alertForRefreshReceipt(result: result))
+            DispatchQueue.main.async {
+                
+            }
+            
+            //self.showAlert(alert: self.alertForRefreshReceipt(result: result ))
             
         })
     }
@@ -411,11 +415,11 @@ extension UITableViewController {
     
     func alertForRestorePurchases(result : RestoreResults) -> UIAlertController {
         
-        if result.restoreFailedProducts.count > 0 {
-            print("restore failed \(result.restoreFailedProducts))")
+        if result.restoreFailedPurchases.count > 0 {
+            print("restore failed \(result.restoreFailedPurchases))")
             
             return alertWithTitle(title: "Restore Failed", message: "Unknown Error, contact support")
-        } else if result.restoredProducts.count > 0 {
+        } else if result.restoredPurchases.count > 0 {
             
             return alertWithTitle(title: "Purchases Restored", message: "All Purchases Restored")
         } else {

@@ -92,14 +92,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
-            application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound , .badge , .alert], categories: nil))
+            DispatchQueue.main.async {
+                application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound , .badge , .alert], categories: nil))
 
             application.registerForRemoteNotifications()
+            }
+            
         }
         
         
         
-        FIRApp.configure()
+        FirebaseApp.configure()
         GADMobileAds.configure(withApplicationID: "ca-app-pub-9770059916027069~1452473359")
         return true
     }
