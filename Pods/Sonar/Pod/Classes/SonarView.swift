@@ -126,7 +126,7 @@ public class SonarView: UIView {
                     }, completion: nil)
 
                     let gradientSize: CGFloat = 60
-                    let gradient = RadialGradientLayer(frame: CGRect(center: position, width: gradientSize, height: gradientSize), radius: gradientSize / 2, center: CGPoint(x: gradientSize / 2, y: gradientSize / 2), colors: [UIColor.darkGray.cgColor, UIColor.darkGray.withAlphaComponent(1.0).cgColor, UIColor.darkGray.withAlphaComponent(0.0).cgColor], locations: [0.0, 0.6, 1.0])
+                    let gradient = RadialGradientLayer(frame: CGRect(center: position, width: gradientSize, height: gradientSize), radius: gradientSize / 2, center: CGPoint(x: gradientSize / 2, y: gradientSize / 2), colors: [UIColor.white.cgColor, UIColor.white.withAlphaComponent(1.0).cgColor, UIColor.white.withAlphaComponent(0.0).cgColor], locations: [0.0, 0.6, 1.0])
                     self._shadows.append(gradient)
                     self.layer.insertSublayer(gradient, below: distanceLabel.layer)
                 }
