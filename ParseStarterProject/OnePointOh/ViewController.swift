@@ -492,19 +492,7 @@ class ViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func dialogueBox(title:String, messageText:String ){
-        let dialog = UIAlertController(title: title,
-                                       message: messageText,
-                                       preferredStyle: UIAlertControllerStyle.alert)
-        
-        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        dialog.addAction(defaultAction)
-        // Present the dialog.
-        
-        self.present(dialog,
-                     animated: true,
-                     completion: nil)
-    }
+    
     
     func resetDialogueBox(title:String, messageText:String ){
         let dialog = UIAlertController(title: title,
