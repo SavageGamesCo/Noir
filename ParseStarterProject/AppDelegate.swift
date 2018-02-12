@@ -34,7 +34,9 @@ var echoMessageLong = false
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let navBarColor = Constants.Colors.NOIR_RED_MEDIUM
+    let statusBarBackgroundColor = Constants.Colors.NOIR_RED_DARK
+    
     //--------------------------------------
     // MARK: - UIApplicationDelegate
     //--------------------------------------
@@ -46,16 +48,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = UINavigationController(rootViewController: LoginController())
+        //a layout for the collection view must be specified
+        let layout = UICollectionViewFlowLayout()
+        //uncomment this to change the direction of scrolling
+        //        layout.scrollDirection = .vertical
+        
+        //create the controller object to be the initial view
+        let mainViewController = MainViewController(collectionViewLayout: layout)
+        
+        //add the initial view to the window, in this case as a navigation view controller beginning root view controller
+        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
 //        window?.rootViewController = LoginController()
         
         //changing the color of the navigation bar
-        UINavigationBar.appearance().barTintColor = Constants.Colors.NOIR_GREY_MEDIUM
+        UINavigationBar.appearance().barTintColor = navBarColor
         //changing the status bar text style color
         application.statusBarStyle = .lightContent
         
+        
         let statusBarBackgroundView = UIView()
-        statusBarBackgroundView.backgroundColor = Constants.Colors.NOIR_GREY_DARK
+        statusBarBackgroundView.backgroundColor = statusBarBackgroundColor
         
         window?.addSubview(statusBarBackgroundView)
         window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackgroundView)

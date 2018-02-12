@@ -20,6 +20,10 @@ struct Constants {
         static let NOIR_YELLOW = UIColor.rgb(red: 255, green: 213, blue: 43, alpha: 1)
         static let NOIR_GREEN = UIColor.rgb(red: 45, green: 150, blue: 43, alpha: 1)
         static let NOIR_ORANGE = UIColor.rgb(red: 255, green: 76, blue: 0, alpha: 1)
+        static let NOIR_RED_DARK = UIColor.rgb(red: 68, green: 16, blue: 0, alpha: 1)
+        static let NOIR_RED_MEDIUM = UIColor.rgb(red: 87, green: 9, blue: 12, alpha: 1)
+        static let NOIR_RED_LIGHT = UIColor.rgb(red: 116, green: 12, blue: 16, alpha: 1)
+        
         
         //Text Colors
         static let NOIR_LIGHT_TEXT = UIColor.init(white: 0.9, alpha: 1)
@@ -53,7 +57,7 @@ struct Constants {
         static let ERROR_INVALID_CREDENTIALS_FORMAT = "No special characters in the username are allowed. Email addresses must also include an '@' and a '.'."
         static let ERROR_INVALID_CREDENTIALS_LENGTH = "Please enter no more than 30 characters for your username or password."
         static let ERROR_USER_PROFILE_LOAD_FAILED = "Unable to load user profile."
-        static let ERROR_REGISTER_USER_FIELD_BLANK = "Please enter you email address, password and be sure your password match."
+        static let ERROR_REGISTER_USER_FIELD_BLANK = "Please enter your email address, password and be sure your password match."
         static let ERROR_REGISTER_CREDENTIALS_LENGTH = "Enter up to 30 characters for your username or password and up to 80 characters for your email address."
         static let ERROR_GENERIC = "Something went wrong"
         //Dialogue Box Text

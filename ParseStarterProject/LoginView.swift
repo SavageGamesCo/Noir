@@ -27,8 +27,8 @@ extension LoginController {
     
     func setupLogo(){
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logoImageView.bottomAnchor.constraint(equalTo: loginRegisterControl.topAnchor, constant: -24).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        logoImageView.bottomAnchor.constraint(equalTo: loginRegisterControl.topAnchor, constant: -12).isActive = true
+        logoImageView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1 ).isActive = true
         logoImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
@@ -41,7 +41,7 @@ extension LoginController {
     
     func setupRecoverPasswordButton(){
         recoverPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        recoverPasswordButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 24).isActive = true
+        recoverPasswordButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 12).isActive = true
         recoverPasswordButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         recoverPasswordButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }

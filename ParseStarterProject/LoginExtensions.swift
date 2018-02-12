@@ -75,6 +75,7 @@ extension LoginController {
                             
                             PFUser.current()?["installation"] = installation
                             PFUser.current()?.saveInBackground()
+                            self.dismiss(animated: true, completion: nil)
                             
                             //                            self.performSegue(withIdentifier: "toUserTable", sender: self)
                             if let user = PFUser.current()?.email {
@@ -196,6 +197,7 @@ extension LoginController {
                         
                         PFUser.current()?["installation"] = installation
                         PFUser.current()?.saveInBackground()
+                        self.dismiss(animated: true, completion: nil)
                         
 //                        self.performSegue(withIdentifier: "toUserTable", sender: self)
                     }

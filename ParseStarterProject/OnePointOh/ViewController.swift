@@ -480,20 +480,6 @@ class ViewController: UIViewController {
         
     }
     
-    func commonActionSheet(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        
-        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        
-        alert.addAction(cancel)
-        
-        alert.popoverPresentationController?.sourceView = view
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    
-    
     func resetDialogueBox(title:String, messageText:String ){
         let dialog = UIAlertController(title: title,
                                        message: messageText,

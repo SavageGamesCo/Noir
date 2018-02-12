@@ -711,19 +711,5 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate, UI
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    
-    
-    func commonActionSheet(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        
-        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        
-        alert.addAction(cancel)
-        
-        alert.popoverPresentationController?.sourceView = view
-        
-        present(alert, animated: true, completion: nil)
-    }
 
 }

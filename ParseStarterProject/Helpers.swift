@@ -33,12 +33,24 @@ extension UIViewController {
     
     //Custom Dialogue Box
     func dialogueBox(title:String, messageText:String ){
-        let dialog = UIAlertController(title: title, message: messageText, preferredStyle: .actionSheet)
+        let dialog = UIAlertController(title: title, message: messageText, preferredStyle: .alert)
         
         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         dialog.addAction(defaultAction)
         
         self.present(dialog, animated: true)
+    }
+    //Custom Action Sheet
+    func commonActionSheet(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
+        alert.addAction(cancel)
+        
+        alert.popoverPresentationController?.sourceView = view
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 

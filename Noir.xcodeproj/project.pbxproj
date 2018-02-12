@@ -33,6 +33,9 @@
 		B74789A6202E64C900C61A65 /* NoirConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74789A5202E64C900C61A65 /* NoirConstants.swift */; };
 		B74789A8202F340F00C61A65 /* LoginExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74789A7202F340F00C61A65 /* LoginExtensions.swift */; };
 		B74789AB202F363900C61A65 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74789AA202F363900C61A65 /* LoginView.swift */; };
+		B74789AE202F711000C61A65 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74789AD202F711000C61A65 /* MenuBar.swift */; };
+		B74789B0202F714900C61A65 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74789AF202F714900C61A65 /* BaseCell.swift */; };
+		B74789B2202F723200C61A65 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74789B1202F723200C61A65 /* MemberCell.swift */; };
 		B774D8341EC8299C000CC615 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B774D8331EC8299C000CC615 /* Constants.swift */; };
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
 		B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A672E1ED5ED45001DF856 /* ShopViewController.swift */; };
@@ -148,6 +151,9 @@
 		B74789A5202E64C900C61A65 /* NoirConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoirConstants.swift; sourceTree = "<group>"; };
 		B74789A7202F340F00C61A65 /* LoginExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExtensions.swift; sourceTree = "<group>"; };
 		B74789AA202F363900C61A65 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B74789AD202F711000C61A65 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		B74789AF202F714900C61A65 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		B74789B1202F723200C61A65 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		B774D8331EC8299C000CC615 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B778BBDD1EBCD409002EE330 /* Noir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Noir.entitlements; sourceTree = "<group>"; };
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -351,6 +357,7 @@
 		B72F13451F05D31B008EABCE /* TwoPointOh */ = {
 			isa = PBXGroup;
 			children = (
+				B74789AC202F65B800C61A65 /* TextJSONData */,
 				B74789A9202F362900C61A65 /* View */,
 				B74789A0202E34E700C61A65 /* Extensions */,
 				B747899C202E2DC300C61A65 /* controller */,
@@ -361,8 +368,8 @@
 		B747899C202E2DC300C61A65 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B747899A202E29B600C61A65 /* MainViewController.swift */,
 				B747899D202E2DF500C61A65 /* LoginController.swift */,
+				B747899A202E29B600C61A65 /* MainViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -380,19 +387,13 @@
 				B7FAF5521EA6DF8E0044B07B /* ProfileInitViewController.swift */,
 				B71402061EAA8030008E6CFB /* ProfileViewController.swift */,
 				B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */,
-				B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */,
 				B7EDF1D41EBA33D6003D013B /* MessagesHandler.swift */,
 				B774D8331EC8299C000CC615 /* Constants.swift */,
 				B77A672E1ED5ED45001DF856 /* ShopViewController.swift */,
-				B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */,
-				B745EBC01ED775DA000E498D /* about_noir.txt */,
-				B745EBBE1ED77296000E498D /* eula_noir.txt */,
-				B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */,
-				B716D73A1EEB0AAE00B250C1 /* Reachable.swift */,
 				B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */,
 				B72F13461F05D347008EABCE /* EchoSonarViewController.swift */,
-				B7B5B8671F07041700F126AD /* echo_feature.txt */,
-				B7B5B8691F07042D00F126AD /* echo_warning.txt */,
+				B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */,
+				B716D73A1EEB0AAE00B250C1 /* Reachable.swift */,
 			);
 			path = OnePointOh;
 			sourceTree = "<group>";
@@ -411,8 +412,24 @@
 			isa = PBXGroup;
 			children = (
 				B74789AA202F363900C61A65 /* LoginView.swift */,
+				B74789AD202F711000C61A65 /* MenuBar.swift */,
+				B74789AF202F714900C61A65 /* BaseCell.swift */,
+				B74789B1202F723200C61A65 /* MemberCell.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		B74789AC202F65B800C61A65 /* TextJSONData */ = {
+			isa = PBXGroup;
+			children = (
+				B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */,
+				B745EBC01ED775DA000E498D /* about_noir.txt */,
+				B745EBBE1ED77296000E498D /* eula_noir.txt */,
+				B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */,
+				B7B5B8671F07041700F126AD /* echo_feature.txt */,
+				B7B5B8691F07042D00F126AD /* echo_warning.txt */,
+			);
+			name = TextJSONData;
 			sourceTree = "<group>";
 		};
 		B7D9CE281EBB83E2007236A7 /* AppIcon2.appiconset */ = {
@@ -711,11 +728,13 @@
 				B74789A6202E64C900C61A65 /* NoirConstants.swift in Sources */,
 				B74789A2202E34FA00C61A65 /* Helpers.swift in Sources */,
 				B716D73B1EEB0AAE00B250C1 /* Reachable.swift in Sources */,
+				B74789AE202F711000C61A65 /* MenuBar.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */,
 				B74789AB202F363900C61A65 /* LoginView.swift in Sources */,
 				B747899B202E29B600C61A65 /* MainViewController.swift in Sources */,
 				B7EDF1D31EBA1023003D013B /* ChatViewController.swift in Sources */,
+				B74789B2202F723200C61A65 /* MemberCell.swift in Sources */,
 				B74789A8202F340F00C61A65 /* LoginExtensions.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				B7FAF5531EA6DF8E0044B07B /* ProfileInitViewController.swift in Sources */,
@@ -724,6 +743,7 @@
 				B7EDF1D51EBA33D6003D013B /* MessagesHandler.swift in Sources */,
 				B774D8341EC8299C000CC615 /* Constants.swift in Sources */,
 				B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */,
+				B74789B0202F714900C61A65 /* BaseCell.swift in Sources */,
 				B72F13471F05D347008EABCE /* EchoSonarViewController.swift in Sources */,
 				B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */,
 				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,

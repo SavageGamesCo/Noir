@@ -35,12 +35,12 @@ class LoginController: UIViewController {
     
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = Constants.Colors.NOIR_GREY_DARK
+        button.backgroundColor = Constants.Colors.NOIR_RED_DARK
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(Constants.Colors.NOIR_WHITE, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
         return button
@@ -48,12 +48,12 @@ class LoginController: UIViewController {
     
     let recoverPasswordButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = Constants.Colors.NOIR_GREY_DARK
+        button.backgroundColor = Constants.Colors.NOIR_RED_DARK
         button.setTitle("Recover Password", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(Constants.Colors.NOIR_WHITE, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(handleRecoverPassword), for: .touchUpInside)
         
@@ -132,8 +132,9 @@ class LoginController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(named:Constants.App.NOIR_LOGO)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = Constants.Colors.NOIR_GREY_DARK
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.tintColor = Constants.Colors.NOIR_RED_DARK
         
         return imageView
     }()
@@ -143,6 +144,8 @@ class LoginController: UIViewController {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.tintColor = Constants.Colors.NOIR_WHITE
         segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.layer.cornerRadius = 15
+        segmentedControl.layer.masksToBounds = true
         segmentedControl.addTarget(self, action: #selector(handleLoginToggle), for: .valueChanged)
         
         return segmentedControl
@@ -151,29 +154,20 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isHidden = true
-        self.navigationController?.tabBarController?.tabBar.isHidden = true
+        view.backgroundColor = Constants.Colors.NOIR_RED_LIGHT
+        view.addSubview(inputsContainerView)
+        view.addSubview(loginRegisterButton)
+        view.addSubview(recoverPasswordButton)
+        view.addSubview(logoImageView)
+        view.addSubview(loginRegisterControl)
+        view.addSubview(copyrightLine)
         
-        view.backgroundColor = Constants.Colors.NOIR_GREY_MEDIUM
-        if PFUser.current() != nil {
-            
-            logout()
-            
-        } else {
-            view.addSubview(inputsContainerView)
-            view.addSubview(loginRegisterButton)
-            view.addSubview(recoverPasswordButton)
-            view.addSubview(logoImageView)
-            view.addSubview(loginRegisterControl)
-            view.addSubview(copyrightLine)
-            
-            setupInputContainerView()
-            setupLogo()
-            setupLoginRegisterSegmentedControl()
-            setupLoginRegisterButton()
-            setupRecoverPasswordButton()
-            setupCopyright()
-        }
+        setupInputContainerView()
+        setupLogo()
+        setupLoginRegisterSegmentedControl()
+        setupLoginRegisterButton()
+        setupRecoverPasswordButton()
+        setupCopyright()
     
     }
     

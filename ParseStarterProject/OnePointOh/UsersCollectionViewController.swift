@@ -212,9 +212,14 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
                     PFUser.current()?.saveInBackground()
                 case .notPurchased:
                     print("This product has never been purchased")
+                    PFUser.current()?["membership"] = "basic"
+                    PFUser.current()?.saveInBackground()
                     
                 default:
                     print("Membership is active and not expired")
+                    
+                    PFUser.current()?["membership"] = "oneMonth"
+                    PFUser.current()?.saveInBackground()
                     
                     break
                 }
@@ -769,18 +774,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
-    }
-    
-    func commonActionSheet(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        
-        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        
-        alert.addAction(cancel)
-        
-        alert.popoverPresentationController?.sourceView = view
-        
-        present(alert, animated: true, completion: nil)
     }
 
 }
