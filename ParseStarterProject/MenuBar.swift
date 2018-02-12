@@ -14,7 +14,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = Constants.Colors.NOIR_RED_MEDIUM
+        cv.backgroundColor = Constants.Colors.NOIR_GREY_MEDIUM
         cv.dataSource = self
         cv.delegate = self
         return cv
@@ -23,7 +23,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let cellID = "cellId"
     
     //array for icons
-    let imageNames = ["games-abstract-7", "earth-america-7", "pin-map-7", "star-7","heart-7", "message-7"]
+    let imageNames = ["echo_icon", "global_icon", "local_dart_icon", "favorites_fire_icon","flirts_icon", "message-7"]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,7 +53,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MenuCell
         
         cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
-        cell.tintColor = Constants.Colors.NOIR_RED_LIGHT
+        cell.tintColor = Constants.Colors.NOIR_GREY_LIGHT
         //        cell.backgroundColor = UIColor.blue
         
         return cell
@@ -77,19 +77,19 @@ class MenuCell: BaseCell {
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "home-7")?.withRenderingMode(.alwaysTemplate)
-        iv.tintColor = Constants.Colors.NOIR_RED_DARK
+        iv.tintColor = Constants.Colors.NOIR_GREY_DARK
         return iv
     }()
     
     override var isHighlighted: Bool {
         didSet {
-            imageView.tintColor = isHighlighted ? UIColor.white : Constants.Colors.NOIR_RED_DARK
+            imageView.tintColor = isHighlighted ? UIColor.white : Constants.Colors.NOIR_GREY_DARK
         }
     }
     
     override var isSelected: Bool {
         didSet {
-            imageView.tintColor = isSelected ? UIColor.white : Constants.Colors.NOIR_RED_DARK
+            imageView.tintColor = isSelected ? UIColor.white : Constants.Colors.NOIR_GREY_DARK
         }
     }
     

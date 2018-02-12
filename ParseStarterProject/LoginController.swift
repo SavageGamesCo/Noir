@@ -35,7 +35,7 @@ class LoginController: UIViewController {
     
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = Constants.Colors.NOIR_RED_DARK
+        button.backgroundColor = Constants.Colors.NOIR_GREY_DARK
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(Constants.Colors.NOIR_WHITE, for: .normal)
@@ -48,7 +48,7 @@ class LoginController: UIViewController {
     
     let recoverPasswordButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = Constants.Colors.NOIR_RED_DARK
+        button.backgroundColor = Constants.Colors.NOIR_GREY_DARK
         button.setTitle("Recover Password", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(Constants.Colors.NOIR_WHITE, for: .normal)
@@ -134,7 +134,7 @@ class LoginController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.tintColor = Constants.Colors.NOIR_RED_DARK
+        imageView.tintColor = Constants.Colors.NOIR_GREY_DARK
         
         return imageView
     }()
@@ -154,7 +154,7 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Constants.Colors.NOIR_RED_LIGHT
+        view.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(recoverPasswordButton)

@@ -34,8 +34,8 @@ var echoMessageLong = false
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let navBarColor = Constants.Colors.NOIR_RED_MEDIUM
-    let statusBarBackgroundColor = Constants.Colors.NOIR_RED_DARK
+    let navBarColor = Constants.Colors.NOIR_GREY_MEDIUM
+    let statusBarBackgroundColor = Constants.Colors.NOIR_GREY_DARK
     
     //--------------------------------------
     // MARK: - UIApplicationDelegate

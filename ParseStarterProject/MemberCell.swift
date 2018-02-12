@@ -8,15 +8,29 @@
 
 import UIKit
 
-class MemberCell: UICollectionViewCell {
+class MemberCell: BaseCell {
     
-    var ProfilePics: UIImageView!
-    var userName: UILabel!
+    var ProfilePics: UIImageView = {
+        var pic = UIImageView()
+        pic.image = UIImage(named: "")
+        return pic
+    }()
+    
+    var userName: UILabel = {
+        var username = UILabel()
+        
+        username.text = ""
+        
+        return username
+    }()
+    
+    var userID: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    var userID = ""
-    
+    override func setupViews() {
+        
+    }
 }

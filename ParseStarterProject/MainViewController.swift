@@ -20,14 +20,14 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Constants.Colors.NOIR_RED_LIGHT
+        view.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         setupNavigation(title: "Noir")
         setupMenuBar()
         setupNavBarButtons()
         
-        collectionView?.backgroundColor = Constants.Colors.NOIR_RED_LIGHT
+        collectionView?.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
         collectionView?.register(MemberCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
