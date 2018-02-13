@@ -13,13 +13,14 @@ class MemberCell: BaseCell {
     var ProfilePics: UIImageView = {
         var pic = UIImageView()
         pic.image = UIImage(named: "")
+        pic.backgroundColor = Constants.Colors.NOIR_GREY_DARK
         return pic
     }()
     
     var userName: UILabel = {
         var username = UILabel()
         
-        username.text = ""
+        username.text = "USER"
         
         return username
     }()
@@ -31,6 +32,7 @@ class MemberCell: BaseCell {
     }
     
     override func setupViews() {
-        
+        addSubview(ProfilePics)
+        addSubview(userName)
     }
 }

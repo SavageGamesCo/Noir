@@ -50,8 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //a layout for the collection view must be specified
         let layout = UICollectionViewFlowLayout()
-        //uncomment this to change the direction of scrolling
-        //        layout.scrollDirection = .vertical
+        
         
         //create the controller object to be the initial view
         let mainViewController = MainViewController(collectionViewLayout: layout)
