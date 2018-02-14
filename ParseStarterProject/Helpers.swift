@@ -7,6 +7,13 @@
 //
 
 import UIKit
+import Parse
+import ParseLiveQuery
+import Firebase
+import GoogleMobileAds
+import StoreKit
+import SwiftyStoreKit
+import AVFoundation
 
 extension UIView {
     func addConstraintsWithFormat(format: String, views: UIView...){
@@ -28,6 +35,8 @@ extension UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: alpha)
     }
 }
+
+
 
 extension UIViewController {
     

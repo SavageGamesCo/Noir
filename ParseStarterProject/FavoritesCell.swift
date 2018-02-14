@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoritesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate {
+class FavoritesCell: GlobalCell {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -19,7 +19,6 @@ class FavoritesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDeleg
         return cv
     }()
     
-    let cellID = "cellID"
     
     override func setupViews() {
         super.setupViews()
@@ -34,17 +33,17 @@ class FavoritesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDeleg
         
     }
     
-    func fetchMembers(){
+    override func fetchMembers(){
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //return number of members
         
         return 3
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
         

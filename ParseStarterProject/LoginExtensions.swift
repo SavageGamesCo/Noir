@@ -78,7 +78,9 @@ extension LoginController {
                             self.dismiss(animated: true, completion: nil)
                             
                             //                            self.performSegue(withIdentifier: "toUserTable", sender: self)
+                            
                             if let user = PFUser.current()?.email {
+//                                APIService.sharedInstance.checkMessagesAlert()
                                 print("logged in with \(user)")
                             }
                             
@@ -198,8 +200,7 @@ extension LoginController {
                         PFUser.current()?["installation"] = installation
                         PFUser.current()?.saveInBackground()
                         self.dismiss(animated: true, completion: nil)
-                        
-//                        self.performSegue(withIdentifier: "toUserTable", sender: self)
+//                        APIService.sharedInstance.checkMessagesAlert()
                     }
                     
                 })

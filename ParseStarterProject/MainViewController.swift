@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import ParseLiveQuery
 import Firebase
 import GoogleMobileAds
 import UserNotifications
@@ -22,7 +23,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     let flirtsCellID = "flirtsCellID"
     let favoritesCellID = "favoritesCellID"
     
-    let titles = ["Echo", "Global", "Local", "Favorites", "Flirts", "Messages"]
+    let titles = ["Global", "Local", "Favorites", "Flirts", "Echo", "Messages"]
     
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
@@ -32,7 +33,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
@@ -42,13 +43,17 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         setupMenuBar()
         setupNavBarButtons()
         
+        //Check if user is already logged in
         if PFUser.current() != nil {
-            return
+            
+            APIService.sharedInstance.validateAppleReciepts()
+            
+
         } else {
-           showLogin()
+            showLogin()
         }
+
         
-        //check for user being logged in
         
     }
     
@@ -66,8 +71,8 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.register(FavoritesCell.self, forCellWithReuseIdentifier: favoritesCellID)
         collectionView?.register(FlirtsCell.self, forCellWithReuseIdentifier: flirtsCellID)
         collectionView?.register(MessagesCell.self, forCellWithReuseIdentifier: messagesCellID)
-        collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(100, 0, 0, 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(100, 0, 0, 0)
         collectionView?.isPagingEnabled = true
     }
     
@@ -100,7 +105,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     @objc private func handleSearch() {
-        scrollToMenuIndex(menuIndex: 2)
+        showLogin()
     }
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let index = targetContentOffset.pointee.x / view.frame.width
@@ -116,6 +121,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
         setTitleForIndex(index: Int(menuIndex))
+         
     }
     
     @objc private func handleShop() {
@@ -172,34 +178,33 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-//        if indexPath.item == 0 {
-//            return collectionView.dequeueReusableCell(withReuseIdentifier: echoCellID, for: indexPath)
-//        }
         
-        if indexPath.item == 1 {
+        
+        if indexPath.item == 0 {
             return collectionView.dequeueReusableCell(withReuseIdentifier: globalCellID, for: indexPath)
         }
         
-//        if indexPath.item == 2 {
-//            return collectionView.dequeueReusableCell(withReuseIdentifier: localCellID, for: indexPath)
-//        }
-//
-//        if indexPath.item == 3 {
-//            return collectionView.dequeueReusableCell(withReuseIdentifier: favoritesCellID, for: indexPath)
-//        }
-//
-//        if indexPath.item == 4 {
-//            return collectionView.dequeueReusableCell(withReuseIdentifier: flirtsCellID, for: indexPath)
-//        }
-//
-//        if indexPath.item == 5 {
-//            return collectionView.dequeueReusableCell(withReuseIdentifier: messagesCellID, for: indexPath)
-//        }
+        if indexPath.item == 1 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: localCellID, for: indexPath)
+        }
+
+        if indexPath.item == 2 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: favoritesCellID, for: indexPath)
+        }
+
+        if indexPath.item == 3 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: flirtsCellID, for: indexPath)
+        }
+        if indexPath.item == 4 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: echoCellID, for: indexPath)
+        }
+
+        if indexPath.item == 5 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: messagesCellID, for: indexPath)
+        }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: echoCellID, for: indexPath)
         
-//        let colors: [UIColor] = [Constants.Colors.NOIR_WHITE, Constants.Colors.NOIR_GREY_MEDIUM, Constants.Colors.NOIR_WHITE, Constants.Colors.NOIR_GREY_MEDIUM, Constants.Colors.NOIR_WHITE, Constants.Colors.NOIR_GREY_MEDIUM]
-//        cell.backgroundColor = colors[indexPath.item]
         
         return cell
     }
@@ -209,57 +214,6 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
     
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        coordinator.animate(alongsideTransition: { (_) in
-            self.collectionViewLayout.invalidateLayout()
-            
-            if self.pageControl.currentPage == 0 {
-                self.collectionView?.contentOffset = .zero
-            } else {
-                let indexPath = IndexPath(item: self.pageControl.currentPage, section: 0)
-                self.collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            }
-            
-            
-        }) { (_) in
-            
-        }
-        
-    }
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 4
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MemberCell
-//
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let height = (view.frame.width - 16 - 16) * 9 / 16
-//
-//        return CGSize(width: view.frame.width, height: height + 16 + 88)
-//        //        return CGSize(width: view.frame.width, height: 0)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-    
-    lazy var pageControl: UIPageControl = {
-        let pControl = UIPageControl()
-        pControl.currentPage = 0
-        pControl.numberOfPages = 6
-        pControl.currentPageIndicatorTintColor = .red
-        pControl.pageIndicatorTintColor = .gray
-        
-        return pControl
-    }()
     
     override func didReceiveMemoryWarning() {
         

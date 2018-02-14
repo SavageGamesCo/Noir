@@ -11,6 +11,8 @@ import UIKit
 
 import Parse
 
+import ParseLiveQuery
+
 import Firebase
 
 import GoogleMobileAds

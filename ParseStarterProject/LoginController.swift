@@ -142,10 +142,10 @@ class LoginController: UIViewController {
     lazy var loginRegisterControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Login", "Register"])
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.tintColor = Constants.Colors.NOIR_WHITE
+        segmentedControl.tintColor = Constants.Colors.NOIR_GREY_DARK
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.layer.cornerRadius = 15
-        segmentedControl.layer.masksToBounds = true
+//        segmentedControl.layer.masksToBounds = true
         segmentedControl.addTarget(self, action: #selector(handleLoginToggle), for: .valueChanged)
         
         return segmentedControl

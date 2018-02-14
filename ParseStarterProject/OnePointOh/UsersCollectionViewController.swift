@@ -36,6 +36,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var userID = [String]()
     var online = [String]()
     var blocked = [String]()
+    var images = [UIImage]()
     
     
     
@@ -44,8 +45,6 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
     var activityIndicater = UIActivityIndicatorView()
     
     var userIdent = String()
-    
-    var images = [UIImage]()
     
     var showUser = "AUser"
     
@@ -499,6 +498,7 @@ class UsersCollectionViewController: UICollectionViewController, UIToolbarDelega
             if let latitude = (PFUser.current()?["location"] as AnyObject).latitude {
                 if let longitude = (PFUser.current()?["location"] as AnyObject).longitude {
                     
+                    var withinDistance = Int()
                     
                     if PFUser.current()?["membership"] as? String == "basic" {
                         query?.limit = PFUser.current()?["localLimit"] as! Int

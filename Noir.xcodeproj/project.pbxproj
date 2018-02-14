@@ -43,6 +43,8 @@
 		B74BAC9320328FDB00CFC11F /* FlirtsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BAC9220328FDB00CFC11F /* FlirtsCell.swift */; };
 		B74BAC952032902800CFC11F /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BAC942032902800CFC11F /* MessagesCell.swift */; };
 		B74BAC97203290A700CFC11F /* EchoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BAC96203290A700CFC11F /* EchoCell.swift */; };
+		B74BAC9A203367FD00CFC11F /* APIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BAC99203367FD00CFC11F /* APIServices.swift */; };
+		B74BAC9D2033B3C800CFC11F /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BAC9C2033B3C800CFC11F /* Member.swift */; };
 		B774D8341EC8299C000CC615 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B774D8331EC8299C000CC615 /* Constants.swift */; };
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
 		B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A672E1ED5ED45001DF856 /* ShopViewController.swift */; };
@@ -169,6 +171,8 @@
 		B74BAC9220328FDB00CFC11F /* FlirtsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlirtsCell.swift; sourceTree = "<group>"; };
 		B74BAC942032902800CFC11F /* MessagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
 		B74BAC96203290A700CFC11F /* EchoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoCell.swift; sourceTree = "<group>"; };
+		B74BAC99203367FD00CFC11F /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
+		B74BAC9C2033B3C800CFC11F /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		B774D8331EC8299C000CC615 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B778BBDD1EBCD409002EE330 /* Noir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Noir.entitlements; sourceTree = "<group>"; };
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -373,6 +377,8 @@
 		B72F13451F05D31B008EABCE /* TwoPointOh */ = {
 			isa = PBXGroup;
 			children = (
+				B74BAC9B2033B3B600CFC11F /* Model */,
+				B74BAC98203367D000CFC11F /* Helpers */,
 				B74789AC202F65B800C61A65 /* TextJSONData */,
 				B74789A9202F362900C61A65 /* View */,
 				B74789A0202E34E700C61A65 /* Extensions */,
@@ -419,7 +425,6 @@
 			isa = PBXGroup;
 			children = (
 				B74789A5202E64C900C61A65 /* NoirConstants.swift */,
-				B74789A1202E34FA00C61A65 /* Helpers.swift */,
 				B74789A7202F340F00C61A65 /* LoginExtensions.swift */,
 			);
 			name = Extensions;
@@ -454,6 +459,23 @@
 				B7B5B8691F07042D00F126AD /* echo_warning.txt */,
 			);
 			name = TextJSONData;
+			sourceTree = "<group>";
+		};
+		B74BAC98203367D000CFC11F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B74789A1202E34FA00C61A65 /* Helpers.swift */,
+				B74BAC99203367FD00CFC11F /* APIServices.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		B74BAC9B2033B3B600CFC11F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B74BAC9C2033B3C800CFC11F /* Member.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		B7D9CE281EBB83E2007236A7 /* AppIcon2.appiconset */ = {
@@ -774,9 +796,11 @@
 				B7EDF1D51EBA33D6003D013B /* MessagesHandler.swift in Sources */,
 				B774D8341EC8299C000CC615 /* Constants.swift in Sources */,
 				B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */,
+				B74BAC9A203367FD00CFC11F /* APIServices.swift in Sources */,
 				B74789B0202F714900C61A65 /* BaseCell.swift in Sources */,
 				B72F13471F05D347008EABCE /* EchoSonarViewController.swift in Sources */,
 				B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */,
+				B74BAC9D2033B3C800CFC11F /* Member.swift in Sources */,
 				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,
 				B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */,
 				B77B3E7C20321616003AEEA0 /* SettingsLauncher.swift in Sources */,

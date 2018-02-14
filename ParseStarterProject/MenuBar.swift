@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     //setup my collectionview for the navigation buttons must be lazy var to get data source and delegate as self
@@ -23,7 +24,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let cellID = "cellId"
     
     //array for icons
-    let imageNames = ["echo_icon", "global_icon", "local_dart_icon", "favorites_fire_icon","flirts_icon", "message-7"]
+    let imageNames = ["global_icon", "local_dart_icon", "favorites_fire_icon","flirts_icon", "echo_icon", "message-7"]
     
     var mainViewController: MainViewController?
     
@@ -45,8 +46,6 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
         
         setupHorizontalBar()
-        
-        
     }
     
     var horizontalBarLeftanchorConstraint: NSLayoutConstraint?

@@ -20,6 +20,9 @@ struct Constants {
         static let NOIR_YELLOW = UIColor.rgb(red: 255, green: 213, blue: 43, alpha: 1)
         static let NOIR_GREEN = UIColor.rgb(red: 45, green: 150, blue: 43, alpha: 1)
         static let NOIR_ORANGE = UIColor.rgb(red: 255, green: 76, blue: 0, alpha: 1)
+        
+        static let NOIR_CG_ORANGE = CGColor(colorLiteralRed: 255/255, green: 76/255, blue: 0/255, alpha: 1)
+        
         static let NOIR_RED_DARK = UIColor.rgb(red: 68, green: 16, blue: 0, alpha: 1)
         static let NOIR_RED_MEDIUM = UIColor.rgb(red: 87, green: 9, blue: 12, alpha: 1)
         static let NOIR_RED_LIGHT = UIColor.rgb(red: 116, green: 12, blue: 16, alpha: 1)
