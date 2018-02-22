@@ -36,12 +36,21 @@ struct Constants {
         static let NOIR_BUTTON_SELECTED = UIColor.init(white: 0.9, alpha: 1)
         static let NOIR_BUTTON_NORMAL = UIColor.rgb(red: 51 , green: 48 , blue: 53, alpha: 1)
         
+        //UI
+        static let NOIR_BACKGROUND = NOIR_DARK_LINE
+        static let NOIR_BUTTON = NOIR_GREY_MEDIUM
+        static let NOIR_NAV_BAR = NOIR_GREY_MEDIUM
+        static let NOIR_STATUS_BAR = NOIR_GREY_DARK
+        static let NOIR_TINT = NOIR_GREY_DARK
+        static let NOIR_MEMBER_BORDER = NOIR_CG_ORANGE
+        
         
     }
     
     struct App {
-        static let NOIR_LOGO = "noir_nav_logo"
+        static let NOIR_LOGO = "noir_logo"
         static let NOIR_LOGO_BIG = "noir_big_logo"
+        
     }
     
     struct Text {

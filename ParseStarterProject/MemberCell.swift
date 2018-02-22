@@ -44,6 +44,8 @@ class MemberCell: BaseCell {
         return pic
     }()
     
+    
+    
     var userName: UILabel = {
         var username = UILabel()
         
@@ -72,7 +74,7 @@ class MemberCell: BaseCell {
 
         ProfilePics.translatesAutoresizingMaskIntoConstraints = false
         ProfilePics.layer.borderWidth = 5
-        ProfilePics.layer.borderColor = Constants.Colors.NOIR_CG_ORANGE
+        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER
         ProfilePics.layer.cornerRadius = self.frame.width / 2
         
         userName.translatesAutoresizingMaskIntoConstraints = false

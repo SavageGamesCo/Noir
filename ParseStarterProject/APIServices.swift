@@ -74,7 +74,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         
         //Show All Users
         query?.findObjectsInBackground(block: {(objects, error) in
-            print(objects!)
+            
             if error != nil {
                 print(error!)
             } else if let users = objects {
@@ -83,7 +83,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                 
                 
                 for object in users {
-                    print(object)
+                    
                     if let user = object as? PFUser {
                         
                         if let blockedUsers = PFUser.current()?["blocked"] {
@@ -110,10 +110,12 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     
                                 })
                                 
-                                members.append(member)
-                                
-                                completion(members)
-//                                self.memberCollectionView.reloadData()
+                                DispatchQueue.main.async {
+                                    members.append(member)
+                                    
+                                    completion(members)
+                                    self.memberCollectionView.reloadData()
+                                }
                             }
                         }
                     }
@@ -190,10 +192,12 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                             
                                         })
                                         
-                                        members.append(member)
                                         
-                                        completion(members)
-//                                        self.memberCollectionView.reloadData()
+                                        DispatchQueue.main.async {
+                                            members.append(member)
+                                            completion(members)
+                                            self.memberCollectionView.reloadData()
+                                        }
                                         
                                     }
                                     
@@ -208,13 +212,119 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         }
     }
     
-    func fetchFavorites() {
-        
+    func fetchFavorites( completion: @escaping ([Member]) -> () ) {
+        let query = PFUser.query()
+        //Show Favorites
+        query?.whereKey("app", equalTo: "noir")
+        query?.findObjectsInBackground(block: {(objects, error) in
+            
+            if error != nil {
+                print(error!)
+            } else if let users = objects {
+                
+                var members = [Member]()
+                
+                for object in users {
+                    if let user = object as? PFUser {
+                        
+                        let member = Member()
+                        
+                        if let favoriteUsers = PFUser.current()?["favorites"] {
+                            if (favoriteUsers as AnyObject).contains(user.objectId! as String!){
+                                
+                                let imageFile = user["mainPhoto"] as! PFFile
+                                
+                                imageFile.getDataInBackground(block: {(data, error) in
+                                    
+                                    let imageData = data
+                                    member.memberImage = (UIImage(data: imageData!)!)
+                                    member.memberName = user.username
+                                    
+                                    member.memberID = user.objectId
+                                    
+                                    if user["online"] as! Bool {
+                                        member.memberOnline = true
+                                    } else {
+                                        member.memberOnline = false
+                                    }
+                                    
+                                })
+                                
+                                
+                                DispatchQueue.main.async {
+                                    members.append(member)
+                                    
+                                    completion(members)
+                                    self.memberCollectionView.reloadData()
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+        })
     }
     
-    func fetchFlirts() {
-        
+    func fetchFlirts( completion: @escaping ([Member]) -> () ) {
+        let query = PFUser.query()
+        //Show Favorites
+        query?.whereKey("app", equalTo: "noir")
+//        query?.order(byDescending: "updatedAt")
+        query?.findObjectsInBackground(block: {(objects, error) in
+            
+            if error != nil {
+                print(error!)
+            } else if let users = objects {
+                
+                var members = [Member]()
+                
+                for object in users {
+                    if let user = object as? PFUser {
+                        
+                        let member = Member()
+                        
+                        if let favoriteUsers = PFUser.current()?["flirt"] {
+                            if (favoriteUsers as AnyObject).contains(user.objectId! as String!){
+                                
+                                let imageFile = user["mainPhoto"] as! PFFile
+                                
+                                imageFile.getDataInBackground(block: {(data, error) in
+                                    
+                                    let imageData = data
+                                    member.memberImage = (UIImage(data: imageData!)!)
+                                    member.memberName = user.username
+                                    
+                                    member.memberID = user.objectId
+                                    
+                                    if user["online"] as! Bool {
+                                        member.memberOnline = true
+                                    } else {
+                                        member.memberOnline = false
+                                    }
+                                    
+                                })
+                                
+                                
+                                DispatchQueue.main.async {
+                                    members.append(member)
+                                    members.reverse()
+                                    completion(members)
+                                    self.memberCollectionView.reloadData()
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+        })
     }
+
     
     func fetchUserDetail() {
         

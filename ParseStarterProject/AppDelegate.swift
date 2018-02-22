@@ -51,14 +51,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         //a layout for the collection view must be specified
-        let layout = UICollectionViewFlowLayout()
+//        let layout = UICollectionViewFlowLayout()
         
         
         //create the controller object to be the initial view
-        let mainViewController = MainViewController(collectionViewLayout: layout)
+        let loginViewController = LoginController()
+//        let launcher = Launcher()
+//        let mainViewController = MainViewController(collectionViewLayout: layout)
         
         //add the initial view to the window, in this case as a navigation view controller beginning root view controller
-        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+        window?.rootViewController = UINavigationController(rootViewController: loginViewController)
 //        window?.rootViewController = LoginController()
         
         //changing the color of the navigation bar

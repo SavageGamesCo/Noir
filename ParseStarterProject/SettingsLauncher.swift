@@ -37,9 +37,13 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     let cellHeight: CGFloat = 50
     
     let settings: [Setting] = {
-        return [Setting(name: "Settings", imageName: "settings"), Setting(name: "Terms & privacy policy", imageName: "privacy"), Setting(name: "Send Feedback", imageName: "feedback"), Setting(name: "Help", imageName: "help"), Setting(name: "Switch Account", imageName: "switch_account"), Setting(name: "Cancel", imageName: "cancel")]
+        return [Setting(name: "Profile Settings", imageName: "gear-7"), Setting(name: "Terms & privacy policy", imageName: "file-two-7"), Setting(name: "Send Feedback", imageName: "email-7"), Setting(name: "Help Tutorial", imageName: "lifebuoy-7"), Setting(name: "Cancel", imageName: "circle-x-7")]
     }()
-    
+    lazy var mainViewController: MainViewController = {
+        let mainvc = MainViewController()
+        
+        return mainvc
+    }()
     
     func showSettings() {
         
@@ -47,16 +51,16 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             
-            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(blackViewDismiss)))
             
             window.addSubview(blackView)
             
             window.addSubview(settingCollectionView)
-            
-//            let height: CGFloat = CGFloat(settings.count) * cellHeight
-            let height = CGFloat(200)
+
+            let height: CGFloat = CGFloat(settings.count) * cellHeight
+//            let height = CGFloat(200)
             let y = window.frame.height - height
-            settingCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 200)
+            settingCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
             
             blackView.frame = window.frame
             blackView.alpha = 0
@@ -69,21 +73,28 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
                 
             }, completion: nil)
         }
-        print("finished showing blackview")
         
     }
     
-    @objc func handleDismiss(){
-        UIView.animate(withDuration: 0.5, animations: {
-            self.blackView.alpha = 1
+    func blackViewDismiss(){
+        let setting = Setting(name: "Cancel", imageName: "none")
+        handleDismiss(setting: setting)
+    }
+    
+    func handleDismiss(setting: Setting){
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.blackView.alpha = 0
             if let window = UIApplication.shared.keyWindow{
-                self.settingCollectionView.frame = CGRect(x: 0, y: window.frame.width, width: self.settingCollectionView.frame.width, height: self.settingCollectionView.frame.height)
+                self.settingCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.settingCollectionView.frame.width, height: self.settingCollectionView.frame.height)
+            }
+        }) { (completed: Bool) in
+            
+            if setting.name != "Cancel" {
+                self.mainViewController.showControllerForSettings(setting: setting)
             }
             
             
-        })
-        self.blackView.removeFromSuperview()
-        self.settingCollectionView.removeFromSuperview()
+        }
     }
     
     
@@ -107,6 +118,15 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let setting = self.settings[indexPath.item]
+        handleDismiss(setting: setting)
+        
+    }
+    
+    
     
     override init() {
         super.init()

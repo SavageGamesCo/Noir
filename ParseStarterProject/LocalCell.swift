@@ -11,7 +11,6 @@ import UIKit
 class LocalCell: GlobalCell {
     
     override func fetchMembers(){
-        print("fetching members")
         APIService.sharedInstance.fetchLocalMembers() { (fetchMembers: [Member]) in
             self.members = fetchMembers
             DispatchQueue.main.async {

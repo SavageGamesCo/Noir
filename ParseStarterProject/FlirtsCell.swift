@@ -8,13 +8,13 @@
 
 import UIKit
 
-class FlirtsCell: FavoritesCell {
-    override lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = Constants.Colors.NOIR_GREY_DARK
-        cv.dataSource = self
-        cv.delegate = self
-        return cv
-    }()
+class FlirtsCell: GlobalCell {
+    override func fetchMembers(){
+        APIService.sharedInstance.fetchFlirts() { (fetchMembers: [Member]) in
+            self.members = fetchMembers
+            DispatchQueue.main.async {
+                self.memberCollectionView.reloadData()
+            }
+        }
+    }
 }

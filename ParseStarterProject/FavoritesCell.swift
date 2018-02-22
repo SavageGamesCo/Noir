@@ -9,46 +9,16 @@
 import UIKit
 
 class FavoritesCell: GlobalCell {
-    
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
-        cv.dataSource = self
-        cv.delegate = self
-        return cv
-    }()
-    
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        backgroundColor = .brown
-        
-        addSubview(collectionView)
-        addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        
-        collectionView.register(MemberCell.self, forCellWithReuseIdentifier: cellID)
-        
-    }
-    
+
     override func fetchMembers(){
-        
+        APIService.sharedInstance.fetchFavorites() { (fetchMembers: [Member]) in
+            self.members = fetchMembers
+            DispatchQueue.main.async {
+                self.memberCollectionView.reloadData()
+            }
+        }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return number of members
-        
-        return 3
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
-        
-        return cell
-    }
     
     
 }

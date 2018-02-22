@@ -15,6 +15,11 @@ target 'Noir' do
     pod 'ParseLiveQuery', '~> 2.2.1'
     pod 'SwiftyStoreKit', '~> 0.10.4'
     pod 'Sonar'
+    
+    #New pods for 2.0
+    #pod 'CircleMenu'
+    pod 'Swift-CircleMenu', :git => 'https://github.com/Sufi-Al-Hussaini/Swift-CircleMenu.git'
+    
     # pod 'Starscream', '~> 3.0.2'
 
 end

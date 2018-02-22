@@ -134,7 +134,7 @@ class LoginController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.tintColor = Constants.Colors.NOIR_GREY_DARK
+        imageView.tintColor = Constants.Colors.NOIR_TINT
         
         return imageView
     }()
@@ -142,7 +142,7 @@ class LoginController: UIViewController {
     lazy var loginRegisterControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Login", "Register"])
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.tintColor = Constants.Colors.NOIR_GREY_DARK
+        segmentedControl.tintColor = Constants.Colors.NOIR_BUTTON
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.layer.cornerRadius = 15
 //        segmentedControl.layer.masksToBounds = true
@@ -153,8 +153,8 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
+        navigationController?.isNavigationBarHidden = true
+        view.backgroundColor = Constants.Colors.NOIR_BACKGROUND
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(recoverPasswordButton)
@@ -168,6 +168,14 @@ class LoginController: UIViewController {
         setupLoginRegisterButton()
         setupRecoverPasswordButton()
         setupCopyright()
+        
+        if PFUser.current() != nil {
+            let layout = UICollectionViewFlowLayout()
+            let mainViewController = MainViewController(collectionViewLayout: layout)
+            
+            navigationController?.pushViewController(mainViewController, animated: true)
+//            navigationController?.popViewController(animated: true)
+        }
     
     }
     

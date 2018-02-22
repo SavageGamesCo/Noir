@@ -37,7 +37,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     lazy var memberCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
+        cv.backgroundColor = Constants.Colors.NOIR_BACKGROUND
         cv.dataSource = self
         cv.delegate = self
         return cv
@@ -47,23 +47,21 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     
     override func setupViews() {
         
-        
-        
-        backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
+        backgroundColor = Constants.Colors.NOIR_BACKGROUND
         
         addSubview(memberCollectionView)
         
-        addConstraintsWithFormat(format: "H:|-8-[v0]-8-|", views: memberCollectionView)
-        addConstraintsWithFormat(format: "V:|-8-[v0]-8-|", views: memberCollectionView)
-        
+        addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: memberCollectionView)
+        addConstraintsWithFormat(format: "V:|[v0]-50-|", views: memberCollectionView)
         memberCollectionView.register(MemberCell.self, forCellWithReuseIdentifier: cellID)
         let layout = UICollectionViewFlowLayout()
         let width = self.frame.width / 5
         let height = self.frame.width / 5 + 28
         layout.itemSize = CGSize(width: width, height: height)
         layout.minimumLineSpacing = 20
+        layout.sectionInset.top = 15
         memberCollectionView.setCollectionViewLayout(layout, animated: true)
-        geoPoint()
+    
         fetchMembers()
         
 
@@ -71,12 +69,15 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-
+        
+        DispatchQueue.main.async {
+            self.memberCollectionView.reloadData()
+        }
         
     }
     
     func fetchMembers(){
-        print("fetching members")
+        
         APIService.sharedInstance.fetchGlobalMembers() { (fetchMembers: [Member]) in
             self.members = fetchMembers
             
@@ -88,54 +89,12 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         }
     }
     
-//    func checkMessagesAlert(){
-//        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-//        
-//        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-//            // This is where we handle the event
-//            
-//            DispatchQueue.main.async {
-//                
-//                let cell = self.memberCollectionView.cellForItem(at: IndexPath(item: 5, section: 0))
-//                
-//                cell?.tintColor = Constants.Colors.NOIR_GREEN
-//                
-//                // import this
-//                
-//                
-//                // create a sound ID, in this case its the tweet sound.
-//                let systemSoundID: SystemSoundID = 1322
-//                
-//                // to play sound
-//                AudioServicesPlaySystemSound (systemSoundID)
-//                
-//                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-//                
-//                //                print("Got new message")
-//                
-//            }
-//            
-//        }
-//        print("messages checked")
-//    }
-    
-//    func refreshing(){
-//
-//        self.memberCollectionView?.reloadData()
-//
-//    }
-    
-    func geoPoint(){
-        
-        PFGeoPoint.geoPointForCurrentLocation(inBackground: {(geopoint, error) in
-            
-            if let geopoint = geopoint {
-                PFUser.current()?["location"] = geopoint
-                PFUser.current()?.saveInBackground()
-                print(geopoint)
-            }
-        })
+    func refreshing(){
+
+        self.memberCollectionView.reloadData()
+
     }
+    
     
     //AdMob ads
 //    func showAd() {
@@ -186,6 +145,8 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
 //
 //    }
     
+    
+    
     func clearBadges() {
         
         let installation = PFInstallation.current()
@@ -214,6 +175,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         
         
         cell.member = members?[indexPath.item]
+        
         
       return cell
     }

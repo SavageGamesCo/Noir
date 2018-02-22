@@ -75,13 +75,14 @@ extension LoginController {
                             
                             PFUser.current()?["installation"] = installation
                             PFUser.current()?.saveInBackground()
-                            self.dismiss(animated: true, completion: nil)
                             
-                            //                            self.performSegue(withIdentifier: "toUserTable", sender: self)
+                            let layout = UICollectionViewFlowLayout()
+                            let mainViewController = MainViewController(collectionViewLayout: layout)
+                            
+                            self.navigationController?.pushViewController(mainViewController, animated: true)
                             
                             if let user = PFUser.current()?.email {
-//                                APIService.sharedInstance.checkMessagesAlert()
-                                print("logged in with \(user)")
+
                             }
                             
                         } else {
@@ -105,6 +106,7 @@ extension LoginController {
                     print(error!)
                 } else {
                     PFUser.logOut()
+                    self.dismiss(animated: true, completion: nil)
                     
 //                    self.performSegue(withIdentifier: "toLogin", sender: self)
                 }
@@ -199,7 +201,12 @@ extension LoginController {
                         
                         PFUser.current()?["installation"] = installation
                         PFUser.current()?.saveInBackground()
-                        self.dismiss(animated: true, completion: nil)
+                        
+                        let layout = UICollectionViewFlowLayout()
+                        let mainViewController = MainViewController(collectionViewLayout: layout)
+//                        self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.pushViewController(mainViewController, animated: true)
+                        
 //                        APIService.sharedInstance.checkMessagesAlert()
                     }
                     

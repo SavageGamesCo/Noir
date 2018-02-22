@@ -36,6 +36,7 @@ PODS:
   - Sonar (3.0.0)
   - Spring (1.0.3)
   - Starscream (2.1.1)
+  - Swift-CircleMenu (1.0.0)
   - SwiftyStoreKit (0.10.8)
 
 DEPENDENCIES:
@@ -46,17 +47,23 @@ DEPENDENCIES:
   - ParseLiveQuery (~> 2.2.1)
   - Sonar
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
+  - Swift-CircleMenu (from `https://github.com/Sufi-Al-Hussaini/Swift-CircleMenu.git`)
   - SwiftyStoreKit (~> 0.10.4)
 
 EXTERNAL SOURCES:
   Spring:
     :branch: swift3
     :git: https://github.com/MengTo/Spring.git
+  Swift-CircleMenu:
+    :git: https://github.com/Sufi-Al-Hussaini/Swift-CircleMenu.git
 
 CHECKOUT OPTIONS:
   Spring:
     :commit: 8201b5c93bd7ebdf4cd18160bcde1e6e88c2be64
     :git: https://github.com/MengTo/Spring.git
+  Swift-CircleMenu:
+    :commit: b7e166e62f13f4232a8b3ba66b0088131acebcda
+    :git: https://github.com/Sufi-Al-Hussaini/Swift-CircleMenu.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -75,8 +82,9 @@ SPEC CHECKSUMS:
   Sonar: 72afea99952a2a681d0a843ee6679b4eaf217ad5
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
+  Swift-CircleMenu: b1ddcd42faa37195ee1f8fccee9abe32eefcd6f1
   SwiftyStoreKit: 8c193678fabbaafb4430a536497613f89fefd7ec
 
-PODFILE CHECKSUM: 2bd7ed8632a23445ad46b381e8822fb0832ece06
+PODFILE CHECKSUM: a81e3f26e3b16458d8cda6db49b416bbe6a5eb3e
 
 COCOAPODS: 1.4.0

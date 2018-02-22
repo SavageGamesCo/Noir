@@ -15,7 +15,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = Constants.Colors.NOIR_GREY_MEDIUM
+        cv.backgroundColor = Constants.Colors.NOIR_NAV_BAR
         cv.dataSource = self
         cv.delegate = self
         return cv
@@ -24,7 +24,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let cellID = "cellId"
     
     //array for icons
-    let imageNames = ["global_icon", "local_dart_icon", "favorites_fire_icon","flirts_icon", "echo_icon", "message-7"]
+    let imageNames = ["global_icon", "local_dart_icon", "favorites_fire_icon","flirts_icon", "message-7"]
     
     var mainViewController: MainViewController?
     
@@ -104,19 +104,19 @@ class MenuCell: BaseCell {
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "home-7")?.withRenderingMode(.alwaysTemplate)
-        iv.tintColor = Constants.Colors.NOIR_GREY_DARK
+        iv.tintColor = Constants.Colors.NOIR_TINT
         return iv
     }()
     
     override var isHighlighted: Bool {
         didSet {
-            imageView.tintColor = isHighlighted ? UIColor.white : Constants.Colors.NOIR_GREY_DARK
+            imageView.tintColor = isHighlighted ? UIColor.white : Constants.Colors.NOIR_TINT
         }
     }
     
     override var isSelected: Bool {
         didSet {
-            imageView.tintColor = isSelected ? UIColor.white : Constants.Colors.NOIR_GREY_DARK
+            imageView.tintColor = isSelected ? UIColor.white : Constants.Colors.NOIR_TINT
         }
     }
     
