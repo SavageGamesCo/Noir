@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MemberCell: BaseCell {
     
     var member: Member? {
@@ -54,6 +55,7 @@ class MemberCell: BaseCell {
         username.font = UIFont.systemFont(ofSize: 12)
         username.numberOfLines = 2
         username.heightAnchor.constraint(equalToConstant: 24)
+        username.textColor = Constants.Colors.NOIR_MEMBER_TEXT
         return username
     }()
     
@@ -73,9 +75,10 @@ class MemberCell: BaseCell {
         addSubview(userName)
 
         ProfilePics.translatesAutoresizingMaskIntoConstraints = false
-        ProfilePics.layer.borderWidth = 5
-        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER
+        ProfilePics.layer.borderWidth = 3
+        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
         ProfilePics.layer.cornerRadius = self.frame.width / 2
+        
         
         userName.translatesAutoresizingMaskIntoConstraints = false
         
@@ -88,4 +91,6 @@ class MemberCell: BaseCell {
         
         
     }
+    
+    
 }

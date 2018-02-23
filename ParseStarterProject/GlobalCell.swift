@@ -176,7 +176,6 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         
         cell.member = members?[indexPath.item]
         
-        
       return cell
     }
     
@@ -185,7 +184,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         
         let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! MemberCell
         
-//        displayedUserID = cell.userID!
+        displayedUserID = cell.userID!
         
 //        performSegue(withIdentifier: "toUserDetails", sender: self)
         

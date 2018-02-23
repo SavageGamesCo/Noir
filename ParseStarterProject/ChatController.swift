@@ -8,9 +8,18 @@
 
 import UIKit
 
-class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
     
     let cellID = "cellID"
+    
+    lazy var inputTextField: UITextField = {
+        let inputField = UITextField()
+        inputField.placeholder = "Enter message..."
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.delegate = self
+        
+        return inputField
+    }()
     var sender: Sender? {
         didSet{
             
@@ -41,6 +50,74 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = .init(top: 35, left: 0, bottom: 0, right: 0)
         collectionView?.setCollectionViewLayout(layout, animated: true)
+        
+        
+        setupInput()
+        
+        observeMessages()
+    }
+    
+    func observeMessages() {
+        //subscribe to messages of event type
+        let message = Message()
+        
+        
+    }
+    
+    func setupInput(){
+        
+        let containerView = UIView()
+        containerView.backgroundColor = Constants.Colors.NOIR_WHITE
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(containerView)
+        
+        containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        let sendButton = UIButton(type: .system)
+        sendButton.setTitle("Send", for: .normal)
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(sendButton)
+        
+        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        
+       
+        containerView.addSubview(inputTextField)
+        inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        
+        let line = UIView()
+        line.backgroundColor = Constants.Colors.NOIR_RECENT_MESSAGES_DIVIDER
+        line.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(line)
+        
+        line.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        line.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        line.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
+        line.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+    }
+    
+    @objc func handleSend(){
+        
+        
+        print(inputTextField.text)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        handleSend()
+        return true
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

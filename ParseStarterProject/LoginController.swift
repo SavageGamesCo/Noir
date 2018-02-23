@@ -35,10 +35,10 @@ class LoginController: UIViewController {
     
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = Constants.Colors.NOIR_GREY_DARK
+        button.backgroundColor = Constants.Colors.NOIR_BUTTON
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(Constants.Colors.NOIR_WHITE, for: .normal)
+        button.setTitleColor(Constants.Colors.NOIR_BUTTON_TEXT, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
@@ -48,10 +48,10 @@ class LoginController: UIViewController {
     
     let recoverPasswordButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = Constants.Colors.NOIR_GREY_DARK
+        button.backgroundColor = Constants.Colors.NOIR_BUTTON
         button.setTitle("Recover Password", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(Constants.Colors.NOIR_WHITE, for: .normal)
+        button.setTitleColor(Constants.Colors.NOIR_BUTTON_TEXT, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
@@ -134,7 +134,7 @@ class LoginController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.tintColor = Constants.Colors.NOIR_TINT
+        imageView.tintColor = Constants.Colors.NOIR_LOGO_TINT
         
         return imageView
     }()
@@ -154,7 +154,7 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
-        view.backgroundColor = Constants.Colors.NOIR_BACKGROUND
+        view.backgroundColor = Constants.Colors.NOIR_LOGIN_BACKGROUND
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(recoverPasswordButton)
@@ -174,14 +174,13 @@ class LoginController: UIViewController {
             let mainViewController = MainViewController(collectionViewLayout: layout)
             
             navigationController?.pushViewController(mainViewController, animated: true)
-//            navigationController?.popViewController(animated: true)
         }
     
     }
     
     
     @objc func handleLoginRegister(){
-        //TODO transfer current registration code from 1.0 to here
+
         if loginRegisterControl.selectedSegmentIndex == 0 {
             handleLogin()
         } else {

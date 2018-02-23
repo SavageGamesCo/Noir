@@ -24,7 +24,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let cellID = "cellId"
     
     //array for icons
-    let imageNames = ["global_icon", "local_dart_icon", "favorites_fire_icon","flirts_icon", "message-7"]
+    let imageNames = ["earth-america-7", "local_dart_icon", "favorites_fire_icon","flirts_icon", "message-7"]
     
     var mainViewController: MainViewController?
     
@@ -43,7 +43,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
         //set the initial selected menu ite,
         let selectedIndexPath = IndexPath(item: 0, section: 0)
-        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+        collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: [])
         
         setupHorizontalBar()
     }
@@ -54,7 +54,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
         let horizontalBarView = UIView()
         
-        horizontalBarView.backgroundColor = Constants.Colors.NOIR_WHITE
+        horizontalBarView.backgroundColor = Constants.Colors.NOIR_HIGHLIGHT
         
         addSubview(horizontalBarView)
         
@@ -80,7 +80,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MenuCell
         
         cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
-        cell.tintColor = Constants.Colors.NOIR_GREY_LIGHT
+        cell.tintColor = Constants.Colors.NOIR_HIGHLIGHT
         //        cell.backgroundColor = UIColor.blue
         
         return cell
@@ -104,19 +104,19 @@ class MenuCell: BaseCell {
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "home-7")?.withRenderingMode(.alwaysTemplate)
-        iv.tintColor = Constants.Colors.NOIR_TINT
+        iv.tintColor = Constants.Colors.NOIR_MENU_TINT
         return iv
     }()
     
     override var isHighlighted: Bool {
         didSet {
-            imageView.tintColor = isHighlighted ? UIColor.white : Constants.Colors.NOIR_TINT
+            imageView.tintColor = isHighlighted ? Constants.Colors.NOIR_HIGHLIGHT : Constants.Colors.NOIR_MENU_TINT
         }
     }
     
     override var isSelected: Bool {
         didSet {
-            imageView.tintColor = isSelected ? UIColor.white : Constants.Colors.NOIR_TINT
+            imageView.tintColor = isSelected ? Constants.Colors.NOIR_HIGHLIGHT : Constants.Colors.NOIR_MENU_TINT
         }
     }
     

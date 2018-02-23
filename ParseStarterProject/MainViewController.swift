@@ -41,7 +41,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         navigationController?.isNavigationBarHidden = false
         navigationItem.hidesBackButton = true
         
-        view.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
+        view.backgroundColor = Constants.Colors.NOIR_BACKGROUND
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         setupCollectionView()
@@ -63,7 +63,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
             flowLayout.minimumLineSpacing = 0
             
         }
-        collectionView?.backgroundColor = Constants.Colors.NOIR_GREY_LIGHT
+        collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
         collectionView?.register(GlobalCell.self, forCellWithReuseIdentifier: globalCellID)
         collectionView?.register(LocalCell.self, forCellWithReuseIdentifier: localCellID)
 //        collectionView?.register(EchoCell.self, forCellWithReuseIdentifier: echoCellID)
@@ -83,7 +83,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height ))
         titleLabel.text = title
-        titleLabel.textColor = UIColor.white
+        titleLabel.textColor = Constants.Colors.NOIR_NAV_BAR_TEXT
 
         navigationItem.titleView = titleLabel
     }
@@ -95,11 +95,11 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         let shopIcon = UIImage(named: "shopping-cart-7")?.withRenderingMode(.alwaysTemplate)
         
         let searchBarButtonItem = UIBarButtonItem(image: searchIcon, style: .plain, target: self, action: #selector(handleSearch))
-        searchBarButtonItem.tintColor = UIColor.white
+        searchBarButtonItem.tintColor = Constants.Colors.NOIR_TINT
         let moreBarButtonItem = UIBarButtonItem(image: moreIcon, style: .plain, target: self, action: #selector(handleMore))
-        moreBarButtonItem.tintColor = UIColor.white
+        moreBarButtonItem.tintColor = Constants.Colors.NOIR_TINT
         let shopBarButtonItem = UIBarButtonItem(image: shopIcon, style: .plain, target: self, action: #selector(handleShop))
-        shopBarButtonItem.tintColor = UIColor.white
+        shopBarButtonItem.tintColor = Constants.Colors.NOIR_TINT
         navigationItem.rightBarButtonItems = [moreBarButtonItem, shopBarButtonItem, searchBarButtonItem]
         navigationItem.leftBarButtonItems = []
     }
@@ -190,8 +190,8 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         let profileSettingsViewController = UIViewController()
         profileSettingsViewController.title = setting.name
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
+        navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
         
         
         navigationController?.pushViewController(profileSettingsViewController, animated: true)
@@ -202,7 +202,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     private func setupMenuBar(){
         
         let hiderView = UIView()
-        hiderView.backgroundColor = Constants.Colors.NOIR_GREY_MEDIUM
+        hiderView.backgroundColor = Constants.Colors.NOIR_BACKGROUND
         view.addSubview(hiderView)
         view.addSubview(menuBar)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)

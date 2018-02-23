@@ -20,8 +20,9 @@ class Sender: NSObject {
 class Message: NSObject {
     
     var text: String?
-    var date: NSDate?
-    
+    var date: String?
+    var toID: String?
+    var fromID: String?
     var sender: Sender?
     
 }
