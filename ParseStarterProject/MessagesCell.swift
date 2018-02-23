@@ -83,12 +83,13 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                         
                                                     } else {
                                                         
+                                                        let NewMessage = Message()
+                                                        let NewSender = Sender()
                                                         
                                                         let imageFile = user["mainPhoto"] as! PFFile
                                                         imageFile.getDataInBackground(block: { (data, error) in
                                                             if let imageData = data {
-                                                                let NewMessage = Message()
-                                                                let NewSender = Sender()
+                                                                
                                                                 let profileImage = UIImage(data: imageData)
                                                                 
                                                                 
@@ -99,15 +100,17 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                                 NewMessage.text = message["text"] as? String
                                                                 NewMessage.toID = message["toUser"] as? String
                                                                 NewMessage.fromID = message["senderID"] as? String
-                                                                NewMessage.date = message["createdAt"] as? String
+                                                                NewMessage.date = message.createdAt
                                                                 
 //                                                                self.newMessages.append(NewMessage)
                                                                 
-                                                                self.messages.append(NewMessage)
-                                                                messageID.append(userIDUnwrapped)
+                                                                
                                                                 
                                                             }
                                                         })
+                                                        self.messages.append(NewMessage)
+                                                        
+                                                        messageID.append(userIDUnwrapped)
                                                         self.collectionView.reloadData()
                                                     }
                                                     
@@ -130,7 +133,7 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
         
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
+        addConstraintsWithFormat(format: "V:|[v0]-50-|", views: collectionView)
         
         collectionView.alwaysBounceVertical = true
         
@@ -141,7 +144,6 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     override func setupViews() {
         super.setupViews()
         setupData()
-        print(messages)
         
         
     }
@@ -153,8 +155,6 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //return number of members
         
-        print(messages.count)
-        
         return messages.count
     }
     
@@ -163,8 +163,8 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RecentMessagesCell
         
         if let message = messages[indexPath.item] {
-            print(message)
             cell.message = message
+            
         }
         
         return cell
@@ -181,8 +181,6 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let layout = UICollectionViewFlowLayout()
-        
-        print(messages[indexPath.item]?.sender)
         
         let controller = ChatController(collectionViewLayout: layout)
         controller.sender = messages[indexPath.item]?.sender

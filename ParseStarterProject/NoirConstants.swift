@@ -25,6 +25,8 @@ struct Constants {
         static let NOIR_PURPLE_MEDIUM = UIColor.rgb(red: 112, green: 14, blue: 137, alpha: 1)
         static let NOIR_PURPLE_DARK = UIColor.rgb(red: 64, green: 0, blue: 80, alpha: 1)
         
+        static let NOIR_CG_GREEN = CGColor(colorLiteralRed: 45/255, green: 150/255, blue: 43/255, alpha: 1)
+        static let NOIR_CG_PURPLE_DARK = CGColor(colorLiteralRed: 64/255, green: 0/255, blue: 80/255, alpha: 1)
         static let NOIR_CG_ORANGE = CGColor(colorLiteralRed: 255/255, green: 76/255, blue: 0/255, alpha: 1)
         static let NOIR_CG_YELLOW = CGColor(colorLiteralRed: 242/255, green: 171/255, blue: 31/255, alpha: 1)
         
@@ -61,7 +63,8 @@ struct Constants {
         static let NOIR_BUTTON = NOIR_YELLOW
         static let NOIR_LOGO_TINT = NOIR_YELLOW
         static let NOIR_MEMBER_BORDER_ONLINE = NOIR_CG_YELLOW
-        static let NOIR_MEMBER_BORDER_OFFLINE = NOIR_CG_ORANGE
+        static let NOIR_MEMBER_BORDER_OFFLINE = NOIR_CG_PURPLE_DARK
+        static let NOIR_MEMBER_BORDER_ECHO = NOIR_CG_GREEN
         static let NOIR_CHAT_BUBBLE_SENT = NOIR_YELLOW
         static let NOIR_CHAT_BUBBLE_RECIEVED = NOIR_YELLOW
         static let NOIR_RECENT_MESSAGES_DIVIDER = NOIR_YELLOW

@@ -15,4 +15,5 @@ class Member: NSObject {
     var memberImage: UIImage?
     var blocked: Bool?
     var memberOnline: Bool?
+    var echo: Bool?
 }

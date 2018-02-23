@@ -68,13 +68,13 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        
-        DispatchQueue.main.async {
-            self.memberCollectionView.reloadData()
-        }
-        
-    }
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        
+//        DispatchQueue.main.async {
+//            self.memberCollectionView.reloadData()
+//        }
+//        
+//    }
     
     func fetchMembers(){
         
@@ -161,7 +161,6 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //return number of members
         
@@ -176,8 +175,32 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         
         cell.member = members?[indexPath.item]
         
+        if (cell.member?.memberOnline) != nil && (cell.member?.memberOnline)! {
+            
+            if (cell.member?.echo) != nil && (cell.member?.echo)! {
+                let color = CABasicAnimation(keyPath: "borderColor")
+                color.fromValue = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
+                color.toValue = Constants.Colors.NOIR_MEMBER_BORDER_ECHO
+                color.duration = 1
+                color.repeatCount = .infinity
+                color.isRemovedOnCompletion = false
+                
+                cell.ProfilePics.layer.borderWidth = 3
+                cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
+                cell.ProfilePics.layer.add(color, forKey: "borderColor")
+                
+            } else {
+                cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
+            }
+        } else {
+            cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_OFFLINE
+        }
+        
+        
+        
       return cell
     }
+    
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

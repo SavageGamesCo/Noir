@@ -36,6 +36,15 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         return mb
     }()
     
+    lazy var memberCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = Constants.Colors.NOIR_BACKGROUND
+        cv.dataSource = self
+        cv.delegate = self
+        return cv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
@@ -50,9 +59,9 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         setupNavBarButtons()
         geoPoint()
         APIService.sharedInstance.validateAppleReciepts()
+        
+//        memberCollectionView.reloadData()
 
-        
-        
     }
     
     func setupCollectionView(){
@@ -155,7 +164,9 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         geoPoint()
         setTitleForIndex(index: Int(index))
         DispatchQueue.main.async {
-            self.collectionView?.reloadData()
+//            self.memberCollectionView.reloadData()
+//            self.memberCollectionView.setNeedsDisplay()
+            
         }
         
     }
@@ -166,7 +177,8 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         geoPoint()
         setTitleForIndex(index: Int(menuIndex))
         DispatchQueue.main.async {
-            self.collectionView?.reloadData()
+//            self.memberCollectionView.setNeedsDisplay()
+//            self.memberCollectionView.reloadData()
         }
          
     }
@@ -216,13 +228,27 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         menuBar.horizontalBarLeftanchorConstraint?.constant = scrollView.contentOffset.x / 5
+        DispatchQueue.main.async {
+//                        self.memberCollectionView.reloadData()
+//                        self.memberCollectionView.setNeedsDisplay()
+            
+        }
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.memberCollectionView.reloadData()
+            //                                        self.memberCollectionView.setNeedsDisplay()
+            
+        }
     }
     
     private func setTitleForIndex(index: Int) {
         
         if let label = navigationItem.titleView as? UILabel {
             label.text = "\(titles[Int(index)])"
+            
             
         }
     }

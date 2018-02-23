@@ -31,6 +31,7 @@ class MemberCell: BaseCell {
             }
             
             
+            
         }
     }
     
@@ -65,6 +66,8 @@ class MemberCell: BaseCell {
     
     var online: Bool?
     
+    var echo: Bool?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -76,7 +79,7 @@ class MemberCell: BaseCell {
 
         ProfilePics.translatesAutoresizingMaskIntoConstraints = false
         ProfilePics.layer.borderWidth = 3
-        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
+//        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
         ProfilePics.layer.cornerRadius = self.frame.width / 2
         
         

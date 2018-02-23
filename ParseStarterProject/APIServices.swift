@@ -108,6 +108,12 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                         member.memberOnline = false
                                     }
                                     
+                                    if user["echo"] as! Bool {
+                                        member.echo = true
+                                    } else {
+                                        member.echo = false
+                                    }
+                                    
                                 })
                                 
                                 DispatchQueue.main.async {
@@ -157,6 +163,8 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                 
                 query?.whereKey("location", nearGeoPoint: PFGeoPoint(latitude: latitude, longitude: longitude) , withinMiles: Double(withinDistance)).whereKey("online", equalTo: true as NSNumber).whereKey("app", equalTo: "noir").order(byAscending: "location")
                 
+                query?.order(byDescending: "location")
+                
                 query?.findObjectsInBackground(block: {(objects, error) in
                     
                     if error != nil {
@@ -188,6 +196,12 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                                 member.memberOnline = true
                                             } else {
                                                 member.memberOnline = false
+                                            }
+                                            
+                                            if user["echo"] != nil && user["echo"] as! Bool {
+                                                member.echo = true
+                                            } else {
+                                                member.echo = false
                                             }
                                             
                                         })
@@ -247,6 +261,11 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     } else {
                                         member.memberOnline = false
                                     }
+                                    if user["echo"] != nil && user["echo"] as! Bool {
+                                        member.echo = true
+                                    } else {
+                                        member.echo = false
+                                    }
                                     
                                 })
                                 
@@ -272,7 +291,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         let query = PFUser.query()
         //Show Favorites
         query?.whereKey("app", equalTo: "noir")
-//        query?.order(byDescending: "updatedAt")
+        
         query?.findObjectsInBackground(block: {(objects, error) in
             
             if error != nil {
@@ -303,6 +322,11 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                         member.memberOnline = true
                                     } else {
                                         member.memberOnline = false
+                                    }
+                                    if user["echo"] != nil && user["echo"] as! Bool {
+                                        member.echo = true
+                                    } else {
+                                        member.echo = false
                                     }
                                     
                                 })
