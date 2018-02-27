@@ -16,4 +16,14 @@ class Member: NSObject {
     var blocked: Bool?
     var memberOnline: Bool?
     var echo: Bool?
+    var gender: String?
+    var about: String?
+    var height: String?
+    var weight: String?
+    var age: String?
+    var race: String?
+    var status: String?
+    var location: String?
+    var body: String?
+    var maritalStatus: String?
 }

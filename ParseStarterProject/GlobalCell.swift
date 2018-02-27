@@ -199,7 +199,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         buttons.append(favoriteButton)
         
         
-        let senderCenter = CGPoint(x: memberCollectionView.center.x, y: memberCollectionView.center.y + (self.frame.height / 10))
+        let senderCenter = CGPoint(x: memberCollectionView.center.x, y: memberCollectionView.center.y + (self.frame.height / 15))
         
         ALRadialMenu().setButtons(buttons: buttons).setRadius(radius: Double(memberCollectionView.frame.width / 3)).setAnimationOrigin(animationOrigin: senderCenter).setOverlayBackgroundColor(backgroundColor: Constants.Colors.NOIR_BLACK.withAlphaComponent(0.7)).presentInView(view: memberCollectionView)
         

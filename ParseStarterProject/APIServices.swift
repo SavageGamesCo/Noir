@@ -14,6 +14,7 @@ import GoogleMobileAds
 import StoreKit
 import SwiftyStoreKit
 import AVFoundation
+import MapKit
 
 class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -56,6 +57,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     
     //Parse Database Functions
     func fetchGlobalMembers( completion: @escaping ([Member]) -> () ) {
+        var currentLocation = String()
         
         let query = PFUser.query()
         
@@ -102,6 +104,103 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     
                                     member.memberID = user.objectId
                                     
+                                    if let aboutText = user["about"] as? String {
+                                        member.about = aboutText
+                                    } else {
+                                        member.about = "Unanswered"
+                                    }
+                                    
+                                    if let ageText = user["age"] as? String {
+                                        member.age = ageText
+                                    } else {
+                                        member.age = "Unanswered"
+                                    }
+                                    
+                                    if let genderText = user["gender"] as? String {
+                                        member.gender = genderText
+                                    } else {
+                                        member.gender = "Unanswered"
+                                    }
+                                    
+                                    if let bodyText = user["body"] as? String {
+                                        member.body = bodyText
+                                    } else {
+                                        member.body = "Unanswered"
+                                    }
+                                    
+                                    if let heightText = user["height"] as? String {
+                                        member.height = heightText
+                                    } else {
+                                        member.height = "Unanswered"
+                                    }
+                                    
+                                    if let weightText = user["weight"] as? String {
+                                        member.weight = weightText
+                                    } else {
+                                        member.weight = "Unanswered"
+                                    }
+                                    
+                                    if let maritalStatusText = user["marital"] as? String {
+                                        member.maritalStatus = maritalStatusText
+                                    } else {
+                                        member.maritalStatus = "Unanswered"
+                                    }
+                                    
+                                    if let raceText = user["ethnicity"] as? String {
+                                        member.race = raceText
+                                    } else {
+                                        member.race = "Unanswered"
+                                    }
+                                    //Grab Location
+                                    if let latitude = (user["location"] as AnyObject).latitude {
+                                        if let longitude = (user["location"] as AnyObject).longitude {
+                                            
+                                            //get location & set location name
+                                            let geoCoder = CLGeocoder()
+                                            let location = CLLocation(latitude: latitude, longitude: longitude)
+                                            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+                                                
+                                                // Place details
+                                                var placeMark: CLPlacemark!
+                                                placeMark = placemarks?[0]
+                                                
+                                                // Address dictionary
+                                                //print(placeMark.addressDictionary as Any)
+                                                var city = ""
+                                                var state = ""
+                                                var country = ""
+                                                // City
+                                                if placeMark != nil {
+                                                    if placeMark.addressDictionary!["City"] != nil {
+                                                        city = placeMark.addressDictionary!["City"] as! String
+//                                                    print(city)
+                                                    }
+                                                    
+                                                    // Country
+                                                    if placeMark.addressDictionary!["State"] != nil {
+                                                        state = placeMark.addressDictionary!["State"] as! String
+//                                                   print(state)
+                                                    }
+                                                    
+                                                    if placeMark.addressDictionary!["Country"] != nil {
+                                                        country = placeMark.addressDictionary!["Country"] as! String
+//                                                    print(country)
+                                                    }
+                                                    
+                                                    currentLocation = (city) + ", " + (state)  + " " + (country)
+                                                            
+//                                                    print(currentLocation)
+                                                    
+                                                    member.location = currentLocation as String
+                            
+                                                }
+                                                
+                                            })
+                                            
+                                        }
+                                    }
+                                    //End of grabbing and setting locaiton
+                                    
                                     if user["online"] as! Bool {
                                         member.memberOnline = true
                                     } else {
@@ -115,11 +214,10 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     }
                                     
                                 })
+                                members.append(member)
                                 
+                                completion(members)
                                 DispatchQueue.main.async {
-                                    members.append(member)
-                                    
-                                    completion(members)
                                     self.memberCollectionView.reloadData()
                                 }
                             }
