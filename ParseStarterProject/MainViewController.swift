@@ -194,6 +194,12 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         return sv
     }()
     
+    lazy var detailsView: UserDetailsLauncher = {
+        let dv = UserDetailsLauncher()
+        dv.mainViewController = self
+        return dv
+    }()
+    
     @objc func handleMore() {
         
         settingsView.showSettings()
@@ -209,6 +215,18 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         navigationController?.pushViewController(profileSettingsViewController, animated: true)
        
+    }
+    
+    func showControllerForDetails(detail: Detail) {
+        
+        let profileSettingsViewController = UIViewController()
+        profileSettingsViewController.title = detail.label
+        navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
+        
+        
+        navigationController?.pushViewController(profileSettingsViewController, animated: true)
+        
     }
     
     

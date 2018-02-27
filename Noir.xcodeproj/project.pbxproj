@@ -50,6 +50,8 @@
 		B74BACA3203DFE1C00CFC11F /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BACA2203DFE1C00CFC11F /* Message.swift */; };
 		B74BACA5203E0BDF00CFC11F /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BACA4203E0BDF00CFC11F /* ChatController.swift */; };
 		B774D8341EC8299C000CC615 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B774D8331EC8299C000CC615 /* Constants.swift */; };
+		B77559132045CAC20017A49E /* UserDetailsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77559122045CAC20017A49E /* UserDetailsLauncher.swift */; };
+		B77559152045CF8E0017A49E /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77559142045CF8E0017A49E /* DetailCell.swift */; };
 		B778BBDF1EBCD416002EE330 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B778BBDE1EBCD416002EE330 /* StoreKit.framework */; };
 		B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A672E1ED5ED45001DF856 /* ShopViewController.swift */; };
 		B77A67311ED60919001DF856 /* ShopSwiftyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */; };
@@ -182,6 +184,8 @@
 		B74BACA2203DFE1C00CFC11F /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B74BACA4203E0BDF00CFC11F /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		B774D8331EC8299C000CC615 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B77559122045CAC20017A49E /* UserDetailsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsLauncher.swift; sourceTree = "<group>"; };
+		B77559142045CF8E0017A49E /* DetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		B778BBDD1EBCD409002EE330 /* Noir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Noir.entitlements; sourceTree = "<group>"; };
 		B778BBDE1EBCD416002EE330 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B77A672E1ED5ED45001DF856 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
@@ -403,6 +407,7 @@
 				B77B3E7B20321616003AEEA0 /* SettingsLauncher.swift */,
 				B74BAC9E203432F300CFC11F /* Launcher.swift */,
 				B74BACA4203E0BDF00CFC11F /* ChatController.swift */,
+				B77559122045CAC20017A49E /* UserDetailsLauncher.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -455,6 +460,7 @@
 				B74BAC9220328FDB00CFC11F /* FlirtsCell.swift */,
 				B74BAC942032902800CFC11F /* MessagesCell.swift */,
 				B74BAC96203290A700CFC11F /* EchoCell.swift */,
+				B77559142045CF8E0017A49E /* DetailCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -797,6 +803,7 @@
 				B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */,
 				B74789AB202F363900C61A65 /* LoginView.swift in Sources */,
 				B747899B202E29B600C61A65 /* MainViewController.swift in Sources */,
+				B77559132045CAC20017A49E /* UserDetailsLauncher.swift in Sources */,
 				B7EDF1D31EBA1023003D013B /* ChatViewController.swift in Sources */,
 				B74789B2202F723200C61A65 /* MemberCell.swift in Sources */,
 				B74BAC8D20327F2300CFC11F /* GlobalCell.swift in Sources */,
@@ -824,6 +831,7 @@
 				B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */,
 				B74BACA3203DFE1C00CFC11F /* Message.swift in Sources */,
 				B72F13441F05CA8C008EABCE /* EchoSonarItemView.swift in Sources */,
+				B77559152045CF8E0017A49E /* DetailCell.swift in Sources */,
 				B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

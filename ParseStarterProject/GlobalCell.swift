@@ -49,6 +49,12 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         return sv
     }()
     
+    lazy var detailsView: UserDetailsLauncher = {
+        let dv = UserDetailsLauncher()
+        //        sv.mainViewController =
+        return dv
+    }()
+    
     let cellID = "cellID"
     
 //    var tapGesture = UITapGestureRecognizer(target: self, action: #selector(showMenu(sender:,member:)))
@@ -109,7 +115,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     @objc private func showStats(){
-        settingsView.showSettings()
+        detailsView.showDetails(member: selectedMember)
     }
     @objc private func showGallery(){
         settingsView.showSettings()
@@ -203,7 +209,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         
         ALRadialMenu().setButtons(buttons: buttons).setRadius(radius: Double(memberCollectionView.frame.width / 3)).setAnimationOrigin(animationOrigin: senderCenter).setOverlayBackgroundColor(backgroundColor: Constants.Colors.NOIR_BLACK.withAlphaComponent(0.7)).presentInView(view: memberCollectionView)
         
-        print(selectedMember.memberName)
+        print(selectedMember.memberName!)
         
     }
     
@@ -330,7 +336,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
 
         displayedUserID = cell.userID!
         selectedMember = (members?[indexPath.item])!
-        showMenu(sender: cell.ProfilePics, member: members?[indexPath.item])
+        showMenu(sender: cell.ProfilePics, member: selectedMember)
         print(123)
 //        performSegue(withIdentifier: "toUserDetails", sender: self)
 
