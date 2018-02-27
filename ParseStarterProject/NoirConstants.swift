@@ -68,6 +68,8 @@ struct Constants {
         static let NOIR_CHAT_BUBBLE_SENT = NOIR_YELLOW
         static let NOIR_CHAT_BUBBLE_RECIEVED = NOIR_YELLOW
         static let NOIR_RECENT_MESSAGES_DIVIDER = NOIR_YELLOW
+        static let NOIR_RADIAL_MENU_BUTTON_TINT_COLOR = NOIR_RED_DARK
+        static let NOIR_RADIAL_MENU_BUTTON_COLOR = NOIR_YELLOW
         
       
     }

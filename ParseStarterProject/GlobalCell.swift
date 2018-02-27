@@ -143,9 +143,9 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         var buttons = [ALRadialMenuButton]()
        
         let statsButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        statsButton.setImage(UIImage(named: "newspaper-7"), for: UIControlState.normal)
-        statsButton.backgroundColor = Constants.Colors.NOIR_YELLOW
-        statsButton.tintColor = Constants.Colors.NOIR_TINT
+        statsButton.setImage(UIImage(named: "newspaper-7")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        statsButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        statsButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         statsButton.layer.cornerRadius = 50
         statsButton.addTarget(self, action: #selector(showStats), for: .touchUpInside)
         
@@ -153,8 +153,8 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         
         let galleryButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         galleryButton.setImage(selectedMember.memberImage, for: UIControlState.normal)
-        galleryButton.backgroundColor = Constants.Colors.NOIR_YELLOW
-        galleryButton.tintColor = Constants.Colors.NOIR_TINT
+        galleryButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        galleryButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         galleryButton.layer.cornerRadius = 50
         galleryButton.layer.masksToBounds = true
         galleryButton.imageView?.contentMode = .scaleAspectFill
@@ -163,45 +163,45 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         buttons.append(galleryButton)
         
         let chatButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        chatButton.setImage(UIImage(named: "message-7"), for: UIControlState.normal)
-        chatButton.backgroundColor = Constants.Colors.NOIR_YELLOW
-        chatButton.tintColor = Constants.Colors.NOIR_TINT
+        chatButton.setImage(UIImage(named: "message-7")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        chatButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        chatButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         chatButton.layer.cornerRadius = 50
         chatButton.addTarget(self, action: #selector(showChat), for: .touchUpInside)
         
         buttons.append(chatButton)
         
         let blockButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        blockButton.setImage(UIImage(named: "emoticon-sad-7"), for: UIControlState.normal)
-        blockButton.backgroundColor = Constants.Colors.NOIR_YELLOW
-        blockButton.tintColor = Constants.Colors.NOIR_TINT
+        blockButton.setImage(UIImage(named: "emoticon-sad-7")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        blockButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        blockButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         blockButton.layer.cornerRadius = 50
         blockButton.addTarget(self, action: #selector(block), for: .touchUpInside)
         
         buttons.append(blockButton)
         
         let flirtButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        flirtButton.setImage(UIImage(named: "flirts_icon"), for: UIControlState.normal)
-        flirtButton.backgroundColor = Constants.Colors.NOIR_YELLOW
-        flirtButton.tintColor = Constants.Colors.NOIR_TINT
+        flirtButton.setImage(UIImage(named: "flirts_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        flirtButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        flirtButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         flirtButton.layer.cornerRadius = 50
         flirtButton.addTarget(self, action: #selector(flirt), for: .touchUpInside)
         
         buttons.append(flirtButton)
         
         let favoriteButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        favoriteButton.setImage(UIImage(named: "favorites_fire_icon"), for: UIControlState.normal)
-        favoriteButton.backgroundColor = Constants.Colors.NOIR_YELLOW
-        favoriteButton.tintColor = Constants.Colors.NOIR_GREY_DARK
+        favoriteButton.setImage(UIImage(named: "favorites_fire_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        favoriteButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        favoriteButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         favoriteButton.layer.cornerRadius = 50
         favoriteButton.addTarget(self, action: #selector(favorite), for: .touchUpInside)
         
         buttons.append(favoriteButton)
         
         
-        let senderCenter = CGPoint(x: sender.center.x, y: sender.center.y)
+        let senderCenter = CGPoint(x: memberCollectionView.center.x, y: memberCollectionView.center.y + (self.frame.height / 10))
         
-        ALRadialMenu().setButtons(buttons: buttons).setRadius(radius: Double(memberCollectionView.frame.width / 3)).setAnimationOrigin(animationOrigin: memberCollectionView.center).setOverlayBackgroundColor(backgroundColor: Constants.Colors.NOIR_BLACK.withAlphaComponent(0.7)).presentInView(view: memberCollectionView)
+        ALRadialMenu().setButtons(buttons: buttons).setRadius(radius: Double(memberCollectionView.frame.width / 3)).setAnimationOrigin(animationOrigin: senderCenter).setOverlayBackgroundColor(backgroundColor: Constants.Colors.NOIR_BLACK.withAlphaComponent(0.7)).presentInView(view: memberCollectionView)
         
         print(selectedMember.memberName)
         
