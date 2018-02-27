@@ -30,6 +30,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     private var subscription: Subscription<PFObject>!
     
+    
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
         mb.mainViewController = self
@@ -193,7 +194,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         return sv
     }()
     
-    @objc private func handleMore() {
+    @objc func handleMore() {
         
         settingsView.showSettings()
     }

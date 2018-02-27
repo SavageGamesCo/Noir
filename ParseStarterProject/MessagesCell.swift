@@ -109,7 +109,6 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                             }
                                                         })
                                                         self.messages.append(NewMessage)
-                                                        
                                                         messageID.append(userIDUnwrapped)
                                                         self.collectionView.reloadData()
                                                     }

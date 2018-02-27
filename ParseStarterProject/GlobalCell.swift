@@ -14,7 +14,7 @@ import GoogleMobileAds
 import StoreKit
 import SwiftyStoreKit
 import AVFoundation
-
+import ALRadialMenu
 
 class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -43,7 +43,15 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         return cv
     }()
     
+    lazy var settingsView: SettingsLauncher = {
+        let sv = SettingsLauncher()
+//        sv.mainViewController = 
+        return sv
+    }()
+    
     let cellID = "cellID"
+    
+//    var tapGesture = UITapGestureRecognizer(target: self, action: #selector(showMenu(sender:,member:)))
     
     override func setupViews() {
         
@@ -63,6 +71,10 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         memberCollectionView.setCollectionViewLayout(layout, animated: true)
     
         fetchMembers()
+        
+        var timer: Timer!
+        
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshing), userInfo: nil, repeats: true)
         
 
     }
@@ -89,10 +101,110 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         }
     }
     
+    var selectedMember = Member()
+    
     func refreshing(){
-
         self.memberCollectionView.reloadData()
 
+    }
+    
+    @objc private func showStats(){
+        settingsView.showSettings()
+    }
+    @objc private func showGallery(){
+        settingsView.showSettings()
+    }
+    
+    @objc private func showChat(){
+        let layout = UICollectionViewFlowLayout()
+        
+        let controller = ChatController(collectionViewLayout: layout)
+        
+        controller.member = selectedMember
+        
+        self.window?.rootViewController?.present(controller, animated: true, completion: nil)
+    }
+    
+    @objc private func favorite(){
+        settingsView.showSettings()
+    }
+    
+    @objc private func flirt(){
+        settingsView.showSettings()
+    }
+    
+    @objc private func block(){
+        settingsView.showSettings()
+    }
+    
+    
+    
+    @objc func showMenu(sender: UIImageView, member: Member?){
+        var buttons = [ALRadialMenuButton]()
+       
+        let statsButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        statsButton.setImage(UIImage(named: "newspaper-7"), for: UIControlState.normal)
+        statsButton.backgroundColor = Constants.Colors.NOIR_YELLOW
+        statsButton.tintColor = Constants.Colors.NOIR_TINT
+        statsButton.layer.cornerRadius = 50
+        statsButton.addTarget(self, action: #selector(showStats), for: .touchUpInside)
+        
+        buttons.append(statsButton)
+        
+        let galleryButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        galleryButton.setImage(selectedMember.memberImage, for: UIControlState.normal)
+        galleryButton.backgroundColor = Constants.Colors.NOIR_YELLOW
+        galleryButton.tintColor = Constants.Colors.NOIR_TINT
+        galleryButton.layer.cornerRadius = 50
+        galleryButton.layer.masksToBounds = true
+        galleryButton.imageView?.contentMode = .scaleAspectFill
+        galleryButton.addTarget(self, action: #selector(showGallery), for: .touchUpInside)
+        
+        buttons.append(galleryButton)
+        
+        let chatButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        chatButton.setImage(UIImage(named: "message-7"), for: UIControlState.normal)
+        chatButton.backgroundColor = Constants.Colors.NOIR_YELLOW
+        chatButton.tintColor = Constants.Colors.NOIR_TINT
+        chatButton.layer.cornerRadius = 50
+        chatButton.addTarget(self, action: #selector(showChat), for: .touchUpInside)
+        
+        buttons.append(chatButton)
+        
+        let blockButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        blockButton.setImage(UIImage(named: "emoticon-sad-7"), for: UIControlState.normal)
+        blockButton.backgroundColor = Constants.Colors.NOIR_YELLOW
+        blockButton.tintColor = Constants.Colors.NOIR_TINT
+        blockButton.layer.cornerRadius = 50
+        blockButton.addTarget(self, action: #selector(block), for: .touchUpInside)
+        
+        buttons.append(blockButton)
+        
+        let flirtButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        flirtButton.setImage(UIImage(named: "flirts_icon"), for: UIControlState.normal)
+        flirtButton.backgroundColor = Constants.Colors.NOIR_YELLOW
+        flirtButton.tintColor = Constants.Colors.NOIR_TINT
+        flirtButton.layer.cornerRadius = 50
+        flirtButton.addTarget(self, action: #selector(flirt), for: .touchUpInside)
+        
+        buttons.append(flirtButton)
+        
+        let favoriteButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        favoriteButton.setImage(UIImage(named: "favorites_fire_icon"), for: UIControlState.normal)
+        favoriteButton.backgroundColor = Constants.Colors.NOIR_YELLOW
+        favoriteButton.tintColor = Constants.Colors.NOIR_GREY_DARK
+        favoriteButton.layer.cornerRadius = 50
+        favoriteButton.addTarget(self, action: #selector(favorite), for: .touchUpInside)
+        
+        buttons.append(favoriteButton)
+        
+        
+        let senderCenter = CGPoint(x: sender.center.x, y: sender.center.y)
+        
+        ALRadialMenu().setButtons(buttons: buttons).setRadius(radius: Double(memberCollectionView.frame.width / 3)).setAnimationOrigin(animationOrigin: memberCollectionView.center).setOverlayBackgroundColor(backgroundColor: Constants.Colors.NOIR_BLACK.withAlphaComponent(0.7)).presentInView(view: memberCollectionView)
+        
+        print(selectedMember.memberName)
+        
     }
     
     
@@ -178,16 +290,24 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         if (cell.member?.memberOnline) != nil && (cell.member?.memberOnline)! {
             
             if (cell.member?.echo) != nil && (cell.member?.echo)! {
+                
+//                CATransaction.begin()
+//                CATransaction.setAnimationDuration(2.0)
+//                CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn))
+//
                 let color = CABasicAnimation(keyPath: "borderColor")
                 color.fromValue = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
                 color.toValue = Constants.Colors.NOIR_MEMBER_BORDER_ECHO
                 color.duration = 1
+                color.autoreverses = true
                 color.repeatCount = .infinity
                 color.isRemovedOnCompletion = false
                 
                 cell.ProfilePics.layer.borderWidth = 3
                 cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
                 cell.ProfilePics.layer.add(color, forKey: "borderColor")
+                
+//                CATransaction.commit()
                 
             } else {
                 cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
@@ -196,6 +316,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
             cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_OFFLINE
         }
         
+//        cell.ProfilePics.addGestureRecognizer(tapGesture)
         
         
       return cell
@@ -204,13 +325,15 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+
         let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! MemberCell
-        
+
         displayedUserID = cell.userID!
-        
+        selectedMember = (members?[indexPath.item])!
+        showMenu(sender: cell.ProfilePics, member: members?[indexPath.item])
+        print(123)
 //        performSegue(withIdentifier: "toUserDetails", sender: self)
-        
+
     }
     
 }

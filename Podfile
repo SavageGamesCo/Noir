@@ -18,7 +18,8 @@ target 'Noir' do
     
     #New pods for 2.0
     #pod 'CircleMenu'
-    pod 'Swift-CircleMenu', :git => 'https://github.com/Sufi-Al-Hussaini/Swift-CircleMenu.git'
+#    pod 'Swift-CircleMenu', :git => 'https://github.com/Sufi-Al-Hussaini/Swift-CircleMenu.git'
+    pod 'ALRadialMenu', '~> 2.0'
 
     # pod 'Starscream', '~> 3.0.2'
 

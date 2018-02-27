@@ -34,6 +34,19 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
+    var member: Member? {
+        didSet{
+            
+            let navbar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: 50))
+            view.addSubview(navbar)
+            let navTitle = UINavigationItem()
+            navTitle.title = member?.memberName
+            let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: nil, action: #selector(handleDismiss))
+            navTitle.rightBarButtonItem = dismissButton
+            navbar.setItems([navTitle], animated: true)
+            
+        }
+    }
     var messages: [Message]?
     
     @objc func handleDismiss(){
