@@ -15,6 +15,7 @@ import StoreKit
 import SwiftyStoreKit
 import AVFoundation
 import MapKit
+import Spring
 
 class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -52,6 +53,12 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         return cv
     }()
     
+    lazy var mainView: MainViewController = {
+        
+        let cv = MainViewController()
+        
+        return cv
+    }()
     
     //API Service Functions
     
@@ -596,11 +603,10 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     
                                 })
                                 
-                                
+                                members.append(member)
+                                completion(members)
                                 DispatchQueue.main.async {
-                                    members.append(member)
                                     
-                                    completion(members)
                                     self.memberCollectionView.reloadData()
                                 }
                                 
@@ -794,6 +800,185 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         
     }
     
+    func flirt(member: Member) {
+
+        if let flirt = PFUser.current()?["flirt"] as? NSArray {
+            
+            let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
+            
+            var tracking = ""
+            
+            if (flirt.count)  < 50 {
+                tracking = "flirt"
+                
+                let flirtGraphic = SpringImageView()
+                
+                flirtGraphic.image = UIImage(named: "flirt_2.png")
+                flirtGraphic.contentMode = .scaleAspectFill
+                //flirtGraphic.y = -50
+                flirtGraphic.autostart = true
+                flirtGraphic.animation = "zoomIn"
+                flirtGraphic.animateToNext {
+                    flirtGraphic.animation = "zoomOut"
+                    flirtGraphic.animateTo()
+                    
+                }
+                
+                
+                flirtGraphic.frame = CGRect(x: (memberCollectionView.center.x) / 4, y: (memberCollectionView.center.y) / 4, width: 300, height: 300)
+                
+                flirtGraphic.center = CGPoint(x: memberCollectionView.frame.size.width  / 2, y: memberCollectionView.frame.size.height / 2);
+                
+                memberCollectionView.addSubview(flirtGraphic)
+                
+                PFUser.current()?.addUniqueObjects(from: [member.memberID as String!], forKey: tracking)
+                
+                PFUser.current()?.saveInBackground(block: {(success, error) in
+                    self.sendFlirtPush(member: member)
+                    print("Flirt with " + (member.memberID)! + "added")
+                })
+                
+            } else {
+               print("flirt limit reached")
+//                self.dialogueBox(title: "Flirt Limit Reached", messageText: "You have reached your flirt limit. Visit the in-app store to learn how to get unlimited flirts, local members and global members.")
+            }
+            
+        }
+    }
+    var favorite = Bool()
+    
+    func favorite(member: Member) {
+        
+        
+        if favorite == true {
+            
+            PFUser.current()?.removeObjects(in: [member.memberID as String!], forKey: "favorites")
+            
+            PFUser.current()?.saveInBackground(block: {(success, error) in
+                
+            })
+            
+            let query = PFUser.query()
+            
+            query?.whereKey("app", equalTo: APPLICATION)
+            
+            query?.findObjectsInBackground(block: { (objects, error) in
+                if error != nil {
+                    
+                } else if let users = objects {
+                    for object in users {
+                        if object is PFUser {
+                            if let favorites = PFUser.current()?["favorites"] {
+                                if (favorites as AnyObject).contains(member.memberID as String!) {
+                                    self.favorite = true
+                                } else {
+                                    self.favorite = false
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            
+            favorite = false
+            
+        } else {
+            
+            let favoriteIcon = SpringImageView()
+            
+            favoriteIcon.image = UIImage(named: "favorite.png")
+            favoriteIcon.contentMode = .scaleAspectFill
+            //flirtGraphic.y = -50
+            favoriteIcon.autostart = true
+            favoriteIcon.animation = "zoomIn"
+            favoriteIcon.animateToNext {
+                favoriteIcon.animation = "zoomOut"
+                favoriteIcon.animateTo()
+                
+            }
+            
+            
+            favoriteIcon.frame = CGRect(x: memberCollectionView.frame.size.width / 2, y: memberCollectionView.frame.size.height  / 2 , width: 600, height: 362)
+            
+            favoriteIcon.center = CGPoint(x: memberCollectionView.frame.size.width  / 2, y: memberCollectionView.frame.size.height / 2);
+            var window = UIWindow()
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window.makeKeyAndVisible()
+            window.addSubview(favoriteIcon)
+            
+            PFUser.current()?.addUniqueObjects(from: [member.memberID as String!], forKey: "favorites")
+            
+            PFUser.current()?.saveInBackground(block: {(success, error) in
+                
+            })
+            
+            let query = PFUser.query()
+            
+            query?.findObjectsInBackground(block: { (objects, error) in
+                if error != nil {
+                    
+                } else if let users = objects {
+                    for object in users {
+                        if object is PFUser {
+                            if let favorites = PFUser.current()?["favorites"] {
+                                if (favorites as AnyObject).contains(member.memberID as String!) {
+                                    self.favorite = true
+                                  
+                                } else {
+                                    self.favorite = false
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            
+            favorite = true
+            
+        }
+    }
+    
+    func blockUser(member: Member, view: UICollectionView) {
+        PFUser.current()?.addUniqueObjects(from: [member.memberID as String!], forKey: "blocked")
+        
+        PFUser.current()?.saveInBackground(block: {(success, error) in
+            
+            if error != nil {
+                print("Error saving after blocking user")
+            } else {
+                
+                view.reloadData()
+            }
+            
+        })
+    }
+    
+    func sendFlirtPush(member: Member){
+        
+        var installationID = PFInstallation()
+        do {
+            let user = try PFQuery.getUserObject(withId: member.memberID as String!)
+            if user["installation"] != nil {
+                installationID = (user["installation"] as? PFInstallation)!
+            }
+        }catch{
+            print("No User Selected")
+        }
+        
+        PFCloud.callFunction(inBackground: "sendPushToUserTest", withParameters: ["recipientId": member.memberID as String!, "chatmessage": "\(PFUser.current()!.username!) has flirted with you", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+            
+            if error != nil {
+                print(error!)
+            } else {
+                
+                print("PFCloud push was successful")
+            }
+            
+        })
+        
+    }
+    
     
     //Apple Store Functions
     func validateAppleReciepts() {
@@ -843,5 +1028,43 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         label.sizeToFit()
         
         return label.frame.height
+    }
+    
+    func dialogueBoxFlirt(title:String, messageText:String, member: Member ){
+        let dialog = UIAlertController(title: title,
+                                       message: messageText,
+                                       preferredStyle: UIAlertControllerStyle.alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        dialog.addAction(defaultAction)
+        // Present the dialog.
+        func sendFlirtPush(){
+            
+            var installationID = PFInstallation()
+            do {
+                let user = try PFQuery.getUserObject(withId: member.memberID as String!)
+                if user["installation"] != nil {
+                    installationID = (user["installation"] as? PFInstallation)!
+                }
+            }catch{
+                print("No User Selected")
+            }
+            
+            PFCloud.callFunction(inBackground: "sendPushToUserTest", withParameters: ["recipientId": member.memberID as String!, "chatmessage": "\(PFUser.current()!.username!) has flirted with you", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+                
+                if error != nil {
+                    print(error!)
+                } else {
+                    
+                    print("PFCloud push was successful")
+                }
+                
+            })
+            
+        }
+        
+        mainView.present(dialog,
+                     animated: true,
+                     completion: sendFlirtPush)
     }
 }

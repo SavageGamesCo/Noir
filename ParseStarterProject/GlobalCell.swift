@@ -132,15 +132,17 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     @objc private func favorite(){
-        settingsView.showSettings()
+        APIService.sharedInstance.favorite(member: selectedMember)
+        memberCollectionView.reloadData()
     }
     
     @objc private func flirt(){
-        settingsView.showSettings()
+        APIService.sharedInstance.flirt(member: selectedMember)
     }
     
     @objc private func block(){
-        settingsView.showSettings()
+        APIService.sharedInstance.blockUser(member: selectedMember, view: memberCollectionView)
+        
     }
     
     
