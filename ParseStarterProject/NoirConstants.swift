@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 struct Constants {
     
@@ -77,6 +78,15 @@ struct Constants {
     struct App {
         static let NOIR_LOGO = "noir_logo"
         static let NOIR_LOGO_BIG = "noir_big_logo"
+        static let APPLICATION = "noir"
+        static let CURRENT_USER = PFUser.current()?.objectId!
+        static let CURRENT_USERNAME = PFUser.current()?.username!
+        //Echo Helpers
+        static let WithinArea = 11.0
+        //FONT
+        static let SYSTEM_FONT = UIFont.boldSystemFont(ofSize: 12)
+        //SOUNDS
+        static let SYSTEM_SOUND = 1016
         
     }
     

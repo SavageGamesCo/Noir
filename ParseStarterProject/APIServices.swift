@@ -15,6 +15,7 @@ import StoreKit
 import SwiftyStoreKit
 import AVFoundation
 import MapKit
+import CoreLocation
 import Spring
 
 class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -167,57 +168,19 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     } else {
                                         member.race = "Unanswered"
                                     }
-                                    //Grab Location
-                                    if let latitude = (user["location"] as AnyObject).latitude {
-                                        if let longitude = (user["location"] as AnyObject).longitude {
-                                            
-                                            //get location & set location name
-                                            let geoCoder = CLGeocoder()
-                                            let location = CLLocation(latitude: latitude, longitude: longitude)
-                                            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-                                                
-                                                // Place details
-                                                var placeMark: CLPlacemark!
-                                                placeMark = placemarks?[0]
-                                                
-                                                // Address dictionary
-                                                //print(placeMark.addressDictionary as Any)
-                                                var city = ""
-                                                var state = ""
-                                                var country = ""
-                                                // City
-                                                if placeMark != nil {
-                                                    if placeMark.addressDictionary!["City"] != nil {
-                                                        city = placeMark.addressDictionary!["City"] as! String
-//                                                    print(city)
-                                                    }
-                                                    
-                                                    // Country
-                                                    if placeMark.addressDictionary!["State"] != nil {
-                                                        state = placeMark.addressDictionary!["State"] as! String
-//                                                   print(state)
-                                                    }
-                                                    
-                                                    if placeMark.addressDictionary!["Country"] != nil {
-                                                        country = placeMark.addressDictionary!["Country"] as! String
-//                                                    print(country)
-                                                    }
-                                                    
-                                                    currentLocation = (city) + ", " + (state)  + " " + (country)
-                                                            
-//                                                    print(currentLocation)
-                                                    
-                                                    member.location = currentLocation as String
-                            
-                                                }
-                                                
-                                            })
-                                            
-                                        }
+                                    
+                                    if let mlat = (user["location"] as AnyObject).latitude {
+                                        member.mLat = mlat
                                     } else {
-                                        member.location = "Unable to Retrieve Location"
+                                        member.mLat = 0
                                     }
-                                    //End of grabbing and setting location
+                                    
+                                    if let mlong = (user["location"] as AnyObject).longitude {
+                                        member.mLong = mlong
+                                    } else {
+                                        member.mLong = 0
+                                    }
+                                    
                                     
                                     if user["online"] as! Bool {
                                         member.memberOnline = true
@@ -233,7 +196,6 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     
                                 })
                                 members.append(member)
-                                
                                 completion(members)
                                 DispatchQueue.main.async {
                                     self.memberCollectionView.reloadData()
@@ -249,6 +211,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     
     
     func fetchLocalMembers( completion: @escaping ([Member]) -> () ) {
+        var currentLocation = String()
         
         let query = PFUser.query()
         //Show Local Users
@@ -365,57 +328,17 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                             } else {
                                                 member.race = "Unanswered"
                                             }
-                                            //Grab Location
-                                            if let latitude = (user["location"] as AnyObject).latitude {
-                                                if let longitude = (user["location"] as AnyObject).longitude {
-                                                    
-                                                    //get location & set location name
-                                                    let geoCoder = CLGeocoder()
-                                                    let location = CLLocation(latitude: latitude, longitude: longitude)
-                                                    geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-                                                        
-                                                        // Place details
-                                                        var placeMark: CLPlacemark!
-                                                        placeMark = placemarks?[0]
-                                                        
-                                                        // Address dictionary
-                                                        //print(placeMark.addressDictionary as Any)
-                                                        var city = ""
-                                                        var state = ""
-                                                        var country = ""
-                                                        // City
-                                                        if placeMark != nil {
-                                                            if placeMark.addressDictionary!["City"] != nil {
-                                                                city = placeMark.addressDictionary!["City"] as! String
-                                                                //                                                    print(city)
-                                                            }
-                                                            
-                                                            // Country
-                                                            if placeMark.addressDictionary!["State"] != nil {
-                                                                state = placeMark.addressDictionary!["State"] as! String
-                                                                //                                                   print(state)
-                                                            }
-                                                            
-                                                            if placeMark.addressDictionary!["Country"] != nil {
-                                                                country = placeMark.addressDictionary!["Country"] as! String
-                                                                //                                                    print(country)
-                                                            }
-                                                            
-                                                            currentLocation = (city) + ", " + (state)  + " " + (country) as NSString
-                                                            
-                                                            //                                                    print(currentLocation)
-                                                            
-                                                            member.location = currentLocation as String
-                                                            
-                                                        }
-                                                        
-                                                    })
-                                                    
-                                                }
+                                            if let mlat = (user["location"] as AnyObject).latitude {
+                                                member.mLat = mlat
                                             } else {
-                                                member.location = "Unable to Retrieve Location"
+                                                member.mLat = 0
                                             }
-                                            //End of grabbing and setting location
+                                            
+                                            if let mlong = (user["location"] as AnyObject).longitude {
+                                                member.mLong = mlong
+                                            } else {
+                                                member.mLong = 0
+                                            }
                                             
                                             if user["online"] as! Bool {
                                                 member.memberOnline = true
@@ -431,10 +354,9 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                             
                                         })
                                         
-                                        
+                                        members.append(member)
+                                        completion(members)
                                         DispatchQueue.main.async {
-                                            members.append(member)
-                                            completion(members)
                                             self.memberCollectionView.reloadData()
                                         }
                                         
@@ -452,6 +374,8 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func fetchFavorites( completion: @escaping ([Member]) -> () ) {
+        var currentLocation = String()
+        
         let query = PFUser.query()
         //Show Favorites
         query?.whereKey("app", equalTo: "noir")
@@ -538,57 +462,27 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     } else {
                                         member.race = "Unanswered"
                                     }
-                                    //Grab Location
-                                    if let latitude = (user["location"] as AnyObject).latitude {
-                                        if let longitude = (user["location"] as AnyObject).longitude {
-                                            
-                                            //get location & set location name
-                                            let geoCoder = CLGeocoder()
-                                            let location = CLLocation(latitude: latitude, longitude: longitude)
-                                            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-                                                
-                                                // Place details
-                                                var placeMark: CLPlacemark!
-                                                placeMark = placemarks?[0]
-                                                
-                                                // Address dictionary
-                                                //print(placeMark.addressDictionary as Any)
-                                                var city = ""
-                                                var state = ""
-                                                var country = ""
-                                                // City
-                                                if placeMark != nil {
-                                                    if placeMark.addressDictionary!["City"] != nil {
-                                                        city = placeMark.addressDictionary!["City"] as! String
-                                                        //                                                    print(city)
-                                                    }
-                                                    
-                                                    // Country
-                                                    if placeMark.addressDictionary!["State"] != nil {
-                                                        state = placeMark.addressDictionary!["State"] as! String
-                                                        //                                                   print(state)
-                                                    }
-                                                    
-                                                    if placeMark.addressDictionary!["Country"] != nil {
-                                                        country = placeMark.addressDictionary!["Country"] as! String
-                                                        //                                                    print(country)
-                                                    }
-                                                    
-                                                    currentLocation = (city) + ", " + (state)  + " " + (country) as NSString
-                                                    
-                                                    //                                                    print(currentLocation)
-                                                    
-                                                    member.location = currentLocation as String
-                                                    
-                                                }
-                                                
-                                            })
-                                            
-                                        }
+                                    if let memberLatText = (user["location"] as AnyObject).latitude {
+                                        member.mLat = memberLatText
                                     } else {
-                                        member.location = "Unable to Retrieve Location"
+                                        member.mLat = 0
                                     }
-                                    //End of grabbing and setting location
+                                    if let memberLongText = (user["location"] as AnyObject).longitude {
+                                        member.mLong = memberLongText
+                                    } else {
+                                        member.mLong = 0
+                                    }
+                                    if let mlat = (user["location"] as AnyObject).latitude {
+                                        member.mLat = mlat
+                                    } else {
+                                        member.mLat = 0
+                                    }
+                                    
+                                    if let mlong = (user["location"] as AnyObject).longitude {
+                                        member.mLong = mlong
+                                    } else {
+                                        member.mLong = 0
+                                    }
                                     
                                     if user["online"] as! Bool {
                                         member.memberOnline = true
@@ -606,7 +500,6 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                 members.append(member)
                                 completion(members)
                                 DispatchQueue.main.async {
-                                    
                                     self.memberCollectionView.reloadData()
                                 }
                                 
@@ -621,6 +514,8 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func fetchFlirts( completion: @escaping ([Member]) -> () ) {
+        var currentLocation = String()
+        
         let query = PFUser.query()
         //Show Favorites
         query?.whereKey("app", equalTo: "noir")
@@ -708,57 +603,17 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     } else {
                                         member.race = "Unanswered"
                                     }
-                                    //Grab Location
-                                    if let latitude = (user["location"] as AnyObject).latitude {
-                                        if let longitude = (user["location"] as AnyObject).longitude {
-                                            
-                                            //get location & set location name
-                                            let geoCoder = CLGeocoder()
-                                            let location = CLLocation(latitude: latitude, longitude: longitude)
-                                            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-                                                
-                                                // Place details
-                                                var placeMark: CLPlacemark!
-                                                placeMark = placemarks?[0]
-                                                
-                                                // Address dictionary
-                                                //print(placeMark.addressDictionary as Any)
-                                                var city = ""
-                                                var state = ""
-                                                var country = ""
-                                                // City
-                                                if placeMark != nil {
-                                                    if placeMark.addressDictionary!["City"] != nil {
-                                                        city = placeMark.addressDictionary!["City"] as! String
-                                                        //                                                    print(city)
-                                                    }
-                                                    
-                                                    // Country
-                                                    if placeMark.addressDictionary!["State"] != nil {
-                                                        state = placeMark.addressDictionary!["State"] as! String
-                                                        //                                                   print(state)
-                                                    }
-                                                    
-                                                    if placeMark.addressDictionary!["Country"] != nil {
-                                                        country = placeMark.addressDictionary!["Country"] as! String
-                                                        //                                                    print(country)
-                                                    }
-                                                    
-                                                    currentLocation = (city) + ", " + (state)  + " " + (country) as NSString
-                                                    
-                                                    //                                                    print(currentLocation)
-                                                    
-                                                    member.location = currentLocation as String
-                                                    
-                                                }
-                                                
-                                            })
-                                            
-                                        }
+                                    if let mlat = (user["location"] as AnyObject).latitude {
+                                        member.mLat = mlat
                                     } else {
-                                        member.location = "Unable to Retrieve Location"
+                                        member.mLat = 0
                                     }
-                                    //End of grabbing and setting location
+                                    
+                                    if let mlong = (user["location"] as AnyObject).longitude {
+                                        member.mLong = mlong
+                                    } else {
+                                        member.mLong = 0
+                                    }
                                     
                                     if user["online"] as! Bool {
                                         member.memberOnline = true
@@ -773,11 +628,11 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     
                                 })
                                 
+                                members.append(member)
+                                members.reverse()
+                                completion(members)
                                 
                                 DispatchQueue.main.async {
-                                    members.append(member)
-                                    members.reverse()
-                                    completion(members)
                                     self.memberCollectionView.reloadData()
                                 }
                                 

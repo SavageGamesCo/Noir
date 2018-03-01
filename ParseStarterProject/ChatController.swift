@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import Parse
+import ParseLiveQuery
 
-class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    let picker = UIImagePickerController()
     
     let cellID = "cellID"
     
@@ -56,6 +60,8 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        picker.delegate = self
+        
         collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.alwaysBounceVertical = true
@@ -66,6 +72,18 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         
         setupInput()
+        
+        if PFUser.current()?["membership"] as! String == "basic" {
+            
+            if imagesSent == 5 {
+//                self.inputToolbar.contentView.leftBarButtonItem = nil
+                
+                dialogueBox(title: "SEND UNLIMITED IMAGES!!", messageText: "Paid Monthly Members are able to send unlimited images via chat to other members! Free Members are limited in how many images they can send. Visit the Shop to get your membership and start sending images!")
+            }
+            
+        } else {
+            //put something in here if I feel like it
+        }
         
         observeMessages()
     }
@@ -94,7 +112,12 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         sendButton.setTitle("Send", for: .normal)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         
+        let mediaButton = UIButton(type: .roundedRect)
+        mediaButton.setImage(UIImage(named: "photo-7"), for: .normal)
+        mediaButton.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(sendButton)
+        view.addSubview(mediaButton)
         
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
@@ -102,9 +125,15 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
+        mediaButton.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        mediaButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        mediaButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        mediaButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        mediaButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        
        
         containerView.addSubview(inputTextField)
-        inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        inputTextField.leftAnchor.constraint(equalTo: mediaButton.rightAnchor, constant: 8).isActive = true
         inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
         inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
@@ -124,8 +153,12 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     @objc func handleSend(){
         
+        if inputTextField.text != nil && inputTextField.text != "" {
+            sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: (member?.memberID)!, toUserName: (member?.memberName)!, text: inputTextField.text!)
+            
+            print(inputTextField.text)
+        }
         
-        print(inputTextField.text)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -153,6 +186,124 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
 
+}
+
+func sendMessage(senderID: String, senderName: String, toUser: String, toUserName: String, text: String) {
+    
+    let chat = PFObject(className: "Chat")
+    
+    chat["senderID"] = senderID
+    chat["senderName"] = senderName
+    chat["text"] = text
+    chat["url"] = ""
+    chat["toUser"] = toUser
+    chat["toUserName"] = toUserName
+    chat["messageRead"] = false
+//    chat["chatID"] = chatID
+    chat["app"] = APPLICATION
+    
+    var installationID = PFInstallation()
+    do {
+        let user = try PFQuery.getUserObject(withId: displayedUserID)
+        
+        if user["installation"] != nil {
+            installationID = (user["installation"] as? PFInstallation)!
+        }
+        
+    }catch{
+        print("No User Selected")
+    }
+    
+    
+    
+    PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+        
+        if error != nil {
+            print(error!)
+            print("Push Not Successful")
+        } else {
+            print("PFCloud push was successful")
+        }
+        
+    })
+    
+    //let chatData : Dictionary<String, Any> = ["senderId": senderID, "senderName": senderName, "text": text]
+    
+    chat.saveInBackground { (success, error) in
+        
+        if error != nil {
+            print(error!)
+        } else {
+            //scroll to bottom
+            
+        }
+        
+    }
+    
+}
+
+func sendMedia(image: PFFile?, senderID: String, senderName: String, toUser: String, toUserName: String, text: String?){
+    
+    if image != nil {
+        let chat = PFObject(className: "Chat")
+        
+        chat["media"] = image
+        chat["senderID"] = senderID
+        chat["senderName"] = senderName
+        chat["toUser"] = toUser
+        chat["toUserName"] = toUserName
+//        chat["chatID"] = chatID
+        chat["app"] = APPLICATION
+        
+        var installationID = PFInstallation()
+        do {
+            let user = try PFQuery.getUserObject(withId: toUser)
+            
+            if user["installation"] != nil {
+                installationID = (user["installation"] as? PFInstallation)!
+            }
+            
+        }catch{
+            print("No User Selected")
+        }
+        
+        PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+            
+            if error != nil {
+                print(error!)
+                print("Push Not Successful")
+            } else {
+                print("PFCloud push was successful")
+            }
+            
+        })
+        
+        
+        chat.saveInBackground { (success, error) in
+            
+            if error != nil {
+                print(error!)
+            } else {
+                
+                //self.sendMessage(senderID: senderID, senderName: senderName, toUser: toUser, toUserName: toUserName, text: "Image sent")
+                
+                //scroll to bottom
+                
+            }
+            
+        }
+    } else {
+        
+        if let inputText = text {
+          sendMessage(senderID: senderID, senderName: senderName, toUser: toUser, toUserName: toUserName, text: inputText)
+        } else {
+          print("There was an error sending the message")
+        }
+        
+    }
+    
+    //self.collectionView.reloadData()
+    
 }
 
 class ChatMessageCell: BaseCell {

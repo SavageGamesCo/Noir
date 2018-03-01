@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class Detail: NSObject {
     let label: String
@@ -59,6 +60,7 @@ class UserDetailsLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
             var marital = String()
             var status = String()
             var about = String()
+            var location = String()
             
             if let ageText = member?.age {
                 age = ageText
@@ -105,7 +107,13 @@ class UserDetailsLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
             } else {
                 about = ""
             }
-            details = [Detail(label: "Age", detail: age), Detail(label: "Height", detail: mHeight), Detail(label: "Weight", detail: mWeight), Detail(label: "Body Type", detail: body), Detail(label: "Ethnicity", detail: race), Detail(label: "Marital Status", detail: marital), Detail(label: "HIV Status", detail: status), Detail(label: "About", detail: about), Detail(label: "Report", detail: "")]
+            if let locationText = member?.location {
+                location = locationText
+            } else {
+                location = "Member Location Unavailable"
+            }
+            
+            details = [Detail(label: "Location:", detail: location),Detail(label: "Age:", detail: age), Detail(label: "Height:", detail: mHeight), Detail(label: "Weight:", detail: mWeight), Detail(label: "Body Type:", detail: body), Detail(label: "Ethnicity:", detail: race), Detail(label: "Marital Status:", detail: marital), Detail(label: "HIV Status:", detail: status), Detail(label: "About:", detail: about), Detail(label: "Report", detail: "")]
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.7)
             
@@ -138,9 +146,9 @@ class UserDetailsLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
                 
                 
             }, completion: nil)
-            detailsCollectionView.reloadData()
+            
         }
-        
+        detailsCollectionView.reloadData()
     }
     
     func blackViewDismiss(){

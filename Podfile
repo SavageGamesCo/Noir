@@ -16,10 +16,13 @@ target 'Noir' do
     pod 'SwiftyStoreKit', '~> 0.10.4'
     pod 'Sonar'
     
+    
     #New pods for 2.0
     #pod 'CircleMenu'
 #    pod 'Swift-CircleMenu', :git => 'https://github.com/Sufi-Al-Hussaini/Swift-CircleMenu.git'
     pod 'ALRadialMenu', '~> 2.0'
+#    pod 'SwiftLocation', '~> 3.1.0'
+    pod 'LocationManagerSwift', '~> 1.1'
 
     # pod 'Starscream', '~> 3.0.2'
 

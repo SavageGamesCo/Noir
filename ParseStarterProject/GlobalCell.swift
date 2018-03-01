@@ -15,6 +15,7 @@ import StoreKit
 import SwiftyStoreKit
 import AVFoundation
 import ALRadialMenu
+import MapKit
 
 class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -53,6 +54,12 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         let dv = UserDetailsLauncher()
         //        sv.mainViewController =
         return dv
+    }()
+    
+    lazy var galleryView: GalleryViewLauncher = {
+        let gv = GalleryViewLauncher()
+        //        sv.mainViewController =
+        return gv
     }()
     
     let cellID = "cellID"
@@ -118,7 +125,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         detailsView.showDetails(member: selectedMember)
     }
     @objc private func showGallery(){
-        settingsView.showSettings()
+        galleryView.showSettings(member: selectedMember)
     }
     
     @objc private func showChat(){
@@ -133,15 +140,19 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     
     @objc private func favorite(){
         APIService.sharedInstance.favorite(member: selectedMember)
-        memberCollectionView.reloadData()
+        setupViews()
     }
     
     @objc private func flirt(){
         APIService.sharedInstance.flirt(member: selectedMember)
+        setupViews()
     }
     
     @objc private func block(){
+        
         APIService.sharedInstance.blockUser(member: selectedMember, view: memberCollectionView)
+//        memberCollectionView.dialogueBox(title: "Member Blocked!", messageText: "You have blocked \(selectedMember.memberName!)")
+        setupViews()
         
     }
     
@@ -210,7 +221,6 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         let senderCenter = CGPoint(x: memberCollectionView.center.x, y: memberCollectionView.center.y + (self.frame.height / 15))
         
         ALRadialMenu().setButtons(buttons: buttons).setRadius(radius: Double(memberCollectionView.frame.width / 3)).setAnimationOrigin(animationOrigin: senderCenter).setOverlayBackgroundColor(backgroundColor: Constants.Colors.NOIR_BLACK.withAlphaComponent(0.7)).presentInView(view: memberCollectionView)
-        
         print(selectedMember.memberName!)
         
     }
@@ -338,9 +348,48 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
 
         displayedUserID = cell.userID!
         selectedMember = (members?[indexPath.item])!
+        
+        let geoCoder = CLGeocoder()
+        let mlocation = CLLocation(latitude: (selectedMember.mLat)!, longitude: (selectedMember.mLong)!)
+        var placeMark: CLPlacemark!
+        geoCoder.reverseGeocodeLocation(mlocation, completionHandler: { (placemarks, error) -> Void in
+            
+            if error != nil {
+                print(error!)
+            } else {
+                placeMark = placemarks?[0]
+                
+                // Address dictionary
+                //print(placeMark.addressDictionary as Any)
+                var city = ""
+                var state = ""
+                var country = ""
+                
+                if placeMark.addressDictionary!["City"] != nil {
+                    city = placeMark.addressDictionary!["City"] as! String
+                    //                                                    print(city)
+                }
+                
+                // Country
+                if placeMark.addressDictionary!["State"] != nil {
+                    state = placeMark.addressDictionary!["State"] as! String
+                    //                                                   print(state)
+                }
+                
+                if placeMark.addressDictionary!["Country"] != nil {
+                    country = placeMark.addressDictionary!["Country"] as! String
+                    //                                                    print(country)
+                }
+                
+                let mcurrentLocation = (city) + ", " + (state)  + " " + (country)
+                
+                //                                                    print(currentLocation)
+                
+                self.selectedMember.location = mcurrentLocation as String
+            }
+            
+        })
         showMenu(sender: cell.ProfilePics, member: selectedMember)
-        print(123)
-//        performSegue(withIdentifier: "toUserDetails", sender: self)
 
     }
     

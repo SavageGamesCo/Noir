@@ -23,6 +23,8 @@ class Member: NSObject {
     var age: String?
     var race: String?
     var status: String?
+    var mLat: Double?
+    var mLong: Double?
     var location: String?
     var body: String?
     var maritalStatus: String?

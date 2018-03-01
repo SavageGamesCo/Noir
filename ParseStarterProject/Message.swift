@@ -24,5 +24,6 @@ class Message: NSObject {
     var toID: String?
     var fromID: String?
     var sender: Sender?
+    var readMessage: Bool?
     
 }

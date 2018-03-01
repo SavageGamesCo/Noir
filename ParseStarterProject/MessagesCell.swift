@@ -183,6 +183,20 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
         
         let controller = ChatController(collectionViewLayout: layout)
         controller.sender = messages[indexPath.item]?.sender
+        messages[indexPath.item]?.readMessage = true
+        let chat = PFObject(className: "Chat")
+        chat["messageRead"] = true
+        chat.saveInBackground { (success, error) in
+            
+            if error != nil {
+                print(error!)
+            } else {
+                
+                self.setupViews()
+                
+            }
+            
+        }
         
         self.window?.rootViewController?.present(controller, animated: true, completion: nil)
         
