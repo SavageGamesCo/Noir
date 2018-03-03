@@ -16,6 +16,8 @@ import SwiftyStoreKit
 import AVFoundation
 import ALRadialMenu
 import MapKit
+import Spring
+
 
 class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -117,7 +119,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     var selectedMember = Member()
     
     func refreshing(){
-        self.memberCollectionView.reloadData()
+        fetchMembers()
 
     }
     
@@ -140,19 +142,64 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     
     @objc private func favorite(){
         APIService.sharedInstance.favorite(member: selectedMember)
-        setupViews()
+        favoriteAnim()
     }
     
     @objc private func flirt(){
         APIService.sharedInstance.flirt(member: selectedMember)
-        setupViews()
+        flirtAnim()
+    }
+    
+    func favoriteAnim() {
+        let favoriteIcon = SpringImageView()
+        
+        favoriteIcon.image = UIImage(named: "favorite.png")
+        favoriteIcon.contentMode = .scaleAspectFill
+        //flirtGraphic.y = -50
+        favoriteIcon.autostart = true
+        favoriteIcon.animation = "zoomIn"
+        favoriteIcon.animateToNext {
+            favoriteIcon.delay = 0.5
+            favoriteIcon.animation = "zoomOut"
+            favoriteIcon.animateTo()
+            
+        }
+        
+        
+        favoriteIcon.frame = CGRect(x: memberCollectionView.center.x, y: memberCollectionView.center.y , width: 600, height: 362)
+        
+        favoriteIcon.center = CGPoint(x: memberCollectionView.center.x - (self.frame.width / 20), y: memberCollectionView.center.y - (self.frame.height / 15))
+        
+        self.memberCollectionView.addSubview(favoriteIcon)
+    }
+    
+    func flirtAnim(){
+        let flirtGraphic = SpringImageView()
+        
+        flirtGraphic.image = UIImage(named: "flirt_2.png")
+        flirtGraphic.contentMode = .scaleAspectFill
+        //flirtGraphic.y = -50
+        flirtGraphic.autostart = true
+        flirtGraphic.animation = "zoomIn"
+        
+        flirtGraphic.animateToNext {
+            flirtGraphic.delay = 0.5
+            flirtGraphic.animation = "zoomOut"
+            flirtGraphic.animateTo()
+            
+        }
+        
+        flirtGraphic.frame = CGRect(x: memberCollectionView.center.x, y: memberCollectionView.center.y, width: 300, height: 300)
+        
+        flirtGraphic.center = CGPoint(x: memberCollectionView.center.x - (self.frame.width / 20), y: memberCollectionView.center.y - (self.frame.width / 15))
+        
+        memberCollectionView.addSubview(flirtGraphic)
     }
     
     @objc private func block(){
         
         APIService.sharedInstance.blockUser(member: selectedMember, view: memberCollectionView)
-//        memberCollectionView.dialogueBox(title: "Member Blocked!", messageText: "You have blocked \(selectedMember.memberName!)")
-        setupViews()
+        fetchMembers()
         
     }
     
@@ -346,7 +393,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
 
         let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! MemberCell
 
-        displayedUserID = cell.userID!
+//        displayedUserID = cell.userID!
         selectedMember = (members?[indexPath.item])!
         
         let geoCoder = CLGeocoder()

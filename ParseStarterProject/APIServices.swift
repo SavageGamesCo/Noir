@@ -65,7 +65,6 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     
     //Parse Database Functions
     func fetchGlobalMembers( completion: @escaping ([Member]) -> () ) {
-        var currentLocation = String()
         
         let query = PFUser.query()
         
@@ -90,7 +89,6 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
             } else if let users = objects {
                 
                 var members = [Member]()
-                
                 
                 for object in users {
                     
@@ -196,11 +194,10 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                     
                                 })
                                 members.append(member)
-                                completion(members)
-                                DispatchQueue.main.async {
-                                    self.memberCollectionView.reloadData()
-                                }
+                                
+                                
                             }
+                            completion(members)
                         }
                     }
                 }
@@ -211,7 +208,6 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     
     
     func fetchLocalMembers( completion: @escaping ([Member]) -> () ) {
-        var currentLocation = String()
         
         let query = PFUser.query()
         //Show Local Users
@@ -355,17 +351,14 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                         })
                                         
                                         members.append(member)
-                                        completion(members)
-                                        DispatchQueue.main.async {
-                                            self.memberCollectionView.reloadData()
-                                        }
-                                        
+                                       
                                     }
                                     
                                 }
                                 
                             }
                         }
+                        completion(members)
                     }
                     
                 })
@@ -374,276 +367,242 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func fetchFavorites( completion: @escaping ([Member]) -> () ) {
-        var currentLocation = String()
         
-        let query = PFUser.query()
-        //Show Favorites
-        query?.whereKey("app", equalTo: "noir")
-        query?.findObjectsInBackground(block: {(objects, error) in
+        let favorites = PFUser.current()?["favorites"] as? NSArray
+        
+        var fMembers = [Member]()
+        
+        for object in favorites! {
             
-            if error != nil {
-                print(error!)
-            } else if let users = objects {
-                
-                var members = [Member]()
-                
-                for object in users {
-                    if let user = object as? PFUser {
+            let id = object as! String
+            
+            let Oquery = PFUser.query()
+            Oquery?.order(byDescending: "updatedAt")
+            Oquery?.getObjectInBackground(withId: id, block: { (fObject, error) in
+                if let fMember = fObject as? PFUser {
+                    
+                    let member = Member()
+                    let imageFile = fMember["mainPhoto"] as! PFFile
+                    
+                    imageFile.getDataInBackground(block: {(data, error) in
                         
-                        let member = Member()
+                        let imageData = data
+                        member.memberImage = (UIImage(data: imageData!)!)
+                        member.memberName = fMember.username
                         
-                        if let favoriteUsers = PFUser.current()?["favorites"] {
-                            if (favoriteUsers as AnyObject).contains(user.objectId! as String!){
-                                
-                                let imageFile = user["mainPhoto"] as! PFFile
-                                
-                                imageFile.getDataInBackground(block: {(data, error) in
-                                    
-                                    let imageData = data
-                                    member.memberImage = (UIImage(data: imageData!)!)
-                                    member.memberName = user.username
-                                    
-                                    if let memberIDText = user.objectId {
-                                        member.memberID = memberIDText
-                                    } else {
-                                        return
-                                    }
-                                    
-                                    if let memberNameText = user.username {
-                                        member.memberName = memberNameText
-                                    } else {
-                                        return
-                                    }
-                                    
-                                    if let aboutText = user["about"] as? String {
-                                        member.about = aboutText
-                                    } else {
-                                        member.about = "Unanswered"
-                                    }
-                                    
-                                    if let ageText = user["age"] as? String {
-                                        member.age = ageText
-                                    } else {
-                                        member.age = "Unanswered"
-                                    }
-                                    
-                                    if let genderText = user["gender"] as? String {
-                                        member.gender = genderText
-                                    } else {
-                                        member.gender = "Unanswered"
-                                    }
-                                    
-                                    if let bodyText = user["body"] as? String {
-                                        member.body = bodyText
-                                    } else {
-                                        member.body = "Unanswered"
-                                    }
-                                    
-                                    if let heightText = user["height"] as? String {
-                                        member.height = heightText
-                                    } else {
-                                        member.height = "Unanswered"
-                                    }
-                                    
-                                    if let weightText = user["weight"] as? String {
-                                        member.weight = weightText
-                                    } else {
-                                        member.weight = "Unanswered"
-                                    }
-                                    
-                                    if let maritalStatusText = user["marital"] as? String {
-                                        member.maritalStatus = maritalStatusText
-                                    } else {
-                                        member.maritalStatus = "Unanswered"
-                                    }
-                                    
-                                    if let raceText = user["ethnicity"] as? String {
-                                        member.race = raceText
-                                    } else {
-                                        member.race = "Unanswered"
-                                    }
-                                    if let memberLatText = (user["location"] as AnyObject).latitude {
-                                        member.mLat = memberLatText
-                                    } else {
-                                        member.mLat = 0
-                                    }
-                                    if let memberLongText = (user["location"] as AnyObject).longitude {
-                                        member.mLong = memberLongText
-                                    } else {
-                                        member.mLong = 0
-                                    }
-                                    if let mlat = (user["location"] as AnyObject).latitude {
-                                        member.mLat = mlat
-                                    } else {
-                                        member.mLat = 0
-                                    }
-                                    
-                                    if let mlong = (user["location"] as AnyObject).longitude {
-                                        member.mLong = mlong
-                                    } else {
-                                        member.mLong = 0
-                                    }
-                                    
-                                    if user["online"] as! Bool {
-                                        member.memberOnline = true
-                                    } else {
-                                        member.memberOnline = false
-                                    }
-                                    if user["echo"] != nil && user["echo"] as! Bool {
-                                        member.echo = true
-                                    } else {
-                                        member.echo = false
-                                    }
-                                    
-                                })
-                                
-                                members.append(member)
-                                completion(members)
-                                DispatchQueue.main.async {
-                                    self.memberCollectionView.reloadData()
-                                }
-                                
-                            }
-                            
+                        if let memberIDText = fMember.objectId {
+                            member.memberID = memberIDText
+                        } else {
+                            return
                         }
-                    }
+                        
+                        if let memberNameText = fMember.username {
+                            member.memberName = memberNameText
+                        } else {
+                            return
+                        }
+                        
+                        if let aboutText = fMember["about"] as? String {
+                            member.about = aboutText
+                        } else {
+                            member.about = "Unanswered"
+                        }
+                        
+                        if let ageText = fMember["age"] as? String {
+                            member.age = ageText
+                        } else {
+                            member.age = "Unanswered"
+                        }
+                        
+                        if let genderText = fMember["gender"] as? String {
+                            member.gender = genderText
+                        } else {
+                            member.gender = "Unanswered"
+                        }
+                        
+                        if let bodyText = fMember["body"] as? String {
+                            member.body = bodyText
+                        } else {
+                            member.body = "Unanswered"
+                        }
+                        
+                        if let heightText = fMember["height"] as? String {
+                            member.height = heightText
+                        } else {
+                            member.height = "Unanswered"
+                        }
+                        
+                        if let weightText = fMember["weight"] as? String {
+                            member.weight = weightText
+                        } else {
+                            member.weight = "Unanswered"
+                        }
+                        
+                        if let maritalStatusText = fMember["marital"] as? String {
+                            member.maritalStatus = maritalStatusText
+                        } else {
+                            member.maritalStatus = "Unanswered"
+                        }
+                        
+                        if let raceText = fMember["ethnicity"] as? String {
+                            member.race = raceText
+                        } else {
+                            member.race = "Unanswered"
+                        }
+                        if let mlat = (fMember["location"] as AnyObject).latitude {
+                            member.mLat = mlat
+                        } else {
+                            member.mLat = 0
+                        }
+                        
+                        if let mlong = (fMember["location"] as AnyObject).longitude {
+                            member.mLong = mlong
+                        } else {
+                            member.mLong = 0
+                        }
+                        
+                        if fMember["online"] as! Bool {
+                            member.memberOnline = true
+                        } else {
+                            member.memberOnline = false
+                        }
+                        if fMember["echo"] != nil && fMember["echo"] as! Bool {
+                            member.echo = true
+                        } else {
+                            member.echo = false
+                        }
+                     
+                    })
+                    fMembers.append(member)
+                    
                 }
-            }
+                completion(fMembers)
+            })
             
-        })
+        }
+       
+        
     }
     
     func fetchFlirts( completion: @escaping ([Member]) -> () ) {
-        var currentLocation = String()
         
-        let query = PFUser.query()
-        //Show Favorites
-        query?.whereKey("app", equalTo: "noir")
+        let flirts = PFUser.current()?["flirt"] as? NSArray
+        let blocked = PFUser.current()?["blocked"] as? NSArray
         
-        query?.findObjectsInBackground(block: {(objects, error) in
+        var fMembers = [Member]()
+        
+        for object in flirts! {
             
-            if error != nil {
-                print(error!)
-            } else if let users = objects {
+            let id = object as! String
+            
+            if (blocked?.contains(id))!{
                 
-                var members = [Member]()
-                
-                for object in users {
-                    if let user = object as? PFUser {
+            } else {
+                let Oquery = PFUser.query()
+                Oquery?.getObjectInBackground(withId: id, block: { (fObject, error) in
+                    if let fMember = fObject as? PFUser {
                         
                         let member = Member()
+                        let imageFile = fMember["mainPhoto"] as! PFFile
                         
-                        if let favoriteUsers = PFUser.current()?["flirt"] {
-                            if (favoriteUsers as AnyObject).contains(user.objectId! as String!){
-                                
-                                let imageFile = user["mainPhoto"] as! PFFile
-                                
-                                imageFile.getDataInBackground(block: {(data, error) in
-                                    
-                                    let imageData = data
-                                    member.memberImage = (UIImage(data: imageData!)!)
-                                    member.memberName = user.username
-                                    
-                                    if let memberIDText = user.objectId {
-                                        member.memberID = memberIDText
-                                    } else {
-                                        return
-                                    }
-                                    
-                                    if let memberNameText = user.username {
-                                        member.memberName = memberNameText
-                                    } else {
-                                        return
-                                    }
-                                    
-                                    if let aboutText = user["about"] as? String {
-                                        member.about = aboutText
-                                    } else {
-                                        member.about = "Unanswered"
-                                    }
-                                    
-                                    if let ageText = user["age"] as? String {
-                                        member.age = ageText
-                                    } else {
-                                        member.age = "Unanswered"
-                                    }
-                                    
-                                    if let genderText = user["gender"] as? String {
-                                        member.gender = genderText
-                                    } else {
-                                        member.gender = "Unanswered"
-                                    }
-                                    
-                                    if let bodyText = user["body"] as? String {
-                                        member.body = bodyText
-                                    } else {
-                                        member.body = "Unanswered"
-                                    }
-                                    
-                                    if let heightText = user["height"] as? String {
-                                        member.height = heightText
-                                    } else {
-                                        member.height = "Unanswered"
-                                    }
-                                    
-                                    if let weightText = user["weight"] as? String {
-                                        member.weight = weightText
-                                    } else {
-                                        member.weight = "Unanswered"
-                                    }
-                                    
-                                    if let maritalStatusText = user["marital"] as? String {
-                                        member.maritalStatus = maritalStatusText
-                                    } else {
-                                        member.maritalStatus = "Unanswered"
-                                    }
-                                    
-                                    if let raceText = user["ethnicity"] as? String {
-                                        member.race = raceText
-                                    } else {
-                                        member.race = "Unanswered"
-                                    }
-                                    if let mlat = (user["location"] as AnyObject).latitude {
-                                        member.mLat = mlat
-                                    } else {
-                                        member.mLat = 0
-                                    }
-                                    
-                                    if let mlong = (user["location"] as AnyObject).longitude {
-                                        member.mLong = mlong
-                                    } else {
-                                        member.mLong = 0
-                                    }
-                                    
-                                    if user["online"] as! Bool {
-                                        member.memberOnline = true
-                                    } else {
-                                        member.memberOnline = false
-                                    }
-                                    if user["echo"] != nil && user["echo"] as! Bool {
-                                        member.echo = true
-                                    } else {
-                                        member.echo = false
-                                    }
-                                    
-                                })
-                                
-                                members.append(member)
-                                members.reverse()
-                                completion(members)
-                                
-                                DispatchQueue.main.async {
-                                    self.memberCollectionView.reloadData()
-                                }
-                                
+                        imageFile.getDataInBackground(block: {(data, error) in
+                            
+                            let imageData = data
+                            member.memberImage = (UIImage(data: imageData!)!)
+                            member.memberName = fMember.username
+                            
+                            if let memberIDText = fMember.objectId {
+                                member.memberID = memberIDText
+                            } else {
+                                return
                             }
                             
-                        }
+                            if let memberNameText = fMember.username {
+                                member.memberName = memberNameText
+                            } else {
+                                return
+                            }
+                            
+                            if let aboutText = fMember["about"] as? String {
+                                member.about = aboutText
+                            } else {
+                                member.about = "Unanswered"
+                            }
+                            
+                            if let ageText = fMember["age"] as? String {
+                                member.age = ageText
+                            } else {
+                                member.age = "Unanswered"
+                            }
+                            
+                            if let genderText = fMember["gender"] as? String {
+                                member.gender = genderText
+                            } else {
+                                member.gender = "Unanswered"
+                            }
+                            
+                            if let bodyText = fMember["body"] as? String {
+                                member.body = bodyText
+                            } else {
+                                member.body = "Unanswered"
+                            }
+                            
+                            if let heightText = fMember["height"] as? String {
+                                member.height = heightText
+                            } else {
+                                member.height = "Unanswered"
+                            }
+                            
+                            if let weightText = fMember["weight"] as? String {
+                                member.weight = weightText
+                            } else {
+                                member.weight = "Unanswered"
+                            }
+                            
+                            if let maritalStatusText = fMember["marital"] as? String {
+                                member.maritalStatus = maritalStatusText
+                            } else {
+                                member.maritalStatus = "Unanswered"
+                            }
+                            
+                            if let raceText = fMember["ethnicity"] as? String {
+                                member.race = raceText
+                            } else {
+                                member.race = "Unanswered"
+                            }
+                            if let mlat = (fMember["location"] as AnyObject).latitude {
+                                member.mLat = mlat
+                            } else {
+                                member.mLat = 0
+                            }
+                            
+                            if let mlong = (fMember["location"] as AnyObject).longitude {
+                                member.mLong = mlong
+                            } else {
+                                member.mLong = 0
+                            }
+                            
+                            if fMember["online"] as! Bool {
+                                member.memberOnline = true
+                            } else {
+                                member.memberOnline = false
+                            }
+                            if fMember["echo"] != nil && fMember["echo"] as! Bool {
+                                member.echo = true
+                            } else {
+                                member.echo = false
+                            }
+                            
+                        })
+                        fMembers.append(member)
+                        fMembers.reverse()
+
                     }
-                }
+                    completion(fMembers)
+                })
             }
             
-        })
+        }
     }
 
     
@@ -659,38 +618,24 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
 
         if let flirt = PFUser.current()?["flirt"] as? NSArray {
             
-            let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
+//            let flirtlimit = PFUser.current()?["flirtLimit"] as! Int
             
             var tracking = ""
             
             if (flirt.count)  < 50 {
                 tracking = "flirt"
                 
-                let flirtGraphic = SpringImageView()
-                
-                flirtGraphic.image = UIImage(named: "flirt_2.png")
-                flirtGraphic.contentMode = .scaleAspectFill
-                //flirtGraphic.y = -50
-                flirtGraphic.autostart = true
-                flirtGraphic.animation = "zoomIn"
-                flirtGraphic.animateToNext {
-                    flirtGraphic.animation = "zoomOut"
-                    flirtGraphic.animateTo()
-                    
-                }
-                
-                
-                flirtGraphic.frame = CGRect(x: (memberCollectionView.center.x) / 4, y: (memberCollectionView.center.y) / 4, width: 300, height: 300)
-                
-                flirtGraphic.center = CGPoint(x: memberCollectionView.frame.size.width  / 2, y: memberCollectionView.frame.size.height / 2);
-                
-                memberCollectionView.addSubview(flirtGraphic)
-                
                 PFUser.current()?.addUniqueObjects(from: [member.memberID as String!], forKey: tracking)
                 
                 PFUser.current()?.saveInBackground(block: {(success, error) in
-                    self.sendFlirtPush(member: member)
-                    print("Flirt with " + (member.memberID)! + "added")
+                    
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        self.sendFlirtPush(member: member)
+                        print("Flirt with " + (member.memberID)! + "added")
+                    }
+                    
                 })
                 
             } else {
@@ -704,92 +649,46 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     
     func favorite(member: Member) {
         
-        
-        if favorite == true {
+        if let favoritesArray = PFUser.current()?["flirt"] as? NSArray {
             
-            PFUser.current()?.removeObjects(in: [member.memberID as String!], forKey: "favorites")
+//            let favoritesLimit = PFUser.current()?["favoritesLimit"] as! Int
             
-            PFUser.current()?.saveInBackground(block: {(success, error) in
-                
-            })
+            var tracking = ""
             
-            let query = PFUser.query()
-            
-            query?.whereKey("app", equalTo: APPLICATION)
-            
-            query?.findObjectsInBackground(block: { (objects, error) in
-                if error != nil {
+            if (favoritesArray.count)  < 50 {
+                tracking = "favorites"
+                if favoritesArray.contains(member.memberID as Any){
                     
-                } else if let users = objects {
-                    for object in users {
-                        if object is PFUser {
-                            if let favorites = PFUser.current()?["favorites"] {
-                                if (favorites as AnyObject).contains(member.memberID as String!) {
-                                    self.favorite = true
-                                } else {
-                                    self.favorite = false
-                                }
-                            }
+                    PFUser.current()?.removeObjects(in: [member.memberID as String!], forKey: "favorites")
+                    PFUser.current()?.saveInBackground(block: {(success, error) in
+                        
+                        if error != nil {
+                            print("Error saving after favoriting user")
+                        } else {
+                            
                         }
-                    }
+                    })
+                    
+                } else {
+                    PFUser.current()?.addUniqueObjects(from: [member.memberID as String!], forKey: tracking)
+                    
+                    PFUser.current()?.saveInBackground(block: {(success, error) in
+                        
+                        if error != nil {
+                            print(error!)
+                        } else {
+                            
+                            print("You favorited " + (member.memberID)! + "!")
+                        }
+                        
+                    })
                 }
-            })
-            
-            favorite = false
-            
-        } else {
-            
-            let favoriteIcon = SpringImageView()
-            
-            favoriteIcon.image = UIImage(named: "favorite.png")
-            favoriteIcon.contentMode = .scaleAspectFill
-            //flirtGraphic.y = -50
-            favoriteIcon.autostart = true
-            favoriteIcon.animation = "zoomIn"
-            favoriteIcon.animateToNext {
-                favoriteIcon.animation = "zoomOut"
-                favoriteIcon.animateTo()
                 
+                
+            } else {
+                print("favorites limit reached")
+                //                self.dialogueBox(title: "Flirt Limit Reached", messageText: "You have reached your flirt limit. Visit the in-app store to learn how to get unlimited flirts, local members and global members.")
             }
-            
-            
-            favoriteIcon.frame = CGRect(x: memberCollectionView.frame.size.width / 2, y: memberCollectionView.frame.size.height  / 2 , width: 600, height: 362)
-            
-            favoriteIcon.center = CGPoint(x: memberCollectionView.frame.size.width  / 2, y: memberCollectionView.frame.size.height / 2);
-            var window = UIWindow()
-            window = UIWindow(frame: UIScreen.main.bounds)
-            window.makeKeyAndVisible()
-            window.addSubview(favoriteIcon)
-            
-            PFUser.current()?.addUniqueObjects(from: [member.memberID as String!], forKey: "favorites")
-            
-            PFUser.current()?.saveInBackground(block: {(success, error) in
-                
-            })
-            
-            let query = PFUser.query()
-            
-            query?.findObjectsInBackground(block: { (objects, error) in
-                if error != nil {
-                    
-                } else if let users = objects {
-                    for object in users {
-                        if object is PFUser {
-                            if let favorites = PFUser.current()?["favorites"] {
-                                if (favorites as AnyObject).contains(member.memberID as String!) {
-                                    self.favorite = true
-                                  
-                                } else {
-                                    self.favorite = false
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-            })
-            
-            favorite = true
             
         }
     }
@@ -803,7 +702,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                 print("Error saving after blocking user")
             } else {
                 
-                view.reloadData()
+                
             }
             
         })
@@ -921,5 +820,19 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         mainView.present(dialog,
                      animated: true,
                      completion: sendFlirtPush)
+    }
+    
+    func dialogueBox(title:String, messageText:String){
+        let dialog = UIAlertController(title: title,
+                                       message: messageText,
+                                       preferredStyle: UIAlertControllerStyle.alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        dialog.addAction(defaultAction)
+        // Present the dialog.
+        
+        
+        mainView.present(dialog,animated: true)
+        
     }
 }

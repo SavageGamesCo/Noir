@@ -101,6 +101,13 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                                 NewMessage.toID = message["toUser"] as? String
                                                                 NewMessage.fromID = message["senderID"] as? String
                                                                 NewMessage.date = message.createdAt
+                                                                NewMessage.messageID = message.objectId
+                                                                
+                                                                if message["messageRead"] as? Bool == nil {
+                                                                    NewMessage.readMessage = false
+                                                                } else {
+                                                                    NewMessage.readMessage = message["messageRead"] as? Bool
+                                                                }
                                                                 
 //                                                                self.newMessages.append(NewMessage)
                                                                 
@@ -142,7 +149,10 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     
     override func setupViews() {
         super.setupViews()
-        setupData()
+        DispatchQueue.main.async {
+            self.setupData()
+        }
+        
         
         
     }
@@ -179,26 +189,66 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        self.collectionView.cellForItem(at: indexPath)?.layoutSubviews()
         let layout = UICollectionViewFlowLayout()
         
         let controller = ChatController(collectionViewLayout: layout)
-        controller.sender = messages[indexPath.item]?.sender
-        messages[indexPath.item]?.readMessage = true
-        let chat = PFObject(className: "Chat")
-        chat["messageRead"] = true
-        chat.saveInBackground { (success, error) in
-            
-            if error != nil {
-                print(error!)
-            } else {
-                
-                self.setupViews()
-                
-            }
-            
-        }
+        controller.sender = self.messages[indexPath.item]?.sender
+        
         
         self.window?.rootViewController?.present(controller, animated: true, completion: nil)
+
+//        var OID = ""
+//        if let objectId = messages[indexPath.item]?.messageID {
+//            OID = objectId
+//        }
+//
+//        let query = PFQuery(className: "Chat")
+//        query.whereKey("objectId", equalTo: OID)
+//
+//        query.findObjectsInBackground { (nmessages, error) in
+//            if error != nil {
+//                print(error!)
+//            } else {
+//
+//                for message in nmessages! {
+//
+//                    let acl = PFACL()
+//                    if let user = PFUser.current() {
+//                        acl.getPublicReadAccess = false
+//                        acl.getPublicWriteAccess = false
+//
+//                        acl.setReadAccess(true, for: user)
+//                        acl.setWriteAccess(true, for: user)
+//
+//                    }
+//
+//                    message.acl = acl
+//                    message.saveInBackground()
+//                    message["messageRead"] = true
+//                    message.saveInBackground { (success, error) -> Void in
+//
+//                        if error != nil {
+//                            print(error!)
+//                        } else {
+//
+////                            message.acl = aclDone
+//
+//                            self.collectionView.cellForItem(at: indexPath)?.layoutSubviews()
+//                            let layout = UICollectionViewFlowLayout()
+//
+//                            let controller = ChatController(collectionViewLayout: layout)
+//                            controller.sender = self.messages[indexPath.item]?.sender
+//
+//                            self.window?.rootViewController?.present(controller, animated: true, completion: nil)
+//
+//                        }
+//
+//                    }
+//                }
+//            }
+//        }
         
     }
 }

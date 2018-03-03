@@ -133,6 +133,7 @@
 		B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF55D1EA7CF010044B07B /* UsersCollectionViewController.swift */; };
 		B7FAF5601EA7D5AB0044B07B /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */; };
 		B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */; };
+		B7FB72802049D66900DE5F4B /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FB727F2049D66900DE5F4B /* ChatCell.swift */; };
 		C5152F9E3F16A01CFB4ABF0D /* Pods_Noir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F280494CA807A5E164682988 /* Pods_Noir.framework */; };
 /* End PBXBuildFile section */
 
@@ -271,6 +272,7 @@
 		B7FAF55D1EA7CF010044B07B /* UsersCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewController.swift; sourceTree = "<group>"; };
 		B7FAF55F1EA7D5AB0044B07B /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewCell.swift; sourceTree = "<group>"; };
+		B7FB727F2049D66900DE5F4B /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		CA61033430ED3394A1C95768 /* Pods-Noir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noir.release.xcconfig"; path = "Pods/Target Support Files/Pods-Noir/Pods-Noir.release.xcconfig"; sourceTree = "<group>"; };
 		F280494CA807A5E164682988 /* Pods_Noir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Noir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -469,6 +471,7 @@
 				B74BAC96203290A700CFC11F /* EchoCell.swift */,
 				B77559142045CF8E0017A49E /* DetailCell.swift */,
 				B77559182047114C0017A49E /* GalleryCell.swift */,
+				B7FB727F2049D66900DE5F4B /* ChatCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 				B74BACA5203E0BDF00CFC11F /* ChatController.swift in Sources */,
 				B77B3E7C20321616003AEEA0 /* SettingsLauncher.swift in Sources */,
 				B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */,
+				B7FB72802049D66900DE5F4B /* ChatCell.swift in Sources */,
 				B74BACA3203DFE1C00CFC11F /* Message.swift in Sources */,
 				B72F13441F05CA8C008EABCE /* EchoSonarItemView.swift in Sources */,
 				B77559152045CF8E0017A49E /* DetailCell.swift in Sources */,

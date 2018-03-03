@@ -9,12 +9,20 @@
 import UIKit
 import Parse
 import ParseLiveQuery
+import AVKit
+import MobileCoreServices
+import Photos
 
 class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let picker = UIImagePickerController()
+    let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
+    private var subscription: Subscription<PFObject>!
     
     let cellID = "cellID"
+    
+    var memberID = String()
+    var memberName = String()
     
     lazy var inputTextField: UITextField = {
         let inputField = UITextField()
@@ -34,6 +42,8 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: nil, action: #selector(handleDismiss))
             navTitle.rightBarButtonItem = dismissButton
             navbar.setItems([navTitle], animated: true)
+            self.memberID = (sender?.userID)!
+            self.memberName = (sender?.name)!
             
         }
     }
@@ -48,26 +58,30 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: nil, action: #selector(handleDismiss))
             navTitle.rightBarButtonItem = dismissButton
             navbar.setItems([navTitle], animated: true)
+            self.memberID = (member?.memberID)!
+            self.memberName = (member?.memberName)!
+        
+            
             
         }
     }
-    var messages: [Message]?
-    
+    var chatMessages = [Message()]
     @objc func handleDismiss(){
         self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkPermission()
         
         picker.delegate = self
         
         collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
-        collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.alwaysBounceVertical = true
         
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = .init(top: 35, left: 0, bottom: 0, right: 0)
+        layout.sectionInset = .init(top: 35, left: 0, bottom: 50, right: 0)
         collectionView?.setCollectionViewLayout(layout, animated: true)
         
         
@@ -86,12 +100,143 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         
         observeMessages()
+        let index = IndexPath.init(arrayLiteral: 0)
+    
+        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        observeMessages()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        observeMessages()
+    }
+    
+    func setupMessages(){
+        chatMessages.removeAll()
+        let query1 = PFQuery(className: "Chat")
+        let query2 = PFQuery(className: "Chat")
+        
+        query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", equalTo: CURRENT_USER! + memberID)
+        query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", equalTo: memberID + CURRENT_USER!)
+        
+        let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
+        query3.limit = 2000
+        
+        query3.order(byAscending: "createdAt")
+        
+        
+        query3.findObjectsInBackground { (objects, error) in
+            if error != nil {
+                print(error!)
+            } else if let messages = objects {
+                
+                if messages.count > 0 {
+                    
+                    
+                    for message in messages {
+                        let NewMessage = Message()
+                        NewMessage.date = message.createdAt
+                        NewMessage.messageID = message["chatID"] as? String
+                        NewMessage.fromID = message["senderID"] as? String
+                        NewMessage.toID = message["toUser"] as? String
+                        NewMessage.text = message["text"] as? String
+                        
+                        self.chatMessages.append(NewMessage)
+                        DispatchQueue.main.async {
+                            self.collectionView?.reloadData()
+                        }
+                        
+                    }
+                    
+                    
+                }
+                
+            }
+        }
     }
     
     func observeMessages() {
         //subscribe to messages of event type
-        let message = Message()
+        setupMessages()
+        let msgQuery = PFQuery(className: "Chat")
         
+        msgQuery.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
+        
+        self.subscription = self.liveQueryClient.subscribe(msgQuery).handleEvent{ _, message in
+            
+            let query1 = PFQuery(className: "Chat")
+            let query2 = PFQuery(className: "Chat")
+            
+            query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", equalTo: CURRENT_USER! + self.memberID)
+            query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", equalTo: self.memberID + CURRENT_USER!)
+            
+            let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
+            query3.limit = 2000
+            
+            query3.order(byDescending: "createdAt")
+            
+            query3.getFirstObjectInBackground(block: { (chatMessage, error) in
+                if error != nil {
+                    print(error!)
+                } else {
+                    if let cMessage = chatMessage {
+                        let NewMessage = Message()
+                        let member = Sender()
+                        if self.chatMessages.contains(NewMessage){
+                            NewMessage.date = cMessage.createdAt
+                            NewMessage.messageID = cMessage["chatID"] as? String
+                            NewMessage.fromID = cMessage["senderID"] as? String
+                            NewMessage.toID = cMessage["toUser"] as? String
+                            NewMessage.text = cMessage["text"] as? String
+                            NewMessage.sender = member
+                            NewMessage.sender?.userID = cMessage["senderID"] as? String
+                            
+                            self.chatMessages.append(NewMessage)
+                            DispatchQueue.main.async {
+                                self.collectionView?.reloadData()
+                            }
+                        }
+                    }
+                }
+            })
+            
+            query3.findObjectsInBackground { (objects, error) in
+                if error != nil {
+                    print(error!)
+                } else if let messages = objects {
+                    
+                    if messages.count > 0 {
+                        
+                        
+                        for message in messages {
+                            let NewMessage = Message()
+                            if self.chatMessages.contains(NewMessage){
+                                
+                            } else {
+                                
+                                NewMessage.date = message.createdAt
+                                NewMessage.messageID = message["chatID"] as? String
+                                NewMessage.fromID = message["senderID"] as? String
+                                NewMessage.toID = message["toUser"] as? String
+                                NewMessage.text = message["text"] as? String
+                                
+                                self.chatMessages.append(NewMessage)
+                                DispatchQueue.main.async {
+                                    self.collectionView?.reloadData()
+                                }
+                            }
+                            
+                        }
+                        
+                        
+                    }
+                    
+                }
+            }
+        }
         
     }
     
@@ -127,9 +272,9 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         mediaButton.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         mediaButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        mediaButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        mediaButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         mediaButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        mediaButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        mediaButton.addTarget(self, action: #selector(handleMedia), for: .touchUpInside)
         
        
         containerView.addSubview(inputTextField)
@@ -151,12 +296,67 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
     }
     
+    @objc func handleMedia(){
+        let alert = UIAlertController(title: "Send Media", message: "Select A Photo", preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let photos = UIAlertAction(title: "Photos", style: .default, handler: { (alert: UIAlertAction) in
+            
+            self.chooseMedia(type: kUTTypeImage)
+            
+        })
+        
+        alert.addAction(photos)
+        alert.addAction(cancel)
+        
+        alert.popoverPresentationController?.sourceView = view
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func chooseMedia(type: CFString){
+        picker.mediaTypes = [type as String]
+        
+        present(picker, animated: true, completion: nil)
+    }
+    
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let pic = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            let imageData = UIImageJPEGRepresentation( pic, 0.5)
+            
+            let image = PFFile(name: "chatImage.jpg", data: imageData!)
+            
+            sendMedia(image: image, senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: self.memberID, toUserName: self.memberName)
+            
+            if PFUser.current()?["membership"] as! String == "basic" {
+                
+                if imagesSent < 5 {
+                    imagesSent += 1
+                }
+            }
+            
+            
+            
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    
     @objc func handleSend(){
         
         if inputTextField.text != nil && inputTextField.text != "" {
-            sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: (member?.memberID)!, toUserName: (member?.memberName)!, text: inputTextField.text!)
+            sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: (sender?.userID)!, toUserName: (sender?.name)!, text: inputTextField.text!)
             
-            print(inputTextField.text)
         }
         
     }
@@ -168,95 +368,55 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if let counter = messages?.count {
-            return counter
-        }
         
-        return 3
+        
+        return chatMessages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        return collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChatCell
+        
+        let message = chatMessages[indexPath.item]
+            
+        cell.message = message
+        
+        
+        return cell
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 100)
-    }
-    
-    
-
-}
-
-func sendMessage(senderID: String, senderName: String, toUser: String, toUserName: String, text: String) {
-    
-    let chat = PFObject(className: "Chat")
-    
-    chat["senderID"] = senderID
-    chat["senderName"] = senderName
-    chat["text"] = text
-    chat["url"] = ""
-    chat["toUser"] = toUser
-    chat["toUserName"] = toUserName
-    chat["messageRead"] = false
-//    chat["chatID"] = chatID
-    chat["app"] = APPLICATION
-    
-    var installationID = PFInstallation()
-    do {
-        let user = try PFQuery.getUserObject(withId: displayedUserID)
+        let approximateWidthOfContent = view.frame.width
+        // x is the width of the logo in the left
         
-        if user["installation"] != nil {
-            installationID = (user["installation"] as? PFInstallation)!
-        }
+        let size = CGSize(width: approximateWidthOfContent, height: 1000)
         
-    }catch{
-        print("No User Selected")
-    }
-    
-    
-    
-    PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+        //1000 is the large arbitrary values which should be taken in case of very high amount of content
         
-        if error != nil {
-            print(error!)
-            print("Push Not Successful")
-        } else {
-            print("PFCloud push was successful")
-        }
-        
-    })
-    
-    //let chatData : Dictionary<String, Any> = ["senderId": senderID, "senderName": senderName, "text": text]
-    
-    chat.saveInBackground { (success, error) in
-        
-        if error != nil {
-            print(error!)
-        } else {
-            //scroll to bottom
-            
-        }
+        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+        let estimatedFrame = NSString(string: chatMessages[indexPath.item].text!).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        return CGSize(width: view.frame.width, height: estimatedFrame.height + 30)
         
     }
     
-}
-
-func sendMedia(image: PFFile?, senderID: String, senderName: String, toUser: String, toUserName: String, text: String?){
-    
-    if image != nil {
+    func sendMessage(senderID: String, senderName: String, toUser: String, toUserName: String, text: String) {
+        
         let chat = PFObject(className: "Chat")
         
-        chat["media"] = image
         chat["senderID"] = senderID
         chat["senderName"] = senderName
+        chat["text"] = text
+        chat["url"] = ""
         chat["toUser"] = toUser
         chat["toUserName"] = toUserName
-//        chat["chatID"] = chatID
+        chat["messageRead"] = false
+        chat["chatID"] = toUser + senderID
         chat["app"] = APPLICATION
         
         var installationID = PFInstallation()
         do {
+            
             let user = try PFQuery.getUserObject(withId: toUser)
             
             if user["installation"] != nil {
@@ -266,6 +426,8 @@ func sendMedia(image: PFFile?, senderID: String, senderName: String, toUser: Str
         }catch{
             print("No User Selected")
         }
+        
+        
         
         PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
             
@@ -278,33 +440,113 @@ func sendMedia(image: PFFile?, senderID: String, senderName: String, toUser: Str
             
         })
         
+        //let chatData : Dictionary<String, Any> = ["senderId": senderID, "senderName": senderName, "text": text]
         
         chat.saveInBackground { (success, error) in
             
             if error != nil {
                 print(error!)
             } else {
-                
-                //self.sendMessage(senderID: senderID, senderName: senderName, toUser: toUser, toUserName: toUserName, text: "Image sent")
-                
                 //scroll to bottom
                 
             }
             
         }
-    } else {
-        
-        if let inputText = text {
-          sendMessage(senderID: senderID, senderName: senderName, toUser: toUser, toUserName: toUserName, text: inputText)
-        } else {
-          print("There was an error sending the message")
-        }
         
     }
     
-    //self.collectionView.reloadData()
+    func sendMedia(image: PFFile?, senderID: String, senderName: String, toUser: String, toUserName: String){
+        
+        if image != nil {
+            let chat = PFObject(className: "Chat")
+            
+            chat["media"] = image
+            chat["senderID"] = senderID
+            chat["senderName"] = senderName
+            chat["toUser"] = toUser
+            chat["toUserName"] = toUserName
+            chat["chatID"] = toUser + senderID
+            chat["app"] = APPLICATION
+            
+            var installationID = PFInstallation()
+            do {
+                let user = try PFQuery.getUserObject(withId: toUser)
+                
+                if user["installation"] != nil {
+                    installationID = (user["installation"] as? PFInstallation)!
+                    
+                    PFCloud.callFunction(inBackground: "sendPushToUser", withParameters: ["recipientId": toUser, "chatmessage": "New message from \(PFUser.current()!.username!)", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+                        
+                        if error != nil {
+                            print(error!)
+                            print("Push Not Successful")
+                        } else {
+                            print("PFCloud push was successful")
+                        }
+                        
+                    })
+                    
+                    
+                }
+                
+                
+            }catch{
+                print("No User Selected")
+            }
+            
+            chat.saveInBackground { (success, error) in
+                
+                if error != nil {
+                    print(error!)
+                } else {
+                    
+                    //self.sendMessage(senderID: senderID, senderName: senderName, toUser: toUser, toUserName: toUserName, text: "Image sent")
+                    
+                    //scroll to bottom
+                    
+                }
+                
+            }
+            
+        } else {
+            
+            print("There was an error sending the message")
+            
+        }
+        
+        //self.collectionView.reloadData()
+        
+    }
     
+    
+
 }
+
+func checkPermission() {
+    let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+    switch photoAuthorizationStatus {
+    case .authorized:
+        print("Access is granted by user")
+    case .notDetermined:
+        PHPhotoLibrary.requestAuthorization({
+            (newStatus) in
+            print("status is \(newStatus)")
+            if newStatus ==  PHAuthorizationStatus.authorized {
+                /* do stuff here */
+                print("success")
+            }
+        })
+        print("It is not determined until now")
+    case .restricted:
+        // same same
+        print("User do not have access to photo album.")
+    case .denied:
+        // same same
+        print("User has denied the permission.")
+    }
+}
+
+
 
 class ChatMessageCell: BaseCell {
     
