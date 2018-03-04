@@ -153,7 +153,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     func favoriteAnim() {
         let favoriteIcon = SpringImageView()
         
-        favoriteIcon.image = UIImage(named: "favorite.png")
+        favoriteIcon.image = UIImage(named: "noir_stars.png")
         favoriteIcon.contentMode = .scaleAspectFill
         //flirtGraphic.y = -50
         favoriteIcon.autostart = true
@@ -176,7 +176,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     func flirtAnim(){
         let flirtGraphic = SpringImageView()
         
-        flirtGraphic.image = UIImage(named: "flirt_2.png")
+        flirtGraphic.image = UIImage(named: "noir_heart.png")
         flirtGraphic.contentMode = .scaleAspectFill
         //flirtGraphic.y = -50
         flirtGraphic.autostart = true
@@ -209,7 +209,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         var buttons = [ALRadialMenuButton]()
        
         let statsButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        statsButton.setImage(UIImage(named: "newspaper-7")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        statsButton.setImage(UIImage(named: "stats_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
         statsButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
         statsButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         statsButton.layer.cornerRadius = 50
@@ -229,7 +229,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         buttons.append(galleryButton)
         
         let chatButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        chatButton.setImage(UIImage(named: "message-7")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        chatButton.setImage(UIImage(named: "chat_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
         chatButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
         chatButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         chatButton.layer.cornerRadius = 50
@@ -238,7 +238,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         buttons.append(chatButton)
         
         let blockButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        blockButton.setImage(UIImage(named: "emoticon-sad-7")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        blockButton.setImage(UIImage(named: "block_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
         blockButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
         blockButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         blockButton.layer.cornerRadius = 50

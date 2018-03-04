@@ -26,5 +26,6 @@ class Message: NSObject {
     var sender: Sender?
     var readMessage: Bool?
     var messageID: String?
+    var mediaMessage: UIImage?
     
 }

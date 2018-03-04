@@ -27,6 +27,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     lazy var inputTextField: UITextField = {
         let inputField = UITextField()
         inputField.placeholder = "Enter message..."
+        inputField.borderStyle = .roundedRect
         inputField.translatesAutoresizingMaskIntoConstraints = false
         inputField.delegate = self
         
@@ -37,11 +38,15 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
             let navbar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: 50))
             view.addSubview(navbar)
+            navbar.isTranslucent = false
             let navTitle = UINavigationItem()
             navTitle.title = sender?.name
-            let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: nil, action: #selector(handleDismiss))
+            let dismissButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: #selector(handleDismiss))
+            dismissButton.tintColor = Constants.Colors.NOIR_TINT
             navTitle.rightBarButtonItem = dismissButton
+            
             navbar.setItems([navTitle], animated: true)
+            
             self.memberID = (sender?.userID)!
             self.memberName = (sender?.name)!
             
@@ -53,10 +58,12 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
             let navbar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: 50))
             view.addSubview(navbar)
+            navbar.isTranslucent = false
             let navTitle = UINavigationItem()
             navTitle.title = member?.memberName
-            let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: nil, action: #selector(handleDismiss))
+            let dismissButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: #selector(handleDismiss))
             navTitle.rightBarButtonItem = dismissButton
+            navTitle.rightBarButtonItem?.tintColor = Constants.Colors.NOIR_TINT
             navbar.setItems([navTitle], animated: true)
             self.memberID = (member?.memberID)!
             self.memberName = (member?.memberName)!
@@ -81,26 +88,22 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.alwaysBounceVertical = true
         
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = .init(top: 35, left: 0, bottom: 50, right: 0)
+        layout.sectionInset = .init(top: 50, left: 0, bottom: 50, right: 0)
         collectionView?.setCollectionViewLayout(layout, animated: true)
+        
+        
         
         
         setupInput()
         
         if PFUser.current()?["membership"] as! String == "basic" {
-            
-            if imagesSent == 5 {
-//                self.inputToolbar.contentView.leftBarButtonItem = nil
-                
-                dialogueBox(title: "SEND UNLIMITED IMAGES!!", messageText: "Paid Monthly Members are able to send unlimited images via chat to other members! Free Members are limited in how many images they can send. Visit the Shop to get your membership and start sending images!")
-            }
+            //set limits on basic users
             
         } else {
             //put something in here if I feel like it
         }
         
         observeMessages()
-        let index = IndexPath.init(arrayLiteral: 0)
     
         
 
@@ -111,7 +114,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        observeMessages()
+        
     }
     
     func setupMessages(){
@@ -123,7 +126,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         query2.whereKey("app", equalTo: APPLICATION).whereKey("chatID", equalTo: memberID + CURRENT_USER!)
         
         let query3 : PFQuery = PFQuery.orQuery(withSubqueries: [query1,query2])
-        query3.limit = 2000
+        query3.limit = 9000
         
         query3.order(byAscending: "createdAt")
         
@@ -142,23 +145,44 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         NewMessage.messageID = message["chatID"] as? String
                         NewMessage.fromID = message["senderID"] as? String
                         NewMessage.toID = message["toUser"] as? String
-                        NewMessage.text = message["text"] as? String
                         
-                        self.chatMessages.append(NewMessage)
-                        DispatchQueue.main.async {
-                            self.collectionView?.reloadData()
+                        
+                        if message["media"] != nil {
+                            let imageFile = message["media"] as! PFFile
+                            imageFile.getDataInBackground(block: { (data, error) in
+                                if let imageData = data {
+                                    let image = UIImage(data: imageData)
+                                    NewMessage.mediaMessage = image
+                                }
+                                
+                            })
+                            
+                        } else {
+                            NewMessage.text = message["text"] as? String
                         }
                         
+                        self.chatMessages.append(NewMessage)
+                        
+                    }
+                    DispatchQueue.main.async {
+                        self.collectionView?.reloadData()
+                        let item = self.collectionView(self.collectionView!, numberOfItemsInSection: 0) - 1
+                        let lastItemIndex = IndexPath(item: item, section: 0)
+                        
+                        self.collectionView?.scrollToItem(at: lastItemIndex, at: UICollectionViewScrollPosition.top, animated: true)
                     }
                     
                     
                 }
                 
             }
+
         }
+        
     }
     
     func observeMessages() {
+        
         //subscribe to messages of event type
         setupMessages()
         let msgQuery = PFQuery(className: "Chat")
@@ -178,14 +202,15 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
             query3.order(byDescending: "createdAt")
             
-            query3.getFirstObjectInBackground(block: { (chatMessage, error) in
+            query3.findObjectsInBackground(block: { (chatMessages, error) in
                 if error != nil {
                     print(error!)
                 } else {
-                    if let cMessage = chatMessage {
-                        let NewMessage = Message()
-                        let member = Sender()
-                        if self.chatMessages.contains(NewMessage){
+                    if let cMessages = chatMessages {
+                        if let cMessage = cMessages.first {
+                            print(cMessage)
+                            let NewMessage = Message()
+                            let member = Sender()
                             NewMessage.date = cMessage.createdAt
                             NewMessage.messageID = cMessage["chatID"] as? String
                             NewMessage.fromID = cMessage["senderID"] as? String
@@ -194,48 +219,36 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                             NewMessage.sender = member
                             NewMessage.sender?.userID = cMessage["senderID"] as? String
                             
+                            if cMessage["media"] != nil {
+                                let imageFile = cMessage["media"] as! PFFile
+                                imageFile.getDataInBackground(block: { (data, error) in
+                                    if let imageData = data {
+                                        let image = UIImage(data: imageData)
+                                        NewMessage.mediaMessage = image
+                                    }
+                                    
+                                })
+                                
+                            } else {
+                                NewMessage.text = cMessage["text"] as? String
+                            }
+                            
                             self.chatMessages.append(NewMessage)
                             DispatchQueue.main.async {
                                 self.collectionView?.reloadData()
-                            }
-                        }
-                    }
-                }
-            })
-            
-            query3.findObjectsInBackground { (objects, error) in
-                if error != nil {
-                    print(error!)
-                } else if let messages = objects {
-                    
-                    if messages.count > 0 {
-                        
-                        
-                        for message in messages {
-                            let NewMessage = Message()
-                            if self.chatMessages.contains(NewMessage){
+                                let item = self.collectionView(self.collectionView!, numberOfItemsInSection: 0) - 1
+                                let lastItemIndex = IndexPath(item: item, section: 0)
                                 
-                            } else {
-                                
-                                NewMessage.date = message.createdAt
-                                NewMessage.messageID = message["chatID"] as? String
-                                NewMessage.fromID = message["senderID"] as? String
-                                NewMessage.toID = message["toUser"] as? String
-                                NewMessage.text = message["text"] as? String
-                                
-                                self.chatMessages.append(NewMessage)
-                                DispatchQueue.main.async {
-                                    self.collectionView?.reloadData()
-                                }
+                                self.collectionView?.scrollToItem(at: lastItemIndex, at: UICollectionViewScrollPosition.top, animated: true)
                             }
                             
                         }
                         
-                        
                     }
-                    
                 }
-            }
+               
+            })
+            
         }
         
     }
@@ -251,14 +264,16 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         let sendButton = UIButton(type: .system)
         sendButton.setTitle("Send", for: .normal)
+        sendButton.tintColor = Constants.Colors.NOIR_TINT
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         
         let mediaButton = UIButton(type: .roundedRect)
         mediaButton.setImage(UIImage(named: "photo-7"), for: .normal)
+        mediaButton.tintColor = Constants.Colors.NOIR_TINT
         mediaButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(sendButton)
@@ -266,7 +281,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
@@ -355,7 +370,8 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     @objc func handleSend(){
         
         if inputTextField.text != nil && inputTextField.text != "" {
-            sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: (sender?.userID)!, toUserName: (sender?.name)!, text: inputTextField.text!)
+            sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: self.memberID, toUserName: self.memberName, text: inputTextField.text!)
+            inputTextField.text = ""
             
         }
         
@@ -395,9 +411,16 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         //1000 is the large arbitrary values which should be taken in case of very high amount of content
         
         let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
-        let estimatedFrame = NSString(string: chatMessages[indexPath.item].text!).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-        return CGSize(width: view.frame.width, height: estimatedFrame.height + 30)
-        
+        if chatMessages[indexPath.item].text != nil {
+            let estimatedFrame = NSString(string: chatMessages[indexPath.item].text!).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+            
+            return CGSize(width: view.frame.width, height: estimatedFrame.height + 30)
+        } else if chatMessages[indexPath.item].mediaMessage != nil{
+            let estimatedFrame = chatMessages[indexPath.item].mediaMessage?.size.height
+            
+            return CGSize(width: view.frame.width, height: 300)
+        }
+       return CGSize(width: view.frame.width, height: 300)
     }
     
     func sendMessage(senderID: String, senderName: String, toUser: String, toUserName: String, text: String) {
@@ -447,7 +470,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             if error != nil {
                 print(error!)
             } else {
-                //scroll to bottom
+                
                 
             }
             

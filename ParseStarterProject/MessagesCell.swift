@@ -46,7 +46,7 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
             
             let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1])
             
-            msgQuery.limit = 4000000
+            msgQuery.limit = 4000
             
             msgQuery.order(byDescending: "createdAt")
             
@@ -199,56 +199,6 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
         
         self.window?.rootViewController?.present(controller, animated: true, completion: nil)
 
-//        var OID = ""
-//        if let objectId = messages[indexPath.item]?.messageID {
-//            OID = objectId
-//        }
-//
-//        let query = PFQuery(className: "Chat")
-//        query.whereKey("objectId", equalTo: OID)
-//
-//        query.findObjectsInBackground { (nmessages, error) in
-//            if error != nil {
-//                print(error!)
-//            } else {
-//
-//                for message in nmessages! {
-//
-//                    let acl = PFACL()
-//                    if let user = PFUser.current() {
-//                        acl.getPublicReadAccess = false
-//                        acl.getPublicWriteAccess = false
-//
-//                        acl.setReadAccess(true, for: user)
-//                        acl.setWriteAccess(true, for: user)
-//
-//                    }
-//
-//                    message.acl = acl
-//                    message.saveInBackground()
-//                    message["messageRead"] = true
-//                    message.saveInBackground { (success, error) -> Void in
-//
-//                        if error != nil {
-//                            print(error!)
-//                        } else {
-//
-////                            message.acl = aclDone
-//
-//                            self.collectionView.cellForItem(at: indexPath)?.layoutSubviews()
-//                            let layout = UICollectionViewFlowLayout()
-//
-//                            let controller = ChatController(collectionViewLayout: layout)
-//                            controller.sender = self.messages[indexPath.item]?.sender
-//
-//                            self.window?.rootViewController?.present(controller, animated: true, completion: nil)
-//
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }
         
     }
 }

@@ -32,12 +32,19 @@ class ChatCell: BaseCell {
                 
             }
             
-            messageText.text = message?.text
+            if message?.mediaMessage != nil {
+                mediaMessage.image = message?.mediaMessage
+            } else {
+                messageText.text = message?.text
+            }
+            
+            
+            
             if let date = message?.date {
                 
                 let dateFormatter = DateFormatter ()
                 
-                dateFormatter.dateFormat = "MMM d, h:mm a"
+                dateFormatter.dateFormat = "MMM d YYYY, h:mm a"
                 
                 timeLabel.text = dateFormatter.string(from: date as Date)
                 
@@ -50,7 +57,6 @@ class ChatCell: BaseCell {
         let label = UITextView()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = Constants.Colors.NOIR_DARK_TEXT
         label.backgroundColor = .blue
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 5
@@ -71,11 +77,21 @@ class ChatCell: BaseCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 11)
-        label.textColor = Constants.Colors.NOIR_DARK_TEXT
+        label.textColor = Constants.Colors.NOIR_LIGHT_TEXT
         label.textAlignment = .center
         
         
         return label
+    }()
+    
+    var mediaMessage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 5
+        imageView.layer.masksToBounds = true
+        
+        return imageView
     }()
     
     override func setupViews() {
@@ -83,12 +99,16 @@ class ChatCell: BaseCell {
         
         addSubview(messageText)
         addSubview(timeLabel)
+        addSubview(mediaMessage)
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: timeLabel)
         addConstraintsWithFormat(format: "V:|[v0]", views: timeLabel)
         
         addConstraintsWithFormat(format: "H:|-5-[v0]-5-|", views: messageText)
         addConstraintsWithFormat(format: "V:|-15-[v0]-5-|", views: messageText)
+        
+        addConstraintsWithFormat(format: "H:|-5-[v0]-5-|", views: mediaMessage)
+        addConstraintsWithFormat(format: "V:|-15-[v0]-5-|", views: mediaMessage)
         
         
     }

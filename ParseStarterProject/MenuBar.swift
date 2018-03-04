@@ -24,7 +24,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let cellID = "cellId"
     
     //array for icons
-    let imageNames = ["earth-america-7", "local_dart_icon", "favorites_fire_icon","flirts_icon", "message-7"]
+    let imageNames = ["earth-america-7", "local_dart_icon", "favorites_fire_icon","flirts_icon", "chat_icon"]
     
     var mainViewController: MainViewController?
     
