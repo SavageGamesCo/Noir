@@ -27,9 +27,10 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     var blocked = [String]()
     var mainViewController: MainViewController?
     var interstitial: GADInterstitial!
+    
     //Constants
 
-    let refreshControl = UIRefreshControl()
+    
     
     let bundleID = "comsavagecodeNoir"
     let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
@@ -45,6 +46,9 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         cv.delegate = self
         return cv
     }()
+    
+    var activitityIndicatorView: UIActivityIndicatorView?
+    let refreshControl = UIRefreshControl()
     
     lazy var settingsView: SettingsLauncher = {
         let sv = SettingsLauncher()
@@ -74,6 +78,24 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         
         addSubview(memberCollectionView)
         
+        if #available(iOS 10.0, *) {
+            memberCollectionView.refreshControl = refreshControl
+        } else {
+            memberCollectionView.addSubview(refreshControl)
+        }
+        
+        if activitityIndicatorView != nil {
+            memberCollectionView.addSubview(activitityIndicatorView!)
+            activitityIndicatorView?.startAnimating()
+        }
+        refreshControl.tintColor = Constants.Colors.NOIR_TINT
+        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 15), NSForegroundColorAttributeName:  Constants.Colors.NOIR_TINT]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing Active Members ...", attributes: attributes)
+        refreshControl.contentHorizontalAlignment = .center
+        
+        
+        refreshControl.addTarget(self, action: #selector(refreshing), for: .valueChanged)
+        
         addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: memberCollectionView)
         addConstraintsWithFormat(format: "V:|[v0]-50-|", views: memberCollectionView)
         memberCollectionView.register(MemberCell.self, forCellWithReuseIdentifier: cellID)
@@ -84,13 +106,15 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         layout.minimumLineSpacing = 20
         layout.sectionInset.top = 15
         memberCollectionView.setCollectionViewLayout(layout, animated: true)
-    
+        
+        setupActivityIndicatorView()
         fetchMembers()
         
-        var timer: Timer!
         
-        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshing), userInfo: nil, repeats: true)
-        
+//        var timer: Timer!
+//
+//        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshing), userInfo: nil, repeats: true)
+//
 
     }
     
@@ -111,16 +135,22 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
             DispatchQueue.main.async {
                 self.memberCollectionView.reloadData()
             }
-            
+            self.refreshControl.endRefreshing()
+            self.activitityIndicatorView?.stopAnimating()
             
         }
     }
     
     var selectedMember = Member()
     
-    func refreshing(){
+    @objc func refreshing(){
         fetchMembers()
 
+    }
+    
+    func setupActivityIndicatorView() {
+        
+//        activitityIndicatorView.startAnimating()
     }
     
     @objc private func showStats(){
@@ -355,11 +385,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         if (cell.member?.memberOnline) != nil && (cell.member?.memberOnline)! {
             
             if (cell.member?.echo) != nil && (cell.member?.echo)! {
-                
-//                CATransaction.begin()
-//                CATransaction.setAnimationDuration(2.0)
-//                CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn))
-//
+
                 let color = CABasicAnimation(keyPath: "borderColor")
                 color.fromValue = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
                 color.toValue = Constants.Colors.NOIR_MEMBER_BORDER_ECHO
@@ -371,8 +397,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
                 cell.ProfilePics.layer.borderWidth = 3
                 cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
                 cell.ProfilePics.layer.add(color, forKey: "borderColor")
-                
-//                CATransaction.commit()
+
                 
             } else {
                 cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
@@ -396,46 +421,53 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
 //        displayedUserID = cell.userID!
         selectedMember = (members?[indexPath.item])!
         
-        let geoCoder = CLGeocoder()
-        let mlocation = CLLocation(latitude: (selectedMember.mLat)!, longitude: (selectedMember.mLong)!)
-        var placeMark: CLPlacemark!
-        geoCoder.reverseGeocodeLocation(mlocation, completionHandler: { (placemarks, error) -> Void in
-            
-            if error != nil {
-                print(error!)
-            } else {
-                placeMark = placemarks?[0]
-                
-                // Address dictionary
-                //print(placeMark.addressDictionary as Any)
-                var city = ""
-                var state = ""
-                var country = ""
-                
-                if placeMark.addressDictionary!["City"] != nil {
-                    city = placeMark.addressDictionary!["City"] as! String
-                    //                                                    print(city)
-                }
-                
-                // Country
-                if placeMark.addressDictionary!["State"] != nil {
-                    state = placeMark.addressDictionary!["State"] as! String
-                    //                                                   print(state)
-                }
-                
-                if placeMark.addressDictionary!["Country"] != nil {
-                    country = placeMark.addressDictionary!["Country"] as! String
-                    //                                                    print(country)
-                }
-                
-                let mcurrentLocation = (city) + ", " + (state)  + " " + (country)
-                
-                //                                                    print(currentLocation)
-                
-                self.selectedMember.location = mcurrentLocation as String
+        //geocoding block
+        if let mLat = selectedMember.mLat {
+            if let mLong = selectedMember.mLong {
+                let geoCoder = CLGeocoder()
+                let mlocation = CLLocation(latitude: mLat, longitude: mLong)
+                var placeMark: CLPlacemark!
+                geoCoder.reverseGeocodeLocation(mlocation, completionHandler: { (placemarks, error) -> Void in
+                    
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        placeMark = placemarks?[0]
+                        
+                        // Address dictionary
+                        //print(placeMark.addressDictionary as Any)
+                        var city = ""
+                        var state = ""
+                        var country = ""
+                        
+                        if placeMark.addressDictionary!["City"] != nil {
+                            city = placeMark.addressDictionary!["City"] as! String
+                            //                                                    print(city)
+                        }
+                        
+                        // Country
+                        if placeMark.addressDictionary!["State"] != nil {
+                            state = placeMark.addressDictionary!["State"] as! String
+                            //                                                   print(state)
+                        }
+                        
+                        if placeMark.addressDictionary!["Country"] != nil {
+                            country = placeMark.addressDictionary!["Country"] as! String
+                            //                                                    print(country)
+                        }
+                        
+                        let mcurrentLocation = (city) + ", " + (state)  + " " + (country)
+                        
+                        //                                                    print(currentLocation)
+                        
+                        self.selectedMember.location = mcurrentLocation as String
+                    }
+                    
+                })
             }
             
-        })
+        }
+        
         showMenu(sender: cell.ProfilePics, member: selectedMember)
 
     }

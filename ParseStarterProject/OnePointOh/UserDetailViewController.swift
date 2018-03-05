@@ -306,7 +306,7 @@ class UserDetailViewController: UITableViewController, UINavigationControllerDel
 
 
     
-    func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
+    @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
         
         let translation = gestureRecognizer.translation(in: view)
         

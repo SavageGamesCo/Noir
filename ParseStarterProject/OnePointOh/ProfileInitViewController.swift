@@ -570,7 +570,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
+        toolBar.tintColor = Constants.Colors.NOIR_BLACK
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))
@@ -749,7 +749,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     }
     
 
-    func donePicker(){
+    @objc func donePicker(){
         
         self.view.endEditing(true)
     }
@@ -782,7 +782,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0{
                 self.view.frame.origin.y -= keyboardSize.height
@@ -790,7 +790,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0{
                 self.view.frame.origin.y += keyboardSize.height
@@ -807,7 +807,7 @@ class ProfileInitViewController: UITableViewController, UIPickerViewDelegate, UI
     }
     
     //Calls this function when the tap is recognized.
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }

@@ -15,6 +15,8 @@ class FlirtsCell: GlobalCell {
             DispatchQueue.main.async {
                 self.memberCollectionView.reloadData()
             }
+            self.refreshControl.endRefreshing()
+            self.activitityIndicatorView?.stopAnimating()
         }
     }
 }

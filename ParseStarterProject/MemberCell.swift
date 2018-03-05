@@ -24,9 +24,8 @@ class MemberCell: BaseCell {
                 blocked = blockedMember
             }
             if let memberImage = member?.memberImage {
-                DispatchQueue.main.async {
-                    self.ProfilePics.image = memberImage
-                }
+                
+                ProfilePics.image = memberImage
                 
             }
             

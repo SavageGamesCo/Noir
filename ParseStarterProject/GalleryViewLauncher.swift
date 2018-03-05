@@ -94,7 +94,7 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
         
     }
     
-    func blackViewDismiss(){
+    @objc func blackViewDismiss(){
         handleDismiss()
     }
     

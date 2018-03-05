@@ -16,6 +16,8 @@ class FavoritesCell: GlobalCell {
             DispatchQueue.main.async {
                 self.memberCollectionView.reloadData()
             }
+            self.refreshControl.endRefreshing()
+            self.activitityIndicatorView?.stopAnimating()
         }
     }
     

@@ -15,7 +15,10 @@ class LocalCell: GlobalCell {
             self.members = fetchMembers
             DispatchQueue.main.async {
                 self.memberCollectionView.reloadData()
+                
             }
+            self.refreshControl.endRefreshing()
+            self.activitityIndicatorView?.stopAnimating()
         }
     }
     

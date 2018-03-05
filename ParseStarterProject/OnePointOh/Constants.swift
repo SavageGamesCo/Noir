@@ -21,15 +21,15 @@ let WithinArea = 11.0
 
 //COLORS
 
-let ONLINE_COLOR = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
-let ONLINE_COLOR_2 = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 0.4)
-let OFFLINE_COLOR = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
-let CHAT_ALERT_COLOR = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
-let FAVORITE_BUTTON_COLOR_ON = UIColor(colorLiteralRed: 0.0, green: 255.0, blue: 0.0, alpha: 1.0)
-let FAVORITE_BUTTON_COLOR_OFF = UIColor(colorLiteralRed: 197.0, green: 157.0, blue: 108.0, alpha: 1.0)
-let CHAT_OUTGOING_COLOR = UIColor(colorLiteralRed: 0.988, green: 0.685, blue: 0.000, alpha: 1.0)
-let CHAT_INCOMING_COLOR = UIColor(colorLiteralRed: 0.647, green: 0.647, blue: 0.647, alpha: 1.0)
-let CHAT_BACKGROUND_COLOR = UIColor(colorLiteralRed: 0.224, green: 0.224, blue: 0.223, alpha: 1.0)
+let ONLINE_COLOR = Constants.Colors.NOIR_BLACK
+let ONLINE_COLOR_2 = Constants.Colors.NOIR_BLACK
+let OFFLINE_COLOR = Constants.Colors.NOIR_BLACK
+let CHAT_ALERT_COLOR = Constants.Colors.NOIR_BLACK
+let FAVORITE_BUTTON_COLOR_ON = Constants.Colors.NOIR_BLACK
+let FAVORITE_BUTTON_COLOR_OFF = Constants.Colors.NOIR_BLACK
+let CHAT_OUTGOING_COLOR = Constants.Colors.NOIR_BLACK
+let CHAT_INCOMING_COLOR = Constants.Colors.NOIR_BLACK
+let CHAT_BACKGROUND_COLOR = Constants.Colors.NOIR_BLACK
 
 //FONT
 let SYSTEM_FONT = UIFont.boldSystemFont(ofSize: 12)

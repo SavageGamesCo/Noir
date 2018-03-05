@@ -29,7 +29,8 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
         return cv
     }()
     
-    
+    var activitityIndicatorView: UIActivityIndicatorView?
+    let refreshControl = UIRefreshControl()
     
     let cellID = "cellID"
     
@@ -46,8 +47,8 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
             
             let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1])
             
-            msgQuery.limit = 4000
-            
+//            msgQuery.limit = 4000
+        
             msgQuery.order(byDescending: "createdAt")
             
             msgQuery.findObjectsInBackground { (objects, error) in
@@ -117,13 +118,17 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                         })
                                                         self.messages.append(NewMessage)
                                                         messageID.append(userIDUnwrapped)
-                                                        self.collectionView.reloadData()
+                                                        
                                                     }
                                                     
                                                     
                                                 }
                                             }
                                             
+                                        }
+                                        //end of for loop
+                                        DispatchQueue.main.async {
+                                            self.collectionView.reloadData()
                                         }
                                     }
                                 }
@@ -144,6 +149,35 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
         collectionView.alwaysBounceVertical = true
         
         collectionView.register(RecentMessagesCell.self, forCellWithReuseIdentifier: cellID)
+        if #available(iOS 10.0, *) {
+            collectionView.refreshControl = refreshControl
+        } else {
+            collectionView.addSubview(refreshControl)
+        }
+        
+        if activitityIndicatorView != nil {
+            collectionView.addSubview(activitityIndicatorView!)
+            activitityIndicatorView?.startAnimating()
+        }
+        
+        refreshControl.tintColor = Constants.Colors.NOIR_TINT
+        
+        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 15), NSForegroundColorAttributeName:  Constants.Colors.NOIR_TINT]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing Active Members ...", attributes: attributes)
+        refreshControl.contentHorizontalAlignment = .center
+        
+        
+        refreshControl.addTarget(self, action: #selector(refreshing), for: .valueChanged)
+        
+    }
+    
+    @objc func refreshing(){
+        DispatchQueue.main.async {
+            self.setupData()
+            self.refreshControl.endRefreshing()
+            self.activitityIndicatorView?.stopAnimating()
+        }
+        
         
     }
     

@@ -32,7 +32,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     
     //Variables
     
-    var members = [Member()]
+//    var members = [Member()]
     var blocked = [String]()
    
     var interstitial: GADInterstitial!
@@ -91,21 +91,24 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                 var members = [Member]()
                 
                 for object in users {
-                    
+                    let member = Member()
                     if let user = object as? PFUser {
                         
                         if let blockedUsers = PFUser.current()?["blocked"] {
                             if (blockedUsers as AnyObject).contains(user.objectId! as String!){
                                 //do nothing if the user id is in the current user's blocked list
                             } else {
-                                let member = Member()
+                                
                                 
                                 let imageFile = user["mainPhoto"] as! PFFile
                                 
                                 imageFile.getDataInBackground(block: {(data, error) in
                                     
-                                    let imageData = data
-                                    member.memberImage = (UIImage(data: imageData!)!)
+                                    if user["echo"] as! Bool {
+                                        member.echo = true
+                                    } else {
+                                        member.echo = false
+                                    }
                                     
                                     if let memberIDText = user.objectId {
                                         member.memberID = memberIDText
@@ -179,28 +182,21 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                         member.mLong = 0
                                     }
                                     
+                                    member.memberOnline = true
                                     
-                                    if user["online"] as! Bool {
-                                        member.memberOnline = true
-                                    } else {
-                                        member.memberOnline = false
-                                    }
-                                    
-                                    if user["echo"] as! Bool {
-                                        member.echo = true
-                                    } else {
-                                        member.echo = false
-                                    }
+                                    let imageData = data
+                                    member.memberImage = (UIImage(data: imageData!)!)
                                     
                                 })
-                                members.append(member)
-                                
-                                
+                              members.append(member)
                             }
-                            completion(members)
+                           
                         }
                     }
+                    //end of for loop
+                    
                 }
+                completion(members)
             }
             
         })
@@ -249,21 +245,25 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                         var members = [Member]()
                         
                         for object in users {
+                            let member = Member()
+                            
                             if let user = object as? PFUser {
                                 
                                 if let blockedUsers = PFUser.current()?["blocked"] {
                                     if ( blockedUsers as AnyObject).contains(user.objectId! as String!){
                                         
                                     } else {
-                                        let member = Member()
                                         
                                         let imageFile = user["mainPhoto"] as! PFFile
                                         
                                         imageFile.getDataInBackground(block: {(data, error) in
+                                            member.memberOnline = true
                                             
-                                            let imageData = data
-                                            member.memberImage = (UIImage(data: imageData!)!)
-                                            member.memberName = user.username
+                                            if user["echo"] != nil && user["echo"] as! Bool {
+                                                member.echo = true
+                                            } else {
+                                                member.echo = false
+                                            }
                                             
                                             if let memberIDText = user.objectId {
                                                 member.memberID = memberIDText
@@ -336,27 +336,18 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                                 member.mLong = 0
                                             }
                                             
-                                            if user["online"] as! Bool {
-                                                member.memberOnline = true
-                                            } else {
-                                                member.memberOnline = false
-                                            }
-                                            
-                                            if user["echo"] != nil && user["echo"] as! Bool {
-                                                member.echo = true
-                                            } else {
-                                                member.echo = false
-                                            }
+                                            let imageData = data
+                                            member.memberImage = (UIImage(data: imageData!)!)
                                             
                                         })
-                                        
                                         members.append(member)
-                                       
                                     }
                                     
                                 }
                                 
                             }
+                            //end of for loop
+                            
                         }
                         completion(members)
                     }
@@ -380,8 +371,8 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
             Oquery?.order(byDescending: "updatedAt")
             Oquery?.getObjectInBackground(withId: id, block: { (fObject, error) in
                 if let fMember = fObject as? PFUser {
-                    
                     let member = Member()
+                    
                     let imageFile = fMember["mainPhoto"] as! PFFile
                     
                     imageFile.getDataInBackground(block: {(data, error) in
@@ -471,9 +462,9 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                         } else {
                             member.echo = false
                         }
-                     
+                     fMembers.append(member)
                     })
-                    fMembers.append(member)
+                    
                     
                 }
                 completion(fMembers)
@@ -592,9 +583,9 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                             } else {
                                 member.echo = false
                             }
-                            
+                           fMembers.append(member)
                         })
-                        fMembers.append(member)
+                        
                         fMembers.reverse()
 
                     }
@@ -649,7 +640,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     
     func favorite(member: Member) {
         
-        if let favoritesArray = PFUser.current()?["flirt"] as? NSArray {
+        if let favoritesArray = PFUser.current()?["favorites"] as? NSArray {
             
 //            let favoritesLimit = PFUser.current()?["favoritesLimit"] as! Int
             

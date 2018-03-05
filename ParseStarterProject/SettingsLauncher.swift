@@ -76,7 +76,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
         
     }
     
-    func blackViewDismiss(){
+    @objc func blackViewDismiss(){
         let setting = Setting(name: "Cancel", imageName: "none")
         handleDismiss(setting: setting)
     }

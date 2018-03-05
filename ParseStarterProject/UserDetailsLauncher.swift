@@ -151,7 +151,7 @@ class UserDetailsLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
         detailsCollectionView.reloadData()
     }
     
-    func blackViewDismiss(){
+    @objc func blackViewDismiss(){
         let detail = Detail(label: "Cancel", detail: "none")
         handleDismiss(detail: detail)
     }

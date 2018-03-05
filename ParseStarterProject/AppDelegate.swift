@@ -48,20 +48,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        
-        //a layout for the collection view must be specified
-//        let layout = UICollectionViewFlowLayout()
+
         
         
         //create the controller object to be the initial view
         let loginViewController = LoginController()
-//        let launcher = Launcher()
-//        let mainViewController = MainViewController(collectionViewLayout: layout)
+
         
         //add the initial view to the window, in this case as a navigation view controller beginning root view controller
+//        let rootViewController = self.window?.rootViewController as! UINavigationController
+//        rootViewController.pushViewController(loginViewController, animated: true)
         window?.rootViewController = UINavigationController(rootViewController: loginViewController)
-//        window?.rootViewController = LoginController()
+        
+        window?.makeKeyAndVisible()
         
         //changing the color of the navigation bar
         UINavigationBar.appearance().barTintColor = navBarColor
@@ -75,6 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.addSubview(statusBarBackgroundView)
         window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackgroundView)
         window?.addConstraintsWithFormat(format: "V:|[v0(20)]|", views: statusBarBackgroundView)
+        
+        
         
         Parse.enableLocalDatastore()
         
