@@ -93,10 +93,11 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         layout.sectionInset = .init(top: 50, left: 0, bottom: 50, right: 0)
         collectionView?.setCollectionViewLayout(layout, animated: true)
         
+        collectionView?.keyboardDismissMode = .interactive
         
         
-        
-        setupInput()
+//        setupInput()
+//        setupKeyboard()
         
         if PFUser.current()?["membership"] as! String == "basic" {
             //set limits on basic users
@@ -107,7 +108,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         observeMessages()
     
-        setupKeyboard()
+        
 
     }
     
@@ -140,6 +141,72 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         
         
+    }
+    
+    lazy var inputContainerView: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = Constants.Colors.NOIR_WHITE
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+        
+        let sendButton = UIButton(type: .system)
+        sendButton.setTitle("Send", for: .normal)
+        sendButton.tintColor = Constants.Colors.NOIR_TINT
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let mediaButton = UIButton(type: .roundedRect)
+        mediaButton.setImage(UIImage(named: "photo-7"), for: .normal)
+        mediaButton.tintColor = Constants.Colors.NOIR_TINT
+        mediaButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(sendButton)
+        containerView.addSubview(mediaButton)
+        
+        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        
+        mediaButton.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        mediaButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        mediaButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        mediaButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        mediaButton.addTarget(self, action: #selector(handleMedia), for: .touchUpInside)
+        
+        
+        containerView.addSubview(self.inputTextField)
+        self.inputTextField.leftAnchor.constraint(equalTo: mediaButton.rightAnchor, constant: 8).isActive = true
+        self.inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        //        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        containerView.addConstraintsWithFormat(format: "V:|-5-[v0]-5-|", views: self.inputTextField)
+        
+        let line = UIView()
+        line.backgroundColor = Constants.Colors.NOIR_RECENT_MESSAGES_DIVIDER
+        line.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(line)
+        
+        line.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        line.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        line.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
+        line.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        return containerView
+    }()
+    
+    override var inputAccessoryView: UIView? {
+        get {
+            
+            return inputContainerView
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -340,7 +407,8 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         inputTextField.leftAnchor.constraint(equalTo: mediaButton.rightAnchor, constant: 8).isActive = true
         inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+//        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        containerView.addConstraintsWithFormat(format: "V:|-5-[v0]-5-|", views: inputTextField)
         
         let line = UIView()
         line.backgroundColor = Constants.Colors.NOIR_RECENT_MESSAGES_DIVIDER
