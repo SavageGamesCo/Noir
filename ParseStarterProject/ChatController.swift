@@ -45,7 +45,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let dismissButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: #selector(handleDismiss))
             dismissButton.tintColor = Constants.Colors.NOIR_TINT
             navTitle.rightBarButtonItem = dismissButton
-            
+            navbar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
             navbar.setItems([navTitle], animated: true)
             
             self.memberID = (sender?.userID)!
@@ -65,6 +65,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let dismissButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: #selector(handleDismiss))
             navTitle.rightBarButtonItem = dismissButton
             navTitle.rightBarButtonItem?.tintColor = Constants.Colors.NOIR_TINT
+            navbar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
             navbar.setItems([navTitle], animated: true)
             self.memberID = (member?.memberID)!
             self.memberName = (member?.memberName)!
@@ -94,7 +95,6 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.setCollectionViewLayout(layout, animated: true)
         
         collectionView?.keyboardDismissMode = .interactive
-        
         
 //        setupInput()
 //        setupKeyboard()
