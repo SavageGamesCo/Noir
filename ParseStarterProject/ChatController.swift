@@ -12,6 +12,7 @@ import ParseLiveQuery
 import AVKit
 import MobileCoreServices
 import Photos
+import NotificationCenter
 
 class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -73,6 +74,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     var chatMessages = [Message()]
+    
     @objc func handleDismiss(){
         self.dismiss(animated: true, completion: nil)
     }
@@ -105,8 +107,45 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         observeMessages()
     
-        
+        setupKeyboard()
 
+    }
+    
+    func setupKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func handleKeyboardWillShow(notification: NSNotification) {
+        
+        let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+        let keyboardDuration = (notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        containerViewBottomAnchor?.constant = -keyboardFrame!.height
+        
+        UIView.animate(withDuration: keyboardDuration!) {
+            self.collectionView?.layoutIfNeeded()
+        }
+        
+    }
+    
+    func handleKeyboardWillHide(notification: NSNotification) {
+        
+        let keyboardDuration = (notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        
+        containerViewBottomAnchor?.constant = 0
+        
+        UIView.animate(withDuration: keyboardDuration!) {
+            self.collectionView?.layoutIfNeeded()
+        }
+        
+        
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -253,6 +292,8 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
     }
     
+    var containerViewBottomAnchor: NSLayoutConstraint?
+    
     func setupInput(){
         
         let containerView = UIView()
@@ -262,7 +303,10 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         view.addSubview(containerView)
         
         containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        containerViewBottomAnchor?.isActive = true
+        
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
