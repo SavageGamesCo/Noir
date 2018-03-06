@@ -117,6 +117,75 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
+    var startingFrame: CGRect?
+    var blackBackgroundView: UIView?
+    var startingImageView: UIView?
+    
+    func performZoomForStartingImageView(startingImageView: UIImageView){
+        startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil)
+        
+        let zoomingImageView = UIImageView(frame: startingFrame!)
+        zoomingImageView.backgroundColor = .red
+        zoomingImageView.image = startingImageView.image
+        zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
+        zoomingImageView.isUserInteractionEnabled = true
+        
+        
+        
+        if let keyWindow = UIApplication.shared.keyWindow{
+            
+            blackBackgroundView = UIView(frame: keyWindow.frame)
+            blackBackgroundView?.backgroundColor = Constants.Colors.NOIR_BLACK
+            blackBackgroundView?.alpha = 0
+            
+            keyWindow.addSubview(blackBackgroundView!)
+            
+            keyWindow.addSubview(zoomingImageView)
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.blackBackgroundView?.alpha = 1
+                
+                self.inputContainerView.alpha = 0
+                
+                self.startingImageView?.isHidden = true
+                
+                
+                let height = self.startingFrame!.height / self.startingFrame!.width * keyWindow.frame.width
+                
+                zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                zoomingImageView.center = keyWindow.center
+                zoomingImageView.contentMode = .scaleAspectFill
+                
+            }, completion: { (completed) in
+                
+            })
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                
+                
+                
+            }, completion: nil)
+        }
+    }
+    
+    func handleZoomOut(tapGesture: UITapGestureRecognizer) {
+        
+        if let zoomout = tapGesture.view {
+            zoomout.layer.cornerRadius = 25
+            zoomout.layer.masksToBounds = true
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                zoomout.frame = self.startingFrame!
+                self.blackBackgroundView?.alpha = 0
+                self.inputContainerView.alpha = 1
+            }, completion: { (completed) in
+                zoomout.removeFromSuperview()
+                self.startingImageView?.isHidden = false
+            })
+            
+        }
+    }
+    
     func handleKeyboardWillShow(notification: NSNotification) {
         
         let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
@@ -508,7 +577,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let message = chatMessages[indexPath.item]
             
         cell.message = message
-        
+        cell.chatLogController = self
         
         return cell
     }
@@ -679,7 +748,9 @@ func checkPermission() {
         // same same
         print("User has denied the permission.")
     }
+    
 }
+
 
 
 

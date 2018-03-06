@@ -10,6 +10,8 @@ import UIKit
 import Parse
 
 class ChatCell: BaseCell {
+    
+    var chatLogController: ChatController?
     let messageView = UIView()
     var labelSide = String()
     var message: Message? {
@@ -84,15 +86,25 @@ class ChatCell: BaseCell {
         return label
     }()
     
-    var mediaMessage: UIImageView = {
+    lazy var mediaMessage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 5
         imageView.layer.masksToBounds = true
         
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleImageTap) ))
+        
         return imageView
     }()
+    
+    @objc func handleImageTap(tapGesture: UITapGestureRecognizer) {
+        if let imageView = tapGesture.view as? UIImageView {
+           self.chatLogController?.performZoomForStartingImageView(startingImageView: imageView)
+        }
+        
+    }
     
     override func setupViews() {
         
