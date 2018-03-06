@@ -39,7 +39,6 @@ class ChatCell: BaseCell {
                 mediaMessage.image = message?.mediaMessage
             } else {
                 mediaMessage.alpha = 0
-                mediaMessage.removeFromSuperview()
                 messageText.text = message?.text
             }
             
