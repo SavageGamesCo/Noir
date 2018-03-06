@@ -174,18 +174,18 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     @objc func refreshing(){
         DispatchQueue.main.async {
             self.setupData()
-            self.refreshControl.endRefreshing()
-            self.activitityIndicatorView?.stopAnimating()
         }
+        self.refreshControl.endRefreshing()
+        self.activitityIndicatorView?.stopAnimating()
         
         
     }
     
     override func setupViews() {
         super.setupViews()
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.setupData()
-        }
+//        }
         
         
         

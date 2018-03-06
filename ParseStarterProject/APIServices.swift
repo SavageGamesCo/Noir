@@ -462,9 +462,9 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                         } else {
                             member.echo = false
                         }
-                     fMembers.append(member)
+                     
                     })
-                    
+                    fMembers.append(member)
                     
                 }
                 completion(fMembers)
@@ -583,9 +583,9 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                             } else {
                                 member.echo = false
                             }
-                           fMembers.append(member)
+                           
                         })
-                        
+                        fMembers.append(member)
                         fMembers.reverse()
 
                     }
