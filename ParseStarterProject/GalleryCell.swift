@@ -9,25 +9,29 @@
 import UIKit
 
 class GalleryCell: BaseCell {
+
+    
     override func setupViews() {
         super.setupViews()
         
         backgroundColor = .clear
         
-        addSubview(nameLabel)
         addSubview(iconImageView)
+        addSubview(nameLabel)
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: iconImageView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: iconImageView)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: nameLabel)
+        addConstraintsWithFormat(format: "V:[v0(100)]|", views: nameLabel)
         
         addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
     }
     
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Constants.Colors.NOIR_GREY_MEDIUM : Constants.Colors.NOIR_WHITE
-            nameLabel.textColor = isHighlighted ? Constants.Colors.NOIR_WHITE : Constants.Colors.NOIR_GREY_DARK
-            iconImageView.tintColor = isHighlighted ? Constants.Colors.NOIR_WHITE : Constants.Colors.NOIR_GREY_DARK
+            backgroundColor = isHighlighted ? Constants.Colors.NOIR_BLACK.withAlphaComponent(0.9) : Constants.Colors.NOIR_BLACK.withAlphaComponent(0.9)
+            nameLabel.textColor = isHighlighted ? Constants.Colors.NOIR_YELLOW : Constants.Colors.NOIR_YELLOW
+            iconImageView.tintColor = isHighlighted ? Constants.Colors.NOIR_YELLOW : Constants.Colors.NOIR_YELLOW
         }
     }
     
@@ -42,22 +46,26 @@ class GalleryCell: BaseCell {
         }
     }
     
+    
     let nameLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
         label.text = "Setting"
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = Constants.Colors.NOIR_GREY_DARK
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.textColor = Constants.Colors.NOIR_YELLOW
+        label.backgroundColor = Constants.Colors.NOIR_RED_DARK.withAlphaComponent(0.9)
         return label
     }()
     
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
 //        imageView.tintColor = Constants.Colors.NOIR_TINT
         
         return imageView
     }()
-    
     
 }

@@ -19,8 +19,18 @@ class GalleryImage: NSObject {
     }
 }
 
-class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
+    var memberID: String?
+    var memberName: String?
     
+    var member: Member? {
+        didSet{
+            
+            self.memberID = (member?.memberID)!
+            self.memberName = (member?.memberName)!
+            
+        }
+    }
     
     let blackView = UIView()
     
@@ -29,10 +39,12 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        collection.backgroundColor = Constants.Colors.NOIR_WHITE
+        collection.backgroundColor = Constants.Colors.NOIR_BLACK.withAlphaComponent(0.9)
         
         return collection
     }()
+    
+    let window = UIApplication.shared.keyWindow
     
     let cellID = "cellID"
     let cellHeight: CGFloat = 50
@@ -56,8 +68,21 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
                     let imageFile = user["mainPhoto"] as! PFFile
                     imageFile.getDataInBackground(block: { (data, error) in
                         if let imageData = data {
+                            let name = user.username!
+                            var uAge: String?
+                            var uMarital: String?
+                            var uEthinicity: String?
+                            if let age: String = user["age"]! as? String {
+                                uAge = age
+                            }
+                            if let marital: String = user["marital"]! as? String {
+                                uMarital = marital
+                            }
+                            if let ethnicity: String = user["ethnicity"]! as? String {
+                                uEthinicity = ethnicity
+                            }
                             
-                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            let image = GalleryImage(name: "Name: \(name) • Age: \(uAge ?? "??") \nMarital Status: \(uMarital ?? "Unanswered") • Race: \(uEthinicity ?? "Unanswered")", galleryImage: UIImage(data: imageData)! )
                             self.images.append(image)
                             self.galleryCollectionView.reloadData()
                         }
@@ -69,8 +94,21 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
                     let imageFile2 = user["memberImageOne"] as! PFFile
                     imageFile2.getDataInBackground(block: { (data, error) in
                         if let imageData = data {
+                            let name = user.username!
+                            var uAge: String?
+                            var uMarital: String?
+                            var uEthinicity: String?
+                            if let age: String = user["age"]! as? String {
+                                uAge = age
+                            }
+                            if let marital: String = user["marital"]! as? String {
+                                uMarital = marital
+                            }
+                            if let ethnicity: String = user["ethnicity"]! as? String {
+                                uEthinicity = ethnicity
+                            }
                             
-                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            let image = GalleryImage(name: "Name: \(name) • Age: \(uAge ?? "??") \nMarital Status: \(uMarital ?? "Unanswered") • Race: \(uEthinicity ?? "Unanswered")", galleryImage: UIImage(data: imageData)! )
                             self.images.append(image)
                             self.galleryCollectionView.reloadData()
                         }
@@ -83,8 +121,21 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
                     let imageFile3 = user["memberImageTwo"] as! PFFile
                     imageFile3.getDataInBackground(block: { (data, error) in
                         if let imageData = data {
+                            let name = user.username!
+                            var uAge: String?
+                            var uMarital: String?
+                            var uEthinicity: String?
+                            if let age: String = user["age"]! as? String {
+                                uAge = age
+                            }
+                            if let marital: String = user["marital"]! as? String {
+                                uMarital = marital
+                            }
+                            if let ethnicity: String = user["ethnicity"]! as? String {
+                                uEthinicity = ethnicity
+                            }
                             
-                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            let image = GalleryImage(name: "Name: \(name) • Age: \(uAge ?? "??") \nMarital Status: \(uMarital ?? "Unanswered") • Race: \(uEthinicity ?? "Unanswered")", galleryImage: UIImage(data: imageData)! )
                             self.images.append(image)
                             self.galleryCollectionView.reloadData()
                         }
@@ -96,8 +147,21 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
                     let imageFile4 = user["memberImageThree"] as! PFFile
                     imageFile4.getDataInBackground(block: { (data, error) in
                         if let imageData = data {
+                            let name = user.username!
+                            var uAge: String?
+                            var uMarital: String?
+                            var uEthinicity: String?
+                            if let age: String = user["age"]! as? String {
+                                uAge = age
+                            }
+                            if let marital: String = user["marital"]! as? String {
+                                uMarital = marital
+                            }
+                            if let ethnicity: String = user["ethnicity"]! as? String {
+                                uEthinicity = ethnicity
+                            }
                             
-                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            let image = GalleryImage(name: "Name: \(name) • Age: \(uAge ?? "??") \nMarital Status: \(uMarital ?? "Unanswered") • Race: \(uEthinicity ?? "Unanswered")", galleryImage: UIImage(data: imageData)! )
                             self.images.append(image)
                             self.galleryCollectionView.reloadData()
                         }
@@ -109,8 +173,21 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
                     let imageFile5 = user["memberImageFour"] as! PFFile
                     imageFile5.getDataInBackground(block: { (data, error) in
                         if let imageData = data {
+                            let name = user.username!
+                            var uAge: String?
+                            var uMarital: String?
+                            var uEthinicity: String?
+                            if let age: String = user["age"]! as? String {
+                                uAge = age
+                            }
+                            if let marital: String = user["marital"]! as? String {
+                                uMarital = marital
+                            }
+                            if let ethnicity: String = user["ethnicity"]! as? String {
+                                uEthinicity = ethnicity
+                            }
                             
-                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            let image = GalleryImage(name: "Name: \(name) • Age: \(uAge ?? "??") \nMarital Status: \(uMarital ?? "Unanswered") • Race: \(uEthinicity ?? "Unanswered")", galleryImage: UIImage(data: imageData)! )
                             self.images.append(image)
                             self.galleryCollectionView.reloadData()
                         }
@@ -125,8 +202,9 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
             
         })
         
-        
         if let window = UIApplication.shared.keyWindow {
+            
+            window.isUserInteractionEnabled = true
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.7)
             
@@ -135,7 +213,7 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
             window.addSubview(blackView)
             
             window.addSubview(galleryCollectionView)
-            
+
             blackView.frame = window.frame
             blackView.alpha = 0
             
@@ -162,9 +240,12 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
         
     }
     
+    
+    
     @objc func blackViewDismiss(){
         handleDismiss()
     }
+    
     
     func handleDismiss(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -185,6 +266,7 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
         
         let uImage = self.images[indexPath.item]
         cell.iconImageView.image = uImage.image
+        cell.nameLabel.text = uImage.name
         
         return cell
     }
