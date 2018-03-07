@@ -135,6 +135,7 @@
 		B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */; };
 		B7FB72802049D66900DE5F4B /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FB727F2049D66900DE5F4B /* ChatCell.swift */; };
 		B7FB7282204CA8EC00DE5F4B /* splash_jpeg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7FB7281204CA8EB00DE5F4B /* splash_jpeg.jpg */; };
+		B7FB7288204F62D400DE5F4B /* SSBadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FB7287204F62D400DE5F4B /* SSBadgeButton.swift */; };
 		C5152F9E3F16A01CFB4ABF0D /* Pods_Noir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F280494CA807A5E164682988 /* Pods_Noir.framework */; };
 /* End PBXBuildFile section */
 
@@ -275,6 +276,7 @@
 		B7FAF5611EA804520044B07B /* UsersCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7FB727F2049D66900DE5F4B /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		B7FB7281204CA8EB00DE5F4B /* splash_jpeg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = splash_jpeg.jpg; sourceTree = "<group>"; };
+		B7FB7287204F62D400DE5F4B /* SSBadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSBadgeButton.swift; sourceTree = "<group>"; };
 		CA61033430ED3394A1C95768 /* Pods-Noir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noir.release.xcconfig"; path = "Pods/Target Support Files/Pods-Noir/Pods-Noir.release.xcconfig"; sourceTree = "<group>"; };
 		F280494CA807A5E164682988 /* Pods_Noir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Noir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -474,6 +476,7 @@
 				B77559142045CF8E0017A49E /* DetailCell.swift */,
 				B77559182047114C0017A49E /* GalleryCell.swift */,
 				B7FB727F2049D66900DE5F4B /* ChatCell.swift */,
+				B7FB7287204F62D400DE5F4B /* SSBadgeButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				"${BUILT_PRODUCTS_DIR}/ALRadialMenu/ALRadialMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts-Swift/BoltsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/EasyNotificationBadge/EasyNotificationBadge.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
@@ -751,6 +755,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ALRadialMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoltsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyNotificationBadge.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
@@ -843,6 +848,7 @@
 				B74789B0202F714900C61A65 /* BaseCell.swift in Sources */,
 				B72F13471F05D347008EABCE /* EchoSonarViewController.swift in Sources */,
 				B74BAC9F203432F300CFC11F /* Launcher.swift in Sources */,
+				B7FB7288204F62D400DE5F4B /* SSBadgeButton.swift in Sources */,
 				B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */,
 				B74BAC9D2033B3C800CFC11F /* Member.swift in Sources */,
 				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,

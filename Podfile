@@ -15,6 +15,7 @@ target 'Noir' do
     pod 'ParseLiveQuery', '~> 2.2.1'
     pod 'SwiftyStoreKit', '~> 0.10.4'
     pod 'Sonar'
+    pod 'EasyNotificationBadge'
     
     
     #New pods for 2.0

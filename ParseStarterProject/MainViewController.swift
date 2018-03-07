@@ -60,6 +60,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         setupNavBarButtons()
         geoPoint()
         APIService.sharedInstance.validateAppleReciepts()
+        checkMessagesAlert()
         
 //        memberCollectionView.reloadData()
 
@@ -134,11 +135,8 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
             
             DispatchQueue.main.async {
                 
-                let cell = self.menuBar.collectionView.cellForItem(at: IndexPath(item: 5, section: 0))
+                let cell = self.menuBar.collectionView.cellForItem(at: IndexPath(item: 5, section: 0)) as! MenuCell
                 
-                cell?.tintColor = Constants.Colors.NOIR_GREEN
-                
-                // import this
                 
                 
                 // create a sound ID, in this case its the tweet sound.

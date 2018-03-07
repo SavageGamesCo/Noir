@@ -129,6 +129,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         zoomingImageView.image = startingImageView.image
         zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
         zoomingImageView.isUserInteractionEnabled = true
+        zoomingImageView.contentMode = .scaleAspectFill
         
         
         
@@ -154,7 +155,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 
                 zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
                 zoomingImageView.center = keyWindow.center
-                zoomingImageView.contentMode = .scaleAspectFill
+                
                 
             }, completion: { (completed) in
                 
@@ -171,7 +172,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func handleZoomOut(tapGesture: UITapGestureRecognizer) {
         
         if let zoomout = tapGesture.view {
-            zoomout.layer.cornerRadius = 25
+            zoomout.layer.cornerRadius = 10
             zoomout.layer.masksToBounds = true
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -331,12 +332,14 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                                 }
                                 
                             })
+                            self.chatMessages.append(NewMessage)
                             
                         } else {
                             NewMessage.text = message["text"] as? String
+                            self.chatMessages.append(NewMessage)
                         }
                         
-                        self.chatMessages.append(NewMessage)
+                        
                         
                     }
                     DispatchQueue.main.async {
@@ -346,6 +349,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         
                         self.collectionView?.scrollToItem(at: lastItemIndex, at: UICollectionViewScrollPosition.top, animated: true)
                     }
+                    
                     
                     
                 }
@@ -398,17 +402,21 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                                 let imageFile = cMessage["media"] as! PFFile
                                 imageFile.getDataInBackground(block: { (data, error) in
                                     if let imageData = data {
-                                        let image = UIImage(data: imageData)
+                                        
+                                        let image = UIImage(data: imageData)!
+                                        
                                         NewMessage.mediaMessage = image
                                     }
                                     
                                 })
+                                self.chatMessages.append(NewMessage)
                                 
                             } else {
                                 NewMessage.text = cMessage["text"] as? String
+                                self.chatMessages.append(NewMessage)
                             }
                             
-                            self.chatMessages.append(NewMessage)
+                            
                             DispatchQueue.main.async {
                                 self.collectionView?.reloadData()
                                 let item = self.collectionView(self.collectionView!, numberOfItemsInSection: 0) - 1
@@ -416,6 +424,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                                 
                                 self.collectionView?.scrollToItem(at: lastItemIndex, at: UICollectionViewScrollPosition.top, animated: true)
                             }
+                            
                             
                         }
                         

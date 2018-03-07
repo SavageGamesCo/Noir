@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Parse
+import NotificationCenter
 
 
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -46,7 +48,13 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: [])
         
         setupHorizontalBar()
+        
+        
+        
     }
+    
+    
+    
     
     var horizontalBarLeftanchorConstraint: NSLayoutConstraint?
     
@@ -70,6 +78,15 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         mainViewController?.scrollToMenuIndex(menuIndex: indexPath.item)
+        if imageNames[indexPath.item] == "chat_icon" {
+            DispatchQueue.main.async {
+                let currentInstallation = PFInstallation.current()
+                currentInstallation?.badge = 0
+                currentInstallation?.saveInBackground()
+                collectionView.reloadData()
+            }
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -79,8 +96,19 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MenuCell
         
-        cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
+        cell.imageView.setImage(UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate), for: .normal)
         cell.tintColor = Constants.Colors.NOIR_HIGHLIGHT
+        if imageNames[indexPath.item] == "chat_icon" {
+            DispatchQueue.main.async {
+                let currentInstallation = PFInstallation.current()
+                if let currentBadgeCount = currentInstallation?.badge{
+                    cell.imageView.badge = String(currentBadgeCount)
+                }
+            }
+            
+        }
+        
+        
         //        cell.backgroundColor = UIColor.blue
         
         return cell
@@ -100,13 +128,23 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
 }
 
 class MenuCell: BaseCell {
-    
-    let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "home-7")?.withRenderingMode(.alwaysTemplate)
-        iv.tintColor = Constants.Colors.NOIR_MENU_TINT
-        return iv
+    let imageView: SSBadgeButton = {
+        let button = SSBadgeButton()
+        button.setImage(UIImage(named: "home-7")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFill
+        button.tintColor = Constants.Colors.NOIR_MENU_TINT
+        button.badgeEdgeInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: -25)
+        button.isUserInteractionEnabled = false
+        
+        return button
     }()
+    
+//    let imageView: UIImageView = {
+//        let iv = UIImageView()
+//        iv.image = UIImage(named: "home-7")?.withRenderingMode(.alwaysTemplate)
+//        iv.tintColor = Constants.Colors.NOIR_MENU_TINT
+//        return iv
+//    }()
     
     override var isHighlighted: Bool {
         didSet {
