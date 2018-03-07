@@ -14,7 +14,7 @@ class GalleryCell: BaseCell {
         
         backgroundColor = .clear
         
-//        addSubview(nameLabel)
+        addSubview(nameLabel)
         addSubview(iconImageView)
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: iconImageView)

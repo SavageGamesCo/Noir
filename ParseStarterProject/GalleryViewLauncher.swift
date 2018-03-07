@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import Parse
 
 class GalleryImage: NSObject {
     let name: String
     let image: UIImage
     
-    init(name: String, imageName: UIImage) {
+    init(name: String, galleryImage: UIImage) {
         self.name = name
-        self.image = imageName
+        self.image = galleryImage
     }
 }
 
@@ -46,17 +47,84 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
     func showSettings(member: Member) {
         images.removeAll()
         
-        let image = GalleryImage(name: "name", imageName: member.memberImage! )
-        let image2 = GalleryImage(name: "name", imageName: member.memberImage! )
-        let image3 = GalleryImage(name: "name", imageName: member.memberImage! )
-        let image4 = GalleryImage(name: "name", imageName: member.memberImage! )
-        let image5 = GalleryImage(name: "name", imageName: member.memberImage! )
+        let user = PFUser.query()
         
-        images.append(image)
-        images.append(image2)
-        images.append(image3)
-        images.append(image4)
-        images.append(image5)
+        user?.getObjectInBackground(withId: member.memberID!, block: { (gMember, error) in
+            if let user = gMember as? PFUser {
+                
+                if user["mainPhoto"] != nil {
+                    let imageFile = user["mainPhoto"] as! PFFile
+                    imageFile.getDataInBackground(block: { (data, error) in
+                        if let imageData = data {
+                            
+                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            self.images.append(image)
+                            self.galleryCollectionView.reloadData()
+                        }
+                    })
+                }
+                
+                
+                if user["memberImageOne"] != nil {
+                    let imageFile2 = user["memberImageOne"] as! PFFile
+                    imageFile2.getDataInBackground(block: { (data, error) in
+                        if let imageData = data {
+                            
+                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            self.images.append(image)
+                            self.galleryCollectionView.reloadData()
+                        }
+                    })
+                }
+                
+                
+                
+                if user["memberImageTwo"] != nil {
+                    let imageFile3 = user["memberImageTwo"] as! PFFile
+                    imageFile3.getDataInBackground(block: { (data, error) in
+                        if let imageData = data {
+                            
+                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            self.images.append(image)
+                            self.galleryCollectionView.reloadData()
+                        }
+                    })
+                }
+                
+                
+                if user["memberImageThree"] != nil {
+                    let imageFile4 = user["memberImageThree"] as! PFFile
+                    imageFile4.getDataInBackground(block: { (data, error) in
+                        if let imageData = data {
+                            
+                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            self.images.append(image)
+                            self.galleryCollectionView.reloadData()
+                        }
+                    })
+                }
+                
+                
+                if user["memberImageFour"] != nil {
+                    let imageFile5 = user["memberImageFour"] as! PFFile
+                    imageFile5.getDataInBackground(block: { (data, error) in
+                        if let imageData = data {
+                            
+                            let image = GalleryImage(name: user.username!, galleryImage: UIImage(data: imageData)! )
+                            self.images.append(image)
+                            self.galleryCollectionView.reloadData()
+                        }
+                    })
+                }
+                
+                
+                
+                
+            }
+            
+            
+        })
+        
         
         if let window = UIApplication.shared.keyWindow {
             
@@ -89,7 +157,7 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
                 
             }, completion: nil)
             
-            galleryCollectionView.reloadData()
+            
         }
         
     }

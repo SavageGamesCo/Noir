@@ -135,8 +135,8 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
             
             DispatchQueue.main.async {
                 
-                let cell = self.menuBar.collectionView.cellForItem(at: IndexPath(item: 5, section: 0)) as! MenuCell
-                
+//                let cell = self.menuBar.collectionView.cellForItem(at: IndexPath(item: 5, section: 0)) as! MenuCell
+//                self.collectionView?.reloadData()
                 
                 
                 // create a sound ID, in this case its the tweet sound.

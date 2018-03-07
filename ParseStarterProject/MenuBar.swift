@@ -76,14 +76,15 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: IndexPath(item: 5, section: 0)) as! MenuCell
         mainViewController?.scrollToMenuIndex(menuIndex: indexPath.item)
         if imageNames[indexPath.item] == "chat_icon" {
             DispatchQueue.main.async {
                 let currentInstallation = PFInstallation.current()
                 currentInstallation?.badge = 0
                 currentInstallation?.saveInBackground()
-                collectionView.reloadData()
+                cell.imageView.badge = String(describing: currentInstallation?.badge)
+                collectionView.layoutIfNeeded()
             }
             
         }
