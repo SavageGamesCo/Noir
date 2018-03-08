@@ -277,7 +277,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         buttons.append(blockButton)
         
         let flirtButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        flirtButton.setImage(UIImage(named: "flirts_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        flirtButton.setImage(UIImage(named: "flirts_full_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
         flirtButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
         flirtButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
         flirtButton.layer.cornerRadius = 50
