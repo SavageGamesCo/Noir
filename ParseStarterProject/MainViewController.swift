@@ -82,7 +82,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.register(FlirtsCell.self, forCellWithReuseIdentifier: flirtsCellID)
         collectionView?.register(MessagesCell.self, forCellWithReuseIdentifier: messagesCellID)
         collectionView?.contentInset = UIEdgeInsetsMake(100, 0, 0, 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(100, 0, 0, 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(10, 0, 0, 0)
         collectionView?.isPagingEnabled = true
     }
     
@@ -205,7 +205,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func showControllerForSettings(setting: Setting) {
         
-        let profileSettingsViewController = UIViewController()
+        let profileSettingsViewController = ProfileSettingsViewController()
         profileSettingsViewController.title = setting.name
         navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]

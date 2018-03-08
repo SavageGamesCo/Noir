@@ -136,6 +136,7 @@
 		B7FB72802049D66900DE5F4B /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FB727F2049D66900DE5F4B /* ChatCell.swift */; };
 		B7FB7282204CA8EC00DE5F4B /* splash_jpeg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7FB7281204CA8EB00DE5F4B /* splash_jpeg.jpg */; };
 		B7FB7288204F62D400DE5F4B /* SSBadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FB7287204F62D400DE5F4B /* SSBadgeButton.swift */; };
+		B7FB728A20509E2900DE5F4B /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FB728920509E2900DE5F4B /* ProfileSettingsViewController.swift */; };
 		C5152F9E3F16A01CFB4ABF0D /* Pods_Noir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F280494CA807A5E164682988 /* Pods_Noir.framework */; };
 /* End PBXBuildFile section */
 
@@ -277,6 +278,7 @@
 		B7FB727F2049D66900DE5F4B /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		B7FB7281204CA8EB00DE5F4B /* splash_jpeg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = splash_jpeg.jpg; sourceTree = "<group>"; };
 		B7FB7287204F62D400DE5F4B /* SSBadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSBadgeButton.swift; sourceTree = "<group>"; };
+		B7FB728920509E2900DE5F4B /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		CA61033430ED3394A1C95768 /* Pods-Noir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Noir.release.xcconfig"; path = "Pods/Target Support Files/Pods-Noir/Pods-Noir.release.xcconfig"; sourceTree = "<group>"; };
 		F280494CA807A5E164682988 /* Pods_Noir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Noir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -422,6 +424,7 @@
 				B74BACA4203E0BDF00CFC11F /* ChatController.swift */,
 				B77559122045CAC20017A49E /* UserDetailsLauncher.swift */,
 				B775591620470E570017A49E /* GalleryViewLauncher.swift */,
+				B7FB728920509E2900DE5F4B /* ProfileSettingsViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */,
 				B7FB72802049D66900DE5F4B /* ChatCell.swift in Sources */,
 				B74BACA3203DFE1C00CFC11F /* Message.swift in Sources */,
+				B7FB728A20509E2900DE5F4B /* ProfileSettingsViewController.swift in Sources */,
 				B72F13441F05CA8C008EABCE /* EchoSonarItemView.swift in Sources */,
 				B77559152045CF8E0017A49E /* DetailCell.swift in Sources */,
 				B7FAF5621EA804520044B07B /* UsersCollectionViewCell.swift in Sources */,
