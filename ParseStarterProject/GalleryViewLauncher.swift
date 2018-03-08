@@ -82,7 +82,7 @@ class GalleryViewLauncher: NSObject, UICollectionViewDataSource, UICollectionVie
                                 uEthinicity = ethnicity
                             }
                             
-                            let image = GalleryImage(name: "Name: \(name) • Age: \(uAge ?? "??") \nMarital Status: \(uMarital ?? "Unanswered") • Race: \(uEthinicity ?? "Unanswered")", galleryImage: UIImage(data: imageData)! )
+                            let image = GalleryImage(name: "Name: \(name) | Age: \(uAge ?? "??") | Marital Status: \(uMarital ?? "Unanswered") | Race: \(uEthinicity ?? "Unanswered")", galleryImage: UIImage(data: imageData)! )
                             self.images.append(image)
                             self.galleryCollectionView.reloadData()
                         }

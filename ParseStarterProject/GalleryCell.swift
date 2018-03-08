@@ -22,7 +22,7 @@ class GalleryCell: BaseCell {
         addConstraintsWithFormat(format: "H:|[v0]|", views: iconImageView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: iconImageView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: nameLabel)
-        addConstraintsWithFormat(format: "V:[v0(100)]|", views: nameLabel)
+        addConstraintsWithFormat(format: "V:[v0(50)]|", views: nameLabel)
         
         addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
     }
@@ -52,7 +52,7 @@ class GalleryCell: BaseCell {
         label.numberOfLines = 2
         label.lineBreakMode = .byWordWrapping
         label.text = "Setting"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 10)
         label.textAlignment = .center
         label.textColor = Constants.Colors.NOIR_YELLOW
         label.backgroundColor = Constants.Colors.NOIR_RED_DARK.withAlphaComponent(0.9)
