@@ -2,6 +2,7 @@ PODS:
   - ALRadialMenu (2.0.0)
   - Bolts-Swift (1.3.0)
   - Bolts/Tasks (1.8.4)
+  - Canvas (0.1.2)
   - EasyNotificationBadge (1.1.3)
   - Firebase/AdMob (4.6.0):
     - Firebase/Core
@@ -43,6 +44,7 @@ PODS:
 
 DEPENDENCIES:
   - ALRadialMenu (~> 2.0)
+  - Canvas
   - EasyNotificationBadge
   - Firebase/AdMob
   - Firebase/Core
@@ -68,6 +70,7 @@ SPEC CHECKSUMS:
   ALRadialMenu: eb806aa5349370852e7b6c0dba3ac529f907c605
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Bolts-Swift: fa98d1b59fc1acea9b21a21306dcdca1c85e3737
+  Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
   EasyNotificationBadge: d7054b7980f36469bfca1624ff40426703a78ac5
   Firebase: 27321a925aa85520618255a7c630859e0502ccbd
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
@@ -86,6 +89,6 @@ SPEC CHECKSUMS:
   Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
   SwiftyStoreKit: 8c193678fabbaafb4430a536497613f89fefd7ec
 
-PODFILE CHECKSUM: 2a5661594bdbd26e144da54f4f5c1c1067267800
+PODFILE CHECKSUM: ee522f0b4787fa70b44e2d83ac79a4ea42adfa72
 
 COCOAPODS: 1.4.0

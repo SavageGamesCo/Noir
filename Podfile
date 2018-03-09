@@ -16,6 +16,7 @@ target 'Noir' do
     pod 'SwiftyStoreKit', '~> 0.10.4'
     pod 'Sonar'
     pod 'EasyNotificationBadge'
+    pod 'Canvas'
     
     
     #New pods for 2.0

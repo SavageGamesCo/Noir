@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Canvas
 
 class MemberCell: BaseCell {
     
@@ -29,10 +29,24 @@ class MemberCell: BaseCell {
                 
             }
             
+            if let mEcho = member?.echo {
+                echo = mEcho
+            }
+            
             
             
         }
     }
+    
+    
+    var animationView: CSAnimationView = {
+        var animView = CSAnimationView()
+        animView.duration = 0.5
+        animView.delay = 0
+        animView.type = CSAnimationTypePop
+        
+        return animView
+    }()
     
     var ProfilePics: UIImageView = {
         var pic = UIImageView()
@@ -65,30 +79,79 @@ class MemberCell: BaseCell {
     
     var online: Bool?
     
-    var echo: Bool?
+    var echo = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+    @objc func animTimer(){
+        animationView.startCanvasAnimation()
+        let color = CABasicAnimation(keyPath: "borderColor")
+        color.fromValue = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
+        color.toValue = Constants.Colors.NOIR_MEMBER_BORDER_ECHO
+        color.duration = 1
+        color.autoreverses = true
+        color.repeatCount = .infinity
+        color.isRemovedOnCompletion = false
+        
+        ProfilePics.layer.borderWidth = 3
+        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
+        ProfilePics.layer.add(color, forKey: "borderColor")
+    }
     override func setupViews() {
         
-        addSubview(ProfilePics)
-        addSubview(userName)
-
+        
+        addSubview(animationView)
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        addConstraintsWithFormat(format: "H:|[v0]|", views: animationView)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: animationView)
+        
+        animationView.addSubview(ProfilePics)
+        animationView.addSubview(userName)
+        
         ProfilePics.translatesAutoresizingMaskIntoConstraints = false
         ProfilePics.layer.borderWidth = 3
-//        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
+        //        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
         ProfilePics.layer.cornerRadius = self.frame.width / 2
         
         
         userName.translatesAutoresizingMaskIntoConstraints = false
         
-        addConstraintsWithFormat(format: "H:|[v0(\(self.frame.width))]", views: ProfilePics)
-        addConstraintsWithFormat(format: "V:|[v0(\(self.frame.width))]|", views: ProfilePics)
+        animationView.addConstraintsWithFormat(format: "H:|[v0(\(self.frame.width))]", views: ProfilePics)
+        animationView.addConstraintsWithFormat(format: "V:|[v0(\(self.frame.width))]|", views: ProfilePics)
         
-        addConstraintsWithFormat(format: "H:|[v0]|", views: userName)
-        addConstraintsWithFormat(format: "V:[v0]-10-[v1]|", views:ProfilePics, userName)
+        animationView.addConstraintsWithFormat(format: "H:|[v0]|", views: userName)
+        animationView.addConstraintsWithFormat(format: "V:[v0]-10-[v1]|", views:ProfilePics, userName)
+        if !echo {
+//            addSubview(ProfilePics)
+//            addSubview(userName)
+//
+//            ProfilePics.translatesAutoresizingMaskIntoConstraints = false
+//            ProfilePics.layer.borderWidth = 3
+//            //        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
+//            ProfilePics.layer.cornerRadius = self.frame.width / 2
+//
+//
+//            userName.translatesAutoresizingMaskIntoConstraints = false
+//
+//            addConstraintsWithFormat(format: "H:|[v0(\(self.frame.width))]", views: ProfilePics)
+//            addConstraintsWithFormat(format: "V:|[v0(\(self.frame.width))]|", views: ProfilePics)
+//
+//            addConstraintsWithFormat(format: "H:|[v0]|", views: userName)
+//            addConstraintsWithFormat(format: "V:[v0]-10-[v1]|", views:ProfilePics, userName)
+        } else {
+            
+            
+            
+            var timer: Timer!
+            
+            timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(animTimer), userInfo: nil, repeats: true)
+
+            animTimer()
+        }
+        
+        
+        
         
         
         

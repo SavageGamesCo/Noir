@@ -24,6 +24,7 @@ class LoginController: UIViewController {
     
     
     let inputsContainerView: UIView = {
+        
         let view = UIView()
         view.backgroundColor = Constants.Colors.NOIR_WHITE
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +35,7 @@ class LoginController: UIViewController {
     }()
     
     let loginRegisterButton: UIButton = {
+        
         let button = UIButton(type: .system)
         button.backgroundColor = Constants.Colors.NOIR_BUTTON
         button.setTitle("Register", for: .normal)
@@ -43,10 +45,12 @@ class LoginController: UIViewController {
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
+        
         return button
     }()
     
     let recoverPasswordButton: UIButton = {
+        
         let button = UIButton(type: .system)
         button.backgroundColor = Constants.Colors.NOIR_BUTTON
         button.setTitle("Recover Password", for: .normal)
@@ -61,6 +65,7 @@ class LoginController: UIViewController {
     }()
     
     let usernameTextField: UITextField = {
+        
         let textField = UITextField()
         textField.placeholder = "Username"
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -69,6 +74,7 @@ class LoginController: UIViewController {
     }()
     
     let emailAddressTextField: UITextField = {
+        
         let textField = UITextField()
         textField.placeholder = "Email Address"
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +83,7 @@ class LoginController: UIViewController {
     }()
     
     let passwordTextField: UITextField = {
+        
         let textField = UITextField()
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
@@ -86,6 +93,7 @@ class LoginController: UIViewController {
     }()
     
     let passwordRepeatTextField: UITextField = {
+        
         let textField = UITextField()
         textField.placeholder = "Verify Password"
         textField.isSecureTextEntry = true
@@ -95,6 +103,7 @@ class LoginController: UIViewController {
     }()
     
     let copyrightLine: UILabel = {
+        
         let text = UILabel()
         text.text = Constants.Text.COPYRIGHT_LINE
         text.font = UIFont.systemFont(ofSize: 12)
@@ -105,6 +114,7 @@ class LoginController: UIViewController {
     }()
     
     let separator: UIView = {
+        
         let view = UIView()
         view.backgroundColor = Constants.Colors.NOIR_DARK_LINE
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +123,7 @@ class LoginController: UIViewController {
     }()
     
     let separator2: UIView = {
+        
         let view = UIView()
         view.backgroundColor = Constants.Colors.NOIR_DARK_LINE
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -121,6 +132,7 @@ class LoginController: UIViewController {
     }()
     
     let separator3: UIView = {
+        
         let view = UIView()
         view.backgroundColor = Constants.Colors.NOIR_DARK_LINE
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -129,6 +141,7 @@ class LoginController: UIViewController {
     }()
     
     let logoImageView: UIImageView = {
+        
         let imageView = UIImageView()
         imageView.image = UIImage(named:Constants.App.NOIR_LOGO)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -140,6 +153,7 @@ class LoginController: UIViewController {
     }()
     
     lazy var loginRegisterControl: UISegmentedControl = {
+        
         let segmentedControl = UISegmentedControl(items: ["Login", "Register"])
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.tintColor = Constants.Colors.NOIR_BUTTON
@@ -152,6 +166,7 @@ class LoginController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
         view.backgroundColor = Constants.Colors.NOIR_LOGIN_BACKGROUND
@@ -170,10 +185,12 @@ class LoginController: UIViewController {
         setupCopyright()
         
         if PFUser.current() != nil {
+            
             let layout = UICollectionViewFlowLayout()
             let mainViewController = MainViewController(collectionViewLayout: layout)
             
             navigationController?.pushViewController(mainViewController, animated: true)
+            
         }
     
     }
@@ -182,18 +199,27 @@ class LoginController: UIViewController {
     @objc func handleLoginRegister(){
 
         if loginRegisterControl.selectedSegmentIndex == 0 {
+            
             handleLogin()
+            
         } else {
+            
             handleRegistration()
+            
         }
+        
     }
     
     @objc func handleRegistration(){
+        
         signUpUser()
+        
     }
     
     @objc func handleLogin(){
+        
         loginUser()
+        
     }
     
     @objc func handleRecoverPassword() {

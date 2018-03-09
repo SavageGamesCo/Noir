@@ -24,6 +24,10 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     var memberID = String()
     var memberName = String()
+    var startingFrame: CGRect?
+    var blackBackgroundView: UIView?
+    var startingImageView: UIView?
+    var chatMessages = [Message()]
     
     lazy var inputTextField: UITextField = {
         let inputField = UITextField()
@@ -74,13 +78,16 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
         }
     }
-    var chatMessages = [Message()]
+    
     
     @objc func handleDismiss(){
+        
         self.dismiss(animated: true, completion: nil)
+        
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         checkPermission()
         
@@ -96,9 +103,6 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionView?.keyboardDismissMode = .interactive
         
-//        setupInput()
-//        setupKeyboard()
-        
         if PFUser.current()?["membership"] as! String == "basic" {
             //set limits on basic users
             
@@ -107,19 +111,17 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         
         observeMessages()
-    
-        
 
     }
     
     func setupKeyboard() {
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
     }
     
-    var startingFrame: CGRect?
-    var blackBackgroundView: UIView?
-    var startingImageView: UIView?
+    
     
     func performZoomForStartingImageView(startingImageView: UIImageView){
         startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil)
@@ -267,26 +269,34 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }()
     
     override var inputAccessoryView: UIView? {
+        
         get {
             
             return inputContainerView
         }
+        
     }
     
     override var canBecomeFirstResponder: Bool {
+        
         get {
             return true
         }
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        
         super.viewDidDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         observeMessages()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -294,6 +304,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func setupMessages(){
+        
         chatMessages.removeAll()
         let query1 = PFQuery(className: "Chat")
         let query2 = PFQuery(className: "Chat")
@@ -342,6 +353,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         
                         
                     }
+                    
                     DispatchQueue.main.async {
                         self.collectionView?.reloadData()
                         let item = self.collectionView(self.collectionView!, numberOfItemsInSection: 0) - 1
@@ -383,10 +395,15 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
             query3.findObjectsInBackground(block: { (chatMessages, error) in
                 if error != nil {
+                    
                     print(error!)
+                    
                 } else {
+                    
                     if let cMessages = chatMessages {
+                        
                         if let cMessage = cMessages.first {
+                            
                             print(cMessage)
                             let NewMessage = Message()
                             let member = Sender()
@@ -399,6 +416,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                             NewMessage.sender?.userID = cMessage["senderID"] as? String
                             
                             if cMessage["media"] != nil {
+                                
                                 let imageFile = cMessage["media"] as! PFFile
                                 imageFile.getDataInBackground(block: { (data, error) in
                                     if let imageData = data {
@@ -409,20 +427,24 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                                     }
                                     
                                 })
+                                
                                 self.chatMessages.append(NewMessage)
                                 
                             } else {
+                                
                                 NewMessage.text = cMessage["text"] as? String
                                 self.chatMessages.append(NewMessage)
+                                
                             }
                             
-                            
                             DispatchQueue.main.async {
+                                
                                 self.collectionView?.reloadData()
                                 let item = self.collectionView(self.collectionView!, numberOfItemsInSection: 0) - 1
                                 let lastItemIndex = IndexPath(item: item, section: 0)
                                 
                                 self.collectionView?.scrollToItem(at: lastItemIndex, at: UICollectionViewScrollPosition.top, animated: true)
+                                
                             }
                             
                             
@@ -502,6 +524,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     @objc func handleMedia(){
+        
         let alert = UIAlertController(title: "Send Media", message: "Select A Photo", preferredStyle: .actionSheet)
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -518,12 +541,15 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         alert.popoverPresentationController?.sourceView = view
         
         present(alert, animated: true, completion: nil)
+        
     }
     
     private func chooseMedia(type: CFString){
+        
         picker.mediaTypes = [type as String]
         
         present(picker, animated: true, completion: nil)
+        
     }
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -543,8 +569,6 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 }
             }
             
-            
-            
         }
         
         picker.dismiss(animated: true, completion: nil)
@@ -552,6 +576,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
         picker.dismiss(animated: true, completion: nil)
         
     }
@@ -560,6 +585,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     @objc func handleSend(){
         
         if inputTextField.text != nil && inputTextField.text != "" {
+            
             sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: self.memberID, toUserName: self.memberName, text: inputTextField.text!)
             inputTextField.text = ""
             
@@ -568,13 +594,13 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         handleSend()
+        
         return true
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        
         
         return chatMessages.count
     }
@@ -759,9 +785,6 @@ func checkPermission() {
     }
     
 }
-
-
-
 
 class ChatMessageCell: BaseCell {
     
