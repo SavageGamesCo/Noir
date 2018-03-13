@@ -52,7 +52,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
         
     }
-    
+
     var horizontalBarLeftanchorConstraint: NSLayoutConstraint?
     
     func setupHorizontalBar(){
