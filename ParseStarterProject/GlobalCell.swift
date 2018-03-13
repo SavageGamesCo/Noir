@@ -434,7 +434,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
             
             if (cell.member?.echo) != nil && (cell.member?.echo)! {
                 
-                cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ECHO
+                cell.ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
                 
             } else {
                 

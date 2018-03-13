@@ -101,6 +101,7 @@
 		B7DA38961EC92D38001EFD5F /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA388F1EC92D37001EFD5F /* Spring.framework */; };
 		B7DA38971EC92D38001EFD5F /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA38901EC92D37001EFD5F /* Starscream.framework */; };
 		B7DA38991EC93199001EFD5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7DA38981EC93199001EFD5F /* UIKit.framework */; };
+		B7DD2D6F20580C24000318EE /* MainViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DD2D6E20580C24000318EE /* MainViewControllerExtensions.swift */; };
 		B7E5A3E01EB27CAE007E9620 /* 011.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A3DF1EB27CAE007E9620 /* 011.png */; };
 		B7E5A3E81EB28056007E9620 /* heart-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A3E71EB28056007E9620 /* heart-7.png */; };
 		B7E5A3EA1EB28066007E9620 /* message-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E5A3E91EB28066007E9620 /* message-7.png */; };
@@ -243,6 +244,7 @@
 		B7DA388F1EC92D37001EFD5F /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/Spring/Spring.framework"; sourceTree = "<group>"; };
 		B7DA38901EC92D37001EFD5F /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = "../../Library/Developer/Xcode/DerivedData/ParseStarterProject-Swift-acbszqpltbhijtaoaqswekjkflgk/Build/Products/Debug-iphoneos/Starscream/Starscream.framework"; sourceTree = "<group>"; };
 		B7DA38981EC93199001EFD5F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B7DD2D6E20580C24000318EE /* MainViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerExtensions.swift; sourceTree = "<group>"; };
 		B7E5A3DF1EB27CAE007E9620 /* 011.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 011.png; sourceTree = "<group>"; };
 		B7E5A3E71EB28056007E9620 /* heart-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-7.png"; sourceTree = "<group>"; };
 		B7E5A3E91EB28066007E9620 /* message-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-7.png"; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 			children = (
 				B74789A5202E64C900C61A65 /* NoirConstants.swift */,
 				B74789A7202F340F00C61A65 /* LoginExtensions.swift */,
+				B7DD2D6E20580C24000318EE /* MainViewControllerExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -479,7 +482,6 @@
 				B77559142045CF8E0017A49E /* DetailCell.swift */,
 				B77559182047114C0017A49E /* GalleryCell.swift */,
 				B7FB727F2049D66900DE5F4B /* ChatCell.swift */,
-				B7FB7287204F62D400DE5F4B /* SSBadgeButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -503,6 +505,7 @@
 				B74789A1202E34FA00C61A65 /* Helpers.swift */,
 				B74BAC99203367FD00CFC11F /* APIServices.swift */,
 				B775591A204844540017A49E /* Chat_Helpers.swift */,
+				B7FB7287204F62D400DE5F4B /* SSBadgeButton.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -851,6 +854,7 @@
 				B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */,
 				B74BAC9A203367FD00CFC11F /* APIServices.swift in Sources */,
 				B74789B0202F714900C61A65 /* BaseCell.swift in Sources */,
+				B7DD2D6F20580C24000318EE /* MainViewControllerExtensions.swift in Sources */,
 				B72F13471F05D347008EABCE /* EchoSonarViewController.swift in Sources */,
 				B74BAC9F203432F300CFC11F /* Launcher.swift in Sources */,
 				B7FB7288204F62D400DE5F4B /* SSBadgeButton.swift in Sources */,

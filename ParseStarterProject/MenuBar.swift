@@ -53,9 +53,6 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
     }
     
-    
-    
-    
     var horizontalBarLeftanchorConstraint: NSLayoutConstraint?
     
     func setupHorizontalBar(){
@@ -139,13 +136,6 @@ class MenuCell: BaseCell {
         
         return button
     }()
-    
-//    let imageView: UIImageView = {
-//        let iv = UIImageView()
-//        iv.image = UIImage(named: "home-7")?.withRenderingMode(.alwaysTemplate)
-//        iv.tintColor = Constants.Colors.NOIR_MENU_TINT
-//        return iv
-//    }()
     
     override var isHighlighted: Bool {
         didSet {

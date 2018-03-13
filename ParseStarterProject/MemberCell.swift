@@ -84,6 +84,7 @@ class MemberCell: BaseCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
     @objc func animTimer(){
         animationView.startCanvasAnimation()
         let color = CABasicAnimation(keyPath: "borderColor")
@@ -100,7 +101,6 @@ class MemberCell: BaseCell {
     }
     override func setupViews() {
         
-        
         addSubview(animationView)
         animationView.translatesAutoresizingMaskIntoConstraints = false
         addConstraintsWithFormat(format: "H:|[v0]|", views: animationView)
@@ -111,7 +111,6 @@ class MemberCell: BaseCell {
         
         ProfilePics.translatesAutoresizingMaskIntoConstraints = false
         ProfilePics.layer.borderWidth = 3
-        //        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
         ProfilePics.layer.cornerRadius = self.frame.width / 2
         
         
@@ -122,26 +121,10 @@ class MemberCell: BaseCell {
         
         animationView.addConstraintsWithFormat(format: "H:|[v0]|", views: userName)
         animationView.addConstraintsWithFormat(format: "V:[v0]-10-[v1]|", views:ProfilePics, userName)
+        
         if !echo {
-//            addSubview(ProfilePics)
-//            addSubview(userName)
-//
-//            ProfilePics.translatesAutoresizingMaskIntoConstraints = false
-//            ProfilePics.layer.borderWidth = 3
-//            //        ProfilePics.layer.borderColor = Constants.Colors.NOIR_MEMBER_BORDER_ONLINE
-//            ProfilePics.layer.cornerRadius = self.frame.width / 2
-//
-//
-//            userName.translatesAutoresizingMaskIntoConstraints = false
-//
-//            addConstraintsWithFormat(format: "H:|[v0(\(self.frame.width))]", views: ProfilePics)
-//            addConstraintsWithFormat(format: "V:|[v0(\(self.frame.width))]|", views: ProfilePics)
-//
-//            addConstraintsWithFormat(format: "H:|[v0]|", views: userName)
-//            addConstraintsWithFormat(format: "V:[v0]-10-[v1]|", views:ProfilePics, userName)
+
         } else {
-            
-            
             
             var timer: Timer!
             
@@ -149,11 +132,6 @@ class MemberCell: BaseCell {
 
             animTimer()
         }
-        
-        
-        
-        
-        
         
     }
     

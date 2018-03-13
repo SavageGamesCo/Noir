@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "unflirt.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "unflirt.png",
       "scale" : "2x"
     },
     {
