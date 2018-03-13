@@ -31,8 +31,8 @@ extension MainViewController {
     }
     
     func showControllerForSettings(setting: Setting) {
-        
-        let profileSettingsViewController = ProfileSettingsViewController()
+        let layout = UICollectionViewFlowLayout()
+        let profileSettingsViewController = ProfileSettingsViewController(collectionViewLayout: layout)
         profileSettingsViewController.title = setting.name
         navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
