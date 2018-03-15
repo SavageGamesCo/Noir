@@ -170,13 +170,15 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                         member.race = "Unanswered"
                                     }
                                     
-                                    if let mlat = (user["location"] as AnyObject).latitude {
+                                    if user["location"] != nil {
+                                        let mlat = (user["location"] as AnyObject).latitude
                                         member.mLat = mlat
                                     } else {
                                         member.mLat = 0
                                     }
                                     
-                                    if let mlong = (user["location"] as AnyObject).longitude {
+                                    if user["location"] != nil {
+                                        let mlong = (user["location"] as AnyObject).longitude
                                         member.mLong = mlong
                                     } else {
                                         member.mLong = 0
@@ -324,13 +326,15 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                             } else {
                                                 member.race = "Unanswered"
                                             }
-                                            if let mlat = (user["location"] as AnyObject).latitude {
+                                            if user["location"] != nil {
+                                                let mlat = (user["location"] as AnyObject).latitude
                                                 member.mLat = mlat
                                             } else {
                                                 member.mLat = 0
                                             }
                                             
-                                            if let mlong = (user["location"] as AnyObject).longitude {
+                                            if user["location"] != nil {
+                                                let mlong = (user["location"] as AnyObject).longitude
                                                 member.mLong = mlong
                                             } else {
                                                 member.mLong = 0
@@ -440,13 +444,15 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                         } else {
                             member.race = "Unanswered"
                         }
-                        if let mlat = (fMember["location"] as AnyObject).latitude {
+                        if fMember["location"] != nil {
+                            let mlat = (fMember["location"] as AnyObject).latitude
                             member.mLat = mlat
                         } else {
                             member.mLat = 0
                         }
                         
-                        if let mlong = (fMember["location"] as AnyObject).longitude {
+                        if fMember["location"] != nil {
+                            let mlong = (fMember["location"] as AnyObject).longitude
                             member.mLong = mlong
                         } else {
                             member.mLong = 0
@@ -561,13 +567,15 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                             } else {
                                 member.race = "Unanswered"
                             }
-                            if let mlat = (fMember["location"] as AnyObject).latitude {
+                            if fMember["location"] != nil {
+                                let mlat = (fMember["location"] as AnyObject).latitude
                                 member.mLat = mlat
                             } else {
                                 member.mLat = 0
                             }
                             
-                            if let mlong = (fMember["location"] as AnyObject).longitude {
+                            if fMember["location"] != nil {
+                                let mlong = (fMember["location"] as AnyObject).longitude
                                 member.mLong = mlong
                             } else {
                                 member.mLong = 0
@@ -698,9 +706,35 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
             
         })
     }
+    func sendMessage(senderID: String, senderName: String, toUser: String, toUserName: String, text: String) {
+        
+        let chat = PFObject(className: "Chat")
+        
+        chat["senderID"] = senderID
+        chat["senderName"] = senderName
+        chat["text"] = text
+        chat["url"] = ""
+        chat["toUser"] = toUser
+        chat["toUserName"] = toUserName
+        chat["messageRead"] = false
+        chat["chatID"] = toUser + senderID
+        chat["app"] = APPLICATION
+        
+        chat.saveInBackground { (success, error) in
+            
+            if error != nil {
+                print(error!)
+            } else {
+                
+                
+            }
+            
+        }
+        
+    }
     
     func sendFlirtPush(member: Member){
-        
+        sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: member.memberID!, toUserName: member.memberName!, text: "\((PFUser.current()?.objectId)!) has sent you a flirt.")
         var installationID = PFInstallation()
         do {
             let user = try PFQuery.getUserObject(withId: member.memberID as String!)
@@ -711,7 +745,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
             print("No User Selected")
         }
         
-        PFCloud.callFunction(inBackground: "sendPushToUserTest", withParameters: ["recipientId": member.memberID as String!, "chatmessage": "\(PFUser.current()!.username!) has flirted with you", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
+        PFCloud.callFunction(inBackground: "sendPushToUserTest", withParameters: ["recipientId": member.memberID as String!, "chatmessage": "\(PFUser.current()!.username!) has sent you a flirt", "installationID": installationID.objectId as Any], block: { (object: Any?, error: Error?) in
             
             if error != nil {
                 print(error!)
