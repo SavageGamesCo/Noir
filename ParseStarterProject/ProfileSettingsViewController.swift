@@ -23,6 +23,8 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
     let hivCellID = "hivCellID"
     let aboutCellID = "aboutCellID"
     let echoCellID = "echoCellID"
+    let logoutCellID = "logoutCellID"
+    let deleteCellID = "celeteCellID"
     let optionsCellID = "optionsCellID"
     
     let member = PFUser.current()!
@@ -37,7 +39,7 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellID")
         collectionView?.register(profImageCell.self, forCellWithReuseIdentifier: profImgCellID)
         collectionView?.register(imagesCell.self, forCellWithReuseIdentifier: imgCellID)
-        collectionView?.register(statsCell.self, forCellWithReuseIdentifier: statsCellID)
+//        collectionView?.register(statsCell.self, forCellWithReuseIdentifier: statsCellID)
         
         collectionView?.register(ageCell.self, forCellWithReuseIdentifier: ageCellID)
         collectionView?.register(weightCell.self, forCellWithReuseIdentifier: weightCellID)
@@ -49,13 +51,15 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
         
         collectionView?.register(aboutCell.self, forCellWithReuseIdentifier: aboutCellID)
         collectionView?.register(echoCell.self, forCellWithReuseIdentifier: echoCellID)
-        collectionView?.register(optionsCell.self, forCellWithReuseIdentifier: optionsCellID)
+        collectionView?.register(logoutCell.self, forCellWithReuseIdentifier: logoutCellID)
+        collectionView?.register(deleteCell.self, forCellWithReuseIdentifier: deleteCellID)
+//        collectionView?.register(optionsCell.self, forCellWithReuseIdentifier: optionsCellID)
         
         collectionView?.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 11
+        return 12
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -92,7 +96,10 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
             return CGSize(width: collectionView.frame.width, height: 50)
         }
         if indexPath.item == 10 {
-            return CGSize(width: collectionView.frame.width, height: 300)
+            return CGSize(width: collectionView.frame.width, height: 50)
+        }
+        if indexPath.item == 11 {
+            return CGSize(width: collectionView.frame.width, height: 50)
         }
         
         return CGSize(width: collectionView.frame.width, height: 25)
@@ -242,7 +249,13 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
         
         if indexPath.item == 10 {
             
-            return collectionView.dequeueReusableCell(withReuseIdentifier: optionsCellID, for: indexPath) as! optionsCell
+            return collectionView.dequeueReusableCell(withReuseIdentifier: logoutCellID, for: indexPath) as! logoutCell
+            
+        }
+        
+        if indexPath.item == 11 {
+            
+            return collectionView.dequeueReusableCell(withReuseIdentifier: deleteCellID, for: indexPath) as! deleteCell
             
         }
         
@@ -714,6 +727,7 @@ class aboutCell: BaseCell {
         
         setupStats(stack: aboutStack, statLabel: aboutLabel, statField: aboutField)
         addConstraintsWithFormat(format: "H:|[v0]|", views: aboutStack)
+        aboutStack.addConstraintsWithFormat(format: "V:|[v0(35)]", views: aboutLabel)
         aboutStack.addConstraintsWithFormat(format: "H:|-10-[v0]-5-[v1(330)]-10-|", views: aboutLabel, aboutField)
         aboutField.textAlignment = .left
         aboutField.contentVerticalAlignment = .top
@@ -725,13 +739,27 @@ class echoCell: BaseCell {
     
     let echoLabel: UILabel = {
         let label = UILabel()
-        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Echo:"
+        label.textColor = Constants.Colors.NOIR_WHITE
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    let echoInfoLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Turn on Echo to let members know you are looking to meet!"
+        label.textColor = Constants.Colors.NOIR_WHITE
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     
     let echoButton: UISwitch = {
         
         let button = UISwitch()
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         if button.isOn {
             PFUser.current()?["echo"] = true
@@ -743,12 +771,80 @@ class echoCell: BaseCell {
         
     }()
     
+    let echoStack: UIStackView = {
+        
+        let stack = UIStackView()
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.distribution = .fillProportionally
+        stack.axis = .horizontal
+        
+        return stack
+        
+    }()
+    
     override func setupViews() {
-        backgroundColor = .green
+        
+        echoStack.addSubview(echoLabel)
+        echoStack.addSubview(echoInfoLabel)
+        echoStack.addSubview(echoButton)
+        echoStack.addConstraintsWithFormat(format: "H:|-10-[v0]-5-[v1]-10-|", views: echoLabel,echoButton )
+        echoStack.addConstraintsWithFormat(format: "H:|[v0]|", views: echoInfoLabel)
+        echoStack.addConstraintsWithFormat(format: "V:|[v0]-5-[v1]|", views: echoLabel, echoInfoLabel)
+        echoStack.addConstraintsWithFormat(format: "V:|[v0]", views: echoButton)
+        addSubview(echoStack)
+        
+        addConstraintsWithFormat(format: "H:|[v0]|", views: echoStack)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: echoStack)
+        
         
     }
 }
 
+class logoutCell: BaseCell {
+    
+    let logoutLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Logout"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = Constants.Colors.NOIR_WHITE
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
+    override func setupViews() {
+        
+        addSubview(logoutLabel)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: logoutLabel)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: logoutLabel)
+        
+    }
+}
+class deleteCell: BaseCell {
+    
+    let deleteLabel: UILabel = {
+        
+        let label = UILabel()
+        label.text = "Delete Account"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = Constants.Colors.NOIR_WHITE
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    
+    override func setupViews() {
+        
+        addSubview(deleteLabel)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: deleteLabel)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: deleteLabel)
+        
+    }
+}
 class optionsCell: BaseCell {
     override func setupViews() {
         backgroundColor = .yellow
