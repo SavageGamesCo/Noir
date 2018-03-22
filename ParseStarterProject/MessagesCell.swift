@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate {
+class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

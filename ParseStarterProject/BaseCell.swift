@@ -8,11 +8,22 @@
 
 import UIKit
 
-class BaseCell: UICollectionViewCell {
+class BaseCell: UICollectionViewCell, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    let toolBar = UIToolbar()
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 0
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         DispatchQueue.main.async {
             self.setupViews()
+            self.setupToolbar()
         }
         
     }
@@ -34,6 +45,25 @@ class BaseCell: UICollectionViewCell {
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: stack)
         addConstraintsWithFormat(format: "V:|[v0]|", views: stack)
+    }
+    
+    func setupToolbar() {
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = Constants.Colors.NOIR_BLACK
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+    }
+    
+    @objc func donePicker(){
+        
+        endEditing(true)
     }
     
     func setupViews() {
