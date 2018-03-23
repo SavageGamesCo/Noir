@@ -24,6 +24,8 @@
 		B72F13441F05CA8C008EABCE /* EchoSonarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */; };
 		B72F13471F05D347008EABCE /* EchoSonarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F13461F05D347008EABCE /* EchoSonarViewController.swift */; };
 		B72F134B1F05D8CF008EABCE /* EchoSonarItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */; };
+		B73DF74420656F50008C016F /* TermsPrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */; };
+		B73DF746206594C3008C016F /* SendFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73DF745206594C3008C016F /* SendFeedbackViewController.swift */; };
 		B745EBBD1ED76DCC000E498D /* privacy_policy_sclcm.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */; };
 		B745EBBF1ED77296000E498D /* eula_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBE1ED77296000E498D /* eula_noir.txt */; };
 		B745EBC11ED775DA000E498D /* about_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBC01ED775DA000E498D /* about_noir.txt */; };
@@ -166,6 +168,8 @@
 		B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EchoSonarItemView.swift; sourceTree = "<group>"; };
 		B72F13461F05D347008EABCE /* EchoSonarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EchoSonarViewController.swift; sourceTree = "<group>"; };
 		B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EchoSonarItemView.xib; sourceTree = "<group>"; };
+		B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPrivacyViewController.swift; sourceTree = "<group>"; };
+		B73DF745206594C3008C016F /* SendFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeedbackViewController.swift; sourceTree = "<group>"; };
 		B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privacy_policy_sclcm.txt; sourceTree = "<group>"; };
 		B745EBBE1ED77296000E498D /* eula_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eula_noir.txt; sourceTree = "<group>"; };
 		B745EBC01ED775DA000E498D /* about_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about_noir.txt; sourceTree = "<group>"; };
@@ -360,6 +364,9 @@
 				B747899F202E31F500C61A65 /* OnePointOh */,
 				B72F13451F05D31B008EABCE /* TwoPointOh */,
 				B7FAF5541EA707650044B07B /* noirImages */,
+				B745EBC01ED775DA000E498D /* about_noir.txt */,
+				B745EBBE1ED77296000E498D /* eula_noir.txt */,
+				B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */,
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
@@ -427,6 +434,8 @@
 				B77559122045CAC20017A49E /* UserDetailsLauncher.swift */,
 				B775591620470E570017A49E /* GalleryViewLauncher.swift */,
 				B7FB728920509E2900DE5F4B /* ProfileSettingsViewController.swift */,
+				B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */,
+				B73DF745206594C3008C016F /* SendFeedbackViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -490,9 +499,6 @@
 			isa = PBXGroup;
 			children = (
 				B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */,
-				B745EBC01ED775DA000E498D /* about_noir.txt */,
-				B745EBBE1ED77296000E498D /* eula_noir.txt */,
-				B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */,
 				B7B5B8671F07041700F126AD /* echo_feature.txt */,
 				B7B5B8691F07042D00F126AD /* echo_warning.txt */,
 			);
@@ -847,6 +853,7 @@
 				B775591B204844540017A49E /* Chat_Helpers.swift in Sources */,
 				B7EDF1CB1EB972EE003D013B /* MessageListTableViewController.swift in Sources */,
 				B747899E202E2DF500C61A65 /* LoginController.swift in Sources */,
+				B73DF746206594C3008C016F /* SendFeedbackViewController.swift in Sources */,
 				B74BAC97203290A700CFC11F /* EchoCell.swift in Sources */,
 				B775591720470E570017A49E /* GalleryViewLauncher.swift in Sources */,
 				B7EDF1D51EBA33D6003D013B /* MessagesHandler.swift in Sources */,
@@ -860,6 +867,7 @@
 				B7FB7288204F62D400DE5F4B /* SSBadgeButton.swift in Sources */,
 				B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */,
 				B74BAC9D2033B3C800CFC11F /* Member.swift in Sources */,
+				B73DF74420656F50008C016F /* TermsPrivacyViewController.swift in Sources */,
 				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,
 				B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */,
 				B74BACA5203E0BDF00CFC11F /* ChatController.swift in Sources */,

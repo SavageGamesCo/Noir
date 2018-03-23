@@ -37,7 +37,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     let cellHeight: CGFloat = 50
     
     let settings: [Setting] = {
-        return [Setting(name: "Profile Settings", imageName: "gear-7"), Setting(name: "Terms & privacy policy", imageName: "file-two-7"), Setting(name: "Send Feedback", imageName: "email-7"), Setting(name: "Help Tutorial", imageName: "lifebuoy-7"), Setting(name: "Cancel", imageName: "circle-x-7")]
+        return [Setting(name: "Profile Settings", imageName: "gear-7"), Setting(name: "Privacy Policy & Terms", imageName: "file-two-7"), Setting(name: "Send Feedback", imageName: "email-7"), Setting(name: "Help Tutorial", imageName: "lifebuoy-7"), Setting(name: "Cancel", imageName: "circle-x-7")]
     }()
     lazy var mainViewController: MainViewController = {
         let mainvc = MainViewController()

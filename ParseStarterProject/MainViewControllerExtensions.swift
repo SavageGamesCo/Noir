@@ -31,15 +31,55 @@ extension MainViewController {
     }
     
     func showControllerForSettings(setting: Setting) {
-        let layout = UICollectionViewFlowLayout()
-        let profileSettingsViewController = ProfileSettingsViewController(collectionViewLayout: layout)
-        profileSettingsViewController.title = setting.name
-        profileSettingsViewController.collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
-        navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
         
+        if setting.name == "Profile Settings" {
+            let layout = UICollectionViewFlowLayout()
+            let profileSettingsViewController = ProfileSettingsViewController(collectionViewLayout: layout)
+            profileSettingsViewController.title = setting.name
+            profileSettingsViewController.collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
+            navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
+            navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
+            
+            
+            navigationController?.pushViewController(profileSettingsViewController, animated: true)
+        }
         
-        navigationController?.pushViewController(profileSettingsViewController, animated: true)
+        if setting.name == "Privacy Policy & Terms" {
+            let layout = UICollectionViewFlowLayout()
+            let privacyViewController = TermsPrivacyViewController(collectionViewLayout: layout)
+            privacyViewController.title = setting.name
+            privacyViewController.collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
+            navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
+            navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
+            
+            
+            navigationController?.pushViewController(privacyViewController, animated: true)
+        }
+        
+        if setting.name == "Send Feedback" {
+            let layout = UICollectionViewFlowLayout()
+            let feedbackViewController = SendFeedbackViewController(collectionViewLayout: layout)
+            feedbackViewController.title = setting.name
+            feedbackViewController.collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
+            navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
+            navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
+            
+            
+            navigationController?.pushViewController(feedbackViewController, animated: true)
+        }
+        
+        if setting.name == "Help Tutorial" {
+            let layout = UICollectionViewFlowLayout()
+            let profileSettingsViewController = ProfileSettingsViewController(collectionViewLayout: layout)
+            profileSettingsViewController.title = setting.name
+            profileSettingsViewController.collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
+            navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
+            navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
+            
+            
+            navigationController?.pushViewController(profileSettingsViewController, animated: true)
+        }
+        
         
     }
     

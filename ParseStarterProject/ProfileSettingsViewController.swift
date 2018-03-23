@@ -50,9 +50,7 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
     let deleteCellID = "celeteCellID"
     let optionsCellID = "optionsCellID"
     
-    var PrivacyPolicyText = String()
-    var EULAText = String()
-    var AboutNoir = String()
+    
     
     let member = PFUser.current()!
     
@@ -66,18 +64,6 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
         
         registerForKeyboardNotifications()
         
-        let bundle = Bundle.main
-        let PrivacyPath = bundle.path(forResource: "privacy_policy_sclcm", ofType: "txt")
-        let EULAPath = bundle.path(forResource: "eula_noir", ofType: "txt")
-        let AboutPath = bundle.path(forResource: "about_noir", ofType: "txt")
-        
-        do{
-            try PrivacyPolicyText = String(contentsOfFile: PrivacyPath!)
-            try EULAText = String(contentsOfFile: EULAPath!)
-            try AboutNoir = String(contentsOfFile: AboutPath!)
-        }catch{
-            print("Unable to load privacy policy")
-        }
         collectionView?.allowsSelection = true
         
         collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND

@@ -170,6 +170,12 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                         member.race = "Unanswered"
                                     }
                                     
+                                    if let statusText = user["hivStatus"] as? String {
+                                        member.status = statusText
+                                    } else {
+                                        member.status = "Unanswered"
+                                    }
+                                    
                                     if user["location"] != nil {
                                         let mlat = (user["location"] as AnyObject).latitude
                                         member.mLat = mlat
@@ -326,6 +332,13 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                                             } else {
                                                 member.race = "Unanswered"
                                             }
+                                            
+                                            if let statusText = user["hivStatus"] as? String {
+                                                member.status = statusText
+                                            } else {
+                                                member.status = "Unanswered"
+                                            }
+                                            
                                             if user["location"] != nil {
                                                 let mlat = (user["location"] as AnyObject).latitude
                                                 member.mLat = mlat
@@ -451,6 +464,12 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                             member.mLat = 0
                         }
                         
+                        if let statusText = fMember["hivStatus"] as? String {
+                            member.status = statusText
+                        } else {
+                            member.status = "Unanswered"
+                        }
+                        
                         if fMember["location"] != nil {
                             let mlong = (fMember["location"] as AnyObject).longitude
                             member.mLong = mlong
@@ -567,6 +586,13 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                             } else {
                                 member.race = "Unanswered"
                             }
+                            
+                            if let statusText = fMember["hivStatus"] as? String {
+                                member.status = statusText
+                            } else {
+                                member.status = "Unanswered"
+                            }
+                            
                             if fMember["location"] != nil {
                                 let mlat = (fMember["location"] as AnyObject).latitude
                                 member.mLat = mlat
