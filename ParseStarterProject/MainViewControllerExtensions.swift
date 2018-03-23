@@ -34,6 +34,7 @@ extension MainViewController {
         let layout = UICollectionViewFlowLayout()
         let profileSettingsViewController = ProfileSettingsViewController(collectionViewLayout: layout)
         profileSettingsViewController.title = setting.name
+        profileSettingsViewController.collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
         navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
         
@@ -168,7 +169,7 @@ extension MainViewController {
     
     @objc func handleSearch() {
         
-        showLogin()
+        
         
     }
     
