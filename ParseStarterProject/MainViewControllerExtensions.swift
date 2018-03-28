@@ -71,17 +71,26 @@ extension MainViewController {
         
         if setting.name == "Help Tutorial" {
             
-//            let tutorialViewController = TutorialViewController()
-//            tutorialViewController.title = setting.name
-//            tutorialViewController.view.backgroundColor = Constants.Colors.NOIR_BACKGROUND
             navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_TINT
             navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
-            
-            
             navigationController?.pushViewController(generateOnboarding(), animated: true)
         }
         
         
+    }
+    
+    fileprivate func setupNewTutorialPage(_ newPage: OnboardingContentViewController, topPad: CGFloat, underIconPad: CGFloat, underTitlePad: CGFloat, bottomPad: CGFloat) {
+        newPage.movesToNextViewController = true
+        newPage.iconImageView.contentMode = .scaleAspectFit
+        newPage.iconImageView.clipsToBounds = true
+        newPage.topPadding = topPad;
+        newPage.underIconPadding = underIconPad;
+        newPage.underTitlePadding = underTitlePad;
+        newPage.bottomPadding = bottomPad;
+        newPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
+        newPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
+        newPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        newPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
     }
     
     func generateOnboarding() -> OnboardingViewController {
@@ -89,36 +98,36 @@ extension MainViewController {
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let navigationPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_NAVIGATION_TITLE, body: Constants.Text.TUTORIAL_NAVIGATION_BODY, image: nil, buttonText: "Continue") { () -> Void in
+        let navigationPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_NAVIGATION_TITLE, body: Constants.Text.TUTORIAL_NAVIGATION_BODY, image: UIImage(named:"tutorial_navigation"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let membersPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_MEMBER_TITLE, body: Constants.Text.TUTORIAL_MEMBER_BODY, image: nil, buttonText: "Continue") { () -> Void in
+        let membersPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_MEMBER_TITLE, body: Constants.Text.TUTORIAL_MEMBER_BODY, image: UIImage(named:"tutorial_global_local"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
         
-        let memberProfilePage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_MEMBER_PROFILE_TITLE, body: Constants.Text.TUTORIAL_MEMBER_PROFILE_BODY, image: nil, buttonText: "Continue") { () -> Void in
+        let memberProfilePage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_MEMBER_PROFILE_TITLE, body: Constants.Text.TUTORIAL_MEMBER_PROFILE_BODY, image: UIImage(named:"tutorial_members_profile"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let flirtsPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_FLIRTS_TITLE, body: Constants.Text.TUTORIAL_FLIRTS_BODY, image: nil, buttonText: "Continue") { () -> Void in
+        let flirtsPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_FLIRTS_TITLE, body: Constants.Text.TUTORIAL_FLIRTS_BODY, image: UIImage(named:"noir_heart"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let chatPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_CHAT_TITLE, body: Constants.Text.TUTORIAL_CHAT_BODY, image: nil, buttonText: "Continue") { () -> Void in
+        let chatPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_CHAT_TITLE, body: Constants.Text.TUTORIAL_CHAT_BODY, image: UIImage(named:"test-block"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let settingsPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SETTINGS_TITLE, body: Constants.Text.TUTORIAL_SETTINGS_BODY, image: nil, buttonText: "Continue") { () -> Void in
+        let settingsPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SETTINGS_TITLE, body: Constants.Text.TUTORIAL_SETTINGS_BODY, image: UIImage(named:"test-block"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let echoPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_ECHO_TITLE, body: Constants.Text.TUTORIAL_ECHO_BODY, image: nil, buttonText: "Continue") { () -> Void in
+        let echoPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_ECHO_TITLE, body: Constants.Text.TUTORIAL_ECHO_BODY, image: UIImage(named:"test-block"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let shopPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SHOP_TITLE, body: Constants.Text.TUTORIAL_SHOP_BODY, image: nil, buttonText: "Continue") { () -> Void in
+        let shopPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SHOP_TITLE, body: Constants.Text.TUTORIAL_SHOP_BODY, image: UIImage(named:"test-block"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
@@ -126,128 +135,25 @@ extension MainViewController {
             self.navigationController?.popViewController(animated: true)
         }
         
-        // Image
         let onboardingVC = OnboardingViewController(backgroundImage: UIImage(named: "splash_jpeg"), contents: [introPage, navigationPage, membersPage, memberProfilePage, flirtsPage, chatPage, settingsPage, echoPage, shopPage, outroPage])
-//        onboardingVC?.shouldMaskBackground = true
         onboardingVC?.shouldFadeTransitions = true
         onboardingVC?.swipingEnabled = true
-        //        onboardingVC?.moveNextPage()
         onboardingVC?.allowSkipping = true
         onboardingVC?.fadeSkipButtonOnLastPage = true
         onboardingVC?.skipHandler = {
             self.navigationController?.popViewController(animated: true)
         }
         
-        introPage.movesToNextViewController = true
-        introPage.iconImageView.contentMode = .scaleAspectFit
-        introPage.iconImageView.clipsToBounds = true
-        introPage.topPadding = 20;
-        introPage.underIconPadding = 10;
-        introPage.underTitlePadding = 15;
-        introPage.bottomPadding = 20;
-        introPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        introPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        introPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        introPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        navigationPage.movesToNextViewController = true
-        navigationPage.iconImageView.contentMode = .scaleAspectFit
-        navigationPage.topPadding = 20;
-        navigationPage.underIconPadding = 10;
-        navigationPage.underTitlePadding = 15;
-        navigationPage.bottomPadding = 20;
-        navigationPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        navigationPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        navigationPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        navigationPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        membersPage.movesToNextViewController = true
-        membersPage.iconImageView.contentMode = .scaleAspectFit
-        membersPage.topPadding = 20;
-        membersPage.underIconPadding = 10;
-        membersPage.underTitlePadding = 15;
-        membersPage.bottomPadding = 20;
-        membersPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        membersPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        membersPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        membersPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        memberProfilePage.movesToNextViewController = true
-        memberProfilePage.iconImageView.contentMode = .scaleAspectFit
-        memberProfilePage.topPadding = 20;
-        memberProfilePage.underIconPadding = 10;
-        memberProfilePage.underTitlePadding = 15;
-        memberProfilePage.bottomPadding = 20;
-        memberProfilePage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        memberProfilePage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        memberProfilePage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        memberProfilePage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        flirtsPage.movesToNextViewController = true
-        flirtsPage.iconImageView.contentMode = .scaleAspectFit
-        flirtsPage.topPadding = 20;
-        flirtsPage.underIconPadding = 10;
-        flirtsPage.underTitlePadding = 15;
-        flirtsPage.bottomPadding = 20;
-        flirtsPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        flirtsPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        flirtsPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        flirtsPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        chatPage.movesToNextViewController = true
-        chatPage.iconImageView.contentMode = .scaleAspectFit
-        chatPage.topPadding = 20;
-        chatPage.underIconPadding = 10;
-        chatPage.underTitlePadding = 15;
-        chatPage.bottomPadding = 20;
-        chatPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        chatPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        chatPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        chatPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        settingsPage.movesToNextViewController = true
-        settingsPage.iconImageView.contentMode = .scaleAspectFit
-        settingsPage.topPadding = 20;
-        settingsPage.underIconPadding = 10;
-        settingsPage.underTitlePadding = 15;
-        settingsPage.bottomPadding = 20;
-        settingsPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        settingsPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        settingsPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        settingsPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        echoPage.movesToNextViewController = true
-        echoPage.iconImageView.contentMode = .scaleAspectFit
-        echoPage.topPadding = 20;
-        echoPage.underIconPadding = 10;
-        echoPage.underTitlePadding = 15;
-        echoPage.bottomPadding = 20;
-        echoPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        echoPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        echoPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        echoPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        shopPage.movesToNextViewController = true
-        shopPage.iconImageView.contentMode = .scaleAspectFit
-        shopPage.topPadding = 20;
-        shopPage.underIconPadding = 10;
-        shopPage.underTitlePadding = 15;
-        shopPage.bottomPadding = 20;
-        shopPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        shopPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        shopPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        shopPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        outroPage.movesToNextViewController = true
-        outroPage.iconImageView.contentMode = .scaleAspectFit
-        outroPage.topPadding = 20;
-        outroPage.underIconPadding = 10;
-        outroPage.underTitlePadding = 15;
-        outroPage.bottomPadding = 20;
-        outroPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
-        outroPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
-        outroPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        outroPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
+        setupNewTutorialPage(introPage, topPad: 50, underIconPad: 20, underTitlePad: 15, bottomPad: 20)
+        setupNewTutorialPage(navigationPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(membersPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(memberProfilePage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(flirtsPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(chatPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(settingsPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(echoPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(shopPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(outroPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
         
         return onboardingVC!
     }
