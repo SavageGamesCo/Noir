@@ -15,16 +15,14 @@ target 'Noir' do
     pod 'ParseLiveQuery', '~> 2.2.1'
     pod 'SwiftyStoreKit', '~> 0.10.4'
     pod 'Sonar'
-    pod 'EasyNotificationBadge'
-    pod 'Canvas'
+    pod 'Onboard'
     
     
     #New pods for 2.0
-    #pod 'CircleMenu'
-#    pod 'Swift-CircleMenu', :git => 'https://github.com/Sufi-Al-Hussaini/Swift-CircleMenu.git'
     pod 'ALRadialMenu', '~> 2.0'
-#    pod 'SwiftLocation', '~> 3.1.0'
     pod 'LocationManagerSwift', '~> 1.1'
+    pod 'EasyNotificationBadge'
+    pod 'Canvas'
 
     # pod 'Starscream', '~> 3.0.2'
 

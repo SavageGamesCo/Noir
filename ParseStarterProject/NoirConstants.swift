@@ -112,6 +112,28 @@ struct Constants {
         //Dialogue Box Text
         static let DIALOGUE_RECOVER_PASSWORD = "Enter Your Account Email Address Below."
         
+        //Tutorial text
+        static let TUTORIAL_INTRO_TITLE = "Welcome to Noir!"
+        static let TUTORIAL_INTRO_BODY = "Thank you for trying Noir! Noir is a mobile dating app made for gay men of color and created by a gay man of color. View members worldwide or right around the corner. Fill your favorites list, flirt with other members, see who has flirted with you, chat, send pictures and more!"
+        static let TUTORIAL_NAVIGATION_TITLE = "Navigating Noir"
+        static let TUTORIAL_NAVIGATION_BODY = "There are two ways to navigate the Noir app. You can tap on an icon in the menu bar to instantly jump to a view or swipe left and right to peruse through. Swiping up or down will hide or show the Shopping/Settings Menu. In the Settings menu you can update your profile & add more profile images, view our terms or review this tutorial."
+        static let TUTORIAL_MEMBER_TITLE = "Members, Members Everywhere!"
+        static let TUTORIAL_MEMBER_BODY = "In Noir there are two modes to view members that are online. Global or Local. Global will list the most recently active members of Noir from around the world. Local will list the most recently active members in your area. Buying a monthly membership will increase how many members you see."
+        static let TUTORIAL_MEMBER_PROFILE_TITLE = "Member Profiles"
+        static let TUTORIAL_MEMBER_PROFILE_BODY = "Tap a member photo to expose a cricular menu. From this menu you can view the stats, their photos, send a flirt, add a favorite, chat or block the member. Use that last one wisely, once it is done, it cannot be undone."
+        static let TUTORIAL_FLIRTS_TITLE = "Flirts and Favorites!"
+        static let TUTORIAL_FLIRTS_BODY = "In the favorites view, you can view all of your favorite members and view their profiles whether they are online or not. The flirts view will show you members that have flirted with you. A flirt also initiates a chat session, making it easy to get in touch."
+        static let TUTORIAL_CHAT_TITLE = "Chatting!"
+        static let TUTORIAL_CHAT_BODY = "Chatting with a Noir Member is easy. Tap their member photo, tap chat and that's it. Want to check messages sent to you? The Messages menu item will take you there! Send photos to each other via chat, tapping on the photo will make it full screen!"
+        static let TUTORIAL_SETTINGS_TITLE = "Updating Your Settings!"
+        static let TUTORIAL_SETTINGS_BODY = "Noir supports one main photo shown in the Member views and four additional photos. Tap the photo to change it. Tapping the stats will allow you to change that stat. Tapping save will save your changes and new images to the server!"
+        static let TUTORIAL_ECHO_TITLE = "Echo!"
+        static let TUTORIAL_ECHO_BODY = "Echo has undergone some major changes but the use is still the same. Turn on Echo in your Profile Settings screen to let other members know that you are looking to connect right now! Members looking to connect with have an icon that has a color changing border and pulse on your screen to grab your attention."
+        static let TUTORIAL_SHOP_TITLE = "Supporting Noir!"
+        static let TUTORIAL_SHOP_BODY = "With your subscription you will see even more members in both Local and Global views, send unlimited flirts and save unlimited favorites! Noir is an effort from a tiny mobile software development house called Savage Code. Your monthly subscriptions or ad-free purchase goes directly to supporting this black owned development house and allows Savage Code to continue to update and maintain Noir."
+        static let TUTORIAL_OUTRO_TITLE = "Enjoy Your Stay and Be Safe!"
+        static let TUTORIAL_OUTRO_BODY = "Enjoy Noir but please be safe. Consider meeting in public, not divulging personal information immediately upon meeting and practice safer sex. PreP, Condoms and knowing your status most of all. Your personal safety and sexual health should be your number one priority. Have a blast!"
+        
     }
     
     struct ProfileDefaults {

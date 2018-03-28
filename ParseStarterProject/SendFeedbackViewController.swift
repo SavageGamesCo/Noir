@@ -150,7 +150,7 @@ class SendFeedbackViewController: UICollectionViewController, UICollectionViewDe
         if let url = URL(string: targetURL) {
             UIApplication.shared.open(url)
         }
-        print("clicked noir site")
+        
     }
     
     func goToSavageCodeSite(){
@@ -158,7 +158,7 @@ class SendFeedbackViewController: UICollectionViewController, UICollectionViewDe
         if let url = URL(string: targetURL) {
             UIApplication.shared.open(url)
         }
-        print("clicked savage site")
+      
     }
     
     func emailNoirAdmin(){
@@ -166,7 +166,7 @@ class SendFeedbackViewController: UICollectionViewController, UICollectionViewDe
         if let url = URL(string: "mailto:\(email)") {
             UIApplication.shared.open(url)
         }
-        print("clicked email")
+       
     }
 
     

@@ -26,6 +26,7 @@
 		B72F134B1F05D8CF008EABCE /* EchoSonarItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */; };
 		B73DF74420656F50008C016F /* TermsPrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */; };
 		B73DF746206594C3008C016F /* SendFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73DF745206594C3008C016F /* SendFeedbackViewController.swift */; };
+		B73DF7482065AC1E008C016F /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73DF7472065AC1E008C016F /* TutorialViewController.swift */; };
 		B745EBBD1ED76DCC000E498D /* privacy_policy_sclcm.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */; };
 		B745EBBF1ED77296000E498D /* eula_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBBE1ED77296000E498D /* eula_noir.txt */; };
 		B745EBC11ED775DA000E498D /* about_noir.txt in Resources */ = {isa = PBXBuildFile; fileRef = B745EBC01ED775DA000E498D /* about_noir.txt */; };
@@ -170,6 +171,7 @@
 		B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EchoSonarItemView.xib; sourceTree = "<group>"; };
 		B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPrivacyViewController.swift; sourceTree = "<group>"; };
 		B73DF745206594C3008C016F /* SendFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeedbackViewController.swift; sourceTree = "<group>"; };
+		B73DF7472065AC1E008C016F /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		B745EBBC1ED76DCC000E498D /* privacy_policy_sclcm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privacy_policy_sclcm.txt; sourceTree = "<group>"; };
 		B745EBBE1ED77296000E498D /* eula_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eula_noir.txt; sourceTree = "<group>"; };
 		B745EBC01ED775DA000E498D /* about_noir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = about_noir.txt; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				B7FB728920509E2900DE5F4B /* ProfileSettingsViewController.swift */,
 				B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */,
 				B73DF745206594C3008C016F /* SendFeedbackViewController.swift */,
+				B73DF7472065AC1E008C016F /* TutorialViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -755,6 +758,7 @@
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/LocationManagerSwift/LocationManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Onboard/Onboard.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/ParseLiveQuery/ParseLiveQuery.framework",
 				"${BUILT_PRODUCTS_DIR}/Sonar/Sonar.framework",
@@ -774,6 +778,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LocationManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Onboard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseLiveQuery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sonar.framework",
@@ -868,6 +873,7 @@
 				B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */,
 				B74BAC9D2033B3C800CFC11F /* Member.swift in Sources */,
 				B73DF74420656F50008C016F /* TermsPrivacyViewController.swift in Sources */,
+				B73DF7482065AC1E008C016F /* TutorialViewController.swift in Sources */,
 				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,
 				B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */,
 				B74BACA5203E0BDF00CFC11F /* ChatController.swift in Sources */,

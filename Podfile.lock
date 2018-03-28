@@ -31,6 +31,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - Onboard (2.3.1)
   - Parse (1.15.3):
     - Bolts/Tasks (~> 1.8)
   - ParseLiveQuery (2.2.1):
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - Firebase/Core
   - JSQMessagesViewController
   - LocationManagerSwift (~> 1.1)
+  - Onboard
   - Parse (~> 1.15.3)
   - ParseLiveQuery (~> 2.2.1)
   - Sonar
@@ -82,6 +84,7 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   LocationManagerSwift: b3d520b26788f5c2213bfd6a8699967937a81f58
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  Onboard: b6871f25ac753175b2ab9a362fb2feb26a81a311
   Parse: cdc0f1f975ee8be0409e66f21b05df4ae067047c
   ParseLiveQuery: bc2321032ddae9d6ecfd4842d1b10210d453b08b
   Sonar: 72afea99952a2a681d0a843ee6679b4eaf217ad5
@@ -89,6 +92,6 @@ SPEC CHECKSUMS:
   Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
   SwiftyStoreKit: 8c193678fabbaafb4430a536497613f89fefd7ec
 
-PODFILE CHECKSUM: ee522f0b4787fa70b44e2d83ac79a4ea42adfa72
+PODFILE CHECKSUM: 0cd797f34f25aba952343bd37cfb756fe0f7ee9a
 
 COCOAPODS: 1.4.0
