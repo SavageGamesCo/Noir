@@ -12,12 +12,14 @@ private let reuseIdentifier = "Cell"
 
 class StoreViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
     
-    let termsText = "This subscription is valid for 30 days, 90 days or 1 year, depending on the type of subscription you have selected. Payment will be charged to your iTunes Account at the time of  confirmation of your purchase. Your subscription will automatically renew unless auto-renew is turned off at least 24-hours before the end of the current subscription period. Your account will be charged the price listed at the top of this screen for renewal within 24-hours prior to the end of the current subscription period. Subscriptions may be managed and auto-renewal may be turned off by going to the Account Settings screen in the Apple App Store on your device after purchase. No cancellation of the current subscription allowed during the active subscription period. Please see the EULA & Terms of Service along with the Privacy Policy in your Profile Update screen. You may alview the Privacy Policy online at http://noir.savage-code.com/#privacy"
+    let termsText = "This subscription is valid for 30 days, 90 days or 1 year, depending on the type of subscription you have selected. Payment will be charged to your iTunes Account at the time of  confirmation of your purchase. Your subscription will automatically renew unless auto-renew is turned off at least 24-hours before the end of the current subscription period. Your account will be charged the price listed at the top of this screen for renewal within 24-hours prior to the end of the current subscription period. Subscriptions may be managed and auto-renewal may be turned off by going to the Account Settings screen in the Apple App Store on your device after purchase. No cancellation of the current subscription allowed during the active subscription period. Please see the EULA & Terms of Service along with the Privacy Policy in your Profile Update screen. You may view the Privacy Policy online at http://noir.savage-code.com/#privacy"
     
-    let adFreeText = ""
-    let oneMonthText = ""
-    let threeMonthText = ""
-    let oneYearText = ""
+    let adFreeText = "This one time purchase will enable your account to use Noir ad free. No more banner ads within the app and no more fullscreen ads! REQUIRES LOGOUT & LOGIN AFTER PURCHASE"
+    let oneMonthText = "Monthly Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. Increased Echo Long Range distance to 20+ miles! Increased Echo Hits! Only paid members can send images in chat! REQUIRES LOGOUT & LOGIN AFTER PURCHASE"
+    let threeMonthText = "Save $2 per month on a 3 Month Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. Increased Echo Long Range distance to 20+ miles! Increased Echo Hits! Only paid members can send images in chat! REQUIRES LOGOUT & LOGIN AFTER PURCHASE"
+    let oneYearText = "The ultimate savings! Save over $3 per month on a 1 Year Recurring Membership (AUTO-RENEWING)! With your monthly membership you gain unlimited global members, unlimited local members w/ increased radius, unlimited favorites, unlimited flirts and an increased message limit. Increased Echo Long Range distance to 20+ miles! Increased Echo Hits! Only paid members can send images in chat! REQUIRES LOGOUT & LOGIN AFTER PURCHASE"
+    
+    let restoreText = "If you switched phones or deleted the Noir Application, tap restor to restore your Noir purchases. REQUIRES LOGOUT & LOGIN AFTER RESTORE"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +31,15 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         // Register cell classes
         let layout = UICollectionViewFlowLayout()
         
-        layout.sectionInset = .init(top: 5, left: 5, bottom: 10, right: 5)
+        layout.sectionInset = .init(top: 5, left: 10, bottom: 10, right: 10)
         layout.scrollDirection = .vertical
+        
         
         self.collectionView!.setCollectionViewLayout(layout, animated: true)
         self.collectionView!.register(StoreItemCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.allowsSelection = true
         
+    
         // Do any additional setup after loading the view.
     }
     
@@ -43,6 +48,9 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         // Dispose of any resources that can be recreated.
     }
     
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: 300, height: 25)
+//    }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -77,56 +85,27 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let section = indexPath.section
-        let approximateWidthOfContent = self.view.frame.width
         
-        let size = CGSize(width: approximateWidthOfContent, height: 1000)
+        var height = CGFloat()
         
-        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
-        
-        switch section {
+        switch indexPath.section {
         case 0:
-            
-            let estimatedFrame = NSString(string: adFreeText ).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-            
-            return CGSize(width: approximateWidthOfContent, height: estimatedFrame.height + 8)
+            height = 120
+            break
         case 1:
-            //inner switch for memberships
-            switch indexPath.item {
-            case 0:
-                
-                let estimatedFrame = NSString(string: oneMonthText ).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-                
-                return CGSize(width: approximateWidthOfContent, height: estimatedFrame.height + 8)
-            case 1:
-                
-                let estimatedFrame = NSString(string: threeMonthText ).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-                
-                return CGSize(width: approximateWidthOfContent, height: estimatedFrame.height + 8)
-            case 2:
-                
-                let estimatedFrame = NSString(string: oneYearText ).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-                
-                return CGSize(width: approximateWidthOfContent, height: estimatedFrame.height + 8)
-            default:
-                return CGSize(width: 0, height: 0)
-            }
-            //end of inner switch for memberships
+            height = 170
+            break
         case 2:
-            let approximateWidthOfContent = self.view.frame.width
-            
-            return CGSize(width: approximateWidthOfContent, height: 75)
-            
+            height = 95
+            break
         case 3:
-            
-            let estimatedFrame = NSString(string: termsText ).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-            
-            return CGSize(width: approximateWidthOfContent, height: estimatedFrame.height + 8)
-            
+            height = 250
+            break
         default:
-            return CGSize(width: 100, height: 25)
+            break
         }
         
+       return CGSize(width: self.view.frame.width, height: height)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -134,27 +113,27 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         
         switch section {
         case 0:
-            if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "One Time Purchase", for: indexPath) as? SectionHeader{
-                sectionHeader.sectionHeaderlabel.text = "Section \(indexPath.section)"
+            if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "OneTime", for: indexPath) as? SectionHeader{
+                sectionHeader.sectionHeaderlabel.text = "One Time Purchase"
                 return sectionHeader
             }
             
             break
         case 1:
             if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Memberships", for: indexPath) as? SectionHeader{
-                sectionHeader.sectionHeaderlabel.text = "Section \(indexPath.section)"
+                sectionHeader.sectionHeaderlabel.text = "Memberships"
                 return sectionHeader
             }
             break
         case 2:
-            if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Restore Purchase", for: indexPath) as? SectionHeader{
-                sectionHeader.sectionHeaderlabel.text = "Section \(indexPath.section)"
+            if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Restore", for: indexPath) as? SectionHeader{
+                sectionHeader.sectionHeaderlabel.text = "Restore Purchase"
                 return sectionHeader
             }
             break
         case 3:
-            if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Terms of Use/Purchase", for: indexPath) as? SectionHeader{
-                sectionHeader.sectionHeaderlabel.text = "Section \(indexPath.section)"
+            if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Terms", for: indexPath) as? SectionHeader{
+                sectionHeader.sectionHeaderlabel.text = "Terms of Use/Purchase"
                 return sectionHeader
             }
             break
@@ -169,18 +148,60 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         let section = indexPath.section
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! StoreItemCell
         
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
+        
         switch section {
         case 0:
+            cell.titleLabel.text = "Noir: Ad-Free"
+            cell.priceLabel.text = "$4.99"
+            cell.itemTextField.text = adFreeText
+            cell.purchaseButton.setTitle("BUY", for: .normal)
+            
             
             break
         case 1:
             
+            if indexPath.item == 0 {
+                cell.titleLabel.text = "Noir: One Month Membership"
+                cell.priceLabel.text = "$7.99"
+                cell.itemTextField.text = oneMonthText
+                cell.purchaseButton.setTitle("SUBSCRIBE", for: .normal)
+                
+                
+            } else if indexPath.item == 1 {
+                cell.titleLabel.text = "Noir: Three Month Membership"
+                cell.priceLabel.text = "$17.49"
+                cell.itemTextField.text = threeMonthText
+                cell.purchaseButton.setTitle("SUBSCRIBE", for: .normal)
+                
+                
+                
+            } else if indexPath.item == 2 {
+                cell.titleLabel.text = "Noir: One Year Membership"
+                cell.priceLabel.text = "$58.99"
+                cell.itemTextField.text = oneYearText
+                cell.purchaseButton.setTitle("SUBSCRIBE", for: .normal)
+                
+                
+            }
+            
             break
         case 2:
+            cell.purchaseButton.setTitle("Restore", for: .normal)
+            
+            cell.titleLabel.text = "Restore Purchase"
+            cell.priceLabel.text = ""
+            cell.itemTextField.text = restoreText
+            
             
             break
         case 3:
-            
+            cell.titleLabel.text = "Terms of Use / Purchase"
+            cell.priceLabel.text = ""
+            cell.itemTextField.text = termsText
+            cell.purchaseButton.isHidden = true
+
             break
         default:
             return cell
