@@ -64,6 +64,7 @@
 		B77A672F1ED5ED45001DF856 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A672E1ED5ED45001DF856 /* ShopViewController.swift */; };
 		B77A67311ED60919001DF856 /* ShopSwiftyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */; };
 		B77B3E7C20321616003AEEA0 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B3E7B20321616003AEEA0 /* SettingsLauncher.swift */; };
+		B78843162072F11700CC5E90 /* StoreViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78843152072F11700CC5E90 /* StoreViewExtensions.swift */; };
 		B791011A1F08E5C80078E188 /* unflirt.png in Resources */ = {isa = PBXBuildFile; fileRef = B79101181F08E5C80078E188 /* unflirt.png */; };
 		B791011B1F08E5C80078E188 /* flirt.png in Resources */ = {isa = PBXBuildFile; fileRef = B79101191F08E5C80078E188 /* flirt.png */; };
 		B791011E1F099D740078E188 /* unflirt_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B791011C1F099D740078E188 /* unflirt_2.png */; };
@@ -212,6 +213,7 @@
 		B77A672E1ED5ED45001DF856 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		B77A67301ED60919001DF856 /* ShopSwiftyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopSwiftyViewController.swift; sourceTree = "<group>"; };
 		B77B3E7B20321616003AEEA0 /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
+		B78843152072F11700CC5E90 /* StoreViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewExtensions.swift; sourceTree = "<group>"; };
 		B79101181F08E5C80078E188 /* unflirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unflirt.png; sourceTree = "<group>"; };
 		B79101191F08E5C80078E188 /* flirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flirt.png; sourceTree = "<group>"; };
 		B791011C1F099D740078E188 /* unflirt_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unflirt_2.png; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				B74789A5202E64C900C61A65 /* NoirConstants.swift */,
 				B74789A7202F340F00C61A65 /* LoginExtensions.swift */,
 				B7DD2D6E20580C24000318EE /* MainViewControllerExtensions.swift */,
+				B78843152072F11700CC5E90 /* StoreViewExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -882,6 +885,7 @@
 				B74BAC9D2033B3C800CFC11F /* Member.swift in Sources */,
 				B73DF74420656F50008C016F /* TermsPrivacyViewController.swift in Sources */,
 				B73DF7482065AC1E008C016F /* TutorialViewController.swift in Sources */,
+				B78843162072F11700CC5E90 /* StoreViewExtensions.swift in Sources */,
 				B7EDF1CD1EBA0D3D003D013B /* MessagesTableViewCell.swift in Sources */,
 				B7FAF55E1EA7CF010044B07B /* UsersCollectionViewController.swift in Sources */,
 				B74BACA5203E0BDF00CFC11F /* ChatController.swift in Sources */,

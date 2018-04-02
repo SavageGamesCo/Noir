@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SwiftyStoreKit
+import StoreKit
+import Parse
 
 private let reuseIdentifier = "Cell"
 
@@ -157,31 +160,35 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
             cell.priceLabel.text = "$4.99"
             cell.itemTextField.text = adFreeText
             cell.purchaseButton.setTitle("BUY", for: .normal)
+            cell.purchaseButton.addTarget(self, action: #selector(AdFreeBuy(_:)), for: .touchUpInside)
             
             
             break
         case 1:
             
             if indexPath.item == 0 {
-                cell.titleLabel.text = "Noir: One Month Membership"
+                cell.titleLabel.text = "One Month Membership"
                 cell.priceLabel.text = "$7.99"
                 cell.itemTextField.text = oneMonthText
                 cell.purchaseButton.setTitle("SUBSCRIBE", for: .normal)
+                cell.purchaseButton.addTarget(self, action: #selector(OneMonthBuy(_:)), for: .touchUpInside)
                 
                 
             } else if indexPath.item == 1 {
-                cell.titleLabel.text = "Noir: Three Month Membership"
+                cell.titleLabel.text = "Three Month Membership"
                 cell.priceLabel.text = "$17.49"
                 cell.itemTextField.text = threeMonthText
                 cell.purchaseButton.setTitle("SUBSCRIBE", for: .normal)
+                cell.purchaseButton.addTarget(self, action: #selector(ThreeMonthBuy(_:)), for: .touchUpInside)
                 
                 
                 
             } else if indexPath.item == 2 {
-                cell.titleLabel.text = "Noir: One Year Membership"
+                cell.titleLabel.text = "One Year Membership"
                 cell.priceLabel.text = "$58.99"
                 cell.itemTextField.text = oneYearText
                 cell.purchaseButton.setTitle("SUBSCRIBE", for: .normal)
+                cell.purchaseButton.addTarget(self, action: #selector(OneYearBuy(_:)), for: .touchUpInside)
                 
                 
             }
@@ -190,9 +197,10 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         case 2:
             cell.purchaseButton.setTitle("Restore", for: .normal)
             
-            cell.titleLabel.text = "Restore Purchase"
+            cell.titleLabel.text = "Restore Purchases"
             cell.priceLabel.text = ""
             cell.itemTextField.text = restoreText
+            cell.purchaseButton.addTarget(self, action: #selector(RestorePurchases(_:)), for: .touchUpInside)
             
             
             break
@@ -209,11 +217,305 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         
         return cell
     }
+    
+    let bundleID = "comsavagecodeNoir"
+    
+    var AdFree = RegisteredPurchase.AdFree
+    var OneMonth = RegisteredPurchase.OneMonth
+    var ThreeMonths = RegisteredPurchase.ThreeMonths
+    var OneYear = RegisteredPurchase.OneYear
+    
+    
+    func AdFreeBuy(_ sender: Any) {
+        
+        purchase(purchase: AdFree)
+        
+    }
+    
+    func OneMonthBuy(_ sender: Any) {
+        
+        purchase(purchase: OneMonth)
+        
+    }
+    
+    func ThreeMonthBuy(_ sender: Any) {
+        
+        purchase(purchase: ThreeMonths)
+        
+    }
+    
+    func OneYearBuy(_ sender: Any) {
+        
+        purchase(purchase: OneYear)
+        
+    }
+    
+    func RestorePurchases(_ sender: Any) {
+        
+        restorePurchase()
+        
+    }
+    
+    func Donations(_ sender: Any) {
+        
+        donate()
+        
+    }
+    
+    func getInfo(purchase : RegisteredPurchase) {
+        
+        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        
+        SwiftyStoreKit.retrieveProductsInfo([bundleID + purchase.rawValue], completion: {
+            result in
+            
+            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            
+            self.showAlert(alert: self.alertForProductRetrievalInfo(result: result))
+            
+        })
+        
+        
+        
+    }
+    
+    func purchase(purchase : RegisteredPurchase) {
+        
+        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        
+        SwiftyStoreKit.purchaseProduct(bundleID + purchase.rawValue, completion: {
+            
+            result in
+            
+            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            
+            if case .success(let product) = result {
+                
+                if product.productId == self.bundleID + self.AdFree.rawValue {
+                    self.removeAds()
+                } else if product.productId == self.bundleID + self.OneMonth.rawValue {
+                    
+                    self.subscriptions(type: "oneMonth")
+                } else if product.productId == self.bundleID + self.ThreeMonths.rawValue {
+                    
+                    self.subscriptions(type: "threeMonth")
+                } else if product.productId == self.bundleID + self.OneYear.rawValue {
+                    
+                    self.subscriptions(type: "oneYear")
+                }
+                
+                if product.needsFinishTransaction {
+                    SwiftyStoreKit.finishTransaction(product.transaction)
+                }
+                
+                self.showAlert(alert: self.alertPurchaseResult(result: result))
+            }
+        })
+        
+    }
+    
+    func restorePurchase(){
+        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        SwiftyStoreKit.restorePurchases(atomically: true, completion: {
+            
+            result in
+            
+            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            
+            for product in result.restoredPurchases {
+                
+                if product.needsFinishTransaction {
+                    SwiftyStoreKit.finishTransaction(product.transaction)
+                }
+                
+            }
+            
+            self.showAlert(alert: self.alertForRestorePurchases(result: result))
+            
+        })
+    }
+    
+    func verifyReceipt() {
+        
+        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, password: sharedSecret, completion: {
+            result in
+            
+            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            
+            self.showAlert(alert: self.alertForVerifiedReceipt(result: result))
+            
+            if case .error(let error) = result {
+                if case .noReceiptData = error {
+                    
+                    self.refreshReceipt()
+                }
+                
+            }
+            
+        })
+        
+    }
+    
+    func verifyPurchase(product : RegisteredPurchase) {
+        
+        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, password: sharedSecret, completion: {
+            
+            result in
+            
+            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            
+            switch result {
+                
+            case .success(let receipt):
+                
+                let productID = self.bundleID + product.rawValue
+                
+                if product == .OneMonth {
+                    let purchaseResult = SwiftyStoreKit.verifySubscription(type: .autoRenewable, productId: productID, inReceipt: receipt, validUntil: Date())
+                    
+                    self.showAlert(alert: self.alertForVerifySubscription(result: purchaseResult))
+                } else  {
+                    let purchaseResult = SwiftyStoreKit.verifyPurchase(productId: productID, inReceipt: receipt)
+                    
+                    self.showAlert(alert: self.alertForVerifyPurchase(result: purchaseResult))
+                }
+                
+            case .error(let error):
+                
+                self.showAlert(alert: self.alertForVerifiedReceipt(result: result))
+                if case .noReceiptData = error{
+                    self.refreshReceipt()
+                }
+                
+            }
+            
+        })
+        
+    }
+    
+    func refreshReceipt() {
+        
+        SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, completion: {
+            
+            result in
+            
+            DispatchQueue.main.async {
+                
+            }
+            
+            //self.showAlert(alert: self.alertForRefreshReceipt(result: result ))
+            
+        })
+    }
+    
+    func removeAds() {
+        //function that sets the user account to be ad free
+        PFUser.current()?["adFree"] = true
+        
+        PFUser.current()?.saveInBackground(block: { (success, error) in
+            
+            if error != nil {
+                print(error!)
+            } else {
+                
+                print("This account is now ad free")
+                
+                
+            }
+        })
+        //end function for ad removal
+        
+    }
+    
+    func subscriptions(type: String) {
+        //function to set the user account to a membership type, either one month, three month or one year
+        PFUser.current()?["membership"] = type
+        
+        PFUser.current()?["globalLimit"] = 1000
+        
+        PFUser.current()?["withinDistance"] = 100
+        
+        
+        PFUser.current()?.saveInBackground(block: { (success, error) in
+            
+            if error != nil {
+                print(error!)
+            } else {
+                
+                print("This account is now a \(type) member!")
+                
+            }
+            
+            
+        })
+        //end function for subscription
+    }
+    
+    func donate(){
+        //function to send the user to the gofundme page so they can donate
+        PFUser.current()?["GFMVisit"] = "YES"
+        
+        PFUser.current()?.saveInBackground(block: { (success, error) in
+            
+            if error != nil {
+                print(error!)
+            } else {
+                
+                print("This user has gone to the gofund me page")
+                
+            }
+        })
+        
+        UIApplication.shared.openURL(NSURL(string: "https://www.indiegogo.com/projects/noir-mobile-dating-for-gay-people-of-color-apps/x/16898469#/")! as URL)
+        
+        //end function for donate
+    }
 
 }
 
 class SectionHeader: UICollectionReusableView {
     weak var sectionHeaderlabel: UILabel!
+}
+
+enum ShopRegisteredPurchase : String {
+    case AdFree = "AdRemoval"
+    case OneMonth = "OneMonth"
+    case ThreeMonths = "ThreeMonths"
+    case OneYear = "OneYear"
+}
+
+var ShopsharedSecret = "910acba900c84a9391fac684a407139e"
+
+class ShopNetworkActivityIndiciatorManager: NSObject {
+    
+    private static var loadingCount = 0
+    
+    class func NetworkOperationStarted() {
+        if loadingCount == 0 {
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
+        }
+        
+        loadingCount += 1
+    }
+    
+    class func NetworkOperationFinished(){
+        
+        if loadingCount > 0 {
+            loadingCount -= 1
+        }
+        
+        if loadingCount == 0 {
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+        }
+        
+    }
+    
 }
 
 
