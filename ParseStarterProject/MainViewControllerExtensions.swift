@@ -205,17 +205,17 @@ extension MainViewController {
     
     func setupNavBarButtons(){
         
-        let searchIcon = UIImage(named: "search-7")?.withRenderingMode(.alwaysTemplate)
+//        let searchIcon = UIImage(named: "search-7")?.withRenderingMode(.alwaysTemplate)
         let moreIcon = UIImage(named: "dot-more-7")?.withRenderingMode(.alwaysTemplate)
         let shopIcon = UIImage(named: "shopping-cart-7")?.withRenderingMode(.alwaysTemplate)
         
-        let searchBarButtonItem = UIBarButtonItem(image: searchIcon, style: .plain, target: self, action: #selector(handleSearch))
-        searchBarButtonItem.tintColor = Constants.Colors.NOIR_TINT
+//        let searchBarButtonItem = UIBarButtonItem(image: searchIcon, style: .plain, target: self, action: #selector(handleSearch))
+//        searchBarButtonItem.tintColor = Constants.Colors.NOIR_TINT
         let moreBarButtonItem = UIBarButtonItem(image: moreIcon, style: .plain, target: self, action: #selector(handleMore))
         moreBarButtonItem.tintColor = Constants.Colors.NOIR_TINT
         let shopBarButtonItem = UIBarButtonItem(image: shopIcon, style: .plain, target: self, action: #selector(handleShop))
         shopBarButtonItem.tintColor = Constants.Colors.NOIR_TINT
-        navigationItem.rightBarButtonItems = [moreBarButtonItem, shopBarButtonItem, searchBarButtonItem]
+        navigationItem.rightBarButtonItems = [moreBarButtonItem, shopBarButtonItem]
         navigationItem.leftBarButtonItems = []
     }
     
@@ -272,7 +272,10 @@ extension MainViewController {
     }
     
     @objc func handleShop() {
+        let layout = UICollectionViewFlowLayout()
         
+        let shopController = StoreViewController(collectionViewLayout: layout)
+        present(shopController, animated: true, completion: nil)
     }
     
     

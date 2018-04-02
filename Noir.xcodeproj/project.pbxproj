@@ -21,6 +21,8 @@
 		B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */; };
 		B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71402061EAA8030008E6CFB /* ProfileViewController.swift */; };
 		B716D73B1EEB0AAE00B250C1 /* Reachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B716D73A1EEB0AAE00B250C1 /* Reachable.swift */; };
+		B720D9A8206D8C1F0040097D /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B720D9A7206D8C1F0040097D /* StoreViewController.swift */; };
+		B720D9AA206D8C5A0040097D /* StoreItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B720D9A9206D8C5A0040097D /* StoreItemCell.swift */; };
 		B72F13441F05CA8C008EABCE /* EchoSonarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */; };
 		B72F13471F05D347008EABCE /* EchoSonarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F13461F05D347008EABCE /* EchoSonarViewController.swift */; };
 		B72F134B1F05D8CF008EABCE /* EchoSonarItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */; };
@@ -166,6 +168,8 @@
 		B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B71402061EAA8030008E6CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B716D73A1EEB0AAE00B250C1 /* Reachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachable.swift; sourceTree = "<group>"; };
+		B720D9A7206D8C1F0040097D /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
+		B720D9A9206D8C5A0040097D /* StoreItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItemCell.swift; sourceTree = "<group>"; };
 		B72F13431F05CA8C008EABCE /* EchoSonarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EchoSonarItemView.swift; sourceTree = "<group>"; };
 		B72F13461F05D347008EABCE /* EchoSonarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EchoSonarViewController.swift; sourceTree = "<group>"; };
 		B72F134A1F05D8CF008EABCE /* EchoSonarItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EchoSonarItemView.xib; sourceTree = "<group>"; };
@@ -439,6 +443,7 @@
 				B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */,
 				B73DF745206594C3008C016F /* SendFeedbackViewController.swift */,
 				B73DF7472065AC1E008C016F /* TutorialViewController.swift */,
+				B720D9A7206D8C1F0040097D /* StoreViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -494,6 +499,7 @@
 				B77559142045CF8E0017A49E /* DetailCell.swift */,
 				B77559182047114C0017A49E /* GalleryCell.swift */,
 				B7FB727F2049D66900DE5F4B /* ChatCell.swift */,
+				B720D9A9206D8C5A0040097D /* StoreItemCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -839,6 +845,7 @@
 				B74789A2202E34FA00C61A65 /* Helpers.swift in Sources */,
 				B74BAC8F20328CCA00CFC11F /* LocalCell.swift in Sources */,
 				B74BAC9320328FDB00CFC11F /* FlirtsCell.swift in Sources */,
+				B720D9AA206D8C5A0040097D /* StoreItemCell.swift in Sources */,
 				B716D73B1EEB0AAE00B250C1 /* Reachable.swift in Sources */,
 				B74789AE202F711000C61A65 /* MenuBar.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
@@ -864,6 +871,7 @@
 				B7EDF1D51EBA33D6003D013B /* MessagesHandler.swift in Sources */,
 				B774D8341EC8299C000CC615 /* Constants.swift in Sources */,
 				B71402071EAA8030008E6CFB /* ProfileViewController.swift in Sources */,
+				B720D9A8206D8C1F0040097D /* StoreViewController.swift in Sources */,
 				B74BAC9A203367FD00CFC11F /* APIServices.swift in Sources */,
 				B74789B0202F714900C61A65 /* BaseCell.swift in Sources */,
 				B7DD2D6F20580C24000318EE /* MainViewControllerExtensions.swift in Sources */,

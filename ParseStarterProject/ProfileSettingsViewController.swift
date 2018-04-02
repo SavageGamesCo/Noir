@@ -84,7 +84,7 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
         collectionView?.register(saveCell.self, forCellWithReuseIdentifier: saveCellID)
         collectionView?.register(logoutCell.self, forCellWithReuseIdentifier: logoutCellID)
         collectionView?.register(deleteCell.self, forCellWithReuseIdentifier: deleteCellID)
-        collectionView?.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProfileInitViewController.dismissKeyboard))
@@ -1628,6 +1628,10 @@ class saveCell: BaseCell {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = Constants.Colors.NOIR_WHITE
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = Constants.Colors.NOIR_YELLOW
+        label.layer.cornerRadius = 15
+        label.layer.masksToBounds = true
+        
         return label
     }()
     
@@ -1643,8 +1647,8 @@ class saveCell: BaseCell {
         saveLabel.addGestureRecognizer(tapImage)
         
         
-        addConstraintsWithFormat(format: "H:|[v0]|", views: saveLabel)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: saveLabel)
+        addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: saveLabel)
+        addConstraintsWithFormat(format: "V:|-10-[v0(30)]-10-|", views: saveLabel)
         
     }
     
@@ -1725,6 +1729,10 @@ class logoutCell: BaseCell {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = Constants.Colors.NOIR_WHITE
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = Constants.Colors.NOIR_YELLOW
+        label.layer.cornerRadius = 15
+        label.layer.masksToBounds = true
+        
         return label
     }()
     
@@ -1732,8 +1740,8 @@ class logoutCell: BaseCell {
     override func setupViews() {
         
         addSubview(logoutLabel)
-        addConstraintsWithFormat(format: "H:|[v0]|", views: logoutLabel)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: logoutLabel)
+        addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: logoutLabel)
+        addConstraintsWithFormat(format: "V:|-10-[v0(30)]-10-|", views: logoutLabel)
         
     }
     
@@ -1773,6 +1781,10 @@ class deleteCell: BaseCell {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = Constants.Colors.NOIR_WHITE
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = Constants.Colors.NOIR_ORANGE
+        label.layer.cornerRadius = 15
+        label.layer.masksToBounds = true
+        
         
         return label
     }()
@@ -1781,8 +1793,8 @@ class deleteCell: BaseCell {
     override func setupViews() {
         
         addSubview(deleteLabel)
-        addConstraintsWithFormat(format: "H:|[v0]|", views: deleteLabel)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: deleteLabel)
+        addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: deleteLabel)
+        addConstraintsWithFormat(format: "V:|-10-[v0(30)]-10-|", views: deleteLabel)
         
     }
     
