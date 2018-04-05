@@ -275,7 +275,8 @@ extension MainViewController {
         let layout = UICollectionViewFlowLayout()
         
         let shopController = StoreViewController(collectionViewLayout: layout)
-        present(shopController, animated: true, completion: nil)
+//        present(shopController, animated: true, completion: nil)
+        navigationController?.pushViewController(shopController, animated: true)
     }
     
     

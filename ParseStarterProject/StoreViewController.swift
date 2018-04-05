@@ -12,6 +12,11 @@ import StoreKit
 import Parse
 
 private let reuseIdentifier = "Cell"
+private let adFreeCellID = "adFreeCellID"
+private let oneMonthCellID = "oneMonthCellID"
+private let threeMonthCellID = "threeMonthCellID"
+private let oneYearCellID = "oneYearCellID"
+private let restoreCellID = "restoreCellID"
 
 class StoreViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
     
@@ -24,45 +29,43 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     
     let restoreText = "If you switched phones or deleted the Noir Application, tap restor to restore your Noir purchases. REQUIRES LOGOUT & LOGIN AFTER RESTORE"
     
+    let bundleID = "comsavagecodeNoir"
+    
+    var AdFree = RegisteredPurchase.AdFree
+    var OneMonth = RegisteredPurchase.OneMonth
+    var ThreeMonths = RegisteredPurchase.ThreeMonths
+    var OneYear = RegisteredPurchase.OneYear
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.collectionView?.backgroundColor = Constants.Colors.NOIR_BACKGROUND
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
         
-        // Register cell classes
         let layout = UICollectionViewFlowLayout()
         
         layout.sectionInset = .init(top: 5, left: 10, bottom: 10, right: 10)
         layout.scrollDirection = .vertical
         
-        
         self.collectionView!.setCollectionViewLayout(layout, animated: true)
         self.collectionView!.register(StoreItemCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.allowsSelection = true
         
-    
-        // Do any additional setup after loading the view.
+        navigationController?.navigationItem.leftBarButtonItem?.tintColor = Constants.Colors.NOIR_YELLOW
+        navigationController?.navigationItem.backBarButtonItem?.tintColor = Constants.Colors.NOIR_YELLOW
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: 300, height: 25)
-//    }
-    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 4
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         
         var items = Int()
         
@@ -195,11 +198,10 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
             
             break
         case 2:
-            cell.purchaseButton.setTitle("Restore", for: .normal)
-            
             cell.titleLabel.text = "Restore Purchases"
-            cell.priceLabel.text = ""
+            cell.priceLabel.text = "$0.00"
             cell.itemTextField.text = restoreText
+            cell.purchaseButton.setTitle("RESTORE", for: .normal)
             cell.purchaseButton.addTarget(self, action: #selector(RestorePurchases(_:)), for: .touchUpInside)
             
             
@@ -217,13 +219,6 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         
         return cell
     }
-    
-    let bundleID = "comsavagecodeNoir"
-    
-    var AdFree = RegisteredPurchase.AdFree
-    var OneMonth = RegisteredPurchase.OneMonth
-    var ThreeMonths = RegisteredPurchase.ThreeMonths
-    var OneYear = RegisteredPurchase.OneYear
     
     
     func AdFreeBuy(_ sender: Any) {
@@ -264,12 +259,12 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     
     func getInfo(purchase : RegisteredPurchase) {
         
-        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
         
         SwiftyStoreKit.retrieveProductsInfo([bundleID + purchase.rawValue], completion: {
             result in
             
-            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            ShopNetworkActivityIndiciatorManager.NetworkOperationFinished()
             
             self.showAlert(alert: self.alertForProductRetrievalInfo(result: result))
             
@@ -281,13 +276,13 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     
     func purchase(purchase : RegisteredPurchase) {
         
-        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
         
         SwiftyStoreKit.purchaseProduct(bundleID + purchase.rawValue, completion: {
             
             result in
             
-            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            ShopNetworkActivityIndiciatorManager.NetworkOperationFinished()
             
             if case .success(let product) = result {
                 
@@ -315,12 +310,12 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     func restorePurchase(){
-        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
         SwiftyStoreKit.restorePurchases(atomically: true, completion: {
             
             result in
             
-            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            ShopNetworkActivityIndiciatorManager.NetworkOperationFinished()
             
             for product in result.restoredPurchases {
                 
@@ -337,11 +332,11 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     
     func verifyReceipt() {
         
-        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
         SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, password: sharedSecret, completion: {
             result in
             
-            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            ShopNetworkActivityIndiciatorManager.NetworkOperationFinished()
             
             self.showAlert(alert: self.alertForVerifiedReceipt(result: result))
             
@@ -359,12 +354,12 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     
     func verifyPurchase(product : RegisteredPurchase) {
         
-        NetworkActivityIndiciatorManager.NetworkOperationStarted()
+        ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
         SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, password: sharedSecret, completion: {
             
             result in
             
-            NetworkActivityIndiciatorManager.NetworkOperationFinished()
+            ShopNetworkActivityIndiciatorManager.NetworkOperationFinished()
             
             switch result {
                 
@@ -405,13 +400,11 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
                 
             }
             
-            //self.showAlert(alert: self.alertForRefreshReceipt(result: result ))
-            
         })
     }
     
     func removeAds() {
-        //function that sets the user account to be ad free
+        
         PFUser.current()?["adFree"] = true
         
         PFUser.current()?.saveInBackground(block: { (success, error) in
@@ -425,12 +418,11 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
                 
             }
         })
-        //end function for ad removal
         
     }
     
     func subscriptions(type: String) {
-        //function to set the user account to a membership type, either one month, three month or one year
+        
         PFUser.current()?["membership"] = type
         
         PFUser.current()?["globalLimit"] = 1000
@@ -450,11 +442,10 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
             
             
         })
-        //end function for subscription
     }
     
     func donate(){
-        //function to send the user to the gofundme page so they can donate
+        
         PFUser.current()?["GFMVisit"] = "YES"
         
         PFUser.current()?.saveInBackground(block: { (success, error) in
@@ -469,8 +460,7 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         })
         
         UIApplication.shared.openURL(NSURL(string: "https://www.indiegogo.com/projects/noir-mobile-dating-for-gay-people-of-color-apps/x/16898469#/")! as URL)
-        
-        //end function for donate
+
     }
 
 }
@@ -517,10 +507,3 @@ class ShopNetworkActivityIndiciatorManager: NSObject {
     }
     
 }
-
-
-
-
-
-
-
