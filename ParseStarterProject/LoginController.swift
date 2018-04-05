@@ -12,8 +12,9 @@ import Firebase
 import GoogleMobileAds
 import UserNotifications
 
-
 class LoginController: UIViewController {
+    
+    var activeField = UITextField()
     
     var activityIndicater = UIActivityIndicatorView()
     var inputContainerHeightAnchor: NSLayoutConstraint?

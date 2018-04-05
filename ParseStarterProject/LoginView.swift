@@ -143,6 +143,6 @@ extension LoginController {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField){
-        activeField = nil
+        activeField = UITextField()
     }
 }

@@ -18,6 +18,13 @@ private let threeMonthCellID = "threeMonthCellID"
 private let oneYearCellID = "oneYearCellID"
 private let restoreCellID = "restoreCellID"
 
+enum ShopRegisteredPurchase : String {
+    case AdFree = "AdRemoval"
+    case OneMonth = "OneMonth"
+    case ThreeMonths = "ThreeMonths"
+    case OneYear = "OneYear"
+}
+
 class StoreViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
     
     let termsText = "This subscription is valid for 30 days, 90 days or 1 year, depending on the type of subscription you have selected. Payment will be charged to your iTunes Account at the time of  confirmation of your purchase. Your subscription will automatically renew unless auto-renew is turned off at least 24-hours before the end of the current subscription period. Your account will be charged the price listed at the top of this screen for renewal within 24-hours prior to the end of the current subscription period. Subscriptions may be managed and auto-renewal may be turned off by going to the Account Settings screen in the Apple App Store on your device after purchase. No cancellation of the current subscription allowed during the active subscription period. Please see the EULA & Terms of Service along with the Privacy Policy in your Profile Update screen. You may view the Privacy Policy online at http://noir.savage-code.com/#privacy"
@@ -31,10 +38,10 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     
     let bundleID = "comsavagecodeNoir"
     
-    var AdFree = RegisteredPurchase.AdFree
-    var OneMonth = RegisteredPurchase.OneMonth
-    var ThreeMonths = RegisteredPurchase.ThreeMonths
-    var OneYear = RegisteredPurchase.OneYear
+    var AdFree = ShopRegisteredPurchase.AdFree
+    var OneMonth = ShopRegisteredPurchase.OneMonth
+    var ThreeMonths = ShopRegisteredPurchase.ThreeMonths
+    var OneYear = ShopRegisteredPurchase.OneYear
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -257,7 +264,7 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         
     }
     
-    func getInfo(purchase : RegisteredPurchase) {
+    func getInfo(purchase : ShopRegisteredPurchase) {
         
         ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
         
@@ -274,7 +281,7 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         
     }
     
-    func purchase(purchase : RegisteredPurchase) {
+    func purchase(purchase : ShopRegisteredPurchase) {
         
         ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
         
@@ -333,7 +340,7 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
     func verifyReceipt() {
         
         ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
-        SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, password: sharedSecret, completion: {
+        SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, password: ShopsharedSecret, completion: {
             result in
             
             ShopNetworkActivityIndiciatorManager.NetworkOperationFinished()
@@ -352,10 +359,10 @@ class StoreViewController: UICollectionViewController, UICollectionViewDelegateF
         
     }
     
-    func verifyPurchase(product : RegisteredPurchase) {
+    func verifyPurchase(product : ShopRegisteredPurchase) {
         
         ShopNetworkActivityIndiciatorManager.NetworkOperationStarted()
-        SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, password: sharedSecret, completion: {
+        SwiftyStoreKit.verifyReceipt(using: ReceiptValidator.self as! ReceiptValidator, password: ShopsharedSecret, completion: {
             
             result in
             
@@ -469,12 +476,6 @@ class SectionHeader: UICollectionReusableView {
     weak var sectionHeaderlabel: UILabel!
 }
 
-enum ShopRegisteredPurchase : String {
-    case AdFree = "AdRemoval"
-    case OneMonth = "OneMonth"
-    case ThreeMonths = "ThreeMonths"
-    case OneYear = "OneYear"
-}
 
 var ShopsharedSecret = "910acba900c84a9391fac684a407139e"
 

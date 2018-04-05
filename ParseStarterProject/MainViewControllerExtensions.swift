@@ -115,19 +115,19 @@ extension MainViewController {
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let chatPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_CHAT_TITLE, body: Constants.Text.TUTORIAL_CHAT_BODY, image: UIImage(named:"test-block"), buttonText: "Continue") { () -> Void in
+        let chatPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_CHAT_TITLE, body: Constants.Text.TUTORIAL_CHAT_BODY, image: UIImage(named:"chat_tutorial_image"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let settingsPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SETTINGS_TITLE, body: Constants.Text.TUTORIAL_SETTINGS_BODY, image: UIImage(named:"test-block"), buttonText: "Continue") { () -> Void in
+        let settingsPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SETTINGS_TITLE, body: Constants.Text.TUTORIAL_SETTINGS_BODY, image: UIImage(named:"settings_tutorial_image"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let echoPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_ECHO_TITLE, body: Constants.Text.TUTORIAL_ECHO_BODY, image: UIImage(named:"test-block"), buttonText: "Continue") { () -> Void in
+        let echoPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_ECHO_TITLE, body: Constants.Text.TUTORIAL_ECHO_BODY, image: UIImage(named:"echo_tutorial_image"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         
-        let shopPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SHOP_TITLE, body: Constants.Text.TUTORIAL_SHOP_BODY, image: UIImage(named:"test-block"), buttonText: "Continue") { () -> Void in
+        let shopPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SHOP_TITLE, body: Constants.Text.TUTORIAL_SHOP_BODY, image: UIImage(named:"shop_tutorial_image"), buttonText: "Continue") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         

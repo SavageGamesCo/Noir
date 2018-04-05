@@ -789,12 +789,12 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     func validateAppleReciepts() {
         //validate subscription receipt
         let appleValidator = AppleReceiptValidator(service: .production)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator, password: sharedSecret) { result in
+        SwiftyStoreKit.verifyReceipt(using: appleValidator, password: ShopsharedSecret) { result in
             
             if case .success(let receipt) = result {
                 let purchaseResult = SwiftyStoreKit.verifySubscription(
                     type: .autoRenewable,
-                    productId: self.bundleID + RegisteredPurchase.OneMonth.rawValue,
+                    productId: self.bundleID + ShopRegisteredPurchase.OneMonth.rawValue,
                     inReceipt: receipt)
                 
                 switch purchaseResult {

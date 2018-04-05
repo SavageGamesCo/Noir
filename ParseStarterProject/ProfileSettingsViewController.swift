@@ -29,7 +29,6 @@ var newMemberAbout: String?
 
 var activityIndicater = UIActivityIndicatorView()
 
-
 class ProfileSettingsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
     
     let profImgCellID = "profImgCellID"
@@ -87,7 +86,7 @@ class ProfileSettingsViewController: UICollectionViewController, UICollectionVie
         collectionView?.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProfileInitViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProfileSettingsViewController.dismissKeyboard))
         
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         //tap.cancelsTouchesInView = false
