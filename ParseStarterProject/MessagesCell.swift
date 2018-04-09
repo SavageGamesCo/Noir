@@ -13,6 +13,13 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        
+        if PFUser.current()?["membership"] as! String == "basic" {
+            layout.sectionInset.bottom = 50
+        } else {
+            layout.sectionInset.bottom = 15
+        }
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = Constants.Colors.NOIR_BACKGROUND
         cv.dataSource = self

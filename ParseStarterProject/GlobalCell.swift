@@ -40,6 +40,7 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
     lazy var memberCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         cv.backgroundColor = Constants.Colors.NOIR_BACKGROUND
@@ -112,6 +113,12 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         layout.itemSize = CGSize(width: width, height: height)
         layout.minimumLineSpacing = 20
         layout.sectionInset.top = 15
+        
+        if PFUser.current()?["membership"] as! String == "basic" {
+            layout.sectionInset.bottom = 50
+        } else {
+            layout.sectionInset.bottom = 15
+        }
         
         memberCollectionView.setCollectionViewLayout(layout, animated: true)
         

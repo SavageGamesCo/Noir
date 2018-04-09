@@ -70,6 +70,8 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         
     }
     
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -87,11 +89,18 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         APIService.sharedInstance.validateAppleReciepts()
         checkMessagesAlert()
         
+        if PFUser.current()?["membership"] as! String == "basic" {
+            showBannerAd()
+        }
+        
+    }
+    
+    func showBannerAd() {
         bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         
         addBannerViewToView(bannerView)
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-//        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
+        //        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
         bannerView.rootViewController = self
         bannerView.delegate = self
         bannerView.load(GADRequest())
