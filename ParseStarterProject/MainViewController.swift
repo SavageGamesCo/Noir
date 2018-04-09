@@ -14,11 +14,13 @@ import GoogleMobileAds
 import UserNotifications
 import AVFoundation
 
+var currentVc: UICollectionViewController!
 
-class MainViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate {
+class MainViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate, GADInterstitialDelegate {
     
+    let adMobDelegate = AdMobDelegate()
     var bannerView: GADBannerView!
-    
+
     let layout = UICollectionViewFlowLayout()
     let echoCellID = "echoCellId"
     let localCellID = "localCellID"
@@ -88,22 +90,28 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         geoPoint()
         APIService.sharedInstance.validateAppleReciepts()
         checkMessagesAlert()
+        currentVc = self
         
         if PFUser.current()?["membership"] as! String == "basic" {
+//            adMobDelegate.showAd()
             showBannerAd()
+            
         }
         
     }
-    
+   
     func showBannerAd() {
         bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         
         addBannerViewToView(bannerView)
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        //        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
+//        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
         bannerView.rootViewController = self
         bannerView.delegate = self
-        bannerView.load(GADRequest())
+        let request = GADRequest()
+        
+        request.testDevices = [kGADSimulatorID, "2077ef9a63d2b398840261c8221a0c9b"]
+        bannerView.load(request)
     }
     
     func addBannerViewToView(_ bannerView: GADBannerView) {

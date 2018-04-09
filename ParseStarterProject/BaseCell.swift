@@ -12,6 +12,8 @@ class BaseCell: UICollectionViewCell, UIPickerViewDelegate, UIPickerViewDataSour
     
     let toolBar = UIToolbar()
     
+    
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 0
     }

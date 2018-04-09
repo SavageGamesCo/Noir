@@ -13,13 +13,14 @@ import AVKit
 import MobileCoreServices
 import Photos
 import NotificationCenter
+import GoogleMobileAds
 
-class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GADInterstitialDelegate {
     
     let picker = UIImagePickerController()
     let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
     private var subscription: Subscription<PFObject>!
-    
+//    var interstitial: GADInterstitial!
     let cellID = "cellID"
     
     var memberID = String()
@@ -86,9 +87,14 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
     }
     
+    var admobDelegate = AdMobDelegate()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        currentVc = self
+        
         checkPermission()
         
         picker.delegate = self
@@ -103,16 +109,13 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionView?.keyboardDismissMode = .interactive
         
-        if PFUser.current()?["membership"] as! String == "basic" {
-            //set limits on basic users
-            
-        } else {
-            //put something in here if I feel like it
-        }
-        
         observeMessages()
+        
+        admobDelegate.showAd()
+        
 
     }
+    
     
     func setupKeyboard() {
         

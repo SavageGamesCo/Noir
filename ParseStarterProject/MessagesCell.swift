@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import GoogleMobileAds
+
 
 class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -44,6 +46,8 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     var messages = Array<Message?>()
     
     var newMessages = [Message()]
+    
+    
     
     func setupData(){
         var messageID = [String()]
@@ -190,17 +194,14 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     
     override func setupViews() {
         super.setupViews()
-//        DispatchQueue.main.async {
-            self.setupData()
-//        }
-        
-        
+        self.setupData()
         
     }
     
     func fetchMessages(){
         
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //return number of members
@@ -230,15 +231,16 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         self.collectionView.cellForItem(at: indexPath)?.layoutSubviews()
         let layout = UICollectionViewFlowLayout()
         
         let controller = ChatController(collectionViewLayout: layout)
         controller.sender = self.messages[indexPath.item]?.sender
-        
-        
+           
         self.window?.rootViewController?.present(controller, animated: true, completion: nil)
+            
+        
+        
 
         
     }

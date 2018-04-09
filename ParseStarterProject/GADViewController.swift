@@ -7,65 +7,62 @@
 //
 
 import UIKit
-import Firebase
 import GoogleMobileAds
 
-class GADViewController: UIViewController, UIAlertViewDelegate {
+class AdMobDelegate: NSObject, GADInterstitialDelegate {
     
-    var interstitial: GADInterstitial!
+    var interstitialView: GADInterstitial!
     
-    func button(_ sender: Any) {
-        
-        showAd()
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-//        print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
-//        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-//        bannerView.rootViewController = self
-//        bannerView.load(GADRequest())
-        
-        createAndLoadInterstitial()
-        
-        
-        
-        
-        
+    func createAd() -> GADInterstitial {
+        interstitialView = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitialView.delegate = self
+        let request = GADRequest()
+        interstitialView.load(request)
+        return interstitialView
     }
     
     func showAd() {
-        if interstitial.isReady {
-            interstitial.present(fromRootViewController: self)
+        if interstitialView != nil {
+            if (interstitialView.isReady == true){
+                interstitialView.present(fromRootViewController: currentVc)
+            } else {
+                print("ad wasn't ready")
+                interstitialView = createAd()
+            }
         } else {
-            print("Ad wasn't ready")
+            print("ad wasn't ready")
+            interstitialView = createAd()
         }
     }
     
-    fileprivate func createAndLoadInterstitial() {
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-9770059916027069/7359406151")
-        let request = GADRequest()
-        // Request test ads on devices you specify. Your test device ID is printed to the console when
-        // an ad request is made.
-        request.testDevices = [ kGADSimulatorID, "2077ef9a63d2b398840261c8221a0c9b" ]
-        interstitial.load(request)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("Ad Received")
+        if ad.isReady {
+            interstitialView.present(fromRootViewController: currentVc)
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        print("Did Dismiss Screen")
     }
-    */
-
+    
+    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
+        print("Will Dismiss Screen")
+    }
+    
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        print("Will present screen")
+    }
+    
+    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
+        print("Will leave application")
+    }
+    
+    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
+        print("Failed to present screen")
+    }
+    
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("\(ad) did fail to receive ad with error \(error)")
+    }
 }
