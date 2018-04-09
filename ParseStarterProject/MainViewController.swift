@@ -15,7 +15,9 @@ import UserNotifications
 import AVFoundation
 
 
-class MainViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class MainViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate {
+    
+    var bannerView: GADBannerView!
     
     let layout = UICollectionViewFlowLayout()
     let echoCellID = "echoCellId"
@@ -85,6 +87,42 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         APIService.sharedInstance.validateAppleReciepts()
         checkMessagesAlert()
         
+        bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        
+        addBannerViewToView(bannerView)
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
+        bannerView.rootViewController = self
+        bannerView.delegate = self
+        bannerView.load(GADRequest())
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 1, animations: {
+            bannerView.alpha = 1
+        })
     }
     
     override func viewDidAppear(_ animated: Bool) {

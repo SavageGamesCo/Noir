@@ -11,12 +11,10 @@ import Firebase
 import GoogleMobileAds
 
 class GADViewController: UIViewController, UIAlertViewDelegate {
-
-//    @IBOutlet var bannerView: GADBannerView!
     
     var interstitial: GADInterstitial!
     
-    @IBAction func button(_ sender: Any) {
+    func button(_ sender: Any) {
         
         showAd()
     }
