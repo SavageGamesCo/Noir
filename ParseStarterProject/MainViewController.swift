@@ -104,8 +104,11 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         
         addBannerViewToView(bannerView)
-//        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
+        //uncomment to test ad banners
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        
+        //uncomment to enable live ad units for banner ads
+//        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
         bannerView.rootViewController = self
         bannerView.delegate = self
         let request = GADRequest()
