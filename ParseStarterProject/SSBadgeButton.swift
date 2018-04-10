@@ -60,7 +60,9 @@ class SSBadgeButton: UIButton {
         let width = max(height, Double(badgeSize.width) + 10.0)
         
         var vertical: Double?, horizontal: Double?
-        
+        let x = CGFloat((width / 2.0) + 15)
+        let y = CGFloat(-(height / 2.0) )
+        badgeLabel.frame = CGRect(x: x, y: y, width: CGFloat(width), height: CGFloat(height))
 //        if let badgeInset = self.badgeEdgeInsets {
 //            vertical = Double(badgeInset.top) - Double(badgeInset.bottom)
 //            horizontal = Double(badgeInset.left) - Double(badgeInset.right)
