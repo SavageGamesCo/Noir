@@ -231,31 +231,7 @@ extension MainViewController {
         })
     }
     
-    func checkMessagesAlert(){
-        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
-        
-        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
-            // This is where we handle the event
-            
-            DispatchQueue.main.async {
-                
-                //                let cell = self.menuBar.collectionView.cellForItem(at: IndexPath(item: 5, section: 0)) as! MenuCell
-                //                self.collectionView?.reloadData()
-                
-                
-                // create a sound ID, in this case its the tweet sound.
-                let systemSoundID: SystemSoundID = 1322
-                
-                // to play sound
-                AudioServicesPlaySystemSound (systemSoundID)
-                
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                
-            }
-            
-        }
-        
-    }
+    
     
     @objc func handleLogout(){
         
@@ -275,7 +251,6 @@ extension MainViewController {
         let layout = UICollectionViewFlowLayout()
         
         let shopController = StoreViewController(collectionViewLayout: layout)
-//        present(shopController, animated: true, completion: nil)
         navigationController?.pushViewController(shopController, animated: true)
     }
     

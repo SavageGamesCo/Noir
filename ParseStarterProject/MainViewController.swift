@@ -31,9 +31,6 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     let titles = ["Noir: Global Members", "Noir: Local Members", "Noir: Favorites", "Noir: Received Flirts", "Noir: Messages"]
     
-    let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
-    
-    var subscription: Subscription<PFObject>!
     
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
@@ -89,7 +86,6 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         setupNavBarButtons()
         geoPoint()
         APIService.sharedInstance.validateAppleReciepts()
-        checkMessagesAlert()
         currentVc = self
         
         if PFUser.current()?["membership"] as! String == "basic" {
@@ -107,7 +103,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         //uncomment to test ad banners
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         
-        //uncomment to enable live ad units for banner ads
+        //uncomment to enable live ad units for banner ads 
 //        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
         bannerView.rootViewController = self
         bannerView.delegate = self

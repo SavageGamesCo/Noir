@@ -17,6 +17,7 @@
 		81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */; };
 		B70BE63D1EAE9ED600A6729F /* GADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BE63C1EAE9ED600A6729F /* GADViewController.swift */; };
 		B70BE63F1EAEA29500A6729F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */; };
+		B71FD496207C2E1E00A1CA0B /* holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71FD495207C2E1E00A1CA0B /* holidays.swift */; };
 		B720D9A8206D8C1F0040097D /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B720D9A7206D8C1F0040097D /* StoreViewController.swift */; };
 		B720D9AA206D8C5A0040097D /* StoreItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B720D9A9206D8C5A0040097D /* StoreItemCell.swift */; };
 		B73DF74420656F50008C016F /* TermsPrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */; };
@@ -148,6 +149,7 @@
 		901E471E12D617052CB7DFDE /* Pods-ParseStarterProject-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParseStarterProject-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ParseStarterProject-Swift/Pods-ParseStarterProject-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		B70BE63C1EAE9ED600A6729F /* GADViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GADViewController.swift; sourceTree = "<group>"; };
 		B70BE63E1EAEA29500A6729F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B71FD495207C2E1E00A1CA0B /* holidays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = holidays.swift; sourceTree = "<group>"; };
 		B720D9A7206D8C1F0040097D /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
 		B720D9A9206D8C5A0040097D /* StoreItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItemCell.swift; sourceTree = "<group>"; };
 		B73DF74320656F50008C016F /* TermsPrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPrivacyViewController.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				B73DF745206594C3008C016F /* SendFeedbackViewController.swift */,
 				B73DF7472065AC1E008C016F /* TutorialViewController.swift */,
 				B720D9A7206D8C1F0040097D /* StoreViewController.swift */,
+				B71FD495207C2E1E00A1CA0B /* holidays.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -798,6 +801,7 @@
 				B74BAC952032902800CFC11F /* MessagesCell.swift in Sources */,
 				B77559192047114C0017A49E /* GalleryCell.swift in Sources */,
 				B74BAC8B203249DB00CFC11F /* SettingCell.swift in Sources */,
+				B71FD496207C2E1E00A1CA0B /* holidays.swift in Sources */,
 				B775591B204844540017A49E /* Chat_Helpers.swift in Sources */,
 				B747899E202E2DF500C61A65 /* LoginController.swift in Sources */,
 				B73DF746206594C3008C016F /* SendFeedbackViewController.swift in Sources */,

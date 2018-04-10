@@ -8,7 +8,10 @@
 
 import UIKit
 import Parse
+import ParseLiveQuery
 import NotificationCenter
+import AVFoundation
+
 
 
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -29,6 +32,31 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let imageNames = ["global_icon", "local_dart_icon", "favorites_fire_icon","flirts_full_icon", "chat_icon"]
     
     var mainViewController: MainViewController?
+    let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://noir.back4app.io")
+    
+    var subscription: Subscription<PFObject>!
+    
+    func checkMessagesAlert(){
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
+        
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            DispatchQueue.main.async {
+                
+            }
+            
+            // create a sound ID, in this case its the tweet sound.
+            let systemSoundID: SystemSoundID = 1322
+            
+            // to play sound
+            AudioServicesPlaySystemSound (systemSoundID)
+            
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+        }
+        
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,10 +100,13 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: IndexPath(item: 5, section: 0)) as! MenuCell
         mainViewController?.scrollToMenuIndex(menuIndex: indexPath.item)
-        if imageNames[indexPath.item] == "chat_icon" {
+        if indexPath.item == 5 {
+            
             DispatchQueue.main.async {
                 let currentInstallation = PFInstallation.current()
                 currentInstallation?.badge = 0
@@ -91,25 +122,55 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         return imageNames.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func cellReturn(_ collectionView: UICollectionView, _ indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MenuCell
         
         cell.imageView.setImage(UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate), for: .normal)
         cell.tintColor = Constants.Colors.NOIR_HIGHLIGHT
-        if imageNames[indexPath.item] == "chat_icon" {
+        
+        let currentInstallation = PFInstallation.current()
+        
+        if self.imageNames[indexPath.item] == "chat_icon" {
             DispatchQueue.main.async {
-                let currentInstallation = PFInstallation.current()
                 if let currentBadgeCount = currentInstallation?.badge{
                     cell.imageView.badge = String(currentBadgeCount)
                 }
             }
             
         }
+        let msgQuery = PFQuery(className: "Chat").whereKey("app", equalTo: APPLICATION).whereKey("toUser", contains: CURRENT_USER!)
         
+        subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+            // This is where we handle the event
+            
+            DispatchQueue.main.async {
+                if self.imageNames[indexPath.item] == "chat_icon" {
+                    DispatchQueue.main.async {
+                        if let currentBadgeCount = currentInstallation?.badge{
+                            cell.imageView.badge = String(currentBadgeCount)
+                        }
+                    }
+                    
+                }
+            }
+            
+            // create a sound ID, in this case its the tweet sound.
+            let systemSoundID: SystemSoundID = 1322
+            
+            // to play sound
+            AudioServicesPlaySystemSound (systemSoundID)
+            
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+        }
         
         //        cell.backgroundColor = UIColor.blue
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return cellReturn(collectionView, indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

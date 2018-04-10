@@ -60,18 +60,19 @@ class SSBadgeButton: UIButton {
         let width = max(height, Double(badgeSize.width) + 10.0)
         
         var vertical: Double?, horizontal: Double?
-        if let badgeInset = self.badgeEdgeInsets {
-            vertical = Double(badgeInset.top) - Double(badgeInset.bottom)
-            horizontal = Double(badgeInset.left) - Double(badgeInset.right)
-            
-            let x = (Double(bounds.size.width) - 10 + horizontal!)
-            let y = -(Double(badgeSize.height) / 2) - 10 + vertical!
-            badgeLabel.frame = CGRect(x: x, y: y, width: width, height: height)
-        } else {
-            let x = self.frame.width - CGFloat((width / 2.0))
-            let y = CGFloat(-(height / 2.0))
-            badgeLabel.frame = CGRect(x: x, y: y, width: CGFloat(width), height: CGFloat(height))
-        }
+        
+//        if let badgeInset = self.badgeEdgeInsets {
+//            vertical = Double(badgeInset.top) - Double(badgeInset.bottom)
+//            horizontal = Double(badgeInset.left) - Double(badgeInset.right)
+//
+//            let x = (Double(bounds.size.width) - 10 + horizontal!)
+//            let y = -(Double(badgeSize.height) / 2) - 10 + vertical!
+//            badgeLabel.frame = CGRect(x: x, y: y, width: width, height: height)
+//        } else {
+//            let x = CGFloat((width / 2.0)-10)
+//            let y = CGFloat(-(height / 2.0) )
+//            badgeLabel.frame = CGRect(x: x, y: y, width: CGFloat(width), height: CGFloat(height))
+//        }
         
         badgeLabel.layer.cornerRadius = badgeLabel.frame.height/2
         badgeLabel.layer.masksToBounds = true
