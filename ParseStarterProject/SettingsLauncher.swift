@@ -49,7 +49,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
         
         if let window = UIApplication.shared.keyWindow {
             
-            blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+            blackView.backgroundColor = UIColor(white: 0, alpha: 0.8)
             
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(blackViewDismiss)))
             

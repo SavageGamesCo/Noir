@@ -28,7 +28,7 @@ class SettingCell: BaseCell {
     
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Constants.Colors.NOIR_GREY_MEDIUM : Constants.Colors.NOIR_WHITE
+            backgroundColor = isHighlighted ? Constants.Colors.NOIR_RED_DARK : Constants.Colors.NOIR_WHITE
             nameLabel.textColor = isHighlighted ? Constants.Colors.NOIR_WHITE : Constants.Colors.NOIR_GREY_DARK
             iconImageView.tintColor = isHighlighted ? Constants.Colors.NOIR_WHITE : Constants.Colors.NOIR_GREY_DARK
         }

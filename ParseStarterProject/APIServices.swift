@@ -760,7 +760,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func sendFlirtPush(member: Member){
-        sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: member.memberID!, toUserName: member.memberName!, text: "\((PFUser.current()?.objectId)!) has sent you a flirt.")
+        sendMessage(senderID: (PFUser.current()?.objectId)!, senderName: (PFUser.current()?.username)!, toUser: member.memberID!, toUserName: member.memberName!, text: "\((PFUser.current()?.username)!) has sent you a flirt.")
         var installationID = PFInstallation()
         do {
             let user = try PFQuery.getUserObject(withId: member.memberID as String!)
