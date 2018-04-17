@@ -169,6 +169,7 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         navigationController?.isNavigationBarHidden = true
         view.backgroundColor = Constants.Colors.NOIR_LOGIN_BACKGROUND
         view.addSubview(inputsContainerView)

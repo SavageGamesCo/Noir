@@ -111,7 +111,10 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         observeMessages()
         
-        admobDelegate.showAd()
+        if PFUser.current()?["membership"] as! String == "basic" && PFUser.current()?["adFree"] as! Bool != true{
+            admobDelegate.showAd()
+        }
+        
         
 
     }

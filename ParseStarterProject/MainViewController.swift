@@ -88,10 +88,22 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         APIService.sharedInstance.validateAppleReciepts()
         currentVc = self
         
-        if PFUser.current()?["membership"] as! String == "basic" {
+        if PFUser.current()?["membership"] as! String == "basic" && PFUser.current()?["adFree"] as! Bool != true {
 //            adMobDelegate.showAd()
             showBannerAd()
             
+        }
+        
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore  {
+            
+            print("Not first launch.")
+//            UserDefaults.standard.set(false, forKey: "launchedBefore")
+        } else {
+            dialogueBox(title: "Welcome to Noir!", messageText: "Thank you for choosing Noir, your new home for online dating! Be sure to check the tutorial page from the 'Settings' menu above on the top left corner. Many changes have come with this major update to Noir. Most notably being the appearance and the Echo feature. From Savage Code to you, please enjoy your stay!")
+            print("First launch, setting UserDefault.")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+
         }
         
     }
@@ -101,15 +113,15 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         addBannerViewToView(bannerView)
         //uncomment to test ad banners
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         
         //uncomment to enable live ad units for banner ads 
-//        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
+        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
         bannerView.rootViewController = self
         bannerView.delegate = self
         let request = GADRequest()
         
-//        request.testDevices = [kGADSimulatorID, "2077ef9a63d2b398840261c8221a0c9b"]
+        request.testDevices = [kGADSimulatorID, "2077ef9a63d2b398840261c8221a0c9b"]
         bannerView.load(request)
     }
     

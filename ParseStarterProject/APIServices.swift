@@ -17,8 +17,9 @@ import AVFoundation
 import MapKit
 import CoreLocation
 import Spring
+import Onboard
 
-class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
+class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0
     }
@@ -61,7 +62,109 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         return cv
     }()
     
+    lazy var navigationController: UINavigationController = {
+        
+        let cv = UINavigationController()
+        cv.delegate = self
+        return cv
+    }()
+    
     //API Service Functions
+    
+    //Tutorial
+    fileprivate func setupNewTutorialPage(_ newPage: OnboardingContentViewController, topPad: CGFloat, underIconPad: CGFloat, underTitlePad: CGFloat, bottomPad: CGFloat) {
+        newPage.movesToNextViewController = true
+        newPage.iconImageView.contentMode = .scaleAspectFit
+        newPage.iconImageView.clipsToBounds = true
+        newPage.topPadding = topPad;
+        newPage.underIconPadding = underIconPad;
+        newPage.underTitlePadding = underTitlePad;
+        newPage.bottomPadding = bottomPad;
+        newPage.titleLabel.textColor = Constants.Colors.NOIR_WHITE
+        newPage.bodyLabel.textColor = Constants.Colors.NOIR_WHITE
+        newPage.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        newPage.bodyLabel.font = UIFont.systemFont(ofSize: 18)
+    }
+    
+    func generateOnboarding() -> OnboardingViewController {
+        let introPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_INTRO_TITLE, body: Constants.Text.TUTORIAL_INTRO_BODY, image: UIImage(named:"noir_logo_white"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        let navigationPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_NAVIGATION_TITLE, body: Constants.Text.TUTORIAL_NAVIGATION_BODY, image: UIImage(named:"tutorial_navigation"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        let membersPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_MEMBER_TITLE, body: Constants.Text.TUTORIAL_MEMBER_BODY, image: UIImage(named:"tutorial_global_local"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        
+        let memberProfilePage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_MEMBER_PROFILE_TITLE, body: Constants.Text.TUTORIAL_MEMBER_PROFILE_BODY, image: UIImage(named:"tutorial_members_profile"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        let flirtsPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_FLIRTS_TITLE, body: Constants.Text.TUTORIAL_FLIRTS_BODY, image: UIImage(named:"noir_heart"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        let chatPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_CHAT_TITLE, body: Constants.Text.TUTORIAL_CHAT_BODY, image: UIImage(named:"chat_tutorial_image"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        let settingsPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SETTINGS_TITLE, body: Constants.Text.TUTORIAL_SETTINGS_BODY, image: UIImage(named:"settings_tutorial_image"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        let echoPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_ECHO_TITLE, body: Constants.Text.TUTORIAL_ECHO_BODY, image: UIImage(named:"echo_tutorial_image"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        let shopPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_SHOP_TITLE, body: Constants.Text.TUTORIAL_SHOP_BODY, image: UIImage(named:"shop_tutorial_image"), buttonText: "Continue") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        
+        let loginViewController = LoginController()
+        
+        let outroPage = OnboardingContentViewController(title: Constants.Text.TUTORIAL_OUTRO_TITLE, body: Constants.Text.TUTORIAL_OUTRO_BODY, image: nil, buttonText: "Enjoy!") { () -> Void in
+            
+//            self.navigationController.pushViewController(loginViewController, animated: true)
+            self.navigationController.popToViewController(loginViewController, animated: true)
+        }
+        
+        
+        
+        let onboardingVC = OnboardingViewController(backgroundImage: UIImage(named: "splash_jpeg"), contents: [introPage, navigationPage, membersPage, memberProfilePage, flirtsPage, chatPage, settingsPage, echoPage, shopPage, outroPage])
+        onboardingVC?.shouldFadeTransitions = true
+        onboardingVC?.swipingEnabled = true
+        onboardingVC?.allowSkipping = true
+        onboardingVC?.fadeSkipButtonOnLastPage = true
+        onboardingVC?.skipHandler = {
+            
+            let window = UIWindow()
+            
+            window.rootViewController = UINavigationController(rootViewController: loginViewController)
+            
+            window.makeKeyAndVisible()
+            
+//            self.navigationController.pushViewController(loginViewController, animated: true)
+
+//            self.navigationController.popToViewController(loginViewController, animated: true)
+        }
+        
+        setupNewTutorialPage(introPage, topPad: 50, underIconPad: 20, underTitlePad: 15, bottomPad: 20)
+        setupNewTutorialPage(navigationPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(membersPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(memberProfilePage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(flirtsPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(chatPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(settingsPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(echoPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(shopPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        setupNewTutorialPage(outroPage, topPad: 20, underIconPad: 10, underTitlePad: 10, bottomPad: 20)
+        
+        return onboardingVC!
+    }
     
     //Parse Database Functions
     func fetchGlobalMembers( completion: @escaping ([Member]) -> () ) {

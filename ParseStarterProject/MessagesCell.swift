@@ -184,10 +184,7 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     }
     
     @objc func refreshing(){
-        
-        
-        
-            
+
             self.setupData()
         
         self.refreshControl.endRefreshing()
