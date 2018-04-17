@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-import Sonar
 import MapKit
 
 class EchoCell: BaseCell {

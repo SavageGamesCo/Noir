@@ -14,7 +14,7 @@ target 'Noir' do
     pod 'Parse', '~> 1.15.3'
     pod 'ParseLiveQuery', '~> 2.2.1'
     pod 'SwiftyStoreKit', '~> 0.10.4'
-    pod 'Sonar'
+#    pod 'Sonar'
     pod 'Onboard'
     
     

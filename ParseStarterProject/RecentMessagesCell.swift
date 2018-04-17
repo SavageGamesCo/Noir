@@ -120,6 +120,8 @@ class RecentMessagesCell: BaseCell {
         
         addConstraintsWithFormat(format: "H:|-82-[v0]|", views: dividerLine)
         addConstraintsWithFormat(format: "V:[v0(1)]|", views: dividerLine)
+        
+        
     }
     
     private func setupContainer() {

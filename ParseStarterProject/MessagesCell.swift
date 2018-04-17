@@ -47,10 +47,11 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     
     var newMessages = [Message()]
     
+    var messageID = [String()]
     
     
     func setupData(){
-        var messageID = [String()]
+        
             
             let query1 = PFQuery(className: "Chat")
             
@@ -58,7 +59,7 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
             
             let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1])
             
-//            msgQuery.limit = 4000
+            msgQuery.limit = 40000
         
             msgQuery.order(byDescending: "createdAt")
             
@@ -91,10 +92,10 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                     if let userID: String = user.objectId {
                                                         userIDUnwrapped = userID
                                                     }
-                                                    if messageID.contains(userIDUnwrapped) {
-                                                        
+                                                    if self.messageID.contains(userIDUnwrapped) {
+                                                        return
                                                     } else {
-                                                        
+                                                        self.messageID.append(userIDUnwrapped)
                                                         let NewMessage = Message()
                                                         let NewSender = Sender()
                                                         
@@ -128,7 +129,7 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                             }
                                                         })
                                                         self.messages.append(NewMessage)
-                                                        messageID.append(userIDUnwrapped)
+                                                        
                                                         
                                                     }
                                                     
@@ -183,9 +184,12 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     }
     
     @objc func refreshing(){
-        DispatchQueue.main.async {
+        
+        
+        
+            
             self.setupData()
-        }
+        
         self.refreshControl.endRefreshing()
         self.activitityIndicatorView?.stopAnimating()
         

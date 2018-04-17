@@ -200,6 +200,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                             }
                            
                         }
+                        
                     }
                     //end of for loop
                     
