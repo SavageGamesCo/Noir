@@ -172,6 +172,7 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
             activitityIndicatorView?.startAnimating()
         }
         
+        
         refreshControl.tintColor = Constants.Colors.NOIR_TINT
         
         let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 15), NSForegroundColorAttributeName:  Constants.Colors.NOIR_TINT]
@@ -180,17 +181,35 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
         
         
         refreshControl.addTarget(self, action: #selector(refreshing), for: .valueChanged)
+        clearAllBadges()
         
+        collectionView.reloadData()
     }
     
     @objc func refreshing(){
 
-            self.setupData()
-        
+        self.setupData()
+        self.clearAllBadges()
         self.refreshControl.endRefreshing()
         self.activitityIndicatorView?.stopAnimating()
         
         
+    }
+    
+    func clearAllBadges() {
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+        let installation = PFInstallation.current()
+        installation?.badge = 0
+        installation?.saveInBackground { (success, error) -> Void in
+            if success {
+                print("cleared badges")
+                UIApplication.shared.applicationIconBadgeNumber = 0
+            }
+            else {
+                print("failed to clear badges")
+            }
+        }
     }
     
     override func setupViews() {

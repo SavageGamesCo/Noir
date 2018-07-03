@@ -33,13 +33,16 @@ class RecentMessagesCell: BaseCell {
             }
             if message?.readMessage == false || message?.readMessage == nil {
                 message?.readMessage = false
-                self.hasRead.alpha = 0.5
-            } else {
                 self.hasRead.alpha = 1.0
+            } else {
+                self.hasRead.alpha = 0.5
             }
             
             profileImageview.image = message?.sender?.profileImage
-            hasRead.image = message?.sender?.profileImage
+            hasRead.image = UIImage(named: "message-7")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+            hasRead.translatesAutoresizingMaskIntoConstraints = false
+            hasRead.tintColor = Constants.Colors.NOIR_ORANGE
+            
             
         }
     }
