@@ -836,6 +836,21 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
             
         })
     }
+    
+    func blockUserChat(member: Member, view: UIView) {
+        PFUser.current()?.addUniqueObjects(from: [member.memberID as String!], forKey: "blocked")
+        
+        PFUser.current()?.saveInBackground(block: {(success, error) in
+            
+            if error != nil {
+                print("Error saving after blocking user")
+            } else {
+                
+                
+            }
+            
+        })
+    }
     func sendMessage(senderID: String, senderName: String, toUser: String, toUserName: String, text: String) {
         
         let chat = PFObject(className: "Chat")

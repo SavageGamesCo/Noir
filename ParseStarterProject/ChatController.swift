@@ -14,6 +14,8 @@ import MobileCoreServices
 import Photos
 import NotificationCenter
 import GoogleMobileAds
+import ALRadialMenu
+import Spring
 
 class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GADInterstitialDelegate {
     
@@ -29,6 +31,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     var blackBackgroundView: UIView?
     var startingImageView: UIView?
     var chatMessages = [Message()]
+    var selectedMember = Member()
     
     lazy var inputTextField: UITextField = {
         let inputField = UITextField()
@@ -49,7 +52,10 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             navTitle.title = sender?.name
             let dismissButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: #selector(handleDismiss))
             dismissButton.tintColor = Constants.Colors.NOIR_TINT
+            let profileButton = UIBarButtonItem(title: "Profile", style: .plain, target: nil, action: #selector(showMenu))
+            profileButton.tintColor = Constants.Colors.NOIR_TINT
             navTitle.rightBarButtonItem = dismissButton
+            navTitle.leftBarButtonItem = profileButton
             navbar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
             navbar.setItems([navTitle], animated: true)
             
@@ -59,25 +65,117 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
-    var member: Member? {
-        didSet{
-            
-            let navbar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: 50))
-            view.addSubview(navbar)
-            navbar.isTranslucent = false
-            let navTitle = UINavigationItem()
-            navTitle.title = member?.memberName
-            let dismissButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: #selector(handleDismiss))
-            navTitle.rightBarButtonItem = dismissButton
-            navTitle.rightBarButtonItem?.tintColor = Constants.Colors.NOIR_TINT
-            navbar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
-            navbar.setItems([navTitle], animated: true)
-            self.memberID = (member?.memberID)!
-            self.memberName = (member?.memberName)!
+    var member = Member()
+    
+    func fetchMember(){
+        let query = PFUser.query()
         
-            
-            
-        }
+        query?.whereKey("objectId", equalTo: memberID).whereKey("app", equalTo: "noir")
+        
+        //Show All Users
+        query?.getFirstObjectInBackground(block: { (object, error) in
+            if error != nil {
+                
+            } else if let user = object as? PFUser {
+                
+                
+                let imageFile = user["mainPhoto"] as! PFFile
+                imageFile.getDataInBackground(block: {(data, error) in
+                    
+                    if user["echo"] as! Bool {
+                        self.selectedMember.echo = true
+                    } else {
+                        self.selectedMember.echo = false
+                    }
+                    
+                    if let memberIDText = user.objectId {
+                        self.selectedMember.memberID = memberIDText
+                    } else {
+                        return
+                    }
+                    
+                    if let memberNameText = user.username {
+                        self.selectedMember.memberName = memberNameText
+                    } else {
+                        return
+                    }
+                    
+                    if let aboutText = user["about"] as? String {
+                        self.selectedMember.about = aboutText
+                    } else {
+                        self.selectedMember.about = "Unanswered"
+                    }
+                    
+                    if let ageText = user["age"] as? String {
+                        self.selectedMember.age = ageText
+                    } else {
+                        self.selectedMember.age = "Unanswered"
+                    }
+                    
+                    if let genderText = user["gender"] as? String {
+                        self.selectedMember.gender = genderText
+                    } else {
+                        self.selectedMember.gender = "Unanswered"
+                    }
+                    
+                    if let bodyText = user["body"] as? String {
+                        self.selectedMember.body = bodyText
+                    } else {
+                        self.selectedMember.body = "Unanswered"
+                    }
+                    
+                    if let heightText = user["height"] as? String {
+                        self.selectedMember.height = heightText
+                    } else {
+                        self.selectedMember.height = "Unanswered"
+                    }
+                    
+                    if let weightText = user["weight"] as? String {
+                        self.selectedMember.weight = weightText
+                    } else {
+                        self.selectedMember.weight = "Unanswered"
+                    }
+                    
+                    if let maritalStatusText = user["marital"] as? String {
+                        self.selectedMember.maritalStatus = maritalStatusText
+                    } else {
+                        self.selectedMember.maritalStatus = "Unanswered"
+                    }
+                    
+                    if let raceText = user["ethnicity"] as? String {
+                        self.selectedMember.race = raceText
+                    } else {
+                        self.selectedMember.race = "Unanswered"
+                    }
+                    
+                    if let statusText = user["hivStatus"] as? String {
+                        self.selectedMember.status = statusText
+                    } else {
+                        self.selectedMember.status = "Unanswered"
+                    }
+                    
+                    if user["location"] != nil {
+                        let mlat = (user["location"] as AnyObject).latitude
+                        self.selectedMember.mLat = mlat
+                    } else {
+                        self.selectedMember.mLat = 0
+                    }
+                    
+                    if user["location"] != nil {
+                        let mlong = (user["location"] as AnyObject).longitude
+                        self.selectedMember.mLong = mlong
+                    } else {
+                        self.selectedMember.mLong = 0
+                    }
+                    
+                    self.selectedMember.memberOnline = true
+                    
+                    let imageData = data
+                    self.selectedMember.memberImage = (UIImage(data: imageData!)!)
+                    
+                })
+            }
+        })
     }
     
     
@@ -273,6 +371,163 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         return containerView
     }()
+    
+    lazy var detailsView: UserDetailsLauncher = {
+        
+        let dv = UserDetailsLauncher()
+        return dv
+    }()
+    
+    lazy var galleryView: GalleryViewLauncher = {
+        
+        let gv = GalleryViewLauncher()
+        
+        return gv
+    }()
+    
+    @objc private func showStats(){
+        
+        detailsView.showDetails(member: selectedMember)
+        
+    }
+    @objc private func showGallery(){
+        
+        galleryView.showSettings(member: selectedMember)
+        
+    }
+    
+    
+    @objc private func favorite() {
+        
+        APIService.sharedInstance.favorite(member: selectedMember)
+        favoriteAnim()
+        
+    }
+    
+    @objc private func flirt() {
+        
+        APIService.sharedInstance.flirt(member: selectedMember)
+        flirtAnim()
+        
+    }
+    
+    func favoriteAnim() {
+        
+        let favoriteIcon = SpringImageView()
+        
+        favoriteIcon.image = UIImage(named: "noir_stars.png")
+        favoriteIcon.contentMode = .scaleAspectFill
+        favoriteIcon.autostart = true
+        favoriteIcon.animation = "zoomIn"
+        favoriteIcon.animateToNext {
+            
+            favoriteIcon.delay = 0.5
+            favoriteIcon.animation = "zoomOut"
+            favoriteIcon.animateTo()
+            
+        }
+        
+        
+        favoriteIcon.frame = CGRect(x: self.view.center.x, y: self.view.center.y , width: 600, height: 362)
+        
+        favoriteIcon.center = CGPoint(x: self.view.center.x - (self.view.frame.width / 20), y: self.view.center.y - (self.view.frame.height / 15))
+        
+        self.view.addSubview(favoriteIcon)
+        
+    }
+    
+    func flirtAnim() {
+        
+        let flirtGraphic = SpringImageView()
+        
+        flirtGraphic.image = UIImage(named: "noir_heart.png")
+        flirtGraphic.contentMode = .scaleAspectFill
+        flirtGraphic.autostart = true
+        flirtGraphic.animation = "zoomIn"
+        
+        flirtGraphic.animateToNext {
+            
+            flirtGraphic.delay = 0.5
+            flirtGraphic.animation = "zoomOut"
+            flirtGraphic.animateTo()
+            
+        }
+        
+        flirtGraphic.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: 300, height: 300)
+        
+        flirtGraphic.center = CGPoint(x: self.view.center.x - (self.view.frame.width / 20), y: self.view.center.y - (self.view.frame.width / 15))
+        
+        self.view.addSubview(flirtGraphic)
+        
+    }
+    
+    @objc private func block(){
+        
+        APIService.sharedInstance.blockUserChat(member: selectedMember, view: self.view)
+        
+        
+    }
+    
+    @objc func showMenu(){
+        fetchMember()
+        
+        var buttons = [ALRadialMenuButton]()
+        
+        let statsButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        statsButton.setImage(UIImage(named: "stats_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        statsButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        statsButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
+        statsButton.layer.cornerRadius = 50
+        statsButton.addTarget(self, action: #selector(showStats), for: .touchUpInside)
+        
+        buttons.append(statsButton)
+        
+        let galleryButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        galleryButton.setImage(selectedMember.memberImage, for: UIControlState.normal)
+        galleryButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        galleryButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
+        galleryButton.layer.cornerRadius = 50
+        galleryButton.layer.masksToBounds = true
+        galleryButton.imageView?.contentMode = .scaleAspectFill
+        galleryButton.addTarget(self, action: #selector(showGallery), for: .touchUpInside)
+        
+        buttons.append(galleryButton)
+        
+        
+        let blockButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        blockButton.setImage(UIImage(named: "block_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        blockButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        blockButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
+        blockButton.layer.cornerRadius = 50
+        blockButton.addTarget(self, action: #selector(block), for: .touchUpInside)
+        
+        buttons.append(blockButton)
+        
+        let flirtButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        flirtButton.setImage(UIImage(named: "flirts_full_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        flirtButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        flirtButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
+        flirtButton.layer.cornerRadius = 50
+        flirtButton.addTarget(self, action: #selector(flirt), for: .touchUpInside)
+        
+        buttons.append(flirtButton)
+        
+        let favoriteButton = ALRadialMenuButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        favoriteButton.setImage(UIImage(named: "favorites_fire_icon")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        favoriteButton.backgroundColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_COLOR
+        favoriteButton.tintColor = Constants.Colors.NOIR_RADIAL_MENU_BUTTON_TINT_COLOR
+        favoriteButton.layer.cornerRadius = 50
+        favoriteButton.addTarget(self, action: #selector(favorite), for: .touchUpInside)
+        
+        buttons.append(favoriteButton)
+        
+        
+        let senderCenter = CGPoint(x: self.view.center.x, y: self.view.center.y + (self.view.frame.height / 15))
+        
+        ALRadialMenu().setButtons(buttons: buttons).setRadius(radius: Double(self.view.frame.width / 3)).setAnimationOrigin(animationOrigin: senderCenter).setOverlayBackgroundColor(backgroundColor: Constants.Colors.NOIR_BLACK.withAlphaComponent(0.7)).presentInView(view: self.view)
+//        print(selectedMember.memberName!)
+        
+    }
     
     override var inputAccessoryView: UIView? {
         
@@ -791,6 +1046,7 @@ func checkPermission() {
     }
     
 }
+
 
 class ChatMessageCell: BaseCell {
     

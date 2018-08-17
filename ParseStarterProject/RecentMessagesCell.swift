@@ -25,7 +25,7 @@ class RecentMessagesCell: BaseCell {
                 
                 let dateFormatter = DateFormatter ()
                 
-                dateFormatter.dateFormat = "MMM d, h:mm a"
+                dateFormatter.dateFormat = "MMM d yyyy, h:mm a"
                 
                 dateTimeLabel.text = dateFormatter.string(from: date as Date)
 //                dateTimeLabel.text = date
