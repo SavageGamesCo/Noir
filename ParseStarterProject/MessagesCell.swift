@@ -45,13 +45,15 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     
     var messages = Array<Message?>()
     
+//    var messages : [Message] = []
+    
     var newMessages = [Message()]
     
     var messageID = [String()]
     
     
     func setupData(){
-        
+            self.messages.removeAll()
             
             let query1 = PFQuery(className: "Chat")
             
@@ -83,7 +85,7 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                         if let user = object as? PFUser {
                                             if let blockedUsers = PFUser.current()?["blocked"] {
                                                 
-                                                if (blockedUsers as AnyObject).contains(user.objectId! as String!) {
+                                                if (blockedUsers as AnyObject).contains(user.objectId! as String?) {
                                                     
                                                 } else if user.objectId != CURRENT_USER && user.objectId != nil {
                                                     
@@ -127,9 +129,10 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                                 
                                                                 
                                                             }
+                                                            self.messages.append(NewMessage)
                                                         })
-                                                        self.messages.append(NewMessage)
-                                                        
+//                                                        self.messages.append(NewMessage)
+                                                
                                                         
                                                     }
                                                     
@@ -139,7 +142,9 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                             
                                         }
                                         //end of for loop
+                                        self.messages = self.messages.sorted(by: { ($0?.date)! > ($1?.date)! })
                                         DispatchQueue.main.async {
+                                            
                                             self.collectionView.reloadData()
                                         }
                                     }
@@ -153,6 +158,8 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
             
             
         }
+        
+        
         
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
@@ -187,11 +194,12 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     }
     
     @objc func refreshing(){
-
-        self.setupData()
-        self.clearAllBadges()
-        self.refreshControl.endRefreshing()
-        self.activitityIndicatorView?.stopAnimating()
+        
+            self.clearAllBadges()
+            self.setupData()
+            self.refreshControl.endRefreshing()
+            self.activitityIndicatorView?.stopAnimating()
+        
         
         
     }

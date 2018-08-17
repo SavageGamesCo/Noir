@@ -124,7 +124,6 @@ class GlobalCell: BaseCell, UICollectionViewDelegateFlowLayout, UICollectionView
         
         setupActivityIndicatorView()
         fetchMembers()
-//        memberCollectionView.reloadData()
 
     }
     
