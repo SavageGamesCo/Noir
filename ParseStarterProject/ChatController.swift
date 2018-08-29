@@ -209,6 +209,8 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         observeMessages()
         
+        
+        
         if PFUser.current()?["membership"] as! String == "basic" && PFUser.current()?["adFree"] as! Bool != true{
             admobDelegate.showAd()
         }
@@ -300,7 +302,13 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         containerViewBottomAnchor?.constant = -keyboardFrame!.height
         
         UIView.animate(withDuration: keyboardDuration!) {
+            
+            let item = self.collectionView(self.collectionView!, numberOfItemsInSection: 0) - 1
+            let lastItemIndex = IndexPath(item: item, section: 0)
+            
+            self.collectionView?.scrollToItem(at: lastItemIndex, at: UICollectionViewScrollPosition.top, animated: true)
             self.collectionView?.layoutIfNeeded()
+        
         }
         
     }
@@ -312,6 +320,11 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         containerViewBottomAnchor?.constant = 0
         
         UIView.animate(withDuration: keyboardDuration!) {
+            
+            let item = self.collectionView(self.collectionView!, numberOfItemsInSection: 0) - 1
+            let lastItemIndex = IndexPath(item: item, section: 0)
+            
+            self.collectionView?.scrollToItem(at: lastItemIndex, at: UICollectionViewScrollPosition.top, animated: true)
             self.collectionView?.layoutIfNeeded()
         }
         
@@ -346,7 +359,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         mediaButton.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         mediaButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        mediaButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        mediaButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         mediaButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         mediaButton.addTarget(self, action: #selector(handleMedia), for: .touchUpInside)
         
@@ -469,6 +482,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     @objc func showMenu(){
+        
         fetchMember()
         
         var buttons = [ALRadialMenuButton]()
@@ -745,6 +759,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         let mediaButton = UIButton(type: .roundedRect)
         mediaButton.setImage(UIImage(named: "photo-7"), for: .normal)
+        mediaButton.sizeToFit()
         mediaButton.tintColor = Constants.Colors.NOIR_TINT
         mediaButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -893,7 +908,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
             return CGSize(width: view.frame.width, height: estimatedFrame.height + 30)
         } else if chatMessages[indexPath.item].mediaMessage != nil{
-            let estimatedFrame = chatMessages[indexPath.item].mediaMessage?.size.height
+//            let estimatedFrame = chatMessages[indexPath.item].mediaMessage?.size.height
             
             return CGSize(width: view.frame.width, height: 300)
         }

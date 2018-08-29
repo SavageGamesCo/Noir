@@ -54,13 +54,17 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     
     func setupData(){
         
+        messageID.removeAll()
+        newMessages.removeAll()
+        messages.removeAll()
+        
             let query1 = PFQuery(className: "Chat")
             
             query1.whereKey("app", equalTo: APPLICATION).whereKey("chatID", contains: CURRENT_USER!)
             
             let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1])
             
-            msgQuery.limit = 40000
+//            msgQuery.limit = 500
         
             msgQuery.order(byDescending: "createdAt")
             
@@ -119,11 +123,11 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                                 NewMessage.date = message.createdAt
                                                                 NewMessage.messageID = message.objectId
                                                                 
-                                                                if message["messageRead"] as? Bool == nil {
-                                                                    NewMessage.readMessage = false
-                                                                } else {
-                                                                    NewMessage.readMessage = message["messageRead"] as? Bool
-                                                                }
+//                                                                if message["messageRead"] as? Bool == nil {
+//                                                                    NewMessage.readMessage = false
+//                                                                } else {
+//                                                                    NewMessage.readMessage = message["messageRead"] as? Bool
+//                                                                }
                                                                 
 //                                                                self.newMessages.append(NewMessage)
                                                                 
@@ -143,11 +147,13 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                             
                                         }
                                         //end of for loop
+                                        
                                         self.messages = self.newMessages.sorted(by: { ($0?.date)! > ($1?.date)! })
                                         DispatchQueue.main.async {
                                             
                                             self.collectionView.reloadData()
                                         }
+
                                     }
                                 }
                             })
@@ -160,7 +166,40 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
             
         }
         
+    }
+    
+    @objc func refreshing(){
         
+        self.clearAllBadges()
+        self.setupData()
+        DispatchQueue.main.async {
+            
+            self.collectionView.reloadData()
+        }
+        self.refreshControl.endRefreshing()
+        self.activitityIndicatorView?.stopAnimating()
+        
+        
+    }
+    
+    func clearAllBadges() {
+        badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = badge
+        let installation = PFInstallation.current()
+        installation?.badge = 0
+        installation?.saveInBackground { (success, error) -> Void in
+            if success {
+                print("cleared badges")
+                UIApplication.shared.applicationIconBadgeNumber = 0
+            }
+            else {
+                print("failed to clear badges")
+            }
+        }
+    }
+    
+    override func setupViews() {
+        super.setupViews()
         
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
@@ -184,45 +223,14 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
         refreshControl.tintColor = Constants.Colors.NOIR_TINT
         
         let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 15), NSForegroundColorAttributeName:  Constants.Colors.NOIR_TINT]
-        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing Active Members ...", attributes: attributes)
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing Messages...", attributes: attributes)
         refreshControl.contentHorizontalAlignment = .center
         
         
         refreshControl.addTarget(self, action: #selector(refreshing), for: .valueChanged)
+
         clearAllBadges()
-        
-        collectionView.reloadData()
-    }
-    
-    @objc func refreshing(){
-        
-            self.clearAllBadges()
-            self.setupViews()
-            self.refreshControl.endRefreshing()
-            self.activitityIndicatorView?.stopAnimating()
-        
-        
-        
-    }
-    
-    func clearAllBadges() {
-        badge = 0
-        UIApplication.shared.applicationIconBadgeNumber = badge
-        let installation = PFInstallation.current()
-        installation?.badge = 0
-        installation?.saveInBackground { (success, error) -> Void in
-            if success {
-                print("cleared badges")
-                UIApplication.shared.applicationIconBadgeNumber = 0
-            }
-            else {
-                print("failed to clear badges")
-            }
-        }
-    }
-    
-    override func setupViews() {
-        super.setupViews()
+
         self.setupData()
         
     }

@@ -608,7 +608,7 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         
         let flirts = PFUser.current()?["flirt"] as? NSArray
         let blocked = PFUser.current()?["blocked"] as? NSArray
-        
+    
         var fMembers = [Member]()
         
         for object in flirts! {
@@ -724,9 +724,10 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
                            
                         })
                         fMembers.append(member)
-                        fMembers.reverse()
+                        
 
                     }
+                    fMembers.reverse()
                     completion(fMembers)
                 })
             }
@@ -751,10 +752,10 @@ class APIService: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
             
             var tracking = ""
             
-            if (flirt.count)  < 50 {
+            if (flirt.count)  < 100 {
                 tracking = "flirt"
                 
-                PFUser.current()?.addUniqueObjects(from: [member.memberID as String!], forKey: tracking)
+                PFUser.current()?.addUniqueObjects(from: [member.memberID as String?], forKey: tracking)
                 
                 PFUser.current()?.saveInBackground(block: {(success, error) in
                     
