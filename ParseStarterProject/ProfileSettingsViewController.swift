@@ -1175,7 +1175,7 @@ class bodyCell: BaseCell {
 class raceCell: BaseCell {
     
     let ethnicityPicker = UIPickerView()
-    let ethnicityData = ["Black American", "Black African", "Black European", "Black Hispanic", "Black Asian", "Indigenous", "Aboriginal", "Hispanic", "Caribbean", "West Indian", "Puerto Rican", "Arabic", "Central American", "South American", "Native American", "Asian American", "East Asian", "South Asian", "South East Asian", "West Asian", "Pacific Islander", "White American", "White European", "White Hispanic"]
+    let ethnicityData = ["Black American", "Black West African", "Black East African", "Black Subsaharan African", "Black South African", "Black North African",  "Black European", "Black Hispanic", "Black East Asian", "Black South East Asian", "Black South Asian", "Black West Asian", "Indigenous", "Aboriginal", "Hispanic", "Caribbean", "West Indian", "Puerto Rican", "Arabic", "Central American", "South American", "Native American", "Asian American", "East Asian", "South Asian", "South East Asian", "West Asian", "Pacific Islander", "White American", "White European", "White Hispanic"]
     
     let raceLabel: UILabel = {
         let label = UILabel()
