@@ -31,11 +31,13 @@ class RecentMessagesCell: BaseCell {
 //                dateTimeLabel.text = date
                 
             }
-            if message?.readMessage == false || message?.readMessage == nil {
+            if message?.readMessage == nil {
                 message?.readMessage = false
                 self.hasRead.alpha = 1.0
+            } else if message?.readMessage == false {
+                self.hasRead.alpha = 1.0
             } else {
-                self.hasRead.alpha = 0.5
+                self.hasRead.alpha = 0.3
             }
             
             profileImageview.image = message?.sender?.profileImage
@@ -137,7 +139,7 @@ class RecentMessagesCell: BaseCell {
         container.addSubview(dateTimeLabel)
         container.addSubview(hasRead)
         
-        hasRead.image = UIImage(named: "default_user_image")
+//        hasRead.image = UIImage(named: "default_user_image")
         
         addConstraintsWithFormat(format: "H:|-90-[v0]|", views: container)
         addConstraintsWithFormat(format: "V:[v0(60)]", views: container)

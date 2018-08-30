@@ -18,7 +18,7 @@ class AdMobDelegate: NSObject, GADInterstitialDelegate {
 //        interstitialView = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
         
         //uncomment for live adunits
-        interstitialView = GADInterstitial(adUnitID: "ca-app-pub-9770059916027069~1452473359")
+        interstitialView = GADInterstitial(adUnitID: "ca-app-pub-9770059916027069/7359406151")
         interstitialView.delegate = self
         let request = GADRequest()
         interstitialView.load(request)

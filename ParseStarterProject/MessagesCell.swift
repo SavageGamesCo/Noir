@@ -123,11 +123,11 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
                                                                 NewMessage.date = message.createdAt
                                                                 NewMessage.messageID = message.objectId
                                                                 
-//                                                                if message["messageRead"] as? Bool == nil {
-//                                                                    NewMessage.readMessage = false
-//                                                                } else {
-//                                                                    NewMessage.readMessage = message["messageRead"] as? Bool
-//                                                                }
+                                                                if message["messageRead"] as? Bool == nil {
+                                                                    NewMessage.readMessage = false
+                                                                } else {
+                                                                    NewMessage.readMessage = message["messageRead"] as? Bool
+                                                                }
                                                                 
 //                                                                self.newMessages.append(NewMessage)
                                                                 
@@ -270,15 +270,47 @@ class MessagesCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.collectionView.cellForItem(at: indexPath)?.layoutSubviews()
         let layout = UICollectionViewFlowLayout()
+        self.markAsRead(messageID: self.messages[indexPath.item]?.messageID)
         
         let controller = ChatController(collectionViewLayout: layout)
         controller.sender = self.messages[indexPath.item]?.sender
-           
+        
         self.window?.rootViewController?.present(controller, animated: true, completion: nil)
-            
-        
-        
-
         
     }
+    
+    
+    func markAsRead(messageID: String?){
+        print(messageID as! String)
+        let query1 = PFQuery(className: "Chat")
+        
+        query1.whereKey("app", equalTo: APPLICATION).whereKey("objectId", contains: messageID)
+        
+//        let msgQuery : PFQuery = PFQuery.orQuery(withSubqueries: [query1])
+        
+        query1.getFirstObjectInBackground { (message, error) in
+            if error != nil {
+                print("Unable to save read status")
+            } else {
+                message!["messageRead"] = true
+                message?.saveInBackground(block: { (success, error) in
+                    if error != nil {
+                        print ("Save failed")
+                    } else {
+                        print ("save worked")
+                    }
+                })
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
 }

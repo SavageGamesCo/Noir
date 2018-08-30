@@ -74,6 +74,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         navigationController?.isNavigationBarHidden = false
         navigationItem.hidesBackButton = true
         
@@ -116,12 +117,12 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
 //        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         
         //uncomment to enable live ad units for banner ads 
-        bannerView.adUnitID = "ca-app-pub-9770059916027069/7359406151"
+        bannerView.adUnitID = "ca-app-pub-9770059916027069/4405939751"
         bannerView.rootViewController = self
         bannerView.delegate = self
         let request = GADRequest()
         
-        request.testDevices = [kGADSimulatorID, "2077ef9a63d2b398840261c8221a0c9b"]
+//        request.testDevices = [kGADSimulatorID, "2077ef9a63d2b398840261c8221a0c9b"]
         bannerView.load(request)
     }
     

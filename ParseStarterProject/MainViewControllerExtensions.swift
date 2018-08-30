@@ -251,6 +251,7 @@ extension MainViewController {
         let layout = UICollectionViewFlowLayout()
         
         let shopController = StoreViewController(collectionViewLayout: layout)
+        navigationController?.navigationBar.tintColor = Constants.Colors.NOIR_YELLOW
         navigationController?.pushViewController(shopController, animated: true)
     }
     

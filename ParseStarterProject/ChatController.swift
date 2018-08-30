@@ -1055,7 +1055,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
                     print(error!)
                 } else {
                     
-                    //self.sendMessage(senderID: senderID, senderName: senderName, toUser: toUser, toUserName: toUserName, text: "Image sent")
+                    self.sendMessage(senderID: senderID, senderName: senderName, toUser: toUser, toUserName: toUserName, text: senderName + " has sent you an image!")
                     
                     //scroll to bottom
                     

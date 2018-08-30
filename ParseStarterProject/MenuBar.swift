@@ -148,6 +148,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
                     DispatchQueue.main.async {
                         if let currentBadgeCount = currentInstallation?.badge{
                             cell.imageView.badge = String(currentBadgeCount)
+                            
                         }
                     }
                     
