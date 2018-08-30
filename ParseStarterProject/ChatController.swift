@@ -65,7 +65,30 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
-    var member = Member()
+    var member: Member? {
+        didSet{
+            
+            let navbar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: 50))
+            view.addSubview(navbar)
+            navbar.isTranslucent = false
+            let navTitle = UINavigationItem()
+            navTitle.title = member?.memberName
+            let dismissButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: #selector(handleDismiss))
+            dismissButton.tintColor = Constants.Colors.NOIR_TINT
+            let profileButton = UIBarButtonItem(title: "Profile", style: .plain, target: nil, action: #selector(showMenu))
+            profileButton.tintColor = Constants.Colors.NOIR_TINT
+            navTitle.rightBarButtonItem = dismissButton
+            navTitle.leftBarButtonItem = profileButton
+            navbar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.Colors.NOIR_NAV_BAR_TEXT, NSFontAttributeName: UIFont.systemFont(ofSize: 16)]
+            navbar.setItems([navTitle], animated: true)
+            
+            self.memberID = (member?.memberID)!
+            self.memberName = (member?.memberName)!
+            
+        }
+    }
+    
+//    var member = Member()
     
     func fetchMember(){
         let query = PFUser.query()
