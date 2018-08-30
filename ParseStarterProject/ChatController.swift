@@ -359,7 +359,8 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let containerView = UIView()
         containerView.backgroundColor = Constants.Colors.NOIR_WHITE
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+        containerView.backgroundColor = Constants.Colors.NOIR_RED_MEDIUM
+        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
         
         let sendButton = UIButton(type: .system)
         sendButton.setTitle("Send", for: .normal)
@@ -374,23 +375,31 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         containerView.addSubview(sendButton)
         containerView.addSubview(mediaButton)
         
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5).isActive = true
         sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        sendButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        sendButton.layer.backgroundColor = Constants.Colors.NOIR_RED_LIGHT.cgColor
+        sendButton.layer.borderColor = Constants.Colors.NOIR_CG_YELLOW
+        sendButton.layer.borderWidth = 1
+        sendButton.layer.cornerRadius = 20
         sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
-        mediaButton.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        mediaButton.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 5).isActive = true
         mediaButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        mediaButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        mediaButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        mediaButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        mediaButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        mediaButton.layer.backgroundColor = Constants.Colors.NOIR_RED_LIGHT.cgColor
+        mediaButton.layer.borderColor = Constants.Colors.NOIR_CG_YELLOW
+        mediaButton.layer.borderWidth = 1
+        mediaButton.layer.cornerRadius = 20
         mediaButton.addTarget(self, action: #selector(handleMedia), for: .touchUpInside)
         
         
         containerView.addSubview(self.inputTextField)
-        self.inputTextField.leftAnchor.constraint(equalTo: mediaButton.rightAnchor, constant: 8).isActive = true
+        self.inputTextField.leftAnchor.constraint(equalTo: mediaButton.rightAnchor, constant: 5).isActive = true
         self.inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor, constant: -5).isActive = true
         //        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         containerView.addConstraintsWithFormat(format: "V:|-5-[v0]-5-|", views: self.inputTextField)
         
