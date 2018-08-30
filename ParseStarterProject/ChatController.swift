@@ -35,8 +35,16 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     lazy var inputTextField: UITextField = {
         let inputField = UITextField()
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: inputField.frame.height))
+        inputField.leftView = paddingView
+        inputField.leftViewMode = UITextFieldViewMode.always
         inputField.placeholder = "Enter message..."
-        inputField.borderStyle = .roundedRect
+//        inputField.borderStyle = .roundedRect
+        inputField.layer.cornerRadius = 20.0
+        inputField.layer.borderWidth = 1
+        inputField.layer.borderColor = Constants.Colors.NOIR_CG_YELLOW
+        inputField.layer.backgroundColor = Constants.Colors.NOIR_WHITE.cgColor
+        
         inputField.translatesAutoresizingMaskIntoConstraints = false
         inputField.delegate = self
         
