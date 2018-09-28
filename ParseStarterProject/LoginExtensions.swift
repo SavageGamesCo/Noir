@@ -107,8 +107,6 @@ extension LoginController {
                 } else {
                     PFUser.logOut()
                     self.dismiss(animated: true, completion: nil)
-                    
-//                    self.performSegue(withIdentifier: "toLogin", sender: self)
                 }
             })
         }
@@ -151,6 +149,10 @@ extension LoginController {
                 
                 //Setup user defaults
                 user["mainPhoto"] = PFFile(name: "mainProfile.jpg", data: mainPhotoImageData!)
+                user["memberImageOne"] = PFFile(name: "mainProfile.jpg", data: mainPhotoImageData!)
+                user["memberImageTwo"] = PFFile(name: "mainProfile.jpg", data: mainPhotoImageData!)
+                user["memberImageThree"] = PFFile(name: "mainProfile.jpg", data: mainPhotoImageData!)
+                user["memberImageFour"] = PFFile(name: "mainProfile.jpg", data: mainPhotoImageData!)
                 user["age"] = Constants.ProfileDefaults.PROFILE_QUESTION_DEFAULT
                 user["height"] = Constants.ProfileDefaults.PROFILE_QUESTION_DEFAULT
                 user["weight"] = Constants.ProfileDefaults.PROFILE_QUESTION_DEFAULT
@@ -193,7 +195,6 @@ extension LoginController {
                     } else {
                         
                         PFUser.current()?["online"] = true
-                        PFUser.current()?.saveInBackground()
                         
                         let installation: PFInstallation = PFInstallation.current()!
                         installation["user"] = PFUser.current()
@@ -204,10 +205,8 @@ extension LoginController {
                         
                         let layout = UICollectionViewFlowLayout()
                         let mainViewController = MainViewController(collectionViewLayout: layout)
-//                        self.navigationController?.popViewController(animated: true)
                         self.navigationController?.pushViewController(mainViewController, animated: true)
                         
-//                        APIService.sharedInstance.checkMessagesAlert()
                     }
                     
                 })
